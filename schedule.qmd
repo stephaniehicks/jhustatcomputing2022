@@ -1,0 +1,9 @@
+---
+title: "Schedule"
+description: |
+ Schedule and course materials for Statistical Computing (JHSPH Biostatistics 140.776 Fall 2022).
+---
+
+## Schedule and course materials
+
+For Rmd files, go to the [course GitHub repository](https://github.com/stephaniehicks/jhustatcomputing2022) and navigate the directories, or best of all to clone the repo and navigate within RStudio.

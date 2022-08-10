@@ -1,0 +1,216 @@
+---
+title: "Syllabus"
+---
+
+## Course Information
+
+* Location: In person and Online for Fall 2022
+* Course time: Tuesdays and Thursdays from 1:30-2:50pm (**Eastern Daylight Time** zone)
+* Assignments: Three projects
+
+### Instructor 
+
+* Stephanie C. Hicks ([https://www.stephaniehicks.com](https://www.stephaniehicks.com))
+  * Office Location: E3545, Wolfe Street building
+  * Email: shicks19@jhu.edu
+
+Instructor office hours are announced on CoursePlus. If there are conflicts and/or need to cancel office hours, announcements will be made on CoursePlus. 
+
+### Teaching Assistants
+
+* Phyllis Wei ([ywei43@jhu.edu](ywei43@jhu.edu))
+* Joe Sartini ([jsartin1@jhu.edu](jsartin1@jhu.edu))
+
+TA office hours are announced on CoursePlus. 
+
+### Getting help 
+
+In order of preference, here is a preferred list of ways to get help: 
+
+1. We **strongly encourage** you to use CoursePlus to ask questions first, before joining office hours. The reason for this is so that other students in the class (who likely have similar questions) can also benefit from the questions and answers asked by your colleagues. 
+2. You are welcome to join office hours to get more group interactive feedback. 
+3. If you are not able to make the office hours, appointments can be made by email with either the instructor or the TAs. 
+
+
+## Important Links
+
+- Course website: [https://stephaniehicks.com/jhustatcomputing2022](https://stephaniehicks.com/jhustatcomputing2022)
+- GitHub repository with all course material: [https://github.com/stephaniehicks/jhustatcomputing2022](https://github.com/stephaniehicks/jhustatcomputing2022)
+
+## Learning Objectives:
+
+Upon successfully completing this course, students will be able to:
+
+1. Install and configure software necessary for a statistical programming environment
+2. Discuss generic programming language concepts as they are implemented in a high-level statistical language
+3. Write and debug code in base R and the tidyverse (and integrate code from Python modules)
+4. Build basic data visualizations using R and the tidyverse
+5. Discuss best practices for coding and reproducible research, basics of data ethics, basics of working with special data types, and basics of storing data
+
+
+## Lectures
+
+In Fall 2022, we will have in person lectures that will be recorded enabling an entirely online section for the course too. **Mandatory attendance is not required.**
+
+
+## Textbook and Other Course Material
+
+There is no required textbook. We will make use of several freely available textbooks and other materials. All course materials will be provided. We will use the R software for data analysis, which is freely available for download. 
+
+
+## Software
+
+We will make heavy use of R in this course, so you should have R installed. You can obtain R from the [Comprehensive R Archive Network](https://cran.r-project.org). There are versions available for Mac, Windows, and Unix/Linux. This software is **required** for this course.	
+
+It is important that you have the latest version of R installed. For this course we will be using **R version `r paste(version$major, version$minor, sep = ".")`**. You can determine what version of R you have by starting up R and typing into the console `R.version.string` and hitting the `return`/`enter` key. If you do not have the proper version of R installed, go to [CRAN](https://cran.r-project.org) and download and install the latest version.
+
+We will also make use of the RStudio interactive development environment (IDE). RStudio requires that R be installed, and so is an "add-on" to R. You can obtain the RStudio Desktop for free from the [RStudio web site](https://www.rstudio.com/). In particular, we will make heavy use of it when developing R packages. It is also essential that you have the latest release of RStudio. You can determine the version of RStudio by looking at menu item `Help > About RStudio`. You should be using **RStudio version 1.4.1106 or higher**.
+
+## Projects
+
+There will be 4 assignments, due every 2--3 weeks. Projects will be
+submitted electronically via the Drop Box on the CoursePlus web site (unless otherwise specified).
+
+The project assignments will be due on 
+
+* Project 0: September 8, 1:29pm (entirely optional and not graded but hopefully useful and fun)
+* Project 1: September 16, 11:59pm
+* Project 2: September 30, 11:59pm
+* Project 3: October 21, 11:59pm
+
+
+### Project collaboration
+
+Please feel free to study together and talk to one another about
+project assignments. The mutual instruction that students give each
+other is among the most valuable that can be achieved. 
+
+However, it is expected that **project assignments will be implemented and written up
+independently unless otherwise specified**. Specifically, please do not
+share analytic code or output. Please do not collaborate on write-up
+and interpretation. Please do not access or use solutions from any
+source before your project assignment is submitted for grading.
+
+## Discussion Forum
+
+The course will make use of the CoursePlus Discussion Forum in order to ask and answer questions regarding any of the course materials. The Instructor and the Teaching Assistants will monitor the discussion boards and answer questions when appropriate.
+
+### Icebreakers
+
+Before the start of each lecture, I will post an icebreaker question in CoursePlus. You are welcome to answer it and learn about your fellow students in the course. 
+
+## Exams
+
+There are **no exams** in this course.
+
+## Grading
+
+Grades in the course will be based on Projects 0--3 with a percentage of the final grade being apportioned to each assignment. Each of Projects 1--3 counts approximately equally in the final grade. Grades for the projects and the final grade will be issued via the CoursePlus grade book.
+
+
+## Academic Ethics and Student Conduct Code
+
+Students enrolled in the Bloomberg School of Public Health of The Johns Hopkins University assume an obligation to conduct themselves in a manner appropriate to the University's mission as an institution of higher education. A student is obligated to refrain from acts which he or she knows, or under the circumstances has reason to know, impair the academic integrity of the University. Violations of academic integrity include, but are not limited to: cheating; plagiarism; knowingly furnishing false information to any agent of the University for inclusion in the academic record; violation of the rights and welfare of animal or human subjects in research; and misconduct as a member of either School or University committees or recognized groups or organizations.
+
+Students should be familiar with the policies and procedures specified under Policy and Procedure Manual Student-01 (Academic Ethics), available on the school's [portal](http://my.jhsph.edu).
+
+The faculty, staff and students of the Bloomberg School of Public Health and the Johns Hopkins University have the shared responsibility to conduct themselves in a manner that upholds the law and respects the rights of others. Students enrolled in the School are subject to the Student Conduct Code (detailed in Policy and Procedure Manual Student-06) and assume an obligation to conduct themselves in a manner which upholds the law and respects the rights of others. They are responsible for maintaining the academic integrity of the institution and for preserving an environment conducive to the safe pursuit of the School's educational, research, and professional practice missions.
+
+## Disability Support Service
+
+If you are a student with a documented disability who requires an academic accommodation, please contact the Office of Disability Support Services at 410-502-6602 or via email at [JHSPH.dss@jhu.edu](JHSPH.dss@jhu.edu). Accommodations take effect upon approval and apply to the remainder of the time for which a student is registered and enrolled at the Bloomberg School of Public Health.
+
+
+## Prerequisites
+
+This is a quantitative course. We will not discuss the mathematical details of specific data analysis approaches, however some statistical background and being comfortable with quantitative thinking are useful. Previous experience with writing computer programs in general and R in particular is also helpful, but not necessary. If you have no programming experience, expect to spend extra time getting yourself familiar with R. As long as you are willing to invest the time to learn the programming and you do not mind thinking quantitatively, you should be able to take the course, independent of your background.
+
+_Formal requirement for the course is [Biostatistics 140.621](https://www.jhsph.edu/courses/list/?keyword=140.621). Knowledge of material from 140.621 is assumed. If you didn't take this course, please contact me to get permission to enroll._
+
+### Getting set up
+
+You must install [R](https://cran.r-project.org) and [RStudio](https://rstudio.com) on your computer in order to complete this course. These are two **different** applications that must be installed separately before they can be used together:
+
+* R is the core underlying programming language and computing engine that we will be learning in this course
+
+* RStudio is an interface into R that makes many aspects of using and programming R simpler
+
+Both R and RStudio are available for Windows, macOS, and most flavors of Unix and Linux. Please download the version that is suitable for your computing setup.
+
+Throughout the course, we will make use of numerous R add-on packages that must be installed over the Internet. Packages can be installed using the `install.packages()` function in R. For example, to install the `tidyverse` package, you can run
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+in the R console.
+
+
+#### How to Download R for Windows
+
+Go to [https://cran.r-project.org]() and 
+
+1. Click the link to "Download R for Windows"
+
+2. Click on "base"
+
+3. Click on "Download R 4.2.1 for Windows"
+
+:::{.callout-warning}
+
+The version in the video is not the latest version. Please download the latest version.
+
+:::
+
+![Video Demo for Downloading R for Windows](videos/downloadRWindows.gif){width=80%}
+
+
+#### How to Download R for the Mac
+
+Goto [https://cran.r-project.org]() and 
+
+1. Click the link to "Download R for (Mac) OS X". 
+
+2. Click on "R-4.2.1.pkg"
+
+:::{.callout-warning}
+
+The version in the video is not the latest version. Please download the latest version.
+
+:::
+
+
+![Video Demo for Downloading R for the Mac](videos/downloadRMac.gif){width=80%}
+
+#### How to Download RStudio
+
+
+Goto [https://rstudio.com]() and 
+
+1. Click on "Products" in the top menu
+
+2. Then click on "RStudio" in the drop down menu
+
+3. Click on "RStudio Desktop"
+
+4. Click the button that says "DOWNLOAD RSTUDIO DESKTOP"
+
+5. Click the button under "RStudio Desktop" Free
+
+6. Under the section "All Installers" choose the file that is appropriate for your operating system.
+
+:::{.callout-warning}
+
+The video shows how to download RStudio for the Mac but you should download RStudio for whatever computing setup you have
+
+:::
+
+
+![Video Demo for Downloading RStudio](videos/downloadRStudio.gif){width=80%}
+
+
+## General Disclaimers
+
+- This syllabus is a general plan, deviations announced to the class by the instructor may be necessary.
+
