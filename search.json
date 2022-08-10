@@ -1,0 +1,170 @@
+[
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Statistical Computing!",
+    "section": "",
+    "text": "Welcome to Statistical Computing at Johns Hopkins Bloomberg School of Public Health!"
+  },
+  {
+    "objectID": "index.html#what-is-this-course",
+    "href": "index.html#what-is-this-course",
+    "title": "Welcome to Statistical Computing!",
+    "section": "What is this course?",
+    "text": "What is this course?\nThis course covers the basics of practical issues in programming and other computer skills required for the research and application of statistical methods. Includes programming in R and the tidyverse, data ethics, best practices for coding and reproducible research, introduction to data visualizations, best practices for working with special data types (dates/times, text data, etc), best practices for storing data, basics of debugging, organizing and commenting code, basics of leveraging Python from R. Topics in statistical data analysis provide working examples."
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "Welcome to Statistical Computing!",
+    "section": "Getting started",
+    "text": "Getting started\nI suggest that you start by looking over the Syllabus and Schedule under General Information. After that, start with the Lectures content in the given order."
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "Welcome to Statistical Computing!",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis course was developed and is maintained by Stephanie Hicks.\nThe following individuals have contributed to improving the course or materials have been adapted from their courses: Roger D. Peng, Andreas Handel, Naim Rashid, Michael Love.\nThe course materials are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. Linked and embedded materials are governed by their own licenses. I assume that all external materials used or embedded here are covered under the educational fair use policy. If this is not the case and any material displayed here violates copyright, please let me know and I will remove it."
+  },
+  {
+    "objectID": "lectures.html",
+    "href": "lectures.html",
+    "title": "Lectures",
+    "section": "",
+    "text": "news\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nAug 9, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nAug 6, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Location: In person and Online for Fall 2022\nCourse time: Tuesdays and Thursdays from 1:30-2:50pm (Eastern Daylight Time zone)\nAssignments: Three projects\n\n\n\n\nStephanie C. Hicks (https://www.stephaniehicks.com)\n\nOffice Location: E3545, Wolfe Street building\nEmail: shicks19@jhu.edu\n\n\nInstructor office hours are announced on CoursePlus. If there are conflicts and/or need to cancel office hours, announcements will be made on CoursePlus.\n\n\n\n\nPhyllis Wei (ywei43@jhu.edu)\nJoe Sartini (jsartin1@jhu.edu)\n\nTA office hours are announced on CoursePlus.\n\n\n\nIn order of preference, here is a preferred list of ways to get help:\n\nWe strongly encourage you to use CoursePlus to ask questions first, before joining office hours. The reason for this is so that other students in the class (who likely have similar questions) can also benefit from the questions and answers asked by your colleagues.\nYou are welcome to join office hours to get more group interactive feedback.\nIf you are not able to make the office hours, appointments can be made by email with either the instructor or the TAs."
+  },
+  {
+    "objectID": "syllabus.html#important-links",
+    "href": "syllabus.html#important-links",
+    "title": "Syllabus",
+    "section": "Important Links",
+    "text": "Important Links\n\nCourse website: https://stephaniehicks.com/jhustatcomputing2022\nGitHub repository with all course material: https://github.com/stephaniehicks/jhustatcomputing2022"
+  },
+  {
+    "objectID": "syllabus.html#learning-objectives",
+    "href": "syllabus.html#learning-objectives",
+    "title": "Syllabus",
+    "section": "Learning Objectives:",
+    "text": "Learning Objectives:\nUpon successfully completing this course, students will be able to:\n\nInstall and configure software necessary for a statistical programming environment\nDiscuss generic programming language concepts as they are implemented in a high-level statistical language\nWrite and debug code in base R and the tidyverse (and integrate code from Python modules)\nBuild basic data visualizations using R and the tidyverse\nDiscuss best practices for coding and reproducible research, basics of data ethics, basics of working with special data types, and basics of storing data"
+  },
+  {
+    "objectID": "syllabus.html#lectures",
+    "href": "syllabus.html#lectures",
+    "title": "Syllabus",
+    "section": "Lectures",
+    "text": "Lectures\nIn Fall 2022, we will have in person lectures that will be recorded enabling an entirely online section for the course too. Mandatory attendance is not required."
+  },
+  {
+    "objectID": "syllabus.html#textbook-and-other-course-material",
+    "href": "syllabus.html#textbook-and-other-course-material",
+    "title": "Syllabus",
+    "section": "Textbook and Other Course Material",
+    "text": "Textbook and Other Course Material\nThere is no required textbook. We will make use of several freely available textbooks and other materials. All course materials will be provided. We will use the R software for data analysis, which is freely available for download."
+  },
+  {
+    "objectID": "syllabus.html#software",
+    "href": "syllabus.html#software",
+    "title": "Syllabus",
+    "section": "Software",
+    "text": "Software\nWe will make heavy use of R in this course, so you should have R installed. You can obtain R from the Comprehensive R Archive Network. There are versions available for Mac, Windows, and Unix/Linux. This software is required for this course.\nIt is important that you have the latest version of R installed. For this course we will be using R version 4.2.1. You can determine what version of R you have by starting up R and typing into the console R.version.string and hitting the return/enter key. If you do not have the proper version of R installed, go to CRAN and download and install the latest version.\nWe will also make use of the RStudio interactive development environment (IDE). RStudio requires that R be installed, and so is an “add-on” to R. You can obtain the RStudio Desktop for free from the RStudio web site. In particular, we will make heavy use of it when developing R packages. It is also essential that you have the latest release of RStudio. You can determine the version of RStudio by looking at menu item Help > About RStudio. You should be using RStudio version 1.4.1106 or higher."
+  },
+  {
+    "objectID": "syllabus.html#projects",
+    "href": "syllabus.html#projects",
+    "title": "Syllabus",
+    "section": "Projects",
+    "text": "Projects\nThere will be 4 assignments, due every 2–3 weeks. Projects will be submitted electronically via the Drop Box on the CoursePlus web site (unless otherwise specified).\nThe project assignments will be due on\n\nProject 0: September 8, 1:29pm (entirely optional and not graded but hopefully useful and fun)\nProject 1: September 16, 11:59pm\nProject 2: September 30, 11:59pm\nProject 3: October 21, 11:59pm\n\n\nProject collaboration\nPlease feel free to study together and talk to one another about project assignments. The mutual instruction that students give each other is among the most valuable that can be achieved.\nHowever, it is expected that project assignments will be implemented and written up independently unless otherwise specified. Specifically, please do not share analytic code or output. Please do not collaborate on write-up and interpretation. Please do not access or use solutions from any source before your project assignment is submitted for grading."
+  },
+  {
+    "objectID": "syllabus.html#discussion-forum",
+    "href": "syllabus.html#discussion-forum",
+    "title": "Syllabus",
+    "section": "Discussion Forum",
+    "text": "Discussion Forum\nThe course will make use of the CoursePlus Discussion Forum in order to ask and answer questions regarding any of the course materials. The Instructor and the Teaching Assistants will monitor the discussion boards and answer questions when appropriate.\n\nIcebreakers\nBefore the start of each lecture, I will post an icebreaker question in CoursePlus. You are welcome to answer it and learn about your fellow students in the course."
+  },
+  {
+    "objectID": "syllabus.html#exams",
+    "href": "syllabus.html#exams",
+    "title": "Syllabus",
+    "section": "Exams",
+    "text": "Exams\nThere are no exams in this course."
+  },
+  {
+    "objectID": "syllabus.html#grading",
+    "href": "syllabus.html#grading",
+    "title": "Syllabus",
+    "section": "Grading",
+    "text": "Grading\nGrades in the course will be based on Projects 0–3 with a percentage of the final grade being apportioned to each assignment. Each of Projects 1–3 counts approximately equally in the final grade. Grades for the projects and the final grade will be issued via the CoursePlus grade book."
+  },
+  {
+    "objectID": "syllabus.html#academic-ethics-and-student-conduct-code",
+    "href": "syllabus.html#academic-ethics-and-student-conduct-code",
+    "title": "Syllabus",
+    "section": "Academic Ethics and Student Conduct Code",
+    "text": "Academic Ethics and Student Conduct Code\nStudents enrolled in the Bloomberg School of Public Health of The Johns Hopkins University assume an obligation to conduct themselves in a manner appropriate to the University’s mission as an institution of higher education. A student is obligated to refrain from acts which he or she knows, or under the circumstances has reason to know, impair the academic integrity of the University. Violations of academic integrity include, but are not limited to: cheating; plagiarism; knowingly furnishing false information to any agent of the University for inclusion in the academic record; violation of the rights and welfare of animal or human subjects in research; and misconduct as a member of either School or University committees or recognized groups or organizations.\nStudents should be familiar with the policies and procedures specified under Policy and Procedure Manual Student-01 (Academic Ethics), available on the school’s portal.\nThe faculty, staff and students of the Bloomberg School of Public Health and the Johns Hopkins University have the shared responsibility to conduct themselves in a manner that upholds the law and respects the rights of others. Students enrolled in the School are subject to the Student Conduct Code (detailed in Policy and Procedure Manual Student-06) and assume an obligation to conduct themselves in a manner which upholds the law and respects the rights of others. They are responsible for maintaining the academic integrity of the institution and for preserving an environment conducive to the safe pursuit of the School’s educational, research, and professional practice missions."
+  },
+  {
+    "objectID": "syllabus.html#disability-support-service",
+    "href": "syllabus.html#disability-support-service",
+    "title": "Syllabus",
+    "section": "Disability Support Service",
+    "text": "Disability Support Service\nIf you are a student with a documented disability who requires an academic accommodation, please contact the Office of Disability Support Services at 410-502-6602 or via email at JHSPH.dss@jhu.edu. Accommodations take effect upon approval and apply to the remainder of the time for which a student is registered and enrolled at the Bloomberg School of Public Health."
+  },
+  {
+    "objectID": "syllabus.html#prerequisites",
+    "href": "syllabus.html#prerequisites",
+    "title": "Syllabus",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nThis is a quantitative course. We will not discuss the mathematical details of specific data analysis approaches, however some statistical background and being comfortable with quantitative thinking are useful. Previous experience with writing computer programs in general and R in particular is also helpful, but not necessary. If you have no programming experience, expect to spend extra time getting yourself familiar with R. As long as you are willing to invest the time to learn the programming and you do not mind thinking quantitatively, you should be able to take the course, independent of your background.\nFormal requirement for the course is Biostatistics 140.621. Knowledge of material from 140.621 is assumed. If you didn’t take this course, please contact me to get permission to enroll.\n\nGetting set up\nYou must install R and RStudio on your computer in order to complete this course. These are two different applications that must be installed separately before they can be used together:\n\nR is the core underlying programming language and computing engine that we will be learning in this course\nRStudio is an interface into R that makes many aspects of using and programming R simpler\n\nBoth R and RStudio are available for Windows, macOS, and most flavors of Unix and Linux. Please download the version that is suitable for your computing setup.\nThroughout the course, we will make use of numerous R add-on packages that must be installed over the Internet. Packages can be installed using the install.packages() function in R. For example, to install the tidyverse package, you can run\n\ninstall.packages(\"tidyverse\")\n\nin the R console.\n\nHow to Download R for Windows\nGo to https://cran.r-project.org and\n\nClick the link to “Download R for Windows”\nClick on “base”\nClick on “Download R 4.2.1 for Windows”\n\n\n\n\n\n\n\nWarning\n\n\n\nThe version in the video is not the latest version. Please download the latest version.\n\n\n\n\n\nVideo Demo for Downloading R for Windows\n\n\n\n\nHow to Download R for the Mac\nGoto https://cran.r-project.org and\n\nClick the link to “Download R for (Mac) OS X”.\nClick on “R-4.2.1.pkg”\n\n\n\n\n\n\n\nWarning\n\n\n\nThe version in the video is not the latest version. Please download the latest version.\n\n\n\n\n\nVideo Demo for Downloading R for the Mac\n\n\n\n\nHow to Download RStudio\nGoto https://rstudio.com and\n\nClick on “Products” in the top menu\nThen click on “RStudio” in the drop down menu\nClick on “RStudio Desktop”\nClick the button that says “DOWNLOAD RSTUDIO DESKTOP”\nClick the button under “RStudio Desktop” Free\nUnder the section “All Installers” choose the file that is appropriate for your operating system.\n\n\n\n\n\n\n\nWarning\n\n\n\nThe video shows how to download RStudio for the Mac but you should download RStudio for whatever computing setup you have\n\n\n\n\n\nVideo Demo for Downloading RStudio"
+  },
+  {
+    "objectID": "syllabus.html#general-disclaimers",
+    "href": "syllabus.html#general-disclaimers",
+    "title": "Syllabus",
+    "section": "General Disclaimers",
+    "text": "General Disclaimers\n\nThis syllabus is a general plan, deviations announced to the class by the instructor may be necessary."
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Big Book of R: https://www.bigbookofr.com\nList of resources to learn R (but also Python, SQL, Javascript): https://github.com/delabj/datacamp_alternatives/blob/master/index.md\nlearnr4free. Resources (books, videos, interactive websites, papers) to learn R. Some of the resources are beginner-friendly and start with the installation process: https://www.learnr4free.com/en\nData Science with R by Danielle Navarro: https://robust-tools.djnavarro.net"
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "For Rmd files, go to the course GitHub repository and navigate the directories, or best of all to clone the repo and navigate within RStudio."
+  }
+]
