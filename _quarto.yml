@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Statistical Computing"
+  title: "Statistical Computing (BSPH 140.776)"
   description: "test test"
   navbar:
     right:
