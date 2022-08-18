@@ -3,7 +3,8 @@ project:
 
 website:
   title: "Statistical Computing (BSPH 140.776)"
-  description: "test test"
+  site-url: https://www.stephaniehicks.com/jhustatcomputing2022
+  description: "Course website for Statistical Computing (BSPH 140.776) in Fall 2022"
   navbar:
     right:
       - text: "Home"
@@ -26,6 +27,8 @@ website:
         href: https://github.com/
       - icon: twitter
         href: https://twitter.com
+      - icon: rss
+        href: index.xml
 format:
   html:
     theme: simplex
