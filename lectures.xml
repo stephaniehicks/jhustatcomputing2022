@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Statistical Computing (BSPH 140.776)</title>
-<link>https://stephaniehicks.github.io/jhustatcomputing2022/lectures.html</link>
-<atom:link href="https://stephaniehicks.github.io/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
+<link>https://github.com/stephaniehicks/jhustatcomputing2022/lectures.html</link>
+<atom:link href="https://github.com/stephaniehicks/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.0.36</generator>
-<lastBuildDate>Tue, 30 Aug 2022 04:00:00 GMT</lastBuildDate>
+<generator>quarto-1.0.38</generator>
+<lastBuildDate>Tue, 30 Aug 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Welcome!</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://stephaniehicks.github.io/jhustatcomputing2022/posts/welcome/index.html</link>
+  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</link>
   <description><![CDATA[ 
 
 
@@ -129,7 +129,7 @@ Warning
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://stephaniehicks.github.io/jhustatcomputing2022/videos/downloadRWindows.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRWindows.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Video Demo for Downloading R for Windows</figcaption><p></p>
 </figure>
 </div>
@@ -156,7 +156,7 @@ Warning
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://stephaniehicks.github.io/jhustatcomputing2022/videos/downloadRMac.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRMac.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Video Demo for Downloading R for the Mac</figcaption><p></p>
 </figure>
 </div>
@@ -187,7 +187,7 @@ Warning
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://stephaniehicks.github.io/jhustatcomputing2022/videos/downloadRStudio.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRStudio.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Video Demo for Downloading RStudio</figcaption><p></p>
 </figure>
 </div>
@@ -259,7 +259,7 @@ Important
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://stephaniehicks.github.io/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/XdIOEZTt6dL7zTYWIo/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/XdIOEZTt6dL7zTYWIo/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">How 2020 felt</figcaption><p></p>
 </figure>
 </div>
@@ -270,7 +270,7 @@ Important
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://stephaniehicks.github.io/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/jrVmnE9rGLNsf3n3nj/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/jrVmnE9rGLNsf3n3nj/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">How 2021 felt and 2022 feels</figcaption><p></p>
 </figure>
 </div>
@@ -378,9 +378,9 @@ Important
   <category>course-admin</category>
   <category>module 1</category>
   <category>week 1</category>
-  <guid>https://stephaniehicks.github.io/jhustatcomputing2022/posts/welcome/index.html</guid>
-  <pubDate>Tue, 30 Aug 2022 04:00:00 GMT</pubDate>
-  <media:content url="https://stephaniehicks.github.io/jhustatcomputing2022/videos/downloadRWindows.gif" medium="image" type="image/gif"/>
+  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</guid>
+  <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRWindows.gif" medium="image" type="image/gif"/>
 </item>
 </channel>
 </rss>
