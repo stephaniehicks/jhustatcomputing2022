@@ -1,5 +1,40 @@
 [
   {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome!",
+    "section": "",
+    "text": "Welcome! I am very excited to have you in our one-term (i.e. half a semester) course on Statistical Computing course number (140.776) offered by the Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health.\nThis course is designed for ScM and PhD students at Johns Hopkins Bloomberg School of Public Health. I am pretty flexible about permitting outside students, but I want everyone to be aware of the goals and assumptions so no one feels like they are surprised by how the class works.\nThis class is not designed to teach the theoretical aspects of statistical or computational methods, but rather the goal is to help with the practical issues related to setting up a statistical computing environment for data analyses, developing high-quality R packages, conducting reproducible data analyses, best practices for data visualization and writing code, and creating websites for personal or project use."
+  },
+  {
+    "objectID": "posts/welcome/index.html#course-staff",
+    "href": "posts/welcome/index.html#course-staff",
+    "title": "Welcome!",
+    "section": "Course Staff",
+    "text": "Course Staff\nThe course instructor this year is Stephanie Hicks who is a Associate Professor in the Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health, a faculty member of the Johns Hopkins Data Science Lab, and have affiliations with the Malone Center for Engineering in Healthcare, Center for Computational Biology, the Department of Genetic Medicine, and the Department of Biochemistry and Molecular Biology.\nMy research focuses on developing fast, scalable, statistical methodology and open-source software for genomics and biomedical data analysis for human health and disease. My research is problem-forward: I develop statistical methods and software that are motivated by concrete problems, often with real-world, noisy, messy data. I’m also interested in developing theory for how to incorporate design thinking (alongside statistical thinking) in practice of data analysis.\nIf you want, you can find me on Twitter. I’m also a co-host of the The Corresponding Author podcast, member of the Editorial Board for Genome Biology, an Associate Editor for Reproducibility at the Journal of the American Statistical Association, and co-founder of R-Ladies Baltimore.\nWe also have a couple of amazing TAs this year:\n\nPhyllis Wei (ywei43@jhu.edu). She is … TBA… .\nJoe Sartini (jsartin1@jhu.edu). He is … TBA …"
+  },
+  {
+    "objectID": "posts/welcome/index.html#disability-support-service",
+    "href": "posts/welcome/index.html#disability-support-service",
+    "title": "Welcome!",
+    "section": "Disability Support Service",
+    "text": "Disability Support Service\nStudents requiring accommodations for disabilities should register with Student Disability Service (SDS). It is the responsibility of the student to register for accommodations with SDS. Accommodations take effect upon approval and apply to the remainder of the time for which a student is registered and enrolled at the Bloomberg School of Public Health. Once you are f a student in your class has approved accommodations you will receive formal notification and the student will be encouraged to reach out. If you have questions about requesting accommodations, please contact BSPH.dss@jhu.edu."
+  },
+  {
+    "objectID": "posts/welcome/index.html#previous-versions-of-the-class",
+    "href": "posts/welcome/index.html#previous-versions-of-the-class",
+    "title": "Welcome!",
+    "section": "Previous versions of the class",
+    "text": "Previous versions of the class\n\nhttps://www.stephaniehicks.com/jhustatcomputing2021\nhttps://rdpeng.github.io/Biostat776"
+  },
+  {
+    "objectID": "posts/welcome/index.html#typos-and-corrections",
+    "href": "posts/welcome/index.html#typos-and-corrections",
+    "title": "Welcome!",
+    "section": "Typos and corrections",
+    "text": "Typos and corrections\nFeel free to submit typos/errors/etc via the github repository associated with the class: https://github.com/stephaniehicks/jhustatcomputing2022. You will have the thanks of your grateful instructor!"
+  },
+  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
@@ -39,7 +74,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "No matching items"
+    "text": "course-admin\n\n\nmodule 1\n\n\nweek 1\n\n\n\n\nOverview course information for BSPH Biostatistics 140.776 in Fall 2022\n\n\n\n\n\n\nAug 30, 2022\n\n\nStephanie Hicks\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "syllabus.html",
@@ -151,6 +186,6 @@
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "For Qmd files (markdown document with Quarto cross-language executable code), go to the course GitHub repository and navigate the directories, or best of all to clone the repo and navigate within RStudio.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDates\nTopics\nProjects\n\n\n\n\n\nModule 1\n\nStatistical and computational tools for scientific and reproducible research\n\n\n\n\n\n\n\n\n\n\n\nWeek 1\nAug 30\n👋 Course introduction\n🌴 Project 0\n\n\n\n\n\n👩‍💻 Introduction to R and RStudio\n\n\n\n\n\n\n🐙 Introduction to git/GitHub\n\n\n\n\n\n\n\n\n\n\n\n\nSept 1\n🔬 Reproducible Research\n\n\n\n\n\n\n👓 Literate programming\n\n\n\n\n\n\n👋 Hello, Quarto\n\n\n\n\n\n\n🆒 Reference management\n\n\n\n\n\n\n\n\n\n\n\nModule 2\n\nData analysis in R\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\nSept 6\n🚧 Getting and cleaning data\n🌴 Project 1\n\n\n\n\n\n✂️ Managing data frames with Tidyverse\n\n\n\n\n\n\n\n\n\n\n\n\nSept 8\n😻 Tidy data and the Tidyverse\n🍂 Project 0 due\n\n\n\n\n\n🤝 Joining data in R: Basics\n\n\n\n\n\n\n\n\n\n\n\nModule 3\n\nData visualizations R\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\nSept 13\n📊 Plotting systems in R\n\n\n\n\n\n\n📊 The ggplot2 plotting system: qplot()\n\n\n\n\n\n\n\n\n\n\n\n\nSept 15\n📊 The ggplot2 plotting system: ggplot()\n🌴 Project 2\n\n\n\n\n\n\n\n\n\n\n\nSept 16\n\n🍂 Project 1 due\n\n\n\n\n\n\n\n\n\n\nModule 4\n\nNuts and bolts of R\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\nSept 20\n🔩 Best practices for project-oriented workflows in R\n\n\n\n\n\n\n\n\n\n\n\n\nSept 22\n🔩 R Nuts and Bolts\n\n\n\n\n\n\n🔩 Control structures in R\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\nSept 27\n🔩 Functions in R\n\n\n\n\n\n\n🔩 Loop functions\n\n\n\n\n\n\n\n\n\n\n\n\nSept 29\n🐛 Debugging code in R\n\n\n\n\n\n\n🐛 Error handling code in R\n\n\n\n\n\nSept 30\n\n🍂 Project 2 due\n\n\n\n\n\n\n\n\n\n\nModule 5\n\nSpecial data types in R\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\nOct 4\n📆 Working with dates and times\n🌴 Project 3\n\n\n\n\n\n\n\n\n\n\n\nOct 6\n✨ Regular expressions\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\nOct 11\n🐱 Working with factors\n\n\n\n\n\n\n\n\n\n\n\n\nOct 13\n📆 Working with text data and sentiment analysis\n\n\n\n\n\n\n\n\n\n\n\nModule 6\n\nBest practices for working with data and other languages\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\nOct 18\n☁️ Best practices for storing data\n\n\n\n\n\n\n☁️ Best practices for ethical data analysis\n\n\n\n\n\n\n\n\n\n\n\n\nOct 20\n🐍 Leveraging Python within R\n\n\n\n\n\n\n\n\n\n\n\n\nOct 21\n\n🍂 Project 3 due"
+    "text": "For Qmd files (markdown document with Quarto cross-language executable code), go to the course GitHub repository and navigate the directories, or best of all to clone the repo and navigate within RStudio.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDates\nTopics\nProjects\n\n\n\n\n\nModule 1\n\nStatistical and computational tools for scientific and reproducible research\n\n\n\n\n\n\n\n\n\n\n\nWeek 1\nAug 30\n👋 Course introduction [html] [Qmd]\n🌴 Project 0\n\n\n\n\n\n👩‍💻 Introduction to R and RStudio\n\n\n\n\n\n\n🐙 Introduction to git/GitHub\n\n\n\n\n\n\n\n\n\n\n\n\nSept 1\n🔬 Reproducible Research\n\n\n\n\n\n\n👓 Literate programming\n\n\n\n\n\n\n👋 Hello, Quarto\n\n\n\n\n\n\n🆒 Reference management\n\n\n\n\n\n\n\n\n\n\n\nModule 2\n\nData analysis in R\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\nSept 6\n🚧 Getting and cleaning data\n🌴 Project 1\n\n\n\n\n\n✂️ Managing data frames with Tidyverse\n\n\n\n\n\n\n\n\n\n\n\n\nSept 8\n😻 Tidy data and the Tidyverse\n🍂 Project 0 due\n\n\n\n\n\n🤝 Joining data in R: Basics\n\n\n\n\n\n\n\n\n\n\n\nModule 3\n\nData visualizations R\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\nSept 13\n📊 Plotting systems in R\n\n\n\n\n\n\n📊 The ggplot2 plotting system: qplot()\n\n\n\n\n\n\n\n\n\n\n\n\nSept 15\n📊 The ggplot2 plotting system: ggplot()\n🌴 Project 2\n\n\n\n\n\n\n\n\n\n\n\nSept 16\n\n🍂 Project 1 due\n\n\n\n\n\n\n\n\n\n\nModule 4\n\nNuts and bolts of R\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\nSept 20\n🔩 Best practices for project-oriented workflows in R\n\n\n\n\n\n\n\n\n\n\n\n\nSept 22\n🔩 R Nuts and Bolts\n\n\n\n\n\n\n🔩 Control structures in R\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\nSept 27\n🔩 Functions in R\n\n\n\n\n\n\n🔩 Loop functions\n\n\n\n\n\n\n\n\n\n\n\n\nSept 29\n🐛 Debugging code in R\n\n\n\n\n\n\n🐛 Error handling code in R\n\n\n\n\n\nSept 30\n\n🍂 Project 2 due\n\n\n\n\n\n\n\n\n\n\nModule 5\n\nSpecial data types in R\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\nOct 4\n📆 Working with dates and times\n🌴 Project 3\n\n\n\n\n\n\n\n\n\n\n\nOct 6\n✨ Regular expressions\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\nOct 11\n🐱 Working with factors\n\n\n\n\n\n\n\n\n\n\n\n\nOct 13\n📆 Working with text data and sentiment analysis\n\n\n\n\n\n\n\n\n\n\n\nModule 6\n\nBest practices for working with data and other languages\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\nOct 18\n☁️ Best practices for storing data\n\n\n\n\n\n\n☁️ Best practices for ethical data analysis\n\n\n\n\n\n\n\n\n\n\n\n\nOct 20\n🐍 Leveraging Python within R\n\n\n\n\n\n\n\n\n\n\n\n\nOct 21\n\n🍂 Project 3 due"
   }
 ]

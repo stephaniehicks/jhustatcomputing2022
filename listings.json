@@ -5,6 +5,8 @@
   },
   {
     "listing": "/lectures.html",
-    "items": []
+    "items": [
+      "/posts/welcome/index.html"
+    ]
   }
 ]

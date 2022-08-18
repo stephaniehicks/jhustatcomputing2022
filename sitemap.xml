@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://stephaniehicks.github.io/jhustatcomputing2022/posts/welcome/index.html</loc>
+    <lastmod>2022-08-18T19:46:15.021Z</lastmod>
+  </url>
+  <url>
     <loc>https://stephaniehicks.github.io/jhustatcomputing2022/projects.html</loc>
-    <lastmod>2022-08-18T18:50:55.958Z</lastmod>
+    <lastmod>2022-08-18T19:46:15.378Z</lastmod>
   </url>
   <url>
     <loc>https://stephaniehicks.github.io/jhustatcomputing2022/index.html</loc>
-    <lastmod>2022-08-18T18:50:56.373Z</lastmod>
+    <lastmod>2022-08-18T19:46:15.801Z</lastmod>
   </url>
   <url>
     <loc>https://stephaniehicks.github.io/jhustatcomputing2022/lectures.html</loc>
-    <lastmod>2022-08-18T18:50:56.758Z</lastmod>
+    <lastmod>2022-08-18T19:46:16.198Z</lastmod>
   </url>
   <url>
     <loc>https://stephaniehicks.github.io/jhustatcomputing2022/syllabus.html</loc>
-    <lastmod>2022-08-18T18:50:57.386Z</lastmod>
+    <lastmod>2022-08-18T19:46:16.801Z</lastmod>
   </url>
   <url>
     <loc>https://stephaniehicks.github.io/jhustatcomputing2022/resources.html</loc>
-    <lastmod>2022-08-18T18:50:57.672Z</lastmod>
+    <lastmod>2022-08-18T19:46:17.067Z</lastmod>
   </url>
   <url>
     <loc>https://stephaniehicks.github.io/jhustatcomputing2022/schedule.html</loc>
-    <lastmod>2022-08-18T18:50:58.040Z</lastmod>
+    <lastmod>2022-08-18T19:46:17.474Z</lastmod>
   </url>
 </urlset>
