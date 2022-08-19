@@ -2,9 +2,9 @@
 title: "Welcome!"
 author: 
   - name: Stephanie Hicks
-    url: https://stephaniehicks.com/
+    url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
-    affiliation_url: https://www.jhsph.edu
+    affiliation_url: https://publichealth.jhu.edu
 description: "Overview course information for BSPH Biostatistics 140.776 in Fall 2022"
 date: 2022-08-30
 categories: [course-admin, module 1, week 1]

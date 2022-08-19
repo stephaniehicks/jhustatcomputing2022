@@ -2,7 +2,7 @@
 title: "Schedule"
 description: |
  Schedule and course materials for Statistical Computing (JHSPH Biostatistics 140.776 Fall 2022).
-tbl-colwidths: [15,10, 55, 20]
+tbl-colwidths: [15,10, 55, 25]
 ---
 
 ## Schedule and course materials
@@ -14,9 +14,9 @@ For Qmd files (markdown document with [Quarto](https://quarto.org/docs/authoring
 |---|---|---|---|---|
 | **Module 1** | | **Statistical and computational tools for scientific and reproducible research**  | |
 | | | | | 
-| Week 1       | Aug 30  | `r emojifont::emoji('wave')` Course introduction [[html](posts/welcome/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/welcome/index.qmd)]  | `r emojifont::emoji('palm_tree')` Project 0 |
-| | | `r emojifont::emoji('woman_technologist')` Introduction to R and RStudio | |
-| | | `r emojifont::emoji('octopus')` Introduction to git/GitHub  | |
+| Week 1       | Aug 30  | `r emojifont::emoji('wave')` Course introduction [[html](posts/welcome/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/welcome/index.qmd)]  | `r emojifont::emoji('palm_tree')` Project 0 [[html](projects/2022-08-30-project-0/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/projects/2022-08-30-project-0/index.qmd)] |
+| | | `r emojifont::emoji('woman_technologist')` Introduction to R and RStudio [[html](posts/2022-08-30-introduction-to-r-and-rstudio/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-08-30-introduction-to-r-and-rstudio/index.qmd)] | |
+| | | `r emojifont::emoji('octopus')` Introduction to git/GitHub  [[html](posts/2022-08-30-introduction-to-gitgithub/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-08-30-introduction-to-gitgithub/index.qmd)] | |
 | | | | |
 | | Sept 1  | `r emojifont::emoji('microscope')` Reproducible Research | | 
 | | | `r emojifont::emoji('eyeglasses')` Literate programming | |
