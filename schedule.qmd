@@ -18,9 +18,8 @@ For Qmd files (markdown document with [Quarto](https://quarto.org/docs/authoring
 | | | `r emojifont::emoji('woman_technologist')` Introduction to R and RStudio [[html](posts/2022-08-30-introduction-to-r-and-rstudio/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-08-30-introduction-to-r-and-rstudio/index.qmd)] | |
 | | | `r emojifont::emoji('octopus')` Introduction to git/GitHub  [[html](posts/2022-08-30-introduction-to-gitgithub/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-08-30-introduction-to-gitgithub/index.qmd)] | |
 | | | | |
-| | Sept 1  | `r emojifont::emoji('microscope')` Reproducible Research | | 
-| | | `r emojifont::emoji('eyeglasses')` Literate programming | |
-| | | `r emojifont::emoji('wave')` Hello, Quarto | |
+| | Sept 1  | `r emojifont::emoji('microscope')` Reproducible Research [[html](posts/2022-09-01-reproducible-research/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-01-reproducible-research/index.qmd)] | | 
+| | | `r emojifont::emoji('eyeglasses')` Literate programming [[html](posts/2022-09-01-literate-programming/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-01-literate-programming/index.qmd)] | |
 | | | `r emojifont::emoji('cool')` Reference management | | 
 | | | | | 
 | **Module 2** | | **Data analysis in R** | |              

@@ -16,7 +16,10 @@ categories: [module 1, week 1, R, programming, RStudio]
 
 ### Read ahead
 
-::: callout-important
+::: callout-note
+
+### Read ahead
+
 **Before class, you can prepare by reading the following materials:**
 
 1.  [An overview and history of R](https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html) from Roger Peng
@@ -35,7 +38,10 @@ Material for this lecture was borrowed and adopted from
 
 # Learning objectives
 
-::: callout-important
+::: callout-note
+
+## Learning objectives
+
 **At the end of this lesson you will:**
 
 -   Learn about (some of) the history of R.
@@ -145,8 +151,9 @@ When you download a fresh installation of R from CRAN, you get all of the above,
 
 -   People often make packages available on their personal websites; there is no reliable way to keep track of how many packages are available in this fashion.
 
-::: callout-important
-**Questions:**
+::: callout-note
+
+## Questions 
 
 1.  How many R packages are on CRAN today?
 2.  How many R packages are on Bioconductor today?
@@ -243,8 +250,9 @@ and the appropriate version of the package will be installed.
 
 Often, a package needs other packages to work (called dependencies), and they are installed automatically. It usually does not matter if you use a single or double quotation mark around the name of the package.
 
-::: callout-important
-**Questions:**
+::: callout-note
+
+## Questions
 
 1.  As you installed the `ggplot2` package, what other packages were installed?
 2.  What happens if you tried to install `GGplot2`?
@@ -300,8 +308,9 @@ This chapter gives some tips, shortcuts, and ideas that might be of interest eve
 
 Here are some post-lecture questions to help you think about the material discussed.
 
-::: callout-important
-**Questions:**
+::: callout-note
+
+## Questions
 
 1.  If a software company asks you, as a requirement for using their software, to sign a license that restricts you from using their software to commit illegal activities, is this consistent with the "Four Freedoms" of Free Software?
 
