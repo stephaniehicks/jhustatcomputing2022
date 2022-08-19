@@ -321,3 +321,15 @@ Here are some post-lecture questions to help you think about the material discus
 
 -   [RStudio IDE cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
 :::
+
+
+## rtistry
+
+```{r}
+#| label: watercolour_splash
+#| echo: false
+#| fig-cap-location: "top"
+knitr::include_graphics("https://github.com/djnavarro/art/raw/master/static/gallery/water-colours/watercolour_splash.jpg")
+```
+['Water Colours' from Danielle Navarro <https://art.djnavarro.net>]
+

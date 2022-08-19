@@ -16,8 +16,7 @@ categories: [module 1, week 1, programming, version control, git, GitHub]
 
 ### Read ahead
 
-:::{.callout-important}
-
+::: callout-important
 **Before class, you can prepare by reading the following materials:**
 
 1.  [Happy Git with R](https://happygitwithr.com) from Jenny Bryan
@@ -32,7 +31,7 @@ Material for this lecture was borrowed and adopted from
 
 # Learning objectives
 
-:::{.callout-important}
+::: callout-important
 **At the end of this lesson you will:**
 
 -   Know what Git and GitHub are.
@@ -130,7 +129,7 @@ Learning these skills will be useful down the road if you ever work collaborativ
 
 Here are some post-lecture questions to help you think about the material discussed.
 
-:::{.callout-important}
+::: callout-important
 **Questions:**
 
 1.  What is version control?
@@ -142,8 +141,18 @@ Here are some post-lecture questions to help you think about the material discus
 
 ### Additional Resources
 
-:::{.callout-tip}
-
+::: callout-tip
 -   [git and GitHub in the `dsbook`](https://rafalab.github.io/dsbook/git.html) by Rafael Irizarry
-
 :::
+
+
+## rtistry
+
+```{r}
+#| label: flametree
+#| echo: false
+#| fig-cap-location: "top"
+knitr::include_graphics("https://github.com/djnavarro/art/raw/master/static/gallery/flametree/extra/001_flametree_20_13.jpg")
+```
+['Flametree' from Danielle Navarro <https://art.djnavarro.net>]
+
