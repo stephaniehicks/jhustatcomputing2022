@@ -2,42 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/syllabus.html</loc>
-    <lastmod>2022-08-19T03:06:18.917Z</lastmod>
+    <lastmod>2022-08-19T04:26:23.982Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/index.html</loc>
-    <lastmod>2022-08-19T03:06:19.609Z</lastmod>
+    <lastmod>2022-08-19T04:26:24.638Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/resources.html</loc>
-    <lastmod>2022-08-19T03:06:19.933Z</lastmod>
+    <lastmod>2022-08-19T04:26:24.970Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/projects.html</loc>
-    <lastmod>2022-08-19T03:06:20.273Z</lastmod>
+    <lastmod>2022-08-19T04:26:25.294Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/projects/2022-08-30-project-0/index.html</loc>
-    <lastmod>2022-08-19T03:06:20.853Z</lastmod>
+    <lastmod>2022-08-19T04:26:25.842Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</loc>
-    <lastmod>2022-08-19T03:06:21.701Z</lastmod>
+    <lastmod>2022-08-19T04:26:26.594Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</loc>
+    <lastmod>2022-08-19T04:26:27.118Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</loc>
+    <lastmod>2022-08-19T04:26:27.398Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-06-joining-data-in-r/index.html</loc>
+    <lastmod>2022-08-19T04:26:27.658Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</loc>
-    <lastmod>2022-08-19T03:06:22.517Z</lastmod>
+    <lastmod>2022-08-19T04:26:28.414Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</loc>
-    <lastmod>2022-08-19T03:06:22.917Z</lastmod>
+    <lastmod>2022-08-19T04:26:28.794Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</loc>
+    <lastmod>2022-08-19T04:26:29.610Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/schedule.html</loc>
-    <lastmod>2022-08-19T03:06:23.277Z</lastmod>
+    <lastmod>2022-08-19T04:26:29.970Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/lectures.html</loc>
-    <lastmod>2022-08-19T03:06:23.637Z</lastmod>
+    <lastmod>2022-08-19T04:26:30.378Z</lastmod>
   </url>
 </urlset>
