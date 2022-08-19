@@ -12,6 +12,409 @@
 <generator>quarto-1.0.38</generator>
 <lastBuildDate>Tue, 30 Aug 2022 00:00:00 GMT</lastBuildDate>
 <item>
+  <title>Introduction to R and RStudio!</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<blockquote class="blockquote">
+<p>There are only two kinds of languages: the ones people complain about and the ones nobody uses. —<em>Bjarne Stroustrup</em></p>
+</blockquote>
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html">An overview and history of R</a> from Roger Peng</li>
+<li><a href="https://rafalab.github.io/dsbook/installing-r-rstudio.html">Installing R and RStudio</a> from Rafael Irizarry</li>
+<li><a href="https://rafalab.github.io/dsbook/getting-started.html">Getting Started in R and RStudio</a> from Rafael Irizarry</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li>https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html</li>
+<li>https://rafalab.github.io/dsbook</li>
+<li>https://rmd4sci.njtierney.com</li>
+<li>https://andreashandel.github.io/MADAcourse</li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Learn about (some of) the history of R.</li>
+<li>Identify some of the strengths and weaknesses of R.</li>
+<li>Install R and Rstudio on your computer.</li>
+<li>Know how to install and load R packages.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="overview-and-history-of-r" class="level1">
+<h1>Overview and history of R</h1>
+<p>Below is a very quick introduction to R, to get you set up and running. We’ll go deeper into R and coding later.</p>
+<section id="tldr-r-in-a-nutshell" class="level3">
+<h3 class="anchored" data-anchor-id="tldr-r-in-a-nutshell">tl;dr (R in a nutshell)</h3>
+<p>Like every programming language, R has its advantages and disadvantages. If you search the internet, you will quickly discover lots of folks with opinions about R. Some of the features that are useful to know are:</p>
+<ul>
+<li>R is open-source, freely accessible, and cross-platform (multiple OS).</li>
+<li>R is a <a href="https://en.wikipedia.org/wiki/High-level_programming_language">“high-level” programming language</a>, relatively easy to learn.
+<ul>
+<li>While “Low-level” programming languages (e.g.&nbsp;Fortran, C, etc) often have more efficient code, they can also be harder to learn because it is designed to be close to a machine language.</li>
+<li>In contrast, high-level languages deal more with variables, objects, functions, loops, and other abstract CS concepts with a focus on usability over optimal program efficiency.</li>
+</ul></li>
+<li>R is great for statistics, data analysis, websites, web apps, data visualizations, and so much more!</li>
+<li>R integrates easily with document preparation systems like <img src="https://latex.codecogs.com/png.latex?%5CLaTeX">, but R files can also be used to create <code>.docx</code>, <code>.pdf</code>, <code>.html</code>, <code>.ppt</code> files with integrated R code output and graphics.</li>
+<li>The R Community is very dynamic, helpful and welcoming.
+<ul>
+<li>Check out the <a href="https://twitter.com/search?q=%23rstats">#rstats</a> on Twitter, <a href="https://www.tidytuesday.com">TidyTuesday</a> podcast and community activity in the <a href="https://www.rfordatasci.com">R4DS Online Learning Community</a>, and <a href="https://www.reddit.com/r/rstats/">r/rstats</a> subreddit.</li>
+<li>If you are looking for more local resources, check out <a href="https://www.meetup.com/rladies-baltimore/">R-Ladies Baltimore</a>.</li>
+</ul></li>
+<li>Through R packages, it is easy to get lots of state-of-the-art algorithms.</li>
+<li>Documentation and help files for R are generally good.</li>
+</ul>
+<p>While we use R in this course, it is not the only option to analyze data. Maybe the most similar to R, and widely used, is Python, which is also free. There is also commercial software that can be used to analyze data (e.g., Matlab, Mathematica, Tableau, SAS, SPSS). Other more general programming languages are suitable for certain types of analyses as well (e.g., C, Fortran, Perl, Java, Julia).</p>
+<p>Depending on your future needs or jobs, you might have to learn one or several of those additional languages. The good news is that even though those languages are all different, they all share general ways of thinking and structuring code. So once you understand a specific concept (e.g., variables, loops, branching statements or functions), it applies to all those languages. Thus, learning a new programming language is much easier once you already know one. And R is a good one to get started with.</p>
+<p>With the skills gained in this course, hopefully you will find R a fun and useful programming langauge for your future projects.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/r_first_then.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on learning R</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+</section>
+<section id="basic-features-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="basic-features-of-r">Basic Features of R</h3>
+<p>Today R runs on almost any standard computing platform and operating system. Its open source nature means that anyone is free to adapt the software to whatever platform they choose. Indeed, R has been reported to be running on modern tablets, phones, PDAs, and game consoles.</p>
+<p>One nice feature that R shares with many popular open source projects is frequent releases. These days there is a major annual release, typically in October, where major new features are incorporated and released to the public. Throughout the year, smaller-scale bugfix releases will be made as needed. The frequent releases and regular release cycle indicates active development of the software and ensures that bugs will be addressed in a timely manner. Of course, while the core developers control the primary source tree for R, many people around the world make contributions in the form of new feature, bug fixes, or both.</p>
+<p>Another key advantage that R has over many other statistical packages (even today) is its sophisticated graphics capabilities. R’s ability to create “publication quality” graphics has existed since the very beginning and has generally been better than competing packages. Today, with many more visualization packages available than before, that trend continues. R’s base graphics system allows for very fine control over essentially every aspect of a plot or graph. Other newer graphics systems, like lattice and ggplot2 allow for complex and sophisticated visualizations of high-dimensional data.</p>
+<p>R has maintained the original S philosophy (see box below), which is that <strong>it provides a language that is both useful for interactive work, but contains a powerful programming language for developing new tools</strong>. This allows the user, who takes existing tools and applies them to data, to slowly but surely become a developer who is creating new tools.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For a great discussion on an overview and history of R and the S programming language, read through <a href="https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html">this chapter</a> from Roger D. Peng.</p>
+</div>
+</div>
+<p>Finally, one of the joys of using R has nothing to do with the language itself, but rather with the active and vibrant user community. In many ways, a language is successful inasmuch as it creates a platform with which many people can create new things. R is that platform and thousands of people around the world have come together to make contributions to R, to develop packages, and help each other use R for all kinds of applications. The R-help and R-devel mailing lists have been highly active for over a decade now and there is considerable activity on web sites like Stack Overflow, Twitter <a href="https://twitter.com/search?q=%23rstats">#rstats</a>, <a href="https://twitter.com/search?q=%23rtistry">#rtistry</a>, and <a href="https://www.reddit.com/r/rstats/">Reddit</a>.</p>
+</section>
+<section id="free-software" class="level3">
+<h3 class="anchored" data-anchor-id="free-software">Free Software</h3>
+<p>A major advantage that R has over many other statistical packages and is that it’s free in the sense of free software (it’s also free in the sense of free beer). The copyright for the primary source code for R is held by the <a href="http://www.r-project.org/foundation/">R Foundation</a> and is published under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License version 2.0</a>.</p>
+<p>According to the Free Software Foundation, with <em>free software</em>, you are granted the following <a href="http://www.gnu.org/philosophy/free-sw.html">four freedoms</a></p>
+<ul>
+<li><p>The freedom to run the program, for any purpose (freedom 0).</p></li>
+<li><p>The freedom to study how the program works, and adapt it to your needs (freedom 1). Access to the source code is a precondition for this.</p></li>
+<li><p>The freedom to redistribute copies so you can help your neighbor (freedom 2).</p></li>
+<li><p>The freedom to improve the program, and release your improvements to the public, so that the whole community benefits (freedom 3). Access to the source code is a precondition for this.</p></li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can visit the <a href="http://www.fsf.org">Free Software Foundation’s web site</a> to learn a lot more about free software. The Free Software Foundation was founded by Richard Stallman in 1985 and <a href="https://stallman.org">Stallman’s personal web site</a> is an interesting read if you happen to have some spare time.</p>
+</div>
+</div>
+</section>
+<section id="design-of-the-r-system" class="level3">
+<h3 class="anchored" data-anchor-id="design-of-the-r-system">Design of the R System</h3>
+<p>The primary R system is available from the <a href="http://cran.r-project.org">Comprehensive R Archive Network</a>, also known as CRAN. CRAN also hosts many add-on packages that can be used to extend the functionality of R.</p>
+<p>The R system is divided into 2 conceptual parts:</p>
+<ol type="1">
+<li>The “base” R system that you download from CRAN:</li>
+</ol>
+<ul>
+<li><a href="http://cran.r-project.org/bin/linux/">Linux</a></li>
+<li><a href="http://cran.r-project.org/bin/windows/">Windows</a></li>
+<li><a href="http://cran.r-project.org/bin/macosx/">Mac</a></li>
+</ul>
+<ol start="2" type="1">
+<li>Everything else.</li>
+</ol>
+<p>R functionality is divided into a number of <em>packages</em>.</p>
+<ul>
+<li><p>The “base” R system contains, among other things, the <code>base</code> package which is required to run R and contains the most fundamental functions.</p></li>
+<li><p>The other packages contained in the “base” system include <code>utils</code>, <code>stats</code>, <code>datasets</code>, <code>graphics</code>, <code>grDevices</code>, <code>grid</code>, <code>methods</code>, <code>tools</code>, <code>parallel</code>, <code>compiler</code>, <code>splines</code>, <code>tcltk</code>, <code>stats4</code>.</p></li>
+<li><p>There are also “Recommended” packages: <code>boot</code>, <code>class</code>, <code>cluster</code>, <code>codetools</code>, <code>foreign</code>, <code>KernSmooth</code>, <code>lattice</code>, <code>mgcv</code>, <code>nlme</code>, <code>rpart</code>, <code>survival</code>, <code>MASS</code>, <code>spatial</code>, <code>nnet</code>, <code>Matrix</code>.</p></li>
+</ul>
+<p>When you download a fresh installation of R from CRAN, you get all of the above, which represents a substantial amount of functionality. However, there are many other packages available:</p>
+<ul>
+<li><p>There are over 10,000 packages on CRAN that have been developed by users and programmers around the world.</p></li>
+<li><p>There are also many packages associated with the <a href="http://bioconductor.org">Bioconductor project</a>.</p></li>
+<li><p>People often make packages available on their personal websites; there is no reliable way to keep track of how many packages are available in this fashion.</p></li>
+</ul>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Questions:</strong></p>
+<ol type="1">
+<li>How many R packages are on CRAN today?</li>
+<li>How many R packages are on Bioconductor today?</li>
+<li>How many R packages are on GitHub today?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="limitations-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-of-r">Limitations of R</h3>
+<p>No programming language or statistical analysis system is perfect. R certainly has a number of drawbacks. For starters, R is essentially based on almost 50 year old technology, going back to the original S system developed at Bell Labs. There was originally little built in support for dynamic or 3-D graphics (but things have improved greatly since the “old days”).</p>
+<p>Another commonly cited limitation of R is that objects must generally be stored in physical memory (though this is increasingly not true anymore). This is in part due to the scoping rules of the language, but R generally is more of a memory hog than other statistical packages. However, there have been a number of advancements to deal with this, both in the R core and also in a number of packages developed by contributors. Also, computing power and capacity has continued to grow over time and amount of physical memory that can be installed on even a consumer-level laptop is substantial. While we will likely never have enough physical memory on a computer to handle the increasingly large datasets that are being generated, the situation has gotten quite a bit easier over time.</p>
+<p>At a higher level one “limitation” of R is that its functionality is based on consumer demand and (voluntary) user contributions. If no one feels like implementing your favorite method, then it’s <em>your</em> job to implement it (or you need to pay someone to do it). The capabilities of the R system generally reflect the interests of the R user community. As the community has ballooned in size over the past 10 years, the capabilities have similarly increased. When I first started using R, there was very little in the way of functionality for the physical sciences (physics, astronomy, etc.). However, now some of those communities have adopted R and we are seeing more code being written for those kinds of applications.</p>
+</section>
+</section>
+<section id="using-r-and-rstudio" class="level1">
+<h1>Using R and RStudio</h1>
+<blockquote class="blockquote">
+<p>If R is the engine and bare bones of your car, then RStudio is like the rest of the car. The engine is super critical part of your car. But in order to make things properly functional, you need to have a steering wheel, comfy seats, a radio, rear and side view mirrors, storage, and seatbelts. — <em>Nicholas Tierney</em></p>
+</blockquote>
+<p>[<a href="https://rmd4sci.njtierney.com">Source</a>]</p>
+<p>The RStudio layout has the following features:</p>
+<ul>
+<li>On the upper left, something called a Rmarkdown script</li>
+<li>On the lower left, the R console</li>
+<li>On the lower right, the view for files, plots, packages, help, and viewer.</li>
+<li>On the upper right, the environment / history pane</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">A screenshot of the RStudio integrated developer environment (IDE) – aka the working environment.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The R console is the bit where you can run your code. This is where the R code in your Rmarkdown document gets sent to run (we’ll learn about these files later).</p>
+<p>The file/plot/pkg viewer is a handy browser for your current files, like Finder, or File Explorer, plots are where your plots appear, you can view packages, see the help files. And the environment / history pane contains the list of things you have created, and the past commands that you have run.</p>
+<section id="installing-r-and-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="installing-r-and-rstudio">Installing R and RStudio</h3>
+<ul>
+<li>If you have not already, <a href="http://cran.r-project.org">install R first</a>. If you already have R installed, make sure it is a fairly recent version, version 4.0 or newer. If yours is older, I suggest you update (install a new R version).</li>
+<li>Once you have R installed, install the free version of <a href="https://www.rstudio.com/products/rstudio/download/">RStudio Desktop</a>. Again, make sure it’s a recent version.</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Installing R and RStudio should be fairly straightforward. However, a great set of detailed instructions is in Rafael Irizarry’s <code>dsbook</code></p>
+<ul>
+<li><a href="https://rafalab.github.io/dsbook/installing-r-rstudio.html" class="uri">https://rafalab.github.io/dsbook/installing-r-rstudio.html</a></li>
+</ul>
+</div>
+</div>
+<p>If things don’t work, ask for help in the courseplus discussion board.</p>
+<p>I personally only have experience with Mac, but everything should work on all the standard operating systems (Windows, Mac, and even Linux).</p>
+</section>
+<section id="rstudio-default-options" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-default-options">RStudio default options</h3>
+<p>To first get set up, I highly recommend changing the following setting</p>
+<p>Tools &gt; Global Options (or <code>Cmd + ,</code> on macOS)</p>
+<p>Under the <strong>General</strong> tab:</p>
+<ul>
+<li>For <strong>workspace</strong>
+<ul>
+<li>Uncheck restore .RData into workspace at startup</li>
+<li>Save workspace to .RData on exit : “Never”</li>
+</ul></li>
+<li>For <strong>History</strong>
+<ul>
+<li>Uncheck “Always save history (even when not saving .RData)</li>
+<li>Uncheck “Remove duplicate entries in history”</li>
+</ul></li>
+</ul>
+<p>This means that you won’t save the objects and other things that you create in your R session and reload them. This is important for two reasons</p>
+<ol type="1">
+<li><strong>Reproducibility</strong>: you don’t want to have objects from last week cluttering your session</li>
+<li><strong>Privacy</strong>: you don’t want to save private data or other things to your session. You only want to read these in.</li>
+</ol>
+<p>Your “history” is the commands that you have entered into R.</p>
+<p>Additionally, not saving your history means that you won’t be relying on things that you typed in the last session, which is a good habit to get into!</p>
+</section>
+<section id="installing-and-loading-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="installing-and-loading-r-packages">Installing and loading R packages</h3>
+<p>As we discussed, most of the functionality and features in R come in the form of add-on packages. There are tens of thousands of packages available, some big, some small, some well documented, some not. We will be using many different packages in this course. Of course, you are free to install and use any package you come across for any of the assignments.</p>
+<p>The “official” place for packages is the <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">CRAN website</a>. If you are interested in packages on a specific topic, the <a href="http://cran.r-project.org/web/views/">CRAN task views</a> provide curated descriptions of packages sorted by topic.</p>
+<p>To install an R package from CRAN, one can simply call the <code>install.packages()</code> function and pass the name of the package as an argument. For example, to install the <code>ggplot2</code> package from CRAN: open RStudio,go to the R prompt (the <code>&gt;</code> symbol) in the lower-left corner and type</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">install.packages</span>(<span class="st" style="color: #20794D;">"ggplot2"</span>)</span></code></pre></div>
+</div>
+<p>and the appropriate version of the package will be installed.</p>
+<p>Often, a package needs other packages to work (called dependencies), and they are installed automatically. It usually does not matter if you use a single or double quotation mark around the name of the package.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Questions:</strong></p>
+<ol type="1">
+<li>As you installed the <code>ggplot2</code> package, what other packages were installed?</li>
+<li>What happens if you tried to install <code>GGplot2</code>?</li>
+</ol>
+</div>
+</div>
+<p>It could be that you already have all packages required by <code>ggplot2</code> installed. In that case, you will not see any other packages installed. To see which of the packages above <code>ggplot2</code> needs (and thus installs if it is not present), type into the R console:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">tools<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">package_dependencies</span>(<span class="st" style="color: #20794D;">"ggplot2"</span>)</span></code></pre></div>
+</div>
+<p>In RStudio, you can also install (and update/remove) packages by clicking on the ‘Packages’ tab in the bottom right window.</p>
+<p>It is very common these days for packages to be developed on GitHub. It is possible to install packages from GitHub directly. Those usually contain the latest version of the package, with features that might not be available yet on the CRAN website. Sometimes, in early development stages, a package is only on GitHub until the developer(s) feel it is good enough for CRAN submission. So installing from GitHub gives you the latest. The downside is that packages under development can often be buggy and not working right. To install packages from GitHub, you need to install the <code>remotes</code> package and then use the following function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">remotes<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">install_github</span>()</span></code></pre></div>
+</div>
+<p>We will not do that now, but it is quite likely that at one point later in this course we will.</p>
+<p>You only need to install a package once, unless you upgrade/re-install R. Once installed, you still need to load the package before you can use it. That has to happen every time you start a new R session. You do that using the <code>library()</code> command. For instance to load the <code>ggplot2</code> package, type</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;">library</span>(<span class="st" style="color: #20794D;">'ggplot2'</span>)</span></code></pre></div>
+</div>
+<p>You may or may not see a short message on the screen. Some packages show messages when you load them, and others do not.</p>
+<p>This was a quick overview of R packages. We will use a lot of them, so you will get used to them rather quickly.</p>
+</section>
+<section id="getting-started-in-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started-in-rstudio">Getting started in RStudio</h3>
+<p>While one can use R and do pretty much every task, including all the ones we cover in this class, without using RStudio, RStudio is very useful, has lots of features that make your R coding life easier and has become pretty much the default integrated development environment (IDE) for R. Since RStudio has lots of features, it takes time to learn them. A good resource to learn more about RStudio are the <a href="https://resources.rstudio.com/">R Studio Essentials</a> collection of videos.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For more information on setting up and getting started with R, RStudio, and R packages, read the Getting Started chapter in the <code>dsbook</code>:</p>
+<ul>
+<li><a href="https://rafalab.github.io/dsbook/getting-started.html" class="uri">https://rafalab.github.io/dsbook/getting-started.html</a></li>
+</ul>
+<p>This chapter gives some tips, shortcuts, and ideas that might be of interest even to those of you who already have R and/or RStudio experience.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Questions:</strong></p>
+<ol type="1">
+<li><p>If a software company asks you, as a requirement for using their software, to sign a license that restricts you from using their software to commit illegal activities, is this consistent with the “Four Freedoms” of Free Software?</p></li>
+<li><p>What is an R package and what is it used for?</p></li>
+<li><p>What function in R can be used to install packages from CRAN?</p></li>
+<li><p>What is a limitation of the current R system?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><a href="https://r4ds.had.co.nz">R for Data Science</a> by Wickham &amp; Grolemund (2017). Covers most of the basics of using R for data analysis.</p></li>
+<li><p><a href="https://adv-r.hadley.nz">Advanced R</a> by Wickham (2014). Covers a number of areas including object-oriented, programming, functional programming, profiling and other advanced topics.</p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio IDE cheatsheet</a></p></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 1</category>
+  <category>week 1</category>
+  <category>R</category>
+  <category>programming</category>
+  <category>RStudio</category>
+  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</guid>
+  <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Welcome!</title>
   <dc:creator>Stephanie Hicks</dc:creator>
   <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</link>
@@ -381,6 +784,206 @@ Important
   <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</guid>
   <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
   <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRWindows.gif" medium="image" type="image/gif"/>
+</item>
+<item>
+  <title>Introduction to git/GitHub</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<!-- Add interesting quote -->
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://happygitwithr.com">Happy Git with R</a> from Jenny Bryan</li>
+<li><a href="https://rafalab.github.io/dsbook/git.html">Chapter on git and GitHub in <code>dsbook</code></a> from Rafael Irizarry</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://andreashandel.github.io/MADAcourse" class="uri">https://andreashandel.github.io/MADAcourse</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Know what Git and GitHub are.</li>
+<li>Know why one might want to use them.</li>
+<li>Have created and set up a GitHub account.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="introduction-to-gitgithub" class="level1">
+<h1>Introduction to git/GitHub</h1>
+<p>This document gives a brief explanation of GitHub and how we will use it for this course.</p>
+<section id="git" class="level3">
+<h3 class="anchored" data-anchor-id="git">git</h3>
+<p><em>Git</em> is what is called a <em>version control system</em> for file management. The main idea is that as you (and your collaborators) work on a project, the software tracks, and records any changes made by anyone.</p>
+<ul>
+<li>Similar to the “track changes” features in Microsoft Word, but more rigorous, powerful, and scaled up to multiple files</li>
+<li>Great for solo or collaborative work</li>
+</ul>
+</section>
+<section id="github" class="level3">
+<h3 class="anchored" data-anchor-id="github">GitHub</h3>
+<p><em>GitHub</em> is a hosting service on internet for git-aware folders and projects</p>
+<ul>
+<li>Similar to the DropBox or Google, but more structured, powerful, and programmatic</li>
+<li>Great for solo or collaborative work!</li>
+<li>Technically <em>GitHub</em> is distinct from <em>Git</em>. However, <em>GitHub</em> is in some sense the interface and <em>Git</em> the underlying engine (a bit like <em>RStudio</em> and <em>R</em>).</li>
+</ul>
+<p>Since we will only be using <em>Git</em> through <em>GitHub</em>, I tend to not distinguish between the two. In the following, I refer to all of it as just <em>GitHub</em>. Note that other interfaces to <em>Git</em> exist, e.g., <em>Bitbucket</em>, but <em>GitHub</em> is the most widely used one.</p>
+</section>
+<section id="why-use-gitgithub" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-gitgithub">Why use git/GitHub?</h3>
+<p>You want to use <em>GitHub</em> to avoid this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/images/phdversioncontrol.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">How not to use GitHub [image from PhD Comics]</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<a href="http://phdcomics.com/comics/archive_print.php?comicid=1531">Source: PhD Comics</a>]</p>
+<p><em>GitHub</em> gives you a clean way to track your projects. It is also very well suited to collaborative work. Historically, version control was used for software development. However, it has become broader and is now used for many types of projects, including data science projects.</p>
+<p>To learn a bit more about Git/GitHub and why you might want to use it, <a href="https://peerj.com/preprints/3159/">read this article by Jenny Bryan</a>.</p>
+<p><strong>Note her explanation of what’s special with the <code>README.md</code> file on GitHub.</strong></p>
+</section>
+<section id="what-to-not-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-not-do">What to (not) do</h3>
+<p>GitHub is ideal if you have a project with a fair number of files, most of those files are text files (such as code, LaTeX, (R)markdown, etc.) and different people work on different parts of the project.</p>
+<p>GitHub is less useful if you have a lot of non-text files (e.g.&nbsp;Word or Powerpoint) and different team members might want to edit the same document at the same time. In that instance, a solution like Google Docs, Word+Dropbox, Word+Onedrive, etc. might be better.</p>
+</section>
+<section id="how-to-use-gitgithub" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-use-gitgithub">How to use Git/GitHub</h3>
+<p>Git and GitHub is fundamentally based on commands you type into the command line. Lots of online resources show you how to use the command line. This is the most powerful, and the way I almost always interact with git/GitHub. However, many folks find this the most confusing way to use git/GitHub. Alternatively, there are graphical interfaces.</p>
+<ul>
+<li><a href="https://desktop.github.com/">GitHub itself</a> provides a grapical interface with basic functionality.</li>
+<li>RStudio also has <a href="https://happygitwithr.com/rstudio-git-github.html">Git/GitHub integration</a>. Of course this only works for R project GitHub integration.</li>
+<li>There are also third party GitHub clients with many advanced features, most of which you won’t need initially, but might eventually.</li>
+</ul>
+<p><strong>Note</strong>: As student, you can (and should) upgrade to the Pro version of GitHub for free (i.e.&nbsp;access to unlimited private repositories is one benefit), see the <a href="https://education.github.com/pack">GitHub student developer pack</a> on how to do this.</p>
+</section>
+</section>
+<section id="getting-started" class="level1">
+<h1>Getting Started</h1>
+<p>One of my favorite resources for getting started with git/GitHub is the Happy Git with R from Jenny Bryan:</p>
+<ul>
+<li>https://happygitwithr.com</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/images/happygitwithr.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">A screenshot of the Happy Git with R online book from Jenny Bryan</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It truly is one of the <strong>best resources</strong> out there for getting started with git/GitHub, especially with the integration to RStudio. Therefore, at this point, I will encourage all of you to go read through the online book.</p>
+<p>Some of you may only need to skim it, others will need to spend some time reading through it. Either way, I will bet that you won’t regret the time investment.</p>
+</section>
+<section id="using-gitgithub-in-our-course" class="level1">
+<h1>Using git/GitHub in our course</h1>
+<p>In this course, you will use git/GitHub in the following ways:</p>
+<ol type="1">
+<li>Project 0 (optional) - You will create a website introducing yourself to folks in the course and deploy it on GitHub.</li>
+<li>Projects 1-3 - You will be asked to practice using git locally (on your compute environment) to track your changes over time and, if you wish (but highly suggested), you can practice pushing your project solutions to a private GitHub repository on your GitHub account (i.e.&nbsp;<code>git add</code>, <code>git commit</code>, <code>git push</code>, <code>git pull</code>, etc) .</li>
+</ol>
+<p>Learning these skills will be useful down the road if you ever work collaboratively on a project (i.e.&nbsp;writing code as a group). In this scenario, you will use the skills you have been practicing in your projects to work together as a team in a single GitHub repository.</p>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Questions:</strong></p>
+<ol type="1">
+<li><p>What is version control?</p></li>
+<li><p>What is the difference between git and GitHub?</p></li>
+<li><p>What are other version controls software/tools that are available besides git?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://rafalab.github.io/dsbook/git.html">git and GitHub in the <code>dsbook</code></a> by Rafael Irizarry</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 1</category>
+  <category>week 1</category>
+  <category>programming</category>
+  <category>version control</category>
+  <category>git</category>
+  <category>GitHub</category>
+  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</guid>
+  <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

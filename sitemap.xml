@@ -2,30 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/syllabus.html</loc>
-    <lastmod>2022-08-18T19:50:32.000Z</lastmod>
+    <lastmod>2022-08-19T02:17:05.756Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/index.html</loc>
-    <lastmod>2022-08-18T19:50:32.712Z</lastmod>
+    <lastmod>2022-08-19T02:17:06.444Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/resources.html</loc>
-    <lastmod>2022-08-18T19:50:33.068Z</lastmod>
+    <lastmod>2022-08-19T02:17:06.796Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/projects.html</loc>
-    <lastmod>2022-08-18T19:50:33.412Z</lastmod>
+    <lastmod>2022-08-19T02:17:07.148Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/projects/2022-08-30-project-0/index.html</loc>
+    <lastmod>2022-08-19T02:17:07.728Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</loc>
+    <lastmod>2022-08-19T02:17:08.588Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</loc>
-    <lastmod>2022-08-18T19:50:34.764Z</lastmod>
+    <lastmod>2022-08-19T02:17:09.892Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</loc>
+    <lastmod>2022-08-19T02:17:10.293Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/schedule.html</loc>
-    <lastmod>2022-08-18T19:50:35.132Z</lastmod>
+    <lastmod>2022-08-19T02:17:10.677Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/stephaniehicks/jhustatcomputing2022/lectures.html</loc>
-    <lastmod>2022-08-18T19:50:35.476Z</lastmod>
+    <lastmod>2022-08-19T02:17:11.053Z</lastmod>
   </url>
 </urlset>

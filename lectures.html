@@ -58,7 +58,7 @@ ul.task-list{list-style: none;}
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-lectures .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -71,7 +71,7 @@ ul.task-list{list-style: none;}
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-lectures'] = new List('listing-lectures', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -164,7 +164,7 @@ ul.task-list{list-style: none;}
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="course-admin">course-admin <span class="quarto-category-count">(1)</span></div><div class="category" data-category="module 1">module 1 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="week 1">week 1 <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="GitHub">GitHub <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RStudio">RStudio <span class="quarto-category-count">(1)</span></div><div class="category" data-category="course-admin">course-admin <span class="quarto-category-count">(1)</span></div><div class="category" data-category="git">git <span class="quarto-category-count">(1)</span></div><div class="category" data-category="module 1">module 1 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="programming">programming <span class="quarto-category-count">(2)</span></div><div class="category" data-category="version control">version control <span class="quarto-category-count">(1)</span></div><div class="category" data-category="week 1">week 1 <span class="quarto-category-count">(3)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -188,9 +188,60 @@ ul.task-list{list-style: none;}
 
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="quarto-listing quarto-listing-container-default" id="listing-lectures">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="course-admin,module 1,week 1" data-listing-date-sort="1661817600000" data-listing-file-modified-sort="1660852218931" data-listing-reading-time-sort="15.07">
+<div class="quarto-post image-right" data-index="0" data-categories="module 1,week 1,R,programming,RStudio" data-listing-date-sort="1661817600000" data-listing-file-modified-sort="1660875414376" data-listing-reading-time-sort="15.685">
+<div class="thumbnail">
+<a href="./posts/2022-08-30-introduction-to-r-and-rstudio/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-08-30-introduction-to-r-and-rstudio/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-08-30-introduction-to-r-and-rstudio/index.html">
+<h3 class="no-anchor listing-title">
+Introduction to R and RStudio!
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('module 1'); return false;">
+module 1
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('week 1'); return false;">
+week 1
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('programming'); return false;">
+programming
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RStudio'); return false;">
+RStudio
+</div>
+</div>
+<a href="./posts/2022-08-30-introduction-to-r-and-rstudio/index.html">
+<div class="listing-description">
+<p>Let’s dig into the R programming language and the RStudio integrated developer environment</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-08-30-introduction-to-r-and-rstudio/index.html">
+<div class="listing-date">
+Aug 30, 2022
+</div>
+<div class="listing-author">
+Stephanie Hicks
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="course-admin,module 1,week 1" data-listing-date-sort="1661817600000" data-listing-file-modified-sort="1660875414376" data-listing-reading-time-sort="15.07">
 <div class="thumbnail">
 <p><a href="./posts/welcome/index.html"> <img src="./videos/downloadRWindows.gif" class="thumnail-image"> </a></p>
 </div>
@@ -222,6 +273,60 @@ week 1
 </div>
 <div class="metadata">
 <a href="./posts/welcome/index.html">
+<div class="listing-date">
+Aug 30, 2022
+</div>
+<div class="listing-author">
+Stephanie Hicks
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="module 1,week 1,programming,version control,git,GitHub" data-listing-date-sort="1661817600000" data-listing-file-modified-sort="1660875414376" data-listing-reading-time-sort="4.57">
+<div class="thumbnail">
+<a href="./posts/2022-08-30-introduction-to-gitgithub/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-08-30-introduction-to-gitgithub/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-08-30-introduction-to-gitgithub/index.html">
+<h3 class="no-anchor listing-title">
+Introduction to git/GitHub
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('module 1'); return false;">
+module 1
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('week 1'); return false;">
+week 1
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('programming'); return false;">
+programming
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('version control'); return false;">
+version control
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('git'); return false;">
+git
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('GitHub'); return false;">
+GitHub
+</div>
+</div>
+<a href="./posts/2022-08-30-introduction-to-gitgithub/index.html">
+<div class="listing-description">
+<p>Version control is a game changer; or how I learned to love git/GitHub</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-08-30-introduction-to-gitgithub/index.html">
 <div class="listing-date">
 Aug 30, 2022
 </div>

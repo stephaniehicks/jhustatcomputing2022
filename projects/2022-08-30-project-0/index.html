@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stephanie Hicks">
+<meta name="dcterms.date" content="2022-08-30">
+<meta name="description" content="Information for Project 0 (entirely optional, but hopefully useful and fun!)">
+
+<title>Statistical Computing (BSPH 140.776) - Project 0 (optional)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Statistical Computing (BSPH 140.776)</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general-information" role="button" data-bs-toggle="dropdown" aria-expanded="false">General Information</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-general-information">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus.html">
+ <span class="dropdown-text">Syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../schedule.html">
+ <span class="dropdown-text">Schedule</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false">Course Materials</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
+        <li>
+    <a class="dropdown-item" href="../../lectures.html">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../resources.html">
+ <span class="dropdown-text">Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link" data-scroll-target="#part-1">Part 1</a>
+  <ul class="collapse">
+  <li><a href="#setting-up-your-computing-environment" id="toc-setting-up-your-computing-environment" class="nav-link" data-scroll-target="#setting-up-your-computing-environment">Setting up your computing environment</a></li>
+  </ul></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a>
+  <ul class="collapse">
+  <li><a href="#create-a-github-repo-for-your-website" id="toc-create-a-github-repo-for-your-website" class="nav-link" data-scroll-target="#create-a-github-repo-for-your-website">1. Create a GitHub repo for your website</a></li>
+  <li><a href="#build-a-website-using-r-markdown" id="toc-build-a-website-using-r-markdown" class="nav-link" data-scroll-target="#build-a-website-using-r-markdown">2. Build a website using R Markdown</a></li>
+  <li><a href="#include-a-readme.md-file" id="toc-include-a-readme.md-file" class="nav-link" data-scroll-target="#include-a-readme.md-file">3. Include a <code>README.md</code> file</a></li>
+  <li><a href="#deploy-your-website" id="toc-deploy-your-website" class="nav-link" data-scroll-target="#deploy-your-website">4. Deploy your website</a></li>
+  <li><a href="#share-your-website" id="toc-share-your-website" class="nav-link" data-scroll-target="#share-your-website">5. Share your website</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project 0 (optional)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">project 0</div>
+    <div class="quarto-category">projects</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Information for Project 0 (entirely optional, but hopefully useful and fun!)
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <a href="https://stephaniehicks.com">Stephanie Hicks</a> 
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Department of Biostatistics, Johns Hopkins
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 30, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="background" class="level1">
+<h1>Background</h1>
+<p><strong>Due date: Sept 8 at 1:29pm</strong></p>
+<p>Using the tools we learned in the first week (e.g.&nbsp;R, RStudio and Github). Let’s apply them in a small (but also comprehensive) exercise.</p>
+<ul>
+<li><p><strong>Please note this project is entirely optional</strong> (i.e.&nbsp;it will not be graded), but hopefully it will be helpful to you getting set up for the rest of the course (i.e.&nbsp;set up these tools on your computing environment) and give you an opportunity to introduce yourself to your classmates.</p></li>
+<li><p><strong>For anyone who completes it, you get a free hex sticker!</strong> If you aren’t familiar with the hex stickers, check out <a href="https://github.com/rstudio/hex-stickers">this link</a>. You can add them to your laptop for some character and swag (or <a href="https://twitter.com/ClaireMKBowen/status/1294336123414523904">turn them into magnets</a>). I have a ton of different ones from the tidyverse or <a href="https://pbs.twimg.com/profile_images/1236855715018559488/PuYAjTTD_400x400.jpg">RLadies Baltimore</a>. You can come pick one up from my office or I can mail it to you if you email me a mailing address after you submit the project.</p></li>
+<li><p><strong>For those of you who are new to GitHub/R/Rmarkdown</strong>: this project makes you do a lot of things that you might not be familiar with. I know that this might be time-consuming and also might feel a bit intimidating. It’s partly unavoidable and partly on purpose. You need to learn how to quickly get up to speed with all kinds of new tools that come your way. So practicing it is a good idea. You are welcome to draw on any sources for help that you want (online, classmates, instructor, etc.). I’m confident with a bit of trial and error you’ll get it to work.</p></li>
+</ul>
+</section>
+<section id="part-1" class="level1">
+<h1>Part 1</h1>
+<p>This part of the project is to ensure that you have successfully set up your computing environment. Please email (use the Subject line: <code>140.776 Setup</code>) the Course Instructor (Dr.&nbsp;Stephanie Hicks) at shicks19@jhu.edu the following information:</p>
+<section id="setting-up-your-computing-environment" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-your-computing-environment">Setting up your computing environment</h3>
+<ol type="1">
+<li><p>Your name, JHED ID (if applicable).</p></li>
+<li><p>The type of computer/operating system you are using (Windows, Mac, Unix/Linux, other)</p></li>
+<li><p>The version of R that you have installed on your computer. To do this, start up R and run the following in the R console and include the output in your email.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(R.version.string)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../videos/versionstring.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Printing the R version string</figcaption><p></p>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>The version of RStudio that you have installed on your computer. To do this start up RStudio and in the R console window, run the following and again include the output in your email:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">RStudio.Version</span>()<span class="sc">$</span>version)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li><p>If you have a GitHub username, please include this in your email. If you do not have a GitHub username, read https://happygitwithr.com, sign up for GitHub, and include your new username in your email to me.</p></li>
+<li><p>To make sure git is installed on your system, use the ‘Terminal’ (e.g.&nbsp;it’s next to the R Console within RStudio) (or whatever you use), run the following and include the output in your email:</p></li>
+</ol>
+<p>For example, this is mine:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>git version 2.32.1 (Apple Git-133)</code></pre>
+</div>
+</div>
+<p>If you have any trouble with any of the steps above, try to first post on the discussion board on CoursePlus. The TAs and I will be checking it frequently, but other students may also be helpful in their replies. You can also use other resources to get help (Google, R4DS, colleagues/friends/relatives with R/Markdown experience, etc.). Still, try to do as much as possible yourself. We will use all the bits you are learning here repeatedly during this course.</p>
+</section>
+</section>
+<section id="part-2" class="level1">
+<h1>Part 2</h1>
+<p>This part of the project is to help you introduce yourself (and your interests!) to others in this course. You will create a new GitHub repository and build a small website about yourself.</p>
+<section id="create-a-github-repo-for-your-website" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-github-repo-for-your-website">1. Create a GitHub repo for your website</h3>
+<p>Create a new GitHub repository titled <code>biostat776-intro-&lt;firstname&gt;-&lt;lastname&gt;</code> (where you replace <code>&lt;firstname&gt;</code> with your first name and <code>&lt;lastname&gt;</code> with your last name) in your own personal GitHub account (e.g.&nbsp;<code>https://github.com/&lt;yourgithubusername&gt;/biostat776-intro-&lt;firstname&gt;-&lt;lastname&gt;</code>).</p>
+<p>For example, you can find an example that I created for myself at</p>
+<ul>
+<li>github repo: <a href="https://github.com/stephaniehicks/biostat776-intro-stephanie-hicks" class="uri">https://github.com/stephaniehicks/biostat776-intro-stephanie-hicks</a></li>
+</ul>
+</section>
+<section id="build-a-website-using-r-markdown" class="level3">
+<h3 class="anchored" data-anchor-id="build-a-website-using-r-markdown">2. Build a website using R Markdown</h3>
+<p>Using one of the many ways we discussed in class (e.g.&nbsp;a <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">simple R Markdown website</a>, <a href="https://bookdown.org/yihui/blogdown/">blogdown</a>, <a href="https://rstudio.github.io/distill/website.html">distill</a>, etc), create a new project in RStudio with the appropriate files. For example, you might include the following information:</p>
+<ul>
+<li><p>Write a short summary introducing yourself. Structure the webpage with headings, subheadings, etc. Talk a bit about yourself, your background, training, research interests. Let me/us know what kind of statistics, programming, data analysis experience you already have. I am also curious to know what you most hope to learn in this course.</p></li>
+<li><p>Five fun facts about yourself</p></li>
+<li><p>A web page linking to something you think is really cool/interesting/inspiring/etc. You could also describe briefly what it is and why you like it.</p></li>
+</ul>
+<p>If you want, feel free to get creative and include other things. You can play with RMarkdown if you wish to, e.g., you can try to include some table or a video, etc.</p>
+</section>
+<section id="include-a-readme.md-file" class="level3">
+<h3 class="anchored" data-anchor-id="include-a-readme.md-file">3. Include a <code>README.md</code> file</h3>
+<p>Your project repository should include a <code>README.md</code> file (if it was not included already).</p>
+<p>Edit the repository <code>README.md</code> file. Typically it will only contain the name of your repository with a <code>#</code> sign in front. The <code>#</code> represents a level 1 heading in Markdown. Change the headline and call it “Introducing myself” (or something like that). Underneath write something like “This website contains a short introduction of <em>Your Name</em>.”</p>
+<p>Make sure the 2 files (README.md and especially <code>index.Rmd</code> / <code>index.html</code>) look the way you want. Make changes until everything works.</p>
+</section>
+<section id="deploy-your-website" class="level3">
+<h3 class="anchored" data-anchor-id="deploy-your-website">4. Deploy your website</h3>
+<p>Depending on how you want to deploy your website, the following may or may not be relevant to you. In general, you want to make sure you have initialized your project to use <code>git</code> (i.e.&nbsp;you can type <code>git init</code> to initialize the repository to use git. Add and commit your changes. Push your changes and deploy your website.</p>
+<p>Following steps 2-4, here is my example website:</p>
+<ul>
+<li>website: <a href="https://www.stephaniehicks.com/biostat776-intro-stephanie-hicks" class="uri">https://www.stephaniehicks.com/biostat776-intro-stephanie-hicks</a></li>
+</ul>
+</section>
+<section id="share-your-website" class="level3">
+<h3 class="anchored" data-anchor-id="share-your-website">5. Share your website</h3>
+<ul>
+<li>Go to the Discussion Board in CoursePlus and write a short post with a link (URL) to your website (and URL to the corresponding GitHub repository) that you created.</li>
+<li>As you read the introductions from other folks in the class, feel free to comment/reply using Discussion board.</li>
+</ul>
+<p>In class on Sept 8, I will show as many websites as I can from Courseplus!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

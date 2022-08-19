@@ -1,12 +1,16 @@
 [
   {
     "listing": "/projects.html",
-    "items": []
+    "items": [
+      "/projects/2022-08-30-project-0/index.html"
+    ]
   },
   {
     "listing": "/lectures.html",
     "items": [
-      "/posts/welcome/index.html"
+      "/posts/2022-08-30-introduction-to-r-and-rstudio/index.html",
+      "/posts/welcome/index.html",
+      "/posts/2022-08-30-introduction-to-gitgithub/index.html"
     ]
   }
 ]
