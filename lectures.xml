@@ -418,6 +418,12 @@ Tip
 </ul>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on RMarkdown</figcaption><p></p>
+</figure>
+</div>
 </section>
 <section id="knitr" class="level3">
 <h3 class="anchored" data-anchor-id="knitr">knitr</h3>
@@ -838,6 +844,7 @@ Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</
   <category>programming</category>
   <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</guid>
   <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Introduction to R and RStudio!</title>
@@ -932,16 +939,12 @@ Learning objectives
 </ul>
 <p>While we use R in this course, it is not the only option to analyze data. Maybe the most similar to R, and widely used, is Python, which is also free. There is also commercial software that can be used to analyze data (e.g., Matlab, Mathematica, Tableau, SAS, SPSS). Other more general programming languages are suitable for certain types of analyses as well (e.g., C, Fortran, Perl, Java, Julia).</p>
 <p>Depending on your future needs or jobs, you might have to learn one or several of those additional languages. The good news is that even though those languages are all different, they all share general ways of thinking and structuring code. So once you understand a specific concept (e.g., variables, loops, branching statements or functions), it applies to all those languages. Thus, learning a new programming language is much easier once you already know one. And R is a good one to get started with.</p>
-<p>With the skills gained in this course, hopefully you will find R a fun and useful programming langauge for your future projects.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
+<p>With the skills gained in this course, hopefully you will find R a fun and useful programming language for your future projects.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/r_first_then.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Artwork by Allison Horst on learning R</figcaption><p></p>
 </figure>
-</div>
-</div>
 </div>
 <p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
 </section>
@@ -1055,15 +1058,11 @@ Questions
 <li>On the lower right, the view for files, plots, packages, help, and viewer.</li>
 <li>On the upper right, the environment / history pane</li>
 </ul>
-<div class="cell">
-<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">A screenshot of the RStudio integrated developer environment (IDE) – aka the working environment.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">A screenshot of the RStudio integrated developer environment (IDE) – aka the working environment</figcaption><p></p>
 </figure>
-</div>
-</div>
 </div>
 <p>The R console is the bit where you can run your code. This is where the R code in your Rmarkdown document gets sent to run (we’ll learn about these files later).</p>
 <p>The file/plot/pkg viewer is a handy browser for your current files, like Finder, or File Explorer, plots are where your plots appear, you can view packages, see the help files. And the environment / history pane contains the list of things you have created, and the past commands that you have run.</p>
@@ -1247,6 +1246,7 @@ Tip
   <category>RStudio</category>
   <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</guid>
   <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Welcome!</title>
@@ -1332,7 +1332,8 @@ Tip
 </section>
 <section id="getting-set-up" class="level3">
 <h3 class="anchored" data-anchor-id="getting-set-up">Getting set up</h3>
-<p>You must install <a href="https://cran.r-project.org">R</a> and <a href="https://rstudio.com">RStudio</a> on your computing environment in order to complete this course. These are two <strong>different</strong> applications that must be installed separately before they can be used together:</p>
+<p>You must install <a href="https://cran.r-project.org">R</a> and <a href="https://rstudio.com">RStudio</a> on your computing environment in order to complete this course.</p>
+<p>These are two <strong>different</strong> applications that must be installed separately before they can be used together:</p>
 <ul>
 <li><p>R is the core underlying programming language and computing engine that we will be learning in this course</p></li>
 <li><p>RStudio is an interface into R that makes many aspects of using and programming R simpler</p></li>
@@ -1440,17 +1441,6 @@ Warning
 <li>Build basic data visualizations using R and the tidyverse</li>
 <li>Discuss best practices for coding and reproducible research, basics of data ethics, basics of working with special data types, and basics of storing data</li>
 </ol>
-<section id="course-staff" class="level2">
-<h2 class="anchored" data-anchor-id="course-staff">Course Staff</h2>
-<p>The course instructor this year is <a href="https://www.stephaniehicks.com">Stephanie Hicks</a> who is a Associate Professor in the <a href="https://publichealth.jhu.edu/departments/biostatistics">Department of Biostatistics</a> at the <a href="https://publichealth.jhu.edu">Johns Hopkins Bloomberg School of Public Health</a>, a faculty member of the <a href="http://jhudatascience.org">Johns Hopkins Data Science Lab</a>, and have affiliations with the <a href="https://malonecenter.jhu.edu">Malone Center for Engineering in Healthcare</a>, <a href="https://ccb.jhu.edu/people.php">Center for Computational Biology</a>, the <a href="https://www.hopkinsmedicine.org/institute-genetic-medicine/education-training/predoctoral-human-genetics">Department of Genetic Medicine</a>, and the <a href="http://www.jhu-bmb-phd.org/faculty/stephanie-hicks">Department of Biochemistry and Molecular Biology</a>.</p>
-<p>My research focuses on developing fast, scalable, statistical methodology and open-source software for genomics and biomedical data analysis for human health and disease. My research is <strong>problem-forward</strong>: I develop statistical methods and software that are motivated by concrete problems, often with real-world, noisy, messy data. I’m also interested in developing theory for how to incorporate <em>design thinking</em> (alongside <em>statistical thinking</em>) in practice of data analysis.</p>
-<p>If you want, you can find me on <a href="https://twitter.com/stephaniehicks">Twitter</a>. I’m also a co-host of the <a href="https://twitter.com/CorrespondAuth">The Corresponding Author</a> podcast, member of the <a href="https://genomebiology.biomedcentral.com/about/editorial-board">Editorial Board for <em>Genome Biology</em></a>, an Associate Editor for <a href="https://jasa-acs.github.io/repro-guide/">Reproducibility</a> at the <a href="https://www.tandfonline.com/toc/uasa20/current">Journal of the American Statistical Association</a>, and co-founder of <a href="https://www.meetup.com/rladies-baltimore/">R-Ladies Baltimore</a>.</p>
-<p>We also have a couple of amazing TAs this year:</p>
-<ul>
-<li>Phyllis Wei (<a href="ywei43@jhu.edu">ywei43@jhu.edu</a>). She is … TBA… .</li>
-<li>Joe Sartini (<a href="jsartin1@jhu.edu">jsartin1@jhu.edu</a>). He is … TBA …</li>
-</ul>
-</section>
 </section>
 <section id="course-logistics" class="level1">
 <h1>Course logistics</h1>
@@ -1485,6 +1475,17 @@ Important
 <p>If you are registered for the course, you should have access to Courseplus now. Once you have access you will also be able to find the course Zoom links. Zoom links for office hours will also be posted on Courseplus.</p>
 </div>
 </div>
+<section id="course-staff" class="level3">
+<h3 class="anchored" data-anchor-id="course-staff">Course Staff</h3>
+<p>The course instructor this year is <a href="https://www.stephaniehicks.com">Stephanie Hicks</a> who is a Associate Professor in the <a href="https://publichealth.jhu.edu/departments/biostatistics">Department of Biostatistics</a> at the <a href="https://publichealth.jhu.edu">Johns Hopkins Bloomberg School of Public Health</a>, a faculty member of the <a href="http://jhudatascience.org">Johns Hopkins Data Science Lab</a>, and have affiliations with the <a href="https://malonecenter.jhu.edu">Malone Center for Engineering in Healthcare</a>, <a href="https://ccb.jhu.edu/people.php">Center for Computational Biology</a>, the <a href="https://www.hopkinsmedicine.org/institute-genetic-medicine/education-training/predoctoral-human-genetics">Department of Genetic Medicine</a>, and the <a href="http://www.jhu-bmb-phd.org/faculty/stephanie-hicks">Department of Biochemistry and Molecular Biology</a>.</p>
+<p>My research focuses on developing fast, scalable, statistical methodology and open-source software for genomics and biomedical data analysis for human health and disease. My research is <strong>problem-forward</strong>: I develop statistical methods and software that are motivated by concrete problems, often with real-world, noisy, messy data. I’m also interested in developing theory for how to incorporate <em>design thinking</em> (alongside <em>statistical thinking</em>) in practice of data analysis.</p>
+<p>If you want, you can find me on <a href="https://twitter.com/stephaniehicks">Twitter</a>. I’m also a co-host of the <a href="https://twitter.com/CorrespondAuth">The Corresponding Author</a> podcast, member of the <a href="https://genomebiology.biomedcentral.com/about/editorial-board">Editorial Board for <em>Genome Biology</em></a>, an Associate Editor for <a href="https://jasa-acs.github.io/repro-guide/">Reproducibility</a> at the <a href="https://www.tandfonline.com/toc/uasa20/current">Journal of the American Statistical Association</a>, and co-founder of <a href="https://www.meetup.com/rladies-baltimore/">R-Ladies Baltimore</a>.</p>
+<p>We also have a couple of amazing TAs this year:</p>
+<ul>
+<li>Phyllis Wei (<a href="ywei43@jhu.edu">ywei43@jhu.edu</a>). She is a second-year Ph.D.&nbsp;student in Biostatistics. She hopes to develop methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.</li>
+<li>Joe Sartini (<a href="jsartin1@jhu.edu">jsartin1@jhu.edu</a>). He is … TBA …</li>
+</ul>
+</section>
 <section id="assignment-due-dates" class="level3">
 <h3 class="anchored" data-anchor-id="assignment-due-dates">Assignment Due Dates</h3>
 <p>All course assignment due dates appear on the <strong>Schedule</strong> and <strong>Syllabus</strong>.</p>
@@ -1502,19 +1503,9 @@ Important
 </div>
 </div>
 </div>
-<p>While there are many positive things that have happened in 2021 and 2022, for many folks, 2021 and 2022 has not been much of an improvement</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/jrVmnE9rGLNsf3n3nj/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
-<p></p><figcaption class="figure-caption">How 2021 felt and 2022 feels</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-<p>It is super tough to be dealing with the pandemic, an economic crisis, challenges with visas and travel and coordinating school online. As your instructor, I understand that this is not an ordinary year. I am <em>ultra</em> sympathetic to family challenges and life challenges. I have three small children (who may make cameos in lectures from time to time).</p>
-<p>My goal is to make as much of the class asynchronous as possible so you can work whenever you have time. My plan is to be as understanding as possible when it comes to grading, and any issues that come up with the course. Please don’t hesitate to reach out to me (or the TAs) if you are having issues and we will do our best to direct you to whatever resources we have/accommodate you however we can.</p>
+<p>For many, 2021 and 2022 have continued to be incredibly tough (e.g.&nbsp;coordinating school online, challenges with visas and travel, an economic crisis, ). As your instructor, I am <em>ultra</em> sympathetic to family challenges and life challenges (fwiw, I have three small children).</p>
+<p>While the <code>140.776.01</code> section will be held in person here in this room, it is strongly likely that one or more times I will send out a class email the night before (or maybe even the morning of) lecture to let you know that I need to move the class to zoom for the day. I apologize in advance, but I will do my best to give as much advance notice as I can.</p>
+<p>With that in mind, my goal is to make as much of the class asynchronous as possible so you can work whenever you have time. My plan is to be as understanding as possible when it comes to grading, and any issues that come up with the course. Please don’t hesitate to reach out to me (or the TAs) if you are having issues and we will do our best to direct you to whatever resources we have/accommodate you however we can.</p>
 <p>I think the material in this course is important, fun, and this is an opportunity to learn a lot. But life is more important than a course and if there was ever a time that life might get in the way of learning, it’s likely now.</p>
 </section>
 <section id="grading" class="level3">
@@ -1835,6 +1826,7 @@ Tip
   <category>GitHub</category>
   <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</guid>
   <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/images/happygitwithr.png" medium="image" type="image/png" height="107" width="144"/>
 </item>
 </channel>
 </rss>
