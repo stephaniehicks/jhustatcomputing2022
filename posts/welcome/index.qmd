@@ -10,8 +10,6 @@ date: 2022-08-30
 categories: [course-admin, module 1, week 1]
 ---
 
-
-
 Welcome! I am very excited to have you in our one-term (i.e. half a semester) course on Statistical Computing course number (140.776) offered by the [Department of Biostatistics](https://publichealth.jhu.edu/departments/biostatistics) at the [Johns Hopkins Bloomberg School of Public Health](https://publichealth.jhu.edu).
 
 This course is designed for ScM and PhD students at Johns Hopkins Bloomberg School of Public Health. I am pretty flexible about permitting outside students, but I want everyone to be aware of the goals and assumptions so no one feels like they are surprised by how the class works.
@@ -64,7 +62,9 @@ Some resources that may be useful if you feel you may be missing pieces of this 
 
 ### Getting set up
 
-You must install [R](https://cran.r-project.org) and [RStudio](https://rstudio.com) on your computing environment in order to complete this course. These are two **different** applications that must be installed separately before they can be used together:
+You must install [R](https://cran.r-project.org) and [RStudio](https://rstudio.com) on your computing environment in order to complete this course. 
+
+These are two **different** applications that must be installed separately before they can be used together:
 
 -   R is the core underlying programming language and computing engine that we will be learning in this course
 
@@ -143,18 +143,6 @@ The goal is by the end of the class, students will be able to:
 4.  Build basic data visualizations using R and the tidyverse
 5.  Discuss best practices for coding and reproducible research, basics of data ethics, basics of working with special data types, and basics of storing data
 
-## Course Staff
-
-The course instructor this year is [Stephanie Hicks](https://www.stephaniehicks.com) who is a Associate Professor in the [Department of Biostatistics](https://publichealth.jhu.edu/departments/biostatistics) at the [Johns Hopkins Bloomberg School of Public Health](https://publichealth.jhu.edu), a faculty member of the [Johns Hopkins Data Science Lab](http://jhudatascience.org), and have affiliations with the [Malone Center for Engineering in Healthcare](https://malonecenter.jhu.edu), [Center for Computational Biology](https://ccb.jhu.edu/people.php), the [Department of Genetic Medicine](https://www.hopkinsmedicine.org/institute-genetic-medicine/education-training/predoctoral-human-genetics), and the [Department of Biochemistry and Molecular Biology](http://www.jhu-bmb-phd.org/faculty/stephanie-hicks).
-
-My research focuses on developing fast, scalable, statistical methodology and open-source software for genomics and biomedical data analysis for human health and disease. My research is **problem-forward**: I develop statistical methods and software that are motivated by concrete problems, often with real-world, noisy, messy data. I'm also interested in developing theory for how to incorporate *design thinking* (alongside *statistical thinking*) in practice of data analysis.
-
-If you want, you can find me on [Twitter](https://twitter.com/stephaniehicks). I'm also a co-host of the [The Corresponding Author](https://twitter.com/CorrespondAuth) podcast, member of the [Editorial Board for *Genome Biology*](https://genomebiology.biomedcentral.com/about/editorial-board), an Associate Editor for [Reproducibility](https://jasa-acs.github.io/repro-guide/) at the [Journal of the American Statistical Association](https://www.tandfonline.com/toc/uasa20/current), and co-founder of [R-Ladies Baltimore](https://www.meetup.com/rladies-baltimore/).
-
-We also have a couple of amazing TAs this year:
-
--   Phyllis Wei ([ywei43\@jhu.edu](ywei43@jhu.edu)). She is ... TBA... .
--   Joe Sartini ([jsartin1\@jhu.edu](jsartin1@jhu.edu)). He is ... TBA ...
 
 # Course logistics
 
@@ -181,6 +169,20 @@ The primary communication for the class will go through Courseplus That is where
 If you are registered for the course, you should have access to Courseplus now. Once you have access you will also be able to find the course Zoom links. Zoom links for office hours will also be posted on Courseplus.
 :::
 
+### Course Staff
+
+The course instructor this year is [Stephanie Hicks](https://www.stephaniehicks.com) who is a Associate Professor in the [Department of Biostatistics](https://publichealth.jhu.edu/departments/biostatistics) at the [Johns Hopkins Bloomberg School of Public Health](https://publichealth.jhu.edu), a faculty member of the [Johns Hopkins Data Science Lab](http://jhudatascience.org), and have affiliations with the [Malone Center for Engineering in Healthcare](https://malonecenter.jhu.edu), [Center for Computational Biology](https://ccb.jhu.edu/people.php), the [Department of Genetic Medicine](https://www.hopkinsmedicine.org/institute-genetic-medicine/education-training/predoctoral-human-genetics), and the [Department of Biochemistry and Molecular Biology](http://www.jhu-bmb-phd.org/faculty/stephanie-hicks).
+
+My research focuses on developing fast, scalable, statistical methodology and open-source software for genomics and biomedical data analysis for human health and disease. My research is **problem-forward**: I develop statistical methods and software that are motivated by concrete problems, often with real-world, noisy, messy data. I'm also interested in developing theory for how to incorporate *design thinking* (alongside *statistical thinking*) in practice of data analysis.
+
+If you want, you can find me on [Twitter](https://twitter.com/stephaniehicks). I'm also a co-host of the [The Corresponding Author](https://twitter.com/CorrespondAuth) podcast, member of the [Editorial Board for *Genome Biology*](https://genomebiology.biomedcentral.com/about/editorial-board), an Associate Editor for [Reproducibility](https://jasa-acs.github.io/repro-guide/) at the [Journal of the American Statistical Association](https://www.tandfonline.com/toc/uasa20/current), and co-founder of [R-Ladies Baltimore](https://www.meetup.com/rladies-baltimore/).
+
+We also have a couple of amazing TAs this year:
+
+-   Phyllis Wei ([ywei43\@jhu.edu](ywei43@jhu.edu)). She is a second-year Ph.D. student in Biostatistics. She hopes to develop methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.
+-   Joe Sartini ([jsartin1\@jhu.edu](jsartin1@jhu.edu)). He is ... TBA ...
+
+
 ### Assignment Due Dates
 
 All course assignment due dates appear on the **Schedule** and **Syllabus**.
@@ -197,19 +199,11 @@ This is how 2020 felt:
 knitr::include_graphics("https://media.giphy.com/media/XdIOEZTt6dL7zTYWIo/giphy.gif")
 ```
 
-While there are many positive things that have happened in 2021 and 2022, for many folks, 2021 and 2022 has not been much of an improvement
+For many, 2021 and 2022 have continued to be incredibly tough (e.g. coordinating school online, challenges with visas and travel, an economic crisis, ). As your instructor, I am *ultra* sympathetic to family challenges and life challenges (fwiw, I have three small children).
 
-```{r}
-#| echo: false
-#| fig-cap: 'How 2021 felt and 2022 feels'
-#| out-width: '80%'
-#| fig-align: 'center'
-knitr::include_graphics("https://media.giphy.com/media/jrVmnE9rGLNsf3n3nj/giphy.gif")
-```
+While the `140.776.01` section will be held in person here in this room, it is strongly likely that one or more times I will send out a class email the night before (or maybe even the morning of) lecture to let you know that I need to move the class to zoom for the day. I apologize in advance, but I will do my best to give as much advance notice as I can. 
 
-It is super tough to be dealing with the pandemic, an economic crisis, challenges with visas and travel and coordinating school online. As your instructor, I understand that this is not an ordinary year. I am *ultra* sympathetic to family challenges and life challenges. I have three small children (who may make cameos in lectures from time to time).
-
-My goal is to make as much of the class asynchronous as possible so you can work whenever you have time. My plan is to be as understanding as possible when it comes to grading, and any issues that come up with the course. Please don't hesitate to reach out to me (or the TAs) if you are having issues and we will do our best to direct you to whatever resources we have/accommodate you however we can.
+With that in mind, my goal is to make as much of the class asynchronous as possible so you can work whenever you have time. My plan is to be as understanding as possible when it comes to grading, and any issues that come up with the course. Please don't hesitate to reach out to me (or the TAs) if you are having issues and we will do our best to direct you to whatever resources we have/accommodate you however we can.
 
 I think the material in this course is important, fun, and this is an opportunity to learn a lot. But life is more important than a course and if there was ever a time that life might get in the way of learning, it's likely now.
 
@@ -312,5 +306,5 @@ Feel free to submit typos/errors/etc via the github repository associated with t
 #| fig-cap-location: "top"
 knitr::include_graphics("https://github.com/djnavarro/art/raw/master/static/gallery/unboxing/splash.png")
 ```
-['Unboxing' from Danielle Navarro <https://art.djnavarro.net>]
 
+\['Unboxing' from Danielle Navarro <https://art.djnavarro.net>\]

@@ -11,10 +11,9 @@ title: "Syllabus"
 
 ### How to register and participate
 
-- **To add the course to your 1st term registration**: You can sign up for either the in person (140.776.01) or online only (140.776.41) course.
-- All lectures will be recorded and posted on CoursePlus. You can watch all lecture material and complete the assignments asynchronously. 
-- Please course instructor if interested in auditing.
-
+-   **To add the course to your 1st term registration**: You can sign up for either the in person (140.776.01) or online only (140.776.41) course.
+-   All lectures will be recorded and posted on CoursePlus. You can watch all lecture material and complete the assignments asynchronously.
+-   Please course instructor if interested in auditing.
 
 ### Instructor
 
@@ -109,9 +108,7 @@ The faculty, staff and students of the Bloomberg School of Public Health and the
 
 ## Disability Support Service
 
-Students requiring accommodations for disabilities should register with [Student Disability Service (SDS)](https://publichealth.jhu.edu/about/inclusion-diversity-anti-racism-and-equity-idare/student-disability-services). It is the responsibility of the student to register for accommodations with SDS.  Accommodations take effect upon approval and apply to the remainder of the time for which a student is registered and enrolled at the Bloomberg School of Public Health.
-Once you are f a student in your class has approved accommodations you will receive formal notification and the student will be encouraged to reach out. If you have questions about requesting accommodations, please contact `BSPH.dss@jhu.edu`.
-
+Students requiring accommodations for disabilities should register with [Student Disability Service (SDS)](https://publichealth.jhu.edu/about/inclusion-diversity-anti-racism-and-equity-idare/student-disability-services). It is the responsibility of the student to register for accommodations with SDS. Accommodations take effect upon approval and apply to the remainder of the time for which a student is registered and enrolled at the Bloomberg School of Public Health. Once you are f a student in your class has approved accommodations you will receive formal notification and the student will be encouraged to reach out. If you have questions about requesting accommodations, please contact `BSPH.dss@jhu.edu`.
 
 ## Prerequisites
 
@@ -148,7 +145,7 @@ Go to [https://cran.r-project.org]() and
 
 3.  Click on "Download R 4.2.1 for Windows"
 
-:::{.callout-warning}
+::: callout-warning
 The version in the video is not the latest version. Please download the latest version.
 :::
 

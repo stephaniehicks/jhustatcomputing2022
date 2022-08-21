@@ -7,6 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Version control is a game changer; or how I learned to love git/GitHub"
 date: 2022-08-30
+image: "../../images/happygitwithr.png"
 categories: [module 1, week 1, programming, version control, git, GitHub]
 ---
 

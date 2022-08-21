@@ -7,6 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to literate statistical programming tools including R Markdown"
 date: 2022-09-01
+image: https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png
 categories: [module 1, week 1, R Markdown, programming]
 bibliography: my-refs.bib
 ---
@@ -142,6 +143,8 @@ Check out the R Markdown Quick Tour for more:
 
 :::
 
+
+![Artwork by Allison Horst on RMarkdown](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png){width="80%"}
 
 ### knitr
 

@@ -7,6 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Let's dig into the R programming language and the RStudio integrated developer environment"
 date: 2022-08-30
+image: https://github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png
 categories: [module 1, week 1, R, programming, RStudio]
 ---
 
@@ -74,16 +75,9 @@ While we use R in this course, it is not the only option to analyze data. Maybe 
 
 Depending on your future needs or jobs, you might have to learn one or several of those additional languages. The good news is that even though those languages are all different, they all share general ways of thinking and structuring code. So once you understand a specific concept (e.g., variables, loops, branching statements or functions), it applies to all those languages. Thus, learning a new programming language is much easier once you already know one. And R is a good one to get started with.
 
-With the skills gained in this course, hopefully you will find R a fun and useful programming langauge for your future projects.
+With the skills gained in this course, hopefully you will find R a fun and useful programming language for your future projects.
 
-```{r}
-#| label: rallisonhorst
-#| echo: false
-#| fig-cap: 'Artwork by Allison Horst on learning R'
-#| out-width: '80%'
-#| fig-align: 'center'
-knitr::include_graphics("https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/r_first_then.png")
-```
+![Artwork by Allison Horst on learning R](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/r_first_then.png){width="80%"}
 
 \[**Source**: [Artwork by Allison Horst](https://github.com/allisonhorst/stats-illustrations)\]
 
@@ -181,12 +175,8 @@ The RStudio layout has the following features:
 -   On the lower right, the view for files, plots, packages, help, and viewer.
 -   On the upper right, the environment / history pane
 
-```{r}
-#| label: rstudio-screenshot
-#| echo: false
-#| fig-cap: "A screenshot of the RStudio integrated developer environment (IDE) -- aka the working environment."
-knitr::include_graphics("https://github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png")
-```
+
+![A screenshot of the RStudio integrated developer environment (IDE) -- aka the working environment](https://github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png)
 
 The R console is the bit where you can run your code. This is where the R code in your Rmarkdown document gets sent to run (we'll learn about these files later).
 
