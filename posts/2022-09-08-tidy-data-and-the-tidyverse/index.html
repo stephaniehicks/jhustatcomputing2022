@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stephanie Hicks">
+<meta name="dcterms.date" content="2022-09-08">
+<meta name="description" content="Introduction to tidy data and how to convert between wide and long data with the tidyr R package">
+
+<title>Statistical Computing (BSPH 140.776) - Tidy data and the Tidyverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Statistical Computing (BSPH 140.776)</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general-information" role="button" data-bs-toggle="dropdown" aria-expanded="false">General Information</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-general-information">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus.html">
+ <span class="dropdown-text">Syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../schedule.html">
+ <span class="dropdown-text">Schedule</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false">Course Materials</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
+        <li>
+    <a class="dropdown-item" href="../../lectures.html">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../resources.html">
+ <span class="dropdown-text">Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Tidy data and the Tidyverse</h1>
+                  <div>
+        <div class="description">
+          Introduction to tidy data and how to convert between wide and long data with the tidyr R package
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">module 1</div>
+                <div class="quarto-category">week 2</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">programming</div>
+                <div class="quarto-category">tidyr</div>
+                <div class="quarto-category">here</div>
+                <div class="quarto-category">tidyverse</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <a href="https://stephaniehicks.com">Stephanie Hicks</a> 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Department of Biostatistics, Johns Hopkins
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 8, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pre-lecture-materials" id="toc-pre-lecture-materials" class="nav-link active" data-scroll-target="#pre-lecture-materials">Pre-lecture materials</a>
+  <ul class="collapse">
+  <li><a href="#read-ahead" id="toc-read-ahead" class="nav-link" data-scroll-target="#read-ahead">Read ahead</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data">Tidy data</a></li>
+  <li><a href="#the-tidyverse" id="toc-the-tidyverse" class="nav-link" data-scroll-target="#the-tidyverse">The “Tidyverse”</a>
+  <ul class="collapse">
+  <li><a href="#pivot_longer-and-pivot_wider" id="toc-pivot_longer-and-pivot_wider" class="nav-link" data-scroll-target="#pivot_longer-and-pivot_wider"><code>pivot_longer()</code> and <code>pivot_wider()</code></a></li>
+  <li><a href="#separate-and-unite" id="toc-separate-and-unite" class="nav-link" data-scroll-target="#separate-and-unite"><code>separate()</code> and <code>unite()</code></a></li>
+  </ul></li>
+  <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
+  <ul class="collapse">
+  <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
+  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<!-- Add interesting quote -->
+<blockquote class="blockquote">
+<p>“Happy families are all alike; every unhappy family is unhappy in its own way.” –– Leo Tolstoy</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Tidy datasets are all alike, but every messy dataset is messy in its own way.” –– Hadley Wickham</p>
+</blockquote>
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://www.jstatsoft.org/article/view/v059i10">Tidy Data</a> paper published in the Journal of Statistical Software</li>
+<li><a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a></li>
+<li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">tidyr cheat sheet from RStudio</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse.html</a></li>
+<li><a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Define tidy data</li>
+<li>Be able to transform non-tidy data into tidy data</li>
+<li>Be able to transform wide data into long data</li>
+<li>Be able to separate character columns into multiple columns</li>
+<li>Be able to unite multiple character columns into one column</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="tidy-data" class="level1">
+<h1>Tidy data</h1>
+<p>As we learned in the last lesson, one unifying concept of the tidyverse is the notion of <strong>tidy data</strong>. As defined by Hadley Wickham in his 2014 paper published in the <em>Journal of Statistical Software</em>, a <a href="https://www.jstatsoft.org/article/view/v059i10">tidy dataset</a> has the following properties:</p>
+<ol type="1">
+<li><p>Each variable forms a column.</p></li>
+<li><p>Each observation forms a row.</p></li>
+<li><p>Each type of observational unit forms a table.</p></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_1.jpg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on tidy data</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<p>The purpose of defining tidy data is to highlight the fact that <em>most data do not start out life as tidy</em>. In fact, much of the work of data analysis may involve simply making the data tidy (at least this has been our experience). Once a dataset is tidy, it can be used as input into a variety of other functions that may transform, model, or visualize the data.</p>
+<p>As a quick example, consider the following data illustrating religion and income survey data with the number of respondees with income range in column name. This is in a classic table format:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>relig_income</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 11
+   religion      `&lt;$10k` $10-2…¹ $20-3…² $30-4…³ $40-5…⁴ $50-7…⁵ $75-1…⁶ $100-…⁷
+   &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Agnostic           27      34      60      81      76     137     122     109
+ 2 Atheist            12      27      37      52      35      70      73      59
+ 3 Buddhist           27      21      30      34      33      58      62      39
+ 4 Catholic          418     617     732     670     638    1116     949     792
+ 5 Don’t know/r…      15      14      15      11      10      35      21      17
+ 6 Evangelical …     575     869    1064     982     881    1486     949     723
+ 7 Hindu               1       9       7       9      11      34      47      48
+ 8 Historically…     228     244     236     238     197     223     131      81
+ 9 Jehovah's Wi…      20      27      24      24      21      30      15      11
+10 Jewish             19      19      25      25      30      95      69      87
+11 Mainline Prot     289     495     619     655     651    1107     939     753
+12 Mormon             29      40      48      51      56     112      85      49
+13 Muslim              6       7       9      10       9      23      16       8
+14 Orthodox           13      17      23      32      32      47      38      42
+15 Other Christ…       9       7      11      13      13      14      18      14
+16 Other Faiths       20      33      40      46      49      63      46      40
+17 Other World …       5       2       3       4       2       7       3       4
+18 Unaffiliated      217     299     374     365     341     528     407     321
+# … with 2 more variables: `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;, and
+#   abbreviated variable names ¹​`$10-20k`, ²​`$20-30k`, ³​`$30-40k`, ⁴​`$40-50k`,
+#   ⁵​`$50-75k`, ⁶​`$75-100k`, ⁷​`$100-150k`</code></pre>
+</div>
+</div>
+<p>While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy. This format violates the tidy form because there are variables in the columns. In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table.</p>
+<p>Converting this data to tidy format would give us</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>relig_income <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>religion, <span class="at">names_to =</span> <span class="st">"income"</span>, <span class="at">values_to =</span> <span class="st">"respondents"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">religion =</span> <span class="fu">factor</span>(religion), <span class="at">income =</span> <span class="fu">factor</span>(income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 180 × 3
+   religion income             respondents
+   &lt;fct&gt;    &lt;fct&gt;                    &lt;dbl&gt;
+ 1 Agnostic &lt;$10k                       27
+ 2 Agnostic $10-20k                     34
+ 3 Agnostic $20-30k                     60
+ 4 Agnostic $30-40k                     81
+ 5 Agnostic $40-50k                     76
+ 6 Agnostic $50-75k                    137
+ 7 Agnostic $75-100k                   122
+ 8 Agnostic $100-150k                  109
+ 9 Agnostic &gt;150k                       84
+10 Agnostic Don't know/refused          96
+# … with 170 more rows</code></pre>
+</div>
+</div>
+<p>Some of these functions you have seen before, others might be new to you. Let’s talk about each one in the context of the Tidyverse package.</p>
+</section>
+<section id="the-tidyverse" class="level1">
+<h1>The “Tidyverse”</h1>
+<p>There are a number of R packages that take advantage of the tidy data form and can be used to do interesting things with data. Many (but not all) of these packages are written by Hadley Wickham and the collection of packages is sometimes referred to as the “tidyverse” because of their dependence on and presumption of tidy data. “Tidyverse” packages include:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>: a plotting system based on the grammar of graphics</p></li>
+<li><p><a href="https://cran.r-project.org/package=magrittr%22">magrittr</a>: defines the <code>%&gt;%</code> operator for chaining functions together in a series of operations on data</p></li>
+<li><p><a href="https://cran.r-project.org/package=dplyr">dplyr</a>: a suite of (fast) functions for working with data frames</p></li>
+<li><p><a href="https://cran.r-project.org/package=tidyr">tidyr</a>: easily tidy data with <code>pivot_wider()</code> and <code>pivot_longer()</code> functions (also <code>separate()</code> and <code>unite()</code>)</p></li>
+</ul>
+<p>We will be using these packages quite a bit this week.</p>
+<p>The “tidyverse” package can be used to install all of the packages in the tidyverse at once. For example, instead of starting an R script with this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can start with this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the code above, let’s talk about what we did using the <code>pivot_longer()</code> function. We will also talk about <code>pivot_wider()</code>.</p>
+<section id="pivot_longer-and-pivot_wider" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_longer-and-pivot_wider"><code>pivot_longer()</code> and <code>pivot_wider()</code></h3>
+<p>The <code>tidyr</code> package includes functions to transfer a data frame between <em>long</em> and <em>wide</em>.</p>
+<ul>
+<li><strong>Wide format</strong> data tends to have different attributes or variables describing an observation placed in separate columns.</li>
+<li><strong>Long format</strong> data tends to have different attributes encoded as levels of a single variable, followed by another column that contains tha values of the observation at those different levels.</li>
+</ul>
+<p>In the section above, we showed an example that used <code>pivot_longer()</code> to convert data into a tidy format.</p>
+<p>The key problem with the tidyness of the data is that the income variables are not in their own columns, but rather are embedded in the structure of the columns.</p>
+<p>To fix this, you can use the <code>pivot_longer()</code> function to gather values spread across several columns into a single column, with the column names gathered into an <code>income</code> column. When gathering, exclude any columns that you do not want “gathered” (<code>religion</code> in this case) by including the column names with a the minus sign in the <code>pivot_longer()</code> function. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gather everything EXCEPT religion to tidy data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>relig_income <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>religion, <span class="at">names_to =</span> <span class="st">"income"</span>, <span class="at">values_to =</span> <span class="st">"respondents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 180 × 3
+   religion income             respondents
+   &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
+ 1 Agnostic &lt;$10k                       27
+ 2 Agnostic $10-20k                     34
+ 3 Agnostic $20-30k                     60
+ 4 Agnostic $30-40k                     81
+ 5 Agnostic $40-50k                     76
+ 6 Agnostic $50-75k                    137
+ 7 Agnostic $75-100k                   122
+ 8 Agnostic $100-150k                  109
+ 9 Agnostic &gt;150k                       84
+10 Agnostic Don't know/refused          96
+# … with 170 more rows</code></pre>
+</div>
+</div>
+<p>Even if your data is in a tidy format, <code>pivot_longer()</code> is occasionally useful for pulling data together to take advantage of faceting, or plotting separate plots based on a grouping variable. We will talk more about that in a future lecture.</p>
+<p>The <code>pivot_wider()</code> function is less commonly needed to tidy data. It can, however, be useful for creating summary tables. For example, you use the <code>summarize()</code> function in <code>dplyr</code> to summarize the total number of respondents per income category.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>relig_income <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>religion, <span class="at">names_to =</span> <span class="st">"income"</span>, <span class="at">values_to =</span> <span class="st">"respondents"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">religion =</span> <span class="fu">factor</span>(religion), <span class="at">income =</span> <span class="fu">factor</span>(income)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(income) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_respondents =</span> <span class="fu">sum</span>(respondents)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"income"</span>, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">"total_respondents"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">&lt;$10k</th>
+<th style="text-align: right;">&gt;150k</th>
+<th style="text-align: right;">$10-20k</th>
+<th style="text-align: right;">$100-150k</th>
+<th style="text-align: right;">$20-30k</th>
+<th style="text-align: right;">$30-40k</th>
+<th style="text-align: right;">$40-50k</th>
+<th style="text-align: right;">$50-75k</th>
+<th style="text-align: right;">$75-100k</th>
+<th style="text-align: right;">Don’t know/refused</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1930</td>
+<td style="text-align: right;">2608</td>
+<td style="text-align: right;">2781</td>
+<td style="text-align: right;">3197</td>
+<td style="text-align: right;">3357</td>
+<td style="text-align: right;">3302</td>
+<td style="text-align: right;">3085</td>
+<td style="text-align: right;">5185</td>
+<td style="text-align: right;">3990</td>
+<td style="text-align: right;">6121</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Notice in this example how <code>pivot_wider()</code> has been used at the very end of the code sequence to convert the summarized data into a shape that offers a better tabular presentation for a report. In the <code>pivot_wider()</code> call, you first specify the name of the column to use for the new column names (<code>income</code> in this example) and then specify the column to use for the cell values (<code>total_respondents</code> here).</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try another dataset. This data contain an excerpt of the <a href="https://cran.r-project.org/web/packages/gapminder/README.html#gapminder">Gapminder data</a> on life expectancy, GDP per capita, and population by country.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows</code></pre>
+</div>
+</div>
+<p>If we wanted to make <code>lifeExp</code>, <code>pop</code> and <code>gdpPercap</code> (all measurements that we observe) go from a wide table into a long table, what would we do?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>One more! Try using <code>pivot_longer()</code> to convert the the following data that contains made-up revenues for three companies by quarter for years 2006 to 2009.</p>
+<p>Afterward, use <code>group_by()</code> and <code>summarize()</code> to calculate the average revenue for each company across all years and all quarters.</p>
+<p><strong>Bonus</strong>: Calculate a mean revenue for each company AND each year (averaged across all 4 quarters).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"company"</span> <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">each=</span><span class="dv">4</span>), </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"year"</span>  <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">2006</span><span class="sc">:</span><span class="dv">2009</span>, <span class="dv">3</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q1"</span>    <span class="ot">=</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q2"</span>    <span class="ot">=</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q3"</span>    <span class="ot">=</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q4"</span>    <span class="ot">=</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 6
+   company  year    Q1    Q2    Q3    Q4
+     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1       1  2006    63    48    36    66
+ 2       1  2007    71    55    63    43
+ 3       1  2008    39    33    24    72
+ 4       1  2009    64     9    55     5
+ 5       2  2006    99    40    85    29
+ 6       2  2007    22    96    41    54
+ 7       2  2008    78    63     6    84
+ 8       2  2009    77    80    73    75
+ 9       3  2006    17    15    59     9
+10       3  2007    34    17    13   100
+11       3  2008    16    65    86    86
+12       3  2009    37    23    12    48</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="separate-and-unite" class="level3">
+<h3 class="anchored" data-anchor-id="separate-and-unite"><code>separate()</code> and <code>unite()</code></h3>
+<p>The same <code>tidyr</code> package also contains two useful functions:</p>
+<ul>
+<li><code>unite()</code>: combine contents of two or more columns into a single column</li>
+<li><code>separate()</code>: separate contents of a column into two or more columns</li>
+</ul>
+<p>First, we combine the first three columns into one new column using <code>unite()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, country<span class="sc">:</span>year, <span class="at">sep=</span><span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 4
+   country_continent_year lifeExp      pop gdpPercap
+   &lt;chr&gt;                    &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan_Asia_1952     28.8  8425333      779.
+ 2 Afghanistan_Asia_1957     30.3  9240934      821.
+ 3 Afghanistan_Asia_1962     32.0 10267083      853.
+ 4 Afghanistan_Asia_1967     34.0 11537966      836.
+ 5 Afghanistan_Asia_1972     36.1 13079460      740.
+ 6 Afghanistan_Asia_1977     38.4 14880372      786.
+ 7 Afghanistan_Asia_1982     39.9 12881816      978.
+ 8 Afghanistan_Asia_1987     40.8 13867957      852.
+ 9 Afghanistan_Asia_1992     41.7 16317921      649.
+10 Afghanistan_Asia_1997     41.8 22227415      635.
+# … with 1,694 more rows</code></pre>
+</div>
+</div>
+<p>Next, we show how to separate the columns into three separate columns using <code>separate()</code> using the <code>col</code>, <code>into</code> and <code>sep</code> arguments.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, country<span class="sc">:</span>year, <span class="at">sep=</span><span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"year"</span>), <span class="at">sep=</span><span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent year  lifeExp      pop gdpPercap
+   &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia      1952     28.8  8425333      779.
+ 2 Afghanistan Asia      1957     30.3  9240934      821.
+ 3 Afghanistan Asia      1962     32.0 10267083      853.
+ 4 Afghanistan Asia      1967     34.0 11537966      836.
+ 5 Afghanistan Asia      1972     36.1 13079460      740.
+ 6 Afghanistan Asia      1977     38.4 14880372      786.
+ 7 Afghanistan Asia      1982     39.9 12881816      978.
+ 8 Afghanistan Asia      1987     40.8 13867957      852.
+ 9 Afghanistan Asia      1992     41.7 16317921      649.
+10 Afghanistan Asia      1997     41.8 22227415      635.
+# … with 1,694 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Using prose, describe how the variables and observations are organised in a tidy dataset versus an non-tidy dataset.</p></li>
+<li><p>What do the extra and fill arguments do in <code>separate()</code>? Experiment with the various options for the following two toy datasets.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"a,b,c"</span>, <span class="st">"d,e,f,g"</span>, <span class="st">"h,i,j"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(x, <span class="fu">c</span>(<span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"a,b,c"</span>, <span class="st">"d,e"</span>, <span class="st">"f,g,i"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(x, <span class="fu">c</span>(<span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li><p>Both <code>unite()</code> and <code>separate()</code> have a remove argument. What does it do? Why would you set it to FALSE?</p></li>
+<li><p>Compare and contrast <code>separate()</code> and <code>extract()</code>. Why are there three variations of separation (by position, by separator, and with groups), but only one <code>unite()</code>?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://www.jstatsoft.org/article/view/v059i10">Tidy Data</a> paper published in the Journal of Statistical Software</li>
+<li>https://r4ds.had.co.nz/tidy-data.html</li>
+<li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">tidyr cheat sheet from RStudio</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="rtistry" class="level2">
+<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
+<div class="cell fig-cap-location-top">
+
+</div>
+<p>[Add here.]</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

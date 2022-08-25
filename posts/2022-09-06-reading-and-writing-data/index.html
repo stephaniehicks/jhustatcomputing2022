@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stephanie Hicks">
+<meta name="dcterms.date" content="2022-09-06">
+<meta name="description" content="How to get data in and out of R using relative paths">
+
+<title>Statistical Computing (BSPH 140.776) - Reading and Writing data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Statistical Computing (BSPH 140.776)</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general-information" role="button" data-bs-toggle="dropdown" aria-expanded="false">General Information</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-general-information">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus.html">
+ <span class="dropdown-text">Syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../schedule.html">
+ <span class="dropdown-text">Schedule</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false">Course Materials</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
+        <li>
+    <a class="dropdown-item" href="../../lectures.html">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../resources.html">
+ <span class="dropdown-text">Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Reading and Writing data</h1>
+                  <div>
+        <div class="description">
+          How to get data in and out of R using relative paths
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">module 1</div>
+                <div class="quarto-category">week 2</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">programming</div>
+                <div class="quarto-category">readr</div>
+                <div class="quarto-category">here</div>
+                <div class="quarto-category">tidyverse</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <a href="https://stephaniehicks.com">Stephanie Hicks</a> 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Department of Biostatistics, Johns Hopkins
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 6, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pre-lecture-materials" id="toc-pre-lecture-materials" class="nav-link active" data-scroll-target="#pre-lecture-materials">Pre-lecture materials</a>
+  <ul class="collapse">
+  <li><a href="#read-ahead" id="toc-read-ahead" class="nav-link" data-scroll-target="#read-ahead">Read ahead</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#relative-versus-absolute-paths" id="toc-relative-versus-absolute-paths" class="nav-link" data-scroll-target="#relative-versus-absolute-paths">Relative versus absolute paths</a>
+  <ul class="collapse">
+  <li><a href="#the-here-package" id="toc-the-here-package" class="nav-link" data-scroll-target="#the-here-package">The <code>here</code> package</a></li>
+  <li><a href="#finding-and-creating-files-locally" id="toc-finding-and-creating-files-locally" class="nav-link" data-scroll-target="#finding-and-creating-files-locally">Finding and creating files locally</a></li>
+  </ul></li>
+  <li><a href="#reading-data-in-base-r" id="toc-reading-data-in-base-r" class="nav-link" data-scroll-target="#reading-data-in-base-r">Reading data in base R</a>
+  <ul class="collapse">
+  <li><a href="#txt-or-csv" id="toc-txt-or-csv" class="nav-link" data-scroll-target="#txt-or-csv">txt or csv</a></li>
+  <li><a href="#r-code" id="toc-r-code" class="nav-link" data-scroll-target="#r-code">R code</a></li>
+  <li><a href="#r-objects" id="toc-r-objects" class="nav-link" data-scroll-target="#r-objects">R objects</a></li>
+  </ul></li>
+  <li><a href="#reading-data-files-with-read.table" id="toc-reading-data-files-with-read.table" class="nav-link" data-scroll-target="#reading-data-files-with-read.table">Reading data files with <code>read.table()</code></a></li>
+  <li><a href="#reading-in-larger-datasets-with-read.table" id="toc-reading-in-larger-datasets-with-read.table" class="nav-link" data-scroll-target="#reading-in-larger-datasets-with-read.table">Reading in larger datasets with <code>read.table()</code></a></li>
+  <li><a href="#calculating-memory-requirements-for-r-objects" id="toc-calculating-memory-requirements-for-r-objects" class="nav-link" data-scroll-target="#calculating-memory-requirements-for-r-objects">Calculating Memory Requirements for R Objects</a></li>
+  <li><a href="#using-the-readr-package" id="toc-using-the-readr-package" class="nav-link" data-scroll-target="#using-the-readr-package">Using the <code>readr</code> package</a></li>
+  <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
+  <ul class="collapse">
+  <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
+  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+
+</div>
+<!-- Add interesting quote -->
+<blockquote class="blockquote">
+<p>“When writing code, you’re always collaborating with future-you; and past-you doesn’t respond to emails”. —<em>Hadley Wickham</em></p>
+</blockquote>
+<p>[<a href="https://fivebooks.com/best-books/computer-science-data-science-hadley-wickham/">Source</a>]</p>
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/get-data.html" class="uri">https://jhudatascience.org/tidyversecourse/get-data.html</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html</a></li>
+<li><a href="https://r4ds.had.co.nz/data-import.html" class="uri">https://r4ds.had.co.nz/data-import.html</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Know difference between relative vs absolute paths</li>
+<li>Be able to read and write text / csv files in R</li>
+<li>Be able to read and write R data objects in R</li>
+<li>Be able to calculate memory requirements for R objects</li>
+<li>Use modern R packages for reading and writing data</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This lesson introduces ways to read and write data (e.g.&nbsp;<code>.txt</code> and <code>.csv</code> files) using base R functions as well as more modern R packages, such as <code>readr</code>, which is typically <a href="https://r4ds.had.co.nz/data-import.html#compared-to-base-r">10x faster than base R</a>.</p>
+<p>We will also briefly describe different ways for reading and writing other data types such as, Excel files, google spreadsheets, or SQL databases.</p>
+</section>
+<section id="relative-versus-absolute-paths" class="level1">
+<h1>Relative versus absolute paths</h1>
+<p>When you are starting a data analysis, you have already learned about the use of <code>.Rproj</code> files. When you open up a <code>.Rproj</code> file, RStudio changes the path (location on your computer) to the <code>.Rproj</code> location.</p>
+<p>After opening up a <code>.Rproj</code> file, you can test this by</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you open up someone else’s R code or analysis, you might also see the</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>function being used which explicitly tells R to change the absolute path or absolute location of which directory to move into.</p>
+<p>For example, say I want to clone a GitHub repo from Roger, which has 100 R script files, and in every one of those files at the top is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:\Users\Roger\path\only</span><span class="sc">\t</span><span class="st">hat\Roger\has"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The problem is, if I want to use his code, I will need to go and hand-edit every single one of those paths (<code>C:\Users\Roger\path\only\that\Roger\has</code>) to the path that I want to use on my computer or wherever I saved the folder on my computer (e.g.&nbsp; <code>/Users/Stephanie/Documents/path/only/I/have</code>).</p>
+<ol type="1">
+<li>This is an unsustainable practice.</li>
+<li>I can go in and manually edit the path, but this assumes I know how to set a working directory. Not everyone does.</li>
+</ol>
+<p>So instead of absolute paths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/jtleek/data"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop/files/data"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">Michelle</span><span class="sc">\\</span><span class="st">Downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A better idea is to use relative paths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"../data"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"../files"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"..</span><span class="sc">\t</span><span class="st">mp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Within R, an even better idea is to use the <a href="https://github.com/r-lib/here">here</a> R package will recognize the top-level directory of a Git repo and supports building all paths relative to that. For more on project-oriented workflow suggestions, read <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">this post</a> from Jenny Bryan.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/cracked_setwd.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on setwd() function</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<section id="the-here-package" class="level3">
+<h3 class="anchored" data-anchor-id="the-here-package">The <code>here</code> package</h3>
+<p>In her post, Jenny Bryan writes</p>
+<blockquote class="blockquote">
+<p>“I suggest organizing each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.”</p>
+</blockquote>
+<p>Instead of using <code>setwd()</code> at the top your <code>.R</code> or <code>.Rmd</code> file, she suggests:</p>
+<ul>
+<li>Organize each logical project into a folder on your computer.</li>
+<li>Make sure the top-level folder advertises itself as such. This can be as simple as having an empty file named <code>.here</code>. Or, if you use RStudio and/or Git, those both leave characteristic files behind that will get the job done.</li>
+<li>Use the <code>here()</code> function from the <code>here</code> package to build the path when you read or write a file. Create paths relative to the top-level directory.</li>
+<li>Whenever you work on this project, launch the R process from the project’s top-level directory. If you launch R from the shell, <code>cd</code> to the correct folder first.</li>
+</ul>
+<p>Let’s test this out. We can use <code>getwd()</code> to see our current working directory path and the files available using <code>list.files()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "index.qmd"       "index.rmarkdown"</code></pre>
+</div>
+</div>
+<p>OK so our current location is in the reading and writing lectures sub-folder of the <code>jhustatcomputing2021</code> course repository. Let’s try using the <code>here</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(here<span class="sc">::</span><span class="fu">here</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "_freeze"                    "_post_template.qmd"        
+ [3] "_quarto.yml"                "_site"                     
+ [5] "data"                       "images"                    
+ [7] "index.qmd"                  "jhustatcomputing2022.Rproj"
+ [9] "lectures.qmd"               "posts"                     
+[11] "profile.jpg"                "projects"                  
+[13] "projects.qmd"               "resources.qmd"             
+[15] "schedule.qmd"               "scripts"                   
+[17] "styles.css"                 "syllabus.qmd"              
+[19] "videos"                    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">here</span>(<span class="st">"data"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2016-07-19.csv.bz2" "team_standings.csv"</code></pre>
+</div>
+</div>
+<p>Now we see that using the <code>here::here()</code> function is a <em>relative</em> path (relative to the <code>.Rproj</code> file in our <code>jhustatcomputing2021</code> repository. We also see there is are two <code>.csv</code> files in the <code>data</code> folder. We will learn how to read those files into R in the next section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/here.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on here package</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+</section>
+<section id="finding-and-creating-files-locally" class="level3">
+<h3 class="anchored" data-anchor-id="finding-and-creating-files-locally">Finding and creating files locally</h3>
+<p>One last thing. If you want to download a file, one way to use the <code>file.exists()</code>, <code>dir.create()</code> and <code>list.files()</code> functions.</p>
+<ul>
+<li><code>file.exists(here("my", "relative", "path"))</code>: logical test if the file exists</li>
+<li><code>dir.create(here("my", "relative", "path"))</code>: create a folder</li>
+<li><code>list.files(here("my", "relative", "path"))</code>: list contents of folder</li>
+<li><code>file.create(here("my", "relative", "path"))</code>: create a file</li>
+<li><code>file.remove(here("my", "relative", "path"))</code>: delete a file</li>
+</ul>
+<p>For example, I can put all this together by</p>
+<ol type="1">
+<li>Checking to see if a file exists in my path. If not, then</li>
+<li>Create a directory in that path.</li>
+<li>List the files in the path.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"my"</span>, <span class="st">"relative"</span>, <span class="st">"path"</span>))){</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">here</span>(<span class="st">"my"</span>, <span class="st">"relative"</span>, <span class="st">"path"</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">here</span>(<span class="st">"my"</span>, <span class="st">"relative"</span>, <span class="st">"path"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s put relative paths to use while reading and writing data.</p>
+</section>
+</section>
+<section id="reading-data-in-base-r" class="level1">
+<h1>Reading data in base R</h1>
+<p>In this section, we’re going to demonstrate the essential functions you need to know to read and write (or save) data in R.</p>
+<section id="txt-or-csv" class="level3">
+<h3 class="anchored" data-anchor-id="txt-or-csv">txt or csv</h3>
+<p>There are a few primary functions reading data from base R.</p>
+<ul>
+<li><code>read.table()</code>, <code>read.csv()</code>: for reading tabular data</li>
+<li><code>readLines()</code>: for reading lines of a text file</li>
+</ul>
+<p>There are analogous functions for writing data to files</p>
+<ul>
+<li><code>write.table()</code>: for writing tabular data to text files (i.e.&nbsp;CSV) or connections</li>
+<li><code>writeLines()</code>: for writing character data line-by-line to a file or connection</li>
+</ul>
+<p>Let’s try reading some data into R with the <code>read.csv()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"team_standings.csv"</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Standing         Team
+1         1        Spain
+2         2  Netherlands
+3         3      Germany
+4         4      Uruguay
+5         5    Argentina
+6         6       Brazil
+7         7        Ghana
+8         8     Paraguay
+9         9        Japan
+10       10        Chile
+11       11     Portugal
+12       12          USA
+13       13      England
+14       14       Mexico
+15       15  South Korea
+16       16     Slovakia
+17       17  Ivory Coast
+18       18     Slovenia
+19       19  Switzerland
+20       20 South Africa
+21       21    Australia
+22       22  New Zealand
+23       23       Serbia
+24       24      Denmark
+25       25       Greece
+26       26        Italy
+27       27      Nigeria
+28       28      Algeria
+29       29       France
+30       30     Honduras
+31       31     Cameroon
+32       32  North Korea</code></pre>
+</div>
+</div>
+<p>We can use the <code>$</code> symbol to pick out a specific column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Team</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Spain"        "Netherlands"  "Germany"      "Uruguay"      "Argentina"   
+ [6] "Brazil"       "Ghana"        "Paraguay"     "Japan"        "Chile"       
+[11] "Portugal"     "USA"          "England"      "Mexico"       "South Korea" 
+[16] "Slovakia"     "Ivory Coast"  "Slovenia"     "Switzerland"  "South Africa"
+[21] "Australia"    "New Zealand"  "Serbia"       "Denmark"      "Greece"      
+[26] "Italy"        "Nigeria"      "Algeria"      "France"       "Honduras"    
+[31] "Cameroon"     "North Korea" </code></pre>
+</div>
+</div>
+<p>We can also ask for the full paths for specific files</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"team_standings.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/data/team_standings.csv"</code></pre>
+</div>
+</div>
+<div class="questions">
+<p><strong>Questions</strong>:</p>
+<ul>
+<li>What happens when you use <code>readLines()</code> function with the <code>team_standings.csv</code> data?</li>
+<li>How would you only read in the first 5 lines?</li>
+</ul>
+</div>
+</section>
+<section id="r-code" class="level3">
+<h3 class="anchored" data-anchor-id="r-code">R code</h3>
+<p>Sometimes, someone will give you a file that ends in a <code>.R</code>. This is what’s called an R script file. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use. To use the function, you have to first, read in the function from R script file into R.</p>
+<p>You can check to see if the function already is loaded in R by looking at the Environment tab.</p>
+<p>The function you want to use is</p>
+<ul>
+<li><code>source()</code>: for reading in R code files</li>
+</ul>
+<p>For example, it might be something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'functions.R'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="r-objects" class="level3">
+<h3 class="anchored" data-anchor-id="r-objects">R objects</h3>
+<p>Alternatively, you might be interested in reading and writing R objects.</p>
+<p>Writing data in e.g.&nbsp;<code>.txt</code>, <code>.csv</code> or Excel file formats is good if you want to open these files with other analysis software, such as Excel. However, these formats do not preserve data structures, such as column data types (numeric, character or factor). In order to do that, the data should be written out in a R data format.</p>
+<p>There are several types R data file formats to be aware of:</p>
+<ul>
+<li><code>.RData</code>: Stores <strong>multiple</strong> R objects</li>
+<li><code>.Rda</code>: This is short for <code>.RData</code> and is equivalent.</li>
+<li><code>.Rds</code>: Stores a <strong>single</strong> R object</li>
+</ul>
+<div class="questions">
+<p><strong>Question: why is saving data in as a R object useful?</strong></p>
+<p>Saving data into R data formats can <strong>typically</strong> reduce considerably the size of large files by compression.</p>
+</div>
+<p>Next, we will learn how to save</p>
+<ol type="1">
+<li>A single R object</li>
+<li>Multiple R objects</li>
+<li>Your entire work space in a specified file</li>
+</ol>
+<p><strong>Reading in data from files</strong></p>
+<ul>
+<li><code>load()</code>: for reading in single or multiple R objects (opposite of <code>save()</code>) with a <code>.Rda</code> or <code>.RData</code> file format (objects must be same name)</li>
+<li><code>readRDS()</code>: for reading in a single object with a <code>.Rds</code> file format (can rename objects)</li>
+<li><code>unserialize()</code>: for reading single R objects in binary form</li>
+</ul>
+<p><strong>Writing data to files</strong></p>
+<ul>
+<li><code>save()</code>: for saving an arbitrary number of R objects in binary format (possibly compressed) to a file.</li>
+<li><code>saveRDS()</code>: for saving a single object</li>
+<li><code>serialize()</code>: for converting an R object into a binary format for outputting to a connection (or file).</li>
+<li><code>save.image()</code>: short for ’save my current workspace; while this <em>sounds</em> nice, it’s not terribly useful for reproducibility (hence not suggested); it’s also what happens when you try to quit R and it asks if you want to save your work space.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://www.sthda.com/sthda/RDoc/images/save-data-into-r-data-formats.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Save data into R data file formats: RDS and RDATA</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<a href="http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata">Source</a>]</p>
+<p>Let’s try an example. Let’s save a vector of length 5 into the two file formats.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x, <span class="at">file=</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rda"</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(x, <span class="at">file=</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rds"</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path=</span><span class="fu">here</span>(<span class="st">"data"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2016-07-19.csv.bz2" "team_standings.csv" "x.Rda"             
+[4] "x.Rds"             </code></pre>
+</div>
+</div>
+<p>Here we assign the imported data to an object using <code>readRDS()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>new_x1 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rds"</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>new_x1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<p>Here we assign the imported data to an object using <code>load()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>new_x2 <span class="ot">&lt;-</span> <span class="fu">load</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rda"</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>new_x2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x"</code></pre>
+</div>
+</div>
+<p><strong>NOTE: <code>load()</code> simply returns the name of the objects loaded. Not the values.</strong></p>
+<p>Let’s clean up our space.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="questions">
+<p>What do you think this code will do?</p>
+<p><strong>Hint</strong>: change <code>eval=TRUE</code> to see result</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x,y, <span class="at">file=</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rda"</span>))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>new_x2 <span class="ot">&lt;-</span> <span class="fu">load</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you are done:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Now, there are of course, many R packages that have been developed to read in all kinds of other datasets, and you may need to resort to one of these packages if you are working in a specific area.</p>
+<p>For example, check out</p>
+<ul>
+<li><a href="https://github.com/r-dbi/DBI"><code>DBI</code></a> for relational databases</li>
+<li><a href="https://haven.tidyverse.org"><code>haven</code></a> for SPSS, Stata, and SAS data</li>
+<li><a href="https://github.com/r-lib/httr"><code>httr</code></a> for web APIs</li>
+<li><a href="https://readxl.tidyverse.org"><code>readxl</code></a> for <code>.xls</code> and <code>.xlsx</code> sheets</li>
+<li><a href="https://googlesheets4.tidyverse.org"><code>googlesheets4</code></a> for Google Sheets</li>
+<li><a href="https://googledrive.tidyverse.org"><code>googledrive</code></a> for Google Drive files</li>
+<li><a href="https://github.com/tidyverse/rvest"><code>rvest</code></a> for web scraping</li>
+<li><a href="https://github.com/jeroen/jsonlite#jsonlite"><code>jsonlite</code></a> for JSON</li>
+<li><a href="https://github.com/r-lib/xml2"><code>xml2</code></a> for XML.</li>
+</ul>
+</section>
+</section>
+<section id="reading-data-files-with-read.table" class="level1">
+<h1>Reading data files with <code>read.table()</code></h1>
+<p>The <code>read.table()</code> function is one of the most commonly used functions for reading data. The help file for <code>read.table()</code> is worth reading in its entirety if only because the function gets used a lot (run <code>?read.table</code> in R). I know, I know, everyone always says to read the help file, but this one is actually worth reading.</p>
+<p>The <code>read.table()</code> function has a few important arguments:</p>
+<ul>
+<li><code>file</code>, the name of a file, or a connection</li>
+<li><code>header</code>, logical indicating if the file has a header line</li>
+<li><code>sep</code>, a string indicating how the columns are separated</li>
+<li><code>colClasses</code>, a character vector indicating the class of each column in the dataset</li>
+<li><code>nrows</code>, the number of rows in the dataset. By default <code>read.table()</code> reads an entire file.</li>
+<li><code>comment.char</code>, a character string indicating the comment character. This defalts to <code>"#"</code>. If there are no commented lines in your file, it’s worth setting this to be the empty string <code>""</code>.</li>
+<li><code>skip</code>, the number of lines to skip from the beginning</li>
+<li><code>stringsAsFactors</code>, should character variables be coded as factors? This defaults to <code>FALSE</code>. However, back in the “old days”, it defaulted to <code>TRUE</code>. The reason for this was because, if you had data that were stored as strings, it was because those strings represented levels of a categorical variable. Now, we have lots of data that is text data and they do not always represent categorical variables. So you may want to set this to be <code>FALSE</code> in those cases. If you <em>always</em> want this to be <code>FALSE</code>, you can set a global option via <code>options(stringsAsFactors = FALSE)</code>. I’ve never seen so much heat generated on discussion forums about an R function argument than the <code>stringsAsFactors</code> argument. Seriously.</li>
+</ul>
+<p>For small to moderately sized datasets, you can usually call <code>read.table()</code> without specifying any other arguments</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"foo.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Note</strong>: <code>foo.txt</code> is not a real dataset here. It is only used as an example for how to use <code>read.table()</code>.</p>
+<p>In this case, R will automatically:</p>
+<ul>
+<li>skip lines that begin with a #</li>
+<li>figure out how many rows there are (and how much memory needs to be allocated)</li>
+<li>figure what type of variable is in each column of the table.</li>
+</ul>
+<p>Telling R all these things directly makes R run faster and more efficiently. The <code>read.csv()</code> function is identical to <code>read.table()</code> except that some of the defaults are set differently (like the <code>sep</code> argument).</p>
+</section>
+<section id="reading-in-larger-datasets-with-read.table" class="level1">
+<h1>Reading in larger datasets with <code>read.table()</code></h1>
+<p>With much larger datasets, there are a few things that you can do that will make your life easier and will prevent R from choking.</p>
+<ul>
+<li>Read the help page for <code>read.table()</code>, which contains many hints</li>
+<li>Make a rough calculation of the memory required to store your dataset (see the next section for an example of how to do this). If the dataset is larger than the amount of RAM on your computer, you can probably stop right here.</li>
+<li>Set <code>comment.char = ""</code> if there are no commented lines in your file.</li>
+<li>Use the <code>colClasses</code> argument. Specifying this option instead of using the default can make <code>read.table()</code> run MUCH faster, often twice as fast. In order to use this option, you have to know the class of each column in your data frame. If all of the columns are “numeric”, for example, then you can just set <code>colClasses = "numeric"</code>. A quick an dirty way to figure out the classes of each column is the following:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>initial <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"datatable.txt"</span>, <span class="at">nrows =</span> <span class="dv">100</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">sapply</span>(initial, class)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>tabAll <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"datatable.txt"</span>, <span class="at">colClasses =</span> classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Note</strong>: <code>datatable.txt</code> is not a real dataset here. It is only used as an example for how to use <code>read.table()</code>.</p>
+<ul>
+<li>Set <code>nrows</code>. This does not make R run faster but it helps with memory usage. A mild overestimate is okay. You can use the Unix tool <code>wc</code> to calculate the number of lines in a file.</li>
+</ul>
+<p>In general, when using R with larger datasets, it’s also useful to know a few things about your system.</p>
+<ul>
+<li>How much memory is available on your system?</li>
+<li>What other applications are in use? Can you close any of them?</li>
+<li>Are there other users logged into the same system?</li>
+<li>What operating system ar you using? Some operating systems can limit the amount of memory a single process can access</li>
+</ul>
+</section>
+<section id="calculating-memory-requirements-for-r-objects" class="level1">
+<h1>Calculating Memory Requirements for R Objects</h1>
+<p>Because R stores all of its objects physical memory, it is important to be cognizant of how much memory is being used up by all of the data objects residing in your workspace. One situation where it is particularly important to understand memory requirements is when you are reading in a new dataset into R. Fortunately, it is easy to make a back of the envelope calculation of how much memory will be required by a new dataset.</p>
+<p>For example, suppose I have a data frame with 1,500,000 rows and 120 columns, all of which are numeric data. Roughly, how much memory is required to store this data frame?</p>
+<p>Well, on most modern computers <a href="http://en.wikipedia.org/wiki/Double-precision_floating-point_format">double precision floating point numbers</a> are stored using 64 bits of memory, or 8 bytes. Given that information, you can do the following calculation</p>
+<p>1,500,000 × 120 × 8 bytes/numeric = 1,440,000,000 bytes</p>
+<p>= 1,440,000,000 / 2<sup>20</sup> bytes/MB</p>
+<p>= 1,373.29 MB</p>
+<p>= 1.34 GB</p>
+<p>So the dataset would require about 1.34 GB of RAM. Most computers these days have at least that much RAM. However, you need to be aware of</p>
+<ul>
+<li>what other programs might be running on your computer, using up RAM</li>
+<li>what other R objects might already be taking up RAM in your workspace</li>
+</ul>
+<p>Reading in a large dataset for which you do not have enough RAM is one easy way to freeze up your computer (or at least your R session). This is usually an unpleasant experience that usually requires you to kill the R process, in the best case scenario, or reboot your computer, in the worst case. So make sure to do a rough calculation of memory requirements before reading in a large dataset. You’ll thank me later.</p>
+</section>
+<section id="using-the-readr-package" class="level1">
+<h1>Using the <code>readr</code> package</h1>
+<p>The <code>readr</code> package is recently developed by RStudio to deal with reading in large flat files quickly. The package provides replacements for functions like <code>read.table()</code> and <code>read.csv()</code>. The analogous functions in <code>readr</code> are <code>read_table()</code> and <code>read_csv()</code>. These functions are often <em>much</em> faster than their base R analogues and provide a few other nice features such as progress meters.</p>
+<p>For example, the package includes a variety of functions in the <code>read_*</code> family that allow you to read in data from different formats of flat files. The following table gives a guide to several functions in the <code>read_*</code> family.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><code>readr</code> function</th>
+<th style="text-align: left;">Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>read_csv</code></td>
+<td style="text-align: left;">Reads comma-separated file</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read_csv2</code></td>
+<td style="text-align: left;">Reads semicolon-separated file</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>read_tsv</code></td>
+<td style="text-align: left;">Reads tab-separated file</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read_delim</code></td>
+<td style="text-align: left;">General function for reading delimited files</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>read_fwf</code></td>
+<td style="text-align: left;">Reads fixed width files</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read_log</code></td>
+<td style="text-align: left;">Reads log files</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Note</strong>: In this code, I have used the <code>kable()</code> function from the <code>knitr</code> package to create the summary table in a table format, rather than as basic R output. This function is very useful for formatting basic tables in R markdown documents. For more complex tables, check out the <code>pander</code> and <code>xtable</code> packages.</p>
+<p>For the most part, you can read use <code>read_table()</code> and <code>read_csv()</code> pretty much anywhere you might use <code>read.table()</code> and <code>read.csv()</code>. In addition, if there are non-fatal problems that occur while reading in the data, you will get a warning and the returned data frame will have some information about which rows/observations triggered the warning. This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis.</p>
+<p>The importance of the <code>read_csv()</code> function is perhaps better understood from an historical perspective. R’s built in <code>read.csv()</code> function similarly reads CSV files, but the <code>read_csv()</code> function in <code>readr</code> builds on that by removing some of the quirks and “gotchas” of <code>read.csv()</code> as well as dramatically optimizing the speed with which it can read data into R. The <code>read_csv()</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</p>
+<p>A typical call to <code>read_csv()</code> will look as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>teams <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"team_standings.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 32 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Team
+dbl (1): Standing
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>teams</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 2
+   Standing Team       
+      &lt;dbl&gt; &lt;chr&gt;      
+ 1        1 Spain      
+ 2        2 Netherlands
+ 3        3 Germany    
+ 4        4 Uruguay    
+ 5        5 Argentina  
+ 6        6 Brazil     
+ 7        7 Ghana      
+ 8        8 Paraguay   
+ 9        9 Japan      
+10       10 Chile      
+# … with 22 more rows</code></pre>
+</div>
+</div>
+<p>By default, <code>read_csv()</code> will open a CSV file and read it in line-by-line. Similar to <code>read.table()</code>, you can tell the function to <code>skip</code> lines or which lines are comments:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"The first line of metadata</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="st">  The second line of metadata</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">  x,y,z</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="st">  1,2,3"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): x, y, z
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      x     y     z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     2     3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"# A comment I want to skip</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">  x,y,z</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="st">  1,2,3"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): x, y, z
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      x     y     z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     2     3</code></pre>
+</div>
+</div>
+<p>It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e.&nbsp;integer, character, etc.). From the <code>read_csv()</code> help page:</p>
+<blockquote class="blockquote">
+<p>If ‘NULL’, all column types will be imputed from the first 1000 rows on the input. This is convenient (and fast), but not robust. If the imputation fails, you’ll need to supply the correct types yourself.</p>
+</blockquote>
+<p>You can specify the type of each column with the <code>col_types</code> argument.</p>
+<p>In general, it is a good idea to specify the column types explicitly. This rules out any possible guessing errors on the part of <code>read_csv()</code>. Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>teams <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"team_standings.csv"</span>), </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col_types =</span> <span class="st">"cc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the <code>col_types</code> argument accepts a compact representation. Here <code>"cc"</code> indicates that the first column is <code>character</code> and the second column is <code>character</code> (there are only two columns). Using the <code>col_types</code> argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).</p>
+<p>The <code>read_csv()</code> function will also read compressed files automatically. There is no need to decompress the file first or use the <code>gzfile</code> connection function. The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>logs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"2016-07-19.csv.bz2"</span>), </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n_max =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 10 Columns: 10
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (6): r_version, r_arch, r_os, package, version, country
+dbl  (2): size, ip_id
+date (1): date
+time (1): time
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Note that the warnings indicate that <code>read_csv()</code> may have had some difficulty identifying the type of each column. This can be solved by using the <code>col_types</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>logs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"2016-07-19.csv.bz2"</span>), </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="st">"ccicccccci"</span>, </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n_max =</span> <span class="dv">10</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>logs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 10
+   date       time       size r_ver…¹ r_arch r_os  package version country ip_id
+   &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;
+ 1 2016-07-19 22:00:00 1.89e6 3.3.0   x86_64 ming… data.t… 1.9.6   US          1
+ 2 2016-07-19 22:00:05 4.54e4 3.3.1   x86_64 ming… assert… 0.1     US          2
+ 3 2016-07-19 22:00:03 1.43e7 3.3.1   x86_64 ming… stringi 1.1.1   DE          3
+ 4 2016-07-19 22:00:05 1.89e6 3.3.1   x86_64 ming… data.t… 1.9.6   US          4
+ 5 2016-07-19 22:00:06 3.90e5 3.3.1   x86_64 ming… foreach 1.4.3   US          4
+ 6 2016-07-19 22:00:08 4.88e4 3.3.1   x86_64 linu… tree    1.0-37  CO          5
+ 7 2016-07-19 22:00:12 5.25e2 3.3.1   x86_64 darw… surviv… 2.39-5  US          6
+ 8 2016-07-19 22:00:08 3.23e6 3.3.1   x86_64 ming… Rcpp    0.12.5  US          2
+ 9 2016-07-19 22:00:09 5.56e5 3.3.1   x86_64 ming… tibble  1.1     US          2
+10 2016-07-19 22:00:10 1.52e5 3.3.1   x86_64 ming… magrit… 1.5     US          2
+# … with abbreviated variable name ¹​r_version</code></pre>
+</div>
+</div>
+<p>You can specify the column type in a more detailed fashion by using the various <code>col_*</code> functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a <code>Date</code> object. If we wanted to just read in that first column, we could do</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>logdates <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"2016-07-19.csv.bz2"</span>), </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">col_types =</span> <span class="fu">cols_only</span>(<span class="at">date =</span> <span class="fu">col_date</span>()),</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_max =</span> <span class="dv">10</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>logdates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   date      
+   &lt;date&gt;    
+ 1 2016-07-19
+ 2 2016-07-19
+ 3 2016-07-19
+ 4 2016-07-19
+ 5 2016-07-19
+ 6 2016-07-19
+ 7 2016-07-19
+ 8 2016-07-19
+ 9 2016-07-19
+10 2016-07-19</code></pre>
+</div>
+</div>
+<p>Now the <code>date</code> column is stored as a <code>Date</code> object which can be used for relevant date-related computations (for example, see the <code>lubridate</code> package).</p>
+<p><strong>Note</strong>: The <code>read_csv()</code> function has a <code>progress</code> option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using <code>read_csv()</code> in a function, or perhaps embedding it in a loop, it is probably best to set <code>progress = FALSE</code>.</p>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>What is the point of reference for using relative paths with the <code>here::here()</code> function?</p></li>
+<li><p>Why was the argument <code>stringsAsFactors=TRUE</code> historically used?</p></li>
+<li><p>What is the difference between <code>.Rds</code> and <code>.Rda</code> file formats?</p></li>
+<li><p>What function in <code>readr</code> would you use to read a file where fields were separated with “|”?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv" class="uri">https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv</a></li>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-the-RStudio-IDE" class="uri">https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-the-RStudio-IDE</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/get-data.html" class="uri">https://jhudatascience.org/tidyversecourse/get-data.html</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="rtistry" class="level2">
+<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
+<div class="cell fig-cap-location-top">
+
+</div>
+<p>[Add here.]</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

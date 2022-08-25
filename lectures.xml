@@ -267,6 +267,312 @@ Questions
   <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/images/dspipeline.png" medium="image" type="image/png" height="88" width="144"/>
 </item>
 <item>
+  <title>Reference management</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<!-- Add interesting quote -->
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li>Authoring in <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">R Markdown from RStudio</a></li>
+<li>Citations from <a href="https://monashdatafluency.github.io/r-rep-res/citations.html">Reproducible Research in R</a> from the <a href="https://monashdatafluency.github.io">Monash Data Fluency</a> initiative</li>
+<li>Bibliography from <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">R Markdown Cookbook</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li>https://andreashandel.github.io/MADAcourse/</li>
+<li>https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html</li>
+<li>https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html</li>
+<li>https://monashdatafluency.github.io/r-rep-res/citations.html</li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Know what types of bibliography file formats can be used in a R Markdown file</li>
+<li>Learn how to add citations to a R Markdown file</li>
+<li>Know how to change the citation style (e.g.&nbsp;APA, Chicago, etc)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>For almost any data analysis, especially if it is meant for publication in the academic literature, you will have to cite other people’s work and include the references (bibliographies or citations) in your work. In this class, you are likely to need to include references and cite other people’s work like in a regular research paper.</p>
+<p>R provides nice function <code>citation()</code> that helps us generating citation blob for R packages that we have used. Let’s try generating citation text for rmarkdown package by using the following command</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">citation</span>(<span class="st" style="color: #20794D;">"rmarkdown"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+To cite the 'rmarkdown' package in publications, please use:
+
+  JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi
+  and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and
+  Winston Chang and Richard Iannone (2022). rmarkdown: Dynamic
+  Documents for R. R package version 2.15. URL
+  https://rmarkdown.rstudio.com.
+
+  Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown:
+  The Definitive Guide. Chapman and Hall/CRC. ISBN 9781138359338. URL
+  https://bookdown.org/yihui/rmarkdown.
+
+  Yihui Xie and Christophe Dervieux and Emily Riederer (2020). R
+  Markdown Cookbook. Chapman and Hall/CRC. ISBN 9780367563837. URL
+  https://bookdown.org/yihui/rmarkdown-cookbook.
+
+To see these entries in BibTeX format, use 'print(&lt;citation&gt;,
+bibtex=TRUE)', 'toBibtex(.)', or set
+'options(citation.bibtex.max=999)'.</code></pre>
+</div>
+</div>
+<p>I assume you are familiar with how citing references works, and hopefully, you are already using a reference manager. If not, let me know in the discussion boards.</p>
+<p>To have something that plays well with R Markdown, you need file format that stores all the references. Click here to learn more other possible file formats available to you to use within a R Markdown file:</p>
+<ul>
+<li><a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html" class="uri">https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html</a></li>
+</ul>
+<section id="citation-management-software" class="level3">
+<h3 class="anchored" data-anchor-id="citation-management-software">Citation management software</h3>
+<p>As you can see, there are ton of file formats including <code>.medline</code> (MEDLINE), <code>.bib</code> (BibTeX), <code>.ris</code> (RIS), <code>.enl</code> (EndNote).</p>
+<p>I will not discuss underlying citational management software itself, but I will talk briefly how you might create one of these file formats.</p>
+<p>If you recall the output from <code>citation("rmarkdown")</code> above, we might consider manually copying and pasting the output into a citation management software, but instead we can use <code>write_bib()</code> function from <code>knitr</code> package to create a bibliography file ending in <code>.bib</code>.</p>
+<p>Let’s run the following code in order to generate a <code>my-refs.bib</code> file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">knitr<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">write_bib</span>(<span class="st" style="color: #20794D;">"rmarkdown"</span>, <span class="at" style="color: #657422;">file =</span> <span class="st" style="color: #20794D;">"my-refs.bib"</span>)</span></code></pre></div>
+</div>
+<p>Now we can see we have the file saved locally.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;">list.files</span>()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "index.qmd"       "index.rmarkdown" "my-refs.bib"    </code></pre>
+</div>
+</div>
+<p>If you open up the <code>my-refs.bib</code> file, you will see</p>
+<pre><code>@Manual{R-rmarkdown,
+  title = {rmarkdown: Dynamic Documents for R},
+  author = {JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and Winston Chang and Richard Iannone},
+  year = {2021},
+  note = {R package version 2.8},
+  url = {https://CRAN.R-project.org/package=rmarkdown},
+}
+
+@Book{rmarkdown2018,
+  title = {R Markdown: The Definitive Guide},
+  author = {Yihui Xie and J.J. Allaire and Garrett Grolemund},
+  publisher = {Chapman and Hall/CRC},
+  address = {Boca Raton, Florida},
+  year = {2018},
+  note = {ISBN 9781138359338},
+  url = {https://bookdown.org/yihui/rmarkdown},
+}
+
+@Book{rmarkdown2020,
+  title = {R Markdown Cookbook},
+  author = {Yihui Xie and Christophe Dervieux and Emily Riederer},
+  publisher = {Chapman and Hall/CRC},
+  address = {Boca Raton, Florida},
+  year = {2020},
+  note = {ISBN 9780367563837},
+  url = {https://bookdown.org/yihui/rmarkdown-cookbook},
+}</code></pre>
+<div class="resources">
+<p><strong>Note there are three keys that we will use later on</strong>:</p>
+<ul>
+<li><code>R-rmarkdown</code></li>
+<li><code>rmarkdown2018</code></li>
+<li><code>rmarkdown2020</code></li>
+</ul>
+</div>
+</section>
+<section id="linking-.bib-file-with-.rmd-and-.qmd-files" class="level3">
+<h3 class="anchored" data-anchor-id="linking-.bib-file-with-.rmd-and-.qmd-files">Linking <code>.bib</code> file with <code>.rmd</code> (and <code>.qmd</code>) files</h3>
+<p>In order to use references within a R Markdown file, you will need to specify the name and a location of a bibliography file using the bibliography metadata field in a YAML metadata section. For example:</p>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><span class="pp" style="color: #AD0000;">---</span></span>
+<span id="cb7-2"><span class="fu" style="color: #4758AB;">title</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"My top ten favorite R packages"</span></span>
+<span id="cb7-3"><span class="fu" style="color: #4758AB;">output</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> html_document</span></span>
+<span id="cb7-4"><span class="fu" style="color: #4758AB;">bibliography</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> my-refs.bib</span></span>
+<span id="cb7-5"><span class="pp" style="color: #AD0000;">---</span></span></code></pre></div>
+<p>You can include multiple reference files using the following syntax, alternatively you can concatenate two bib files into one.</p>
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><span class="pp" style="color: #AD0000;">---</span></span>
+<span id="cb8-2"><span class="fu" style="color: #4758AB;">bibliography</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="kw" style="color: #003B4F;">[</span><span class="st" style="color: #20794D;">"my-refs1.bib"</span><span class="kw" style="color: #003B4F;">,</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"my-refs2.bib"</span><span class="kw" style="color: #003B4F;">]</span></span>
+<span id="cb8-3"><span class="pp" style="color: #AD0000;">---</span></span></code></pre></div>
+</section>
+<section id="inline-citation" class="level3">
+<h3 class="anchored" data-anchor-id="inline-citation">Inline citation</h3>
+<p>Now we can start using those bib keys that we have learned just before, using the following syntax</p>
+<ul>
+<li><code>[@key]</code> for single citation</li>
+<li><code>[@key1; @key2]</code> multiple citation can be separated by semi-colon</li>
+<li><code>[-@key]</code> in order to suppress author name, and just display the year</li>
+<li><code>[see @key1 p 12; also this ref @key2]</code> is also a valid syntax</li>
+</ul>
+<p>Let’s start by citing the <code>rmarkdown</code> package using the following code and press <code>Knit</code> button:</p>
+<hr>
+<p>I have been using the amazing Rmarkdown package <span class="citation" data-cites="R-rmarkdown">(Allaire et al. 2022)</span>! I should also go and read <span class="citation" data-cites="rmarkdown2018 rmarkdown2020">(Xie, Allaire, and Grolemund 2018; and Xie, Dervieux, and Riederer 2020)</span> books.</p>
+<hr>
+<p>Pretty cool, eh??</p>
+</section>
+<section id="citation-styles" class="level3">
+<h3 class="anchored" data-anchor-id="citation-styles">Citation styles</h3>
+<p>By default, Pandoc will use a Chicago author-date format for citations and references.</p>
+<p>To use another style, you will need to specify a CSL (Citation Style Language) file in the <code>csl</code> metadata field, e.g.,</p>
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><span class="pp" style="color: #AD0000;">---</span></span>
+<span id="cb9-2"><span class="fu" style="color: #4758AB;">title</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"My top ten favorite R packages"</span></span>
+<span id="cb9-3"><span class="fu" style="color: #4758AB;">output</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> html_document</span></span>
+<span id="cb9-4"><span class="fu" style="color: #4758AB;">bibliography</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> my-refs.bib</span></span>
+<span id="cb9-5"><span class="fu" style="color: #4758AB;">csl</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> biomed-central.csl</span></span>
+<span id="cb9-6"><span class="pp" style="color: #AD0000;">---</span></span></code></pre></div>
+<div class="resources">
+<p>To find your required formats, we recommend using the <a href="https://www.zotero.org/styles">Zotero Style Repository</a>, which makes it easy to search for and download your desired style.</p>
+</div>
+<p>CSL files can be tweaked to meet custom formatting requirements. For example, we can change the number of authors required before “et al.” is used to abbreviate them. This can be simplified through the use of visual editors such as the one available at https://editor.citationstyles.org.</p>
+</section>
+<section id="other-cool-features" class="level3">
+<h3 class="anchored" data-anchor-id="other-cool-features">Other cool features</h3>
+<section id="add-an-item-to-a-bibliography-without-using-it" class="level4">
+<h4 class="anchored" data-anchor-id="add-an-item-to-a-bibliography-without-using-it">Add an item to a bibliography without using it</h4>
+<p>By default, the bibliography will only display items that are directly referenced in the document. If you want to include items in the bibliography without actually citing them in the body text, you can define a dummy nocite metadata field and put the citations there.</p>
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><span class="pp" style="color: #AD0000;">---</span></span>
+<span id="cb10-2"><span class="fu" style="color: #4758AB;">nocite</span><span class="kw" style="color: #003B4F;">: </span><span class="ch" style="color: #20794D;">|</span></span>
+<span id="cb10-3">  @item1, @item2</span>
+<span id="cb10-4"><span class="pp" style="color: #AD0000;">---</span></span></code></pre></div>
+</section>
+<section id="add-all-items-to-the-bibliography" class="level4">
+<h4 class="anchored" data-anchor-id="add-all-items-to-the-bibliography">Add all items to the bibliography</h4>
+<p>If we do not wish to explicitly state all of the items within the bibliography but would still like to show them in our references, we can use the following syntax:</p>
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><span class="pp" style="color: #AD0000;">---</span></span>
+<span id="cb11-2"><span class="fu" style="color: #4758AB;">nocite</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">'@*'</span></span>
+<span id="cb11-3"><span class="pp" style="color: #AD0000;">---</span></span></code></pre></div>
+<p>This will force all items to be displayed in the bibliography.</p>
+<div class="resources">
+<p>You can also have an appendix appear after bibliography. For more on this, see:</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html" class="uri">https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html</a></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="other-useful-tips" class="level1">
+<h1>Other useful tips</h1>
+<p>We have learned that inside your file that contains all your references (e.g.&nbsp;<code>my-refs.bib</code>), typically each reference gets a key, which is a shorthand that is generated by the reference manager or you can create yourself.</p>
+<p>For instance, I use a format of lower-case first author last name followed by 4 digit year for each reference followed by a keyword (e.g name of a software package). Alternatively, you can omit the keyword. But note that if I cite a paper by the same first author that was published in the same year, then a lower case letter is added to the end. For instance, for a paper that I wrote as 1st author in 2010, my bibtex key might be <code>hicks2022</code> or <code>hicks2022a</code>. You can decide what scheme to use, just pick one and use it <em>forever</em>.</p>
+<p>In your R Markdown document, you can then cite the reference by adding the key, such as <code>...in the paper by Hicks et al. [@hicks2022]...</code>.</p>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="practice" class="level3">
+<h3 class="anchored" data-anchor-id="practice">Practice</h3>
+<p>Here are some post-lecture tasks to practice some of the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Try out the following:</strong></p>
+<ol type="1">
+<li><p>What do you notice that’s different when you run <code>citation("tidyverse")</code> (compared to <code>citation("rmarkdown")</code>)?</p></li>
+<li><p>Install the following packages:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="fu" style="color: #4758AB;">install.packages</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"bibtex"</span>, <span class="st" style="color: #20794D;">"RefManageR"</span>)</span></code></pre></div>
+</div>
+<p>What do they do? How might they be helpful to you in terms of reference management?</p>
+<ol start="3" type="1">
+<li><p>Instead of using a <code>.bib</code> file, try using a different bibliography file format in an R Markdown document.</p></li>
+<li><p>Practice using a different CSL file to change the citation style.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Add here.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="rtistry" class="level2">
+<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
+<div class="cell fig-cap-location-top">
+
+</div>
+<p>[Add here.]</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-rmarkdown" class="csl-entry">
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2022. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+</div>
+<div id="ref-rmarkdown2018" class="csl-entry">
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown">https://bookdown.org/yihui/rmarkdown</a>.
+</div>
+<div id="ref-rmarkdown2020" class="csl-entry">
+Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbook</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown-cookbook">https://bookdown.org/yihui/rmarkdown-cookbook</a>.
+</div>
+</div></section></div> ]]></description>
+  <category>module 1</category>
+  <category>week 1</category>
+  <category>R Markdown</category>
+  <category>programming</category>
+  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</guid>
+  <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Literate Statistical Programming</title>
   <dc:creator>Stephanie Hicks</dc:creator>
   <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</link>
