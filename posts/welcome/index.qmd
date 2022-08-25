@@ -180,7 +180,7 @@ If you want, you can find me on [Twitter](https://twitter.com/stephaniehicks). I
 We also have a couple of amazing TAs this year:
 
 -   Phyllis Wei ([ywei43\@jhu.edu](ywei43@jhu.edu)). She is a second-year Ph.D. student in Biostatistics. She hopes to develop methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.
--   Joe Sartini ([jsartin1\@jhu.edu](jsartin1@jhu.edu)). He is ... TBA ...
+-   Joe Sartini ([jsartin1\@jhu.edu](jsartin1@jhu.edu)). He is a second year Biostatistics PhD, with interest in models for precision medicine applications. Currently, the focus of my work is extracting meaningful insights from time-series produced by Continuous Glucose Monitoring and other devices worn by Type 2 diabetics. Outside of research, I enjoy participating in endurance sports and weightlifting
 
 
 ### Assignment Due Dates

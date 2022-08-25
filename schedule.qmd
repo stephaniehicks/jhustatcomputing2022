@@ -20,11 +20,11 @@ For Qmd files (markdown document with [Quarto](https://quarto.org/docs/authoring
 | | | | |
 | | Sept 1  | `r emojifont::emoji('microscope')` Reproducible Research [[html](posts/2022-09-01-reproducible-research/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-01-reproducible-research/index.qmd)] | | 
 | | | `r emojifont::emoji('eyeglasses')` Literate programming [[html](posts/2022-09-01-literate-programming/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-01-literate-programming/index.qmd)] | |
-| | | `r emojifont::emoji('cool')` Reference management | | 
+| | | `r emojifont::emoji('cool')` Reference management [[html](posts/2022-09-01-reference-management/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-01-reference-management/index.qmd)]  | | 
 | | | | | 
 | **Module 2** | | **Data analysis in R** | |              
 | | | | | 
- Week 2 | Sept 6  | `r emojifont::emoji('construction')` Getting and cleaning data | `r emojifont::emoji('palm_tree')` Project 1 |
+ Week 2 | Sept 6  | `r emojifont::emoji('eyes')` Reading and writing data  | `r emojifont::emoji('palm_tree')` Project 1 |
 | | | `r emojifont::emoji('scissors')` Managing data frames with Tidyverse | | 
 | | | | | 
 | | Sept 8  | `r emojifont::emoji('heart_eyes_cat')` Tidy data and the Tidyverse | `r emojifont::emoji('fallen_leaf')` Project 0 due  |

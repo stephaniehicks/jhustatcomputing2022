@@ -6,7 +6,9 @@ title: "Syllabus"
 
 -   Location: In person and Online for Fall 2022
 -   Course time: Tuesdays and Thursdays from 1:30-2:50pm (**Eastern Daylight Time** zone)
--   Course location: W2008
+-   Course location: 
+  - 140.776.01 is in person in W2008
+  - 140.776.41 will have recorded lectures posted online after class. 
 -   Assignments: Three projects
 
 ### How to register and participate
