@@ -62,7 +62,7 @@ Some resources that may be useful if you feel you may be missing pieces of this 
 
 ### Getting set up
 
-You must install [R](https://cran.r-project.org) and [RStudio](https://rstudio.com) on your computing environment in order to complete this course. 
+You must install [R](https://cran.r-project.org) and [RStudio](https://rstudio.com) on your computing environment in order to complete this course.
 
 These are two **different** applications that must be installed separately before they can be used together:
 
@@ -143,12 +143,11 @@ The goal is by the end of the class, students will be able to:
 4.  Build basic data visualizations using R and the tidyverse
 5.  Discuss best practices for coding and reproducible research, basics of data ethics, basics of working with special data types, and basics of storing data
 
-
 # Course logistics
 
 As with all things in a pandemic, we are offering two sections of this course. One option is to take the course in person (140.776.01) and the other option is to take it entirely virtually (140.776.41). You are welcome to register for either section.
 
--   https://www.stephaniehicks.com/jhustatcomputing2022
+-   <https://www.stephaniehicks.com/jhustatcomputing2022>
 
 All communication for the course is going to take place on one of three platforms:
 
@@ -158,15 +157,15 @@ All communication for the course is going to take place on one of three platform
 
     -   Course Github: <https://github.com/stephaniehicks/jhustatcomputing2022>
 
--   In class: for live class lectures (recorded)
+-  **Lectures**: for in person lectures or online / async lectures 
 
-    -   Course Zoom: *Link available on Courseplus*
-    -   The plan is for recorded lectures will be posted online after class ends
+    -   All in person lectures to be recorded and posted online after class ends
+    -   If for some reason I am sick or not capable of coming onsite, I will send out a zoom link for everyone to attend remotely for that day.
 
-The primary communication for the class will go through Courseplus That is where we will post course announcements, host most of our asynchronous course discussion, and as the primary means of communication between course participants and course instructors.
+The primary communication for the class will go through. Courseplus That is where we will post course announcements, host most of our asynchronous course discussion, and as the primary means of communication between course participants and course instructors.
 
 ::: callout-important
-If you are registered for the course, you should have access to Courseplus now. Once you have access you will also be able to find the course Zoom links. Zoom links for office hours will also be posted on Courseplus.
+If you are registered for the course, you should have access to Courseplus now. Once you have access you will also be able to find all material and dates/times of drop-in hours. Any zoom links will be posted on Courseplus. 
 :::
 
 ### Course Staff
@@ -179,9 +178,8 @@ If you want, you can find me on [Twitter](https://twitter.com/stephaniehicks). I
 
 We also have a couple of amazing TAs this year:
 
--   Phyllis Wei ([ywei43\@jhu.edu](ywei43@jhu.edu)). She is a second-year Ph.D. student in Biostatistics. She hopes to develop methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.
--   Joe Sartini ([jsartin1\@jhu.edu](jsartin1@jhu.edu)). He is a second year Biostatistics PhD, with interest in models for precision medicine applications. Currently, the focus of my work is extracting meaningful insights from time-series produced by Continuous Glucose Monitoring and other devices worn by Type 2 diabetics. Outside of research, I enjoy participating in endurance sports and weightlifting
-
+-   Phyllis Wei ([ywei43\@jhu.edu](ywei43@jhu.edu)). She is a second-year Ph.D. student in Biostatistics. She develops methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.
+-   Joe Sartini ([jsartin1\@jhu.edu](jsartin1@jhu.edu)). He is a second year Ph.D. student in Biostatistics, with interest in models for precision medicine applications. Currently, the focus of his work is extracting meaningful insights from time-series produced by Continuous Glucose Monitoring and other devices worn by Type 2 diabetics. Outside of research, he enjoys participating in endurance sports and weightlifting.
 
 ### Assignment Due Dates
 
@@ -201,7 +199,7 @@ knitr::include_graphics("https://media.giphy.com/media/XdIOEZTt6dL7zTYWIo/giphy.
 
 For many, 2021 and 2022 have continued to be incredibly tough (e.g. coordinating school online, challenges with visas and travel, an economic crisis, ). As your instructor, I am *ultra* sympathetic to family challenges and life challenges (fwiw, I have three small children).
 
-While the `140.776.01` section will be held in person here in this room, it is strongly likely that one or more times I will send out a class email the night before (or maybe even the morning of) lecture to let you know that I need to move the class to zoom for the day. I apologize in advance, but I will do my best to give as much advance notice as I can. 
+While the `140.776.01` section will be held in person here in this room, it is strongly likely that one or more times I will send out a class email the night before (or maybe even the morning of) lecture to let you know that I need to move the class to zoom for the day. I apologize in advance, but I will do my best to give as much advance notice as I can.
 
 With that in mind, my goal is to make as much of the class asynchronous as possible so you can work whenever you have time. My plan is to be as understanding as possible when it comes to grading, and any issues that come up with the course. Please don't hesitate to reach out to me (or the TAs) if you are having issues and we will do our best to direct you to whatever resources we have/accommodate you however we can.
 

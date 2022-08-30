@@ -31,10 +31,10 @@ categories: [module 1, week 1, R, programming, RStudio]
 
 Material for this lecture was borrowed and adopted from
 
--   https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html
--   https://rafalab.github.io/dsbook
--   https://rmd4sci.njtierney.com
--   https://andreashandel.github.io/MADAcourse
+-   <https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html>
+-   <https://rafalab.github.io/dsbook>
+-   <https://rmd4sci.njtierney.com>
+-   <https://andreashandel.github.io/MADAcourse>
 
 # Learning objectives
 
@@ -64,7 +64,7 @@ Like every programming language, R has its advantages and disadvantages. If you 
 -   R is great for statistics, data analysis, websites, web apps, data visualizations, and so much more!
 -   R integrates easily with document preparation systems like $\LaTeX$, but R files can also be used to create `.docx`, `.pdf`, `.html`, `.ppt` files with integrated R code output and graphics.
 -   The R Community is very dynamic, helpful and welcoming.
-    -   Check out the [#rstats](https://twitter.com/search?q=%23rstats) on Twitter, [TidyTuesday](https://www.tidytuesday.com) podcast and community activity in the [R4DS Online Learning Community](https://www.rfordatasci.com), and [r/rstats](https://www.reddit.com/r/rstats/) subreddit.
+    -   Check out the [#rstats](https://twitter.com/search?q=%23rstats) or [#rtistry](https://twitter.com/search?q=%23rtistry) on Twitter, [TidyTuesday](https://www.tidytuesday.com) podcast and community activity in the [R4DS Online Learning Community](https://www.rfordatasci.com), and [r/rstats](https://www.reddit.com/r/rstats/) subreddit.
     -   If you are looking for more local resources, check out [R-Ladies Baltimore](https://www.meetup.com/rladies-baltimore/).
 -   Through R packages, it is easy to get lots of state-of-the-art algorithms.
 -   Documentation and help files for R are generally good.
@@ -153,11 +153,11 @@ When you download a fresh installation of R from CRAN, you get all of the above,
 
 ### Limitations of R
 
-No programming language or statistical analysis system is perfect. R certainly has a number of drawbacks. For starters, R is essentially based on almost 50 year old technology, going back to the original S system developed at Bell Labs. There was originally little built in support for dynamic or 3-D graphics (but things have improved greatly since the "old days").
+No programming language or statistical analysis system is perfect. R certainly has a number of drawbacks. For starters, R is essentially based on **almost 50 year old technology**, going back to the original S system developed at Bell Labs. There was originally little built in support for dynamic or 3-D graphics (but things have improved greatly since the "old days").
 
-Another commonly cited limitation of R is that objects must generally be stored in physical memory (though this is increasingly not true anymore). This is in part due to the scoping rules of the language, but R generally is more of a memory hog than other statistical packages. However, there have been a number of advancements to deal with this, both in the R core and also in a number of packages developed by contributors. Also, computing power and capacity has continued to grow over time and amount of physical memory that can be installed on even a consumer-level laptop is substantial. While we will likely never have enough physical memory on a computer to handle the increasingly large datasets that are being generated, the situation has gotten quite a bit easier over time.
+Another commonly cited limitation of R is that **objects must generally be stored in physical memory** (though this is increasingly not true anymore). This is in part due to the scoping rules of the language, but R generally is more of a memory hog than other statistical packages. However, there have been a number of advancements to deal with this, both in the R core and also in a number of packages developed by contributors. Also, computing power and capacity has continued to grow over time and amount of physical memory that can be installed on even a consumer-level laptop is substantial. While we will likely never have enough physical memory on a computer to handle the increasingly large datasets that are being generated, the situation has gotten quite a bit easier over time.
 
-At a higher level one "limitation" of R is that its functionality is based on consumer demand and (voluntary) user contributions. If no one feels like implementing your favorite method, then it's *your* job to implement it (or you need to pay someone to do it). The capabilities of the R system generally reflect the interests of the R user community. As the community has ballooned in size over the past 10 years, the capabilities have similarly increased. When I first started using R, there was very little in the way of functionality for the physical sciences (physics, astronomy, etc.). However, now some of those communities have adopted R and we are seeing more code being written for those kinds of applications.
+At a higher level one "limitation" of R is that **its functionality is based on consumer demand and (voluntary) user contributions**. If no one feels like implementing your favorite method, then it's *your* job to implement it (or you need to pay someone to do it). The capabilities of the R system generally reflect the interests of the R user community. As the community has ballooned in size over the past 10 years, the capabilities have similarly increased. When I first started using R, there was very little in the way of functionality for the physical sciences (physics, astronomy, etc.). However, now some of those communities have adopted R and we are seeing more code being written for those kinds of applications.
 
 # Using R and RStudio
 
@@ -189,7 +189,7 @@ Installing R and RStudio should be fairly straightforward. However, a great set 
 -   <https://rafalab.github.io/dsbook/installing-r-rstudio.html>
 :::
 
-If things don't work, ask for help in the courseplus discussion board.
+If things don't work, ask for help in the Courseplus discussion board.
 
 I personally only have experience with Mac, but everything should work on all the standard operating systems (Windows, Mac, and even Linux).
 
