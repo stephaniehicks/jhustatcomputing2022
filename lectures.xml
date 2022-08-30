@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Statistical Computing (BSPH 140.776)</title>
-<link>https://github.com/stephaniehicks/jhustatcomputing2022/lectures.html</link>
-<atom:link href="https://github.com/stephaniehicks/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
+<link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
+<atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.0.38</generator>
+<generator>quarto-1.1.163</generator>
 <lastBuildDate>Thu, 01 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Reproducible Research</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</link>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</link>
   <description><![CDATA[ 
 
 
@@ -195,7 +195,7 @@ Summary
 <p>The basic issue is when you read a description of a data analysis, such as in an article or a technical report, for the most part, what you get is the report and nothing else. Of course, everyone knows that behind the scenes there’s <em>a lot</em> that went into this report and that is what I call the <strong>data science pipeline</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/images/dspipeline.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/images/dspipeline.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">The Data Science Pipeline</figcaption><p></p>
 </figure>
 </div>
@@ -262,14 +262,14 @@ Questions
   <category>week 1</category>
   <category>R</category>
   <category>reproducibility</category>
-  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</guid>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</guid>
   <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/images/dspipeline.png" medium="image" type="image/png" height="88" width="144"/>
+  <media:content url="https://www.stephaniehicks.com/jhustatcomputing2022/images/dspipeline.png" medium="image" type="image/png" height="88" width="144"/>
 </item>
 <item>
   <title>Reference management</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</link>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</link>
   <description><![CDATA[ 
 
 
@@ -569,13 +569,13 @@ Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbo
   <category>week 1</category>
   <category>R Markdown</category>
   <category>programming</category>
-  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</guid>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</guid>
   <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Literate Statistical Programming</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</link>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</link>
   <description><![CDATA[ 
 
 
@@ -691,7 +691,7 @@ Tip
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;">data</span>(airquality)</span>
 <span id="cb3-2"><span class="fu" style="color: #4758AB;">plot</span>(airquality<span class="sc" style="color: #5E5E5E;">$</span>Ozone <span class="sc" style="color: #5E5E5E;">~</span> airquality<span class="sc" style="color: #5E5E5E;">$</span>Wind)</span></code></pre></div>
 <div class="cell-output-display">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/index_files/figure-html/plot2-1.png" class="img-fluid" width="672"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/index_files/figure-html/plot2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="questions">
@@ -726,7 +726,7 @@ Tip
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Artwork by Allison Horst on RMarkdown</figcaption><p></p>
 </figure>
 </div>
@@ -752,7 +752,7 @@ Tip
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/9791d/images/rmarkdownflow.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/9791d/images/rmarkdownflow.png" class="img-fluid figure-img" style="width:60.0%"></p>
 <p></p><figcaption class="figure-caption">Converting a Rmd file to many outputs using knitr and pandoc</figcaption><p></p>
 </figure>
 </div>
@@ -784,7 +784,7 @@ Tip
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/media.giphy.com/media/L4ZZNbDpOCfiX8uYSd/giphy.gif" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/media.giphy.com/media/L4ZZNbDpOCfiX8uYSd/giphy.gif" class="img-fluid figure-img" style="width:60.0%"></p>
 <p></p><figcaption class="figure-caption">Mission accomplished!</figcaption><p></p>
 </figure>
 </div>
@@ -806,7 +806,7 @@ Tip
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/bookdown.org/yihui/blogdown/images/logo.png" class="img-fluid figure-img" style="width:30.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/bookdown.org/yihui/blogdown/images/logo.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <p></p><figcaption class="figure-caption">blogdown logo</figcaption><p></p>
 </figure>
 </div>
@@ -848,7 +848,7 @@ Tip
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/bookdown.org/yihui/bookdown/images/logo.png" class="img-fluid figure-img" style="width:30.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/https:/bookdown.org/yihui/bookdown/images/logo.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <p></p><figcaption class="figure-caption">book logo</figcaption><p></p>
 </figure>
 </div>
@@ -1138,7 +1138,7 @@ Tip
 <div id="ref-knuth1984" class="csl-entry">
 Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
 </div>
-</div></section><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>This will become a hover-able footnote↩︎</p></li>
@@ -1148,14 +1148,14 @@ Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</
   <category>week 1</category>
   <category>R Markdown</category>
   <category>programming</category>
-  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</guid>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</guid>
   <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
   <media:content url="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rmarkdown_rockstar.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Introduction to R and RStudio!</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</link>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</link>
   <description><![CDATA[ 
 
 
@@ -1191,10 +1191,10 @@ Read ahead
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li>https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html</li>
-<li>https://rafalab.github.io/dsbook</li>
-<li>https://rmd4sci.njtierney.com</li>
-<li>https://andreashandel.github.io/MADAcourse</li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-introduction-and-overview.html</a></li>
+<li><a href="https://rafalab.github.io/dsbook" class="uri">https://rafalab.github.io/dsbook</a></li>
+<li><a href="https://rmd4sci.njtierney.com" class="uri">https://rmd4sci.njtierney.com</a></li>
+<li><a href="https://andreashandel.github.io/MADAcourse" class="uri">https://andreashandel.github.io/MADAcourse</a></li>
 </ul>
 </section>
 </section>
@@ -1237,7 +1237,7 @@ Learning objectives
 <li>R integrates easily with document preparation systems like <img src="https://latex.codecogs.com/png.latex?%5CLaTeX">, but R files can also be used to create <code>.docx</code>, <code>.pdf</code>, <code>.html</code>, <code>.ppt</code> files with integrated R code output and graphics.</li>
 <li>The R Community is very dynamic, helpful and welcoming.
 <ul>
-<li>Check out the <a href="https://twitter.com/search?q=%23rstats">#rstats</a> on Twitter, <a href="https://www.tidytuesday.com">TidyTuesday</a> podcast and community activity in the <a href="https://www.rfordatasci.com">R4DS Online Learning Community</a>, and <a href="https://www.reddit.com/r/rstats/">r/rstats</a> subreddit.</li>
+<li>Check out the <a href="https://twitter.com/search?q=%23rstats">#rstats</a> or <a href="https://twitter.com/search?q=%23rtistry">#rtistry</a> on Twitter, <a href="https://www.tidytuesday.com">TidyTuesday</a> podcast and community activity in the <a href="https://www.rfordatasci.com">R4DS Online Learning Community</a>, and <a href="https://www.reddit.com/r/rstats/">r/rstats</a> subreddit.</li>
 <li>If you are looking for more local resources, check out <a href="https://www.meetup.com/rladies-baltimore/">R-Ladies Baltimore</a>.</li>
 </ul></li>
 <li>Through R packages, it is easy to get lots of state-of-the-art algorithms.</li>
@@ -1248,7 +1248,7 @@ Learning objectives
 <p>With the skills gained in this course, hopefully you will find R a fun and useful programming language for your future projects.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/r_first_then.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/r_first_then.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Artwork by Allison Horst on learning R</figcaption><p></p>
 </figure>
 </div>
@@ -1346,9 +1346,9 @@ Questions
 </section>
 <section id="limitations-of-r" class="level3">
 <h3 class="anchored" data-anchor-id="limitations-of-r">Limitations of R</h3>
-<p>No programming language or statistical analysis system is perfect. R certainly has a number of drawbacks. For starters, R is essentially based on almost 50 year old technology, going back to the original S system developed at Bell Labs. There was originally little built in support for dynamic or 3-D graphics (but things have improved greatly since the “old days”).</p>
-<p>Another commonly cited limitation of R is that objects must generally be stored in physical memory (though this is increasingly not true anymore). This is in part due to the scoping rules of the language, but R generally is more of a memory hog than other statistical packages. However, there have been a number of advancements to deal with this, both in the R core and also in a number of packages developed by contributors. Also, computing power and capacity has continued to grow over time and amount of physical memory that can be installed on even a consumer-level laptop is substantial. While we will likely never have enough physical memory on a computer to handle the increasingly large datasets that are being generated, the situation has gotten quite a bit easier over time.</p>
-<p>At a higher level one “limitation” of R is that its functionality is based on consumer demand and (voluntary) user contributions. If no one feels like implementing your favorite method, then it’s <em>your</em> job to implement it (or you need to pay someone to do it). The capabilities of the R system generally reflect the interests of the R user community. As the community has ballooned in size over the past 10 years, the capabilities have similarly increased. When I first started using R, there was very little in the way of functionality for the physical sciences (physics, astronomy, etc.). However, now some of those communities have adopted R and we are seeing more code being written for those kinds of applications.</p>
+<p>No programming language or statistical analysis system is perfect. R certainly has a number of drawbacks. For starters, R is essentially based on <strong>almost 50 year old technology</strong>, going back to the original S system developed at Bell Labs. There was originally little built in support for dynamic or 3-D graphics (but things have improved greatly since the “old days”).</p>
+<p>Another commonly cited limitation of R is that <strong>objects must generally be stored in physical memory</strong> (though this is increasingly not true anymore). This is in part due to the scoping rules of the language, but R generally is more of a memory hog than other statistical packages. However, there have been a number of advancements to deal with this, both in the R core and also in a number of packages developed by contributors. Also, computing power and capacity has continued to grow over time and amount of physical memory that can be installed on even a consumer-level laptop is substantial. While we will likely never have enough physical memory on a computer to handle the increasingly large datasets that are being generated, the situation has gotten quite a bit easier over time.</p>
+<p>At a higher level one “limitation” of R is that <strong>its functionality is based on consumer demand and (voluntary) user contributions</strong>. If no one feels like implementing your favorite method, then it’s <em>your</em> job to implement it (or you need to pay someone to do it). The capabilities of the R system generally reflect the interests of the R user community. As the community has ballooned in size over the past 10 years, the capabilities have similarly increased. When I first started using R, there was very little in the way of functionality for the physical sciences (physics, astronomy, etc.). However, now some of those communities have adopted R and we are seeing more code being written for those kinds of applications.</p>
 </section>
 </section>
 <section id="using-r-and-rstudio" class="level1">
@@ -1366,7 +1366,7 @@ Questions
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png" class="img-fluid figure-img"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">A screenshot of the RStudio integrated developer environment (IDE) – aka the working environment</figcaption><p></p>
 </figure>
 </div>
@@ -1394,7 +1394,7 @@ Tip
 </ul>
 </div>
 </div>
-<p>If things don’t work, ask for help in the courseplus discussion board.</p>
+<p>If things don’t work, ask for help in the Courseplus discussion board.</p>
 <p>I personally only have experience with Mac, but everything should work on all the standard operating systems (Windows, Mac, and even Linux).</p>
 </section>
 <section id="rstudio-default-options" class="level3">
@@ -1535,7 +1535,7 @@ Tip
 <h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
 <div class="cell fig-cap-location-top">
 <div class="cell-output-display">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/djnavarro/art/raw/master/static/gallery/water-colours/watercolour_splash.jpg" class="img-fluid"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/https:/github.com/djnavarro/art/raw/master/static/gallery/water-colours/watercolour_splash.jpg" class="img-fluid"></p>
 </div>
 </div>
 <p>[‘Water Colours’ from Danielle Navarro <a href="https://art.djnavarro.net" class="uri">https://art.djnavarro.net</a>]</p>
@@ -1550,14 +1550,14 @@ Tip
   <category>R</category>
   <category>programming</category>
   <category>RStudio</category>
-  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</guid>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</guid>
   <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
   <media:content url="https://github.com/njtierney/rmd4sci/raw/master/figs/rstudio-screenshot.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Welcome!</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</link>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/welcome/index.html</link>
   <description><![CDATA[ 
 
 
@@ -1673,7 +1673,7 @@ Warning
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRWindows.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/videos/downloadRWindows.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Video Demo for Downloading R for Windows</figcaption><p></p>
 </figure>
 </div>
@@ -1700,7 +1700,7 @@ Warning
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRMac.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/videos/downloadRMac.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Video Demo for Downloading R for the Mac</figcaption><p></p>
 </figure>
 </div>
@@ -1731,7 +1731,7 @@ Warning
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRStudio.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/videos/downloadRStudio.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Video Demo for Downloading RStudio</figcaption><p></p>
 </figure>
 </div>
@@ -1752,7 +1752,7 @@ Warning
 <h1>Course logistics</h1>
 <p>As with all things in a pandemic, we are offering two sections of this course. One option is to take the course in person (140.776.01) and the other option is to take it entirely virtually (140.776.41). You are welcome to register for either section.</p>
 <ul>
-<li>https://www.stephaniehicks.com/jhustatcomputing2022</li>
+<li><a href="https://www.stephaniehicks.com/jhustatcomputing2022" class="uri">https://www.stephaniehicks.com/jhustatcomputing2022</a></li>
 </ul>
 <p>All communication for the course is going to take place on one of three platforms:</p>
 <ul>
@@ -1761,13 +1761,13 @@ Warning
 <ul>
 <li>Course Github: <a href="https://github.com/stephaniehicks/jhustatcomputing2022" class="uri">https://github.com/stephaniehicks/jhustatcomputing2022</a></li>
 </ul></li>
-<li><p>In class: for live class lectures (recorded)</p>
+<li><p><strong>Lectures</strong>: for in person lectures or online / async lectures</p>
 <ul>
-<li>Course Zoom: <em>Link available on Courseplus</em></li>
-<li>The plan is for recorded lectures will be posted online after class ends</li>
+<li>All in person lectures to be recorded and posted online after class ends</li>
+<li>If for some reason I am sick or not capable of coming onsite, I will send out a zoom link for everyone to attend remotely for that day.</li>
 </ul></li>
 </ul>
-<p>The primary communication for the class will go through Courseplus That is where we will post course announcements, host most of our asynchronous course discussion, and as the primary means of communication between course participants and course instructors.</p>
+<p>The primary communication for the class will go through. Courseplus That is where we will post course announcements, host most of our asynchronous course discussion, and as the primary means of communication between course participants and course instructors.</p>
 <div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1778,7 +1778,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you are registered for the course, you should have access to Courseplus now. Once you have access you will also be able to find the course Zoom links. Zoom links for office hours will also be posted on Courseplus.</p>
+<p>If you are registered for the course, you should have access to Courseplus now. Once you have access you will also be able to find all material and dates/times of drop-in hours. Any zoom links will be posted on Courseplus.</p>
 </div>
 </div>
 <section id="course-staff" class="level3">
@@ -1788,8 +1788,8 @@ Important
 <p>If you want, you can find me on <a href="https://twitter.com/stephaniehicks">Twitter</a>. I’m also a co-host of the <a href="https://twitter.com/CorrespondAuth">The Corresponding Author</a> podcast, member of the <a href="https://genomebiology.biomedcentral.com/about/editorial-board">Editorial Board for <em>Genome Biology</em></a>, an Associate Editor for <a href="https://jasa-acs.github.io/repro-guide/">Reproducibility</a> at the <a href="https://www.tandfonline.com/toc/uasa20/current">Journal of the American Statistical Association</a>, and co-founder of <a href="https://www.meetup.com/rladies-baltimore/">R-Ladies Baltimore</a>.</p>
 <p>We also have a couple of amazing TAs this year:</p>
 <ul>
-<li>Phyllis Wei (<a href="ywei43@jhu.edu">ywei43@jhu.edu</a>). She is a second-year Ph.D.&nbsp;student in Biostatistics. She hopes to develop methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.</li>
-<li>Joe Sartini (<a href="jsartin1@jhu.edu">jsartin1@jhu.edu</a>). He is … TBA …</li>
+<li>Phyllis Wei (<a href="ywei43@jhu.edu">ywei43@jhu.edu</a>). She is a second-year Ph.D.&nbsp;student in Biostatistics. She develops methods to help understand the genetic basis of complex traits and diseases and enhance disease risk prediction models through data integration. Outside of biostatistics, she enjoys hiking, baking, and visiting museums.</li>
+<li>Joe Sartini (<a href="jsartin1@jhu.edu">jsartin1@jhu.edu</a>). He is a second year Ph.D.&nbsp;student in Biostatistics, with interest in models for precision medicine applications. Currently, the focus of his work is extracting meaningful insights from time-series produced by Continuous Glucose Monitoring and other devices worn by Type 2 diabetics. Outside of research, he enjoys participating in endurance sports and weightlifting.</li>
 </ul>
 </section>
 <section id="assignment-due-dates" class="level3">
@@ -1803,7 +1803,7 @@ Important
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/XdIOEZTt6dL7zTYWIo/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/welcome/https:/media.giphy.com/media/XdIOEZTt6dL7zTYWIo/giphy.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">How 2020 felt</figcaption><p></p>
 </figure>
 </div>
@@ -1908,7 +1908,7 @@ Important
 <h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
 <div class="cell fig-cap-location-top">
 <div class="cell-output-display">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/https:/github.com/djnavarro/art/raw/master/static/gallery/unboxing/splash.png" class="img-fluid"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/welcome/https:/github.com/djnavarro/art/raw/master/static/gallery/unboxing/splash.png" class="img-fluid"></p>
 </div>
 </div>
 <p>[‘Unboxing’ from Danielle Navarro <a href="https://art.djnavarro.net" class="uri">https://art.djnavarro.net</a>]</p>
@@ -1921,14 +1921,14 @@ Important
   <category>course-admin</category>
   <category>module 1</category>
   <category>week 1</category>
-  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/welcome/index.html</guid>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/welcome/index.html</guid>
   <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/videos/downloadRWindows.gif" medium="image" type="image/gif"/>
+  <media:content url="https://www.stephaniehicks.com/jhustatcomputing2022/videos/downloadRWindows.gif" medium="image" type="image/gif"/>
 </item>
 <item>
   <title>Introduction to git/GitHub</title>
   <dc:creator>Stephanie Hicks</dc:creator>
-  <link>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</link>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</link>
   <description><![CDATA[ 
 
 
@@ -2014,7 +2014,7 @@ Learning objectives
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/images/phdversioncontrol.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/images/phdversioncontrol.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">How not to use GitHub [image from PhD Comics]</figcaption><p></p>
 </figure>
 </div>
@@ -2027,12 +2027,12 @@ Learning objectives
 </section>
 <section id="what-to-not-do" class="level3">
 <h3 class="anchored" data-anchor-id="what-to-not-do">What to (not) do</h3>
-<p>GitHub is ideal if you have a project with a fair number of files, most of those files are text files (such as code, LaTeX, (R)markdown, etc.) and different people work on different parts of the project.</p>
-<p>GitHub is less useful if you have a lot of non-text files (e.g.&nbsp;Word or Powerpoint) and different team members might want to edit the same document at the same time. In that instance, a solution like Google Docs, Word+Dropbox, Word+Onedrive, etc. might be better.</p>
+<p><strong>GitHub is ideal if</strong> you have a project with a fair number of files, most of those files are text files (such as code, LaTeX, (R)markdown, etc.) and different people work on different parts of the project.</p>
+<p><strong>GitHub is less useful if</strong> you have a lot of non-text files (e.g.&nbsp;Word or Powerpoint) and different team members might want to edit the same document at the same time. In that instance, a solution like Google Docs, Word+Dropbox, Word+Onedrive, etc. might be better.</p>
 </section>
 <section id="how-to-use-gitgithub" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-use-gitgithub">How to use Git/GitHub</h3>
-<p>Git and GitHub is fundamentally based on commands you type into the command line. Lots of online resources show you how to use the command line. This is the most powerful, and the way I almost always interact with git/GitHub. However, many folks find this the most confusing way to use git/GitHub. Alternatively, there are graphical interfaces.</p>
+<p>Git and GitHub is fundamentally <strong>based on commands you type into the command line</strong>. Lots of online resources show you how to use the command line. This is the most powerful, and the way I almost always interact with git/GitHub. However, many folks find this the most confusing way to use git/GitHub. Alternatively, there are graphical interfaces.</p>
 <ul>
 <li><a href="https://desktop.github.com/">GitHub itself</a> provides a grapical interface with basic functionality.</li>
 <li>RStudio also has <a href="https://happygitwithr.com/rstudio-git-github.html">Git/GitHub integration</a>. Of course this only works for R project GitHub integration.</li>
@@ -2051,7 +2051,7 @@ Learning objectives
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/images/happygitwithr.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/images/happygitwithr.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">A screenshot of the Happy Git with R online book from Jenny Bryan</figcaption><p></p>
 </figure>
 </div>
@@ -2065,7 +2065,7 @@ Learning objectives
 <p>In this course, you will use git/GitHub in the following ways:</p>
 <ol type="1">
 <li>Project 0 (optional) - You will create a website introducing yourself to folks in the course and deploy it on GitHub.</li>
-<li>Projects 1-3 - You will be asked to practice using git locally (on your compute environment) to track your changes over time and, if you wish (but highly suggested), you can practice pushing your project solutions to a private GitHub repository on your GitHub account (i.e.&nbsp;<code>git add</code>, <code>git commit</code>, <code>git push</code>, <code>git pull</code>, etc) .</li>
+<li>Projects 1-3 - You can practice using git locally (on your compute environment) to track your changes over time and, if you wish (but highly suggested), you can practice pushing your project solutions to a private GitHub repository on your GitHub account (i.e.&nbsp;<code>git add</code>, <code>git commit</code>, <code>git push</code>, <code>git pull</code>, etc) .</li>
 </ol>
 <p>Learning these skills will be useful down the road if you ever work collaboratively on a project (i.e.&nbsp;writing code as a group). In this scenario, you will use the skills you have been practicing in your projects to work together as a team in a single GitHub repository.</p>
 </section>
@@ -2114,7 +2114,7 @@ Tip
 <h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
 <div class="cell fig-cap-location-top">
 <div class="cell-output-display">
-<p><img src="https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/https:/github.com/djnavarro/art/raw/master/static/gallery/flametree/extra/001_flametree_20_13.jpg" class="img-fluid"></p>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/https:/github.com/djnavarro/art/raw/master/static/gallery/flametree/extra/001_flametree_20_13.jpg" class="img-fluid"></p>
 </div>
 </div>
 <p>[‘Flametree’ from Danielle Navarro <a href="https://art.djnavarro.net" class="uri">https://art.djnavarro.net</a>]</p>
@@ -2130,9 +2130,9 @@ Tip
   <category>version control</category>
   <category>git</category>
   <category>GitHub</category>
-  <guid>https://github.com/stephaniehicks/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</guid>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</guid>
   <pubDate>Tue, 30 Aug 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://github.com/stephaniehicks/jhustatcomputing2022/images/happygitwithr.png" medium="image" type="image/png" height="107" width="144"/>
+  <media:content url="https://www.stephaniehicks.com/jhustatcomputing2022/images/happygitwithr.png" medium="image" type="image/png" height="107" width="144"/>
 </item>
 </channel>
 </rss>

@@ -1,1 +1,1 @@
-Sitemap: https://github.com/stephaniehicks/jhustatcomputing2022/sitemap.xml
+Sitemap: https://www.stephaniehicks.com/jhustatcomputing2022/sitemap.xml
