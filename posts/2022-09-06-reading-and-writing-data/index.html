@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.163">
+<meta name="generator" content="quarto-1.1.168">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -281,7 +281,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -378,7 +377,7 @@ Learning objectives
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:\Users\Roger\path\only</span><span class="sc">\t</span><span class="st">hat\Roger\has"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The problem is, if I want to use his code, I will need to go and hand-edit every single one of those paths (<code>C:\Users\Roger\path\only\that\Roger\has</code>) to the path that I want to use on my computer or wherever I saved the folder on my computer (e.g.&nbsp; <code>/Users/Stephanie/Documents/path/only/I/have</code>).</p>
+<p>The problem is, if I want to use his code, I will need to go and hand-edit every single one of those paths (<code>C:\Users\Roger\path\only\that\Roger\has</code>) to the path that I want to use on my computer or wherever I saved the folder on my computer (e.g.&nbsp;<code>/Users/Stephanie/Documents/path/only/I/have</code>).</p>
 <ol type="1">
 <li>This is an unsustainable practice.</li>
 <li>I can go in and manually edit the path, but this assumes I know how to set a working directory. Not everyone does.</li>
@@ -439,14 +438,15 @@ Learning objectives
  [7] "index.qmd"                  "jhustatcomputing2022.Rproj"
  [9] "lectures.qmd"               "posts"                     
 [11] "profile.jpg"                "projects"                  
-[13] "projects.qmd"               "resources.qmd"             
-[15] "schedule.qmd"               "scripts"                   
-[17] "styles.css"                 "syllabus.qmd"              
-[19] "videos"                    </code></pre>
+[13] "projects.qmd"               "README.md"                 
+[15] "resources.qmd"              "schedule.qmd"              
+[17] "scripts"                    "styles.css"                
+[19] "syllabus.qmd"               "videos"                    </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">here</span>(<span class="st">"data"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2016-07-19.csv.bz2" "team_standings.csv"</code></pre>
+<pre><code>[1] "2016-07-19.csv.bz2" "chicago.rds"        "chocolate.RDS"     
+[4] "team_standings.csv"</code></pre>
 </div>
 </div>
 <p>Now we see that using the <code>here::here()</code> function is a <em>relative</em> path (relative to the <code>.Rproj</code> file in our <code>jhustatcomputing2021</code> repository. We also see there is are two <code>.csv</code> files in the <code>data</code> folder. We will learn how to read those files into R in the next section.</p>
@@ -630,8 +630,8 @@ Learning objectives
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(x, <span class="at">file=</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"x.Rds"</span>))</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path=</span><span class="fu">here</span>(<span class="st">"data"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2016-07-19.csv.bz2" "team_standings.csv" "x.Rda"             
-[4] "x.Rds"             </code></pre>
+<pre><code>[1] "2016-07-19.csv.bz2" "chicago.rds"        "chocolate.RDS"     
+[4] "team_standings.csv" "x.Rda"              "x.Rds"             </code></pre>
 </div>
 </div>
 <p>Here we assign the imported data to an object using <code>readRDS()</code></p>
@@ -1001,13 +1001,6 @@ Tip
 </ul>
 </div>
 </div>
-</section>
-<section id="rtistry" class="level2">
-<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
-<div class="cell fig-cap-location-top">
-
-</div>
-<p>[Add here.]</p>
 
 
 </section>

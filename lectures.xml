@@ -9,8 +9,1633 @@
 <link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.1.163</generator>
-<lastBuildDate>Thu, 01 Sep 2022 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.1.168</generator>
+<lastBuildDate>Tue, 06 Sep 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Reading and Writing data</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="cell">
+
+</div>
+<!-- Add interesting quote -->
+<blockquote class="blockquote">
+<p>“When writing code, you’re always collaborating with future-you; and past-you doesn’t respond to emails”. —<em>Hadley Wickham</em></p>
+</blockquote>
+<p>[<a href="https://fivebooks.com/best-books/computer-science-data-science-hadley-wickham/">Source</a>]</p>
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/get-data.html" class="uri">https://jhudatascience.org/tidyversecourse/get-data.html</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html</a></li>
+<li><a href="https://r4ds.had.co.nz/data-import.html" class="uri">https://r4ds.had.co.nz/data-import.html</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Know difference between relative vs absolute paths</li>
+<li>Be able to read and write text / csv files in R</li>
+<li>Be able to read and write R data objects in R</li>
+<li>Be able to calculate memory requirements for R objects</li>
+<li>Use modern R packages for reading and writing data</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This lesson introduces ways to read and write data (e.g.&nbsp;<code>.txt</code> and <code>.csv</code> files) using base R functions as well as more modern R packages, such as <code>readr</code>, which is typically <a href="https://r4ds.had.co.nz/data-import.html#compared-to-base-r">10x faster than base R</a>.</p>
+<p>We will also briefly describe different ways for reading and writing other data types such as, Excel files, google spreadsheets, or SQL databases.</p>
+</section>
+<section id="relative-versus-absolute-paths" class="level1">
+<h1>Relative versus absolute paths</h1>
+<p>When you are starting a data analysis, you have already learned about the use of <code>.Rproj</code> files. When you open up a <code>.Rproj</code> file, RStudio changes the path (location on your computer) to the <code>.Rproj</code> location.</p>
+<p>After opening up a <code>.Rproj</code> file, you can test this by</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">getwd</span>()</span></code></pre></div>
+</div>
+<p>When you open up someone else’s R code or analysis, you might also see the</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;">setwd</span>()</span></code></pre></div>
+</div>
+<p>function being used which explicitly tells R to change the absolute path or absolute location of which directory to move into.</p>
+<p>For example, say I want to clone a GitHub repo from Roger, which has 100 R script files, and in every one of those files at the top is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"C:\Users\Roger\path\only</span><span class="sc" style="color: #5E5E5E;">\t</span><span class="st" style="color: #20794D;">hat\Roger\has"</span>)</span></code></pre></div>
+</div>
+<p>The problem is, if I want to use his code, I will need to go and hand-edit every single one of those paths (<code>C:\Users\Roger\path\only\that\Roger\has</code>) to the path that I want to use on my computer or wherever I saved the folder on my computer (e.g.&nbsp;<code>/Users/Stephanie/Documents/path/only/I/have</code>).</p>
+<ol type="1">
+<li>This is an unsustainable practice.</li>
+<li>I can go in and manually edit the path, but this assumes I know how to set a working directory. Not everyone does.</li>
+</ol>
+<p>So instead of absolute paths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"/Users/jtleek/data"</span>)</span>
+<span id="cb4-2"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"~/Desktop/files/data"</span>)</span>
+<span id="cb4-3"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"C:</span><span class="sc" style="color: #5E5E5E;">\\</span><span class="st" style="color: #20794D;">Users</span><span class="sc" style="color: #5E5E5E;">\\</span><span class="st" style="color: #20794D;">Michelle</span><span class="sc" style="color: #5E5E5E;">\\</span><span class="st" style="color: #20794D;">Downloads"</span>)</span></code></pre></div>
+</div>
+<p>A better idea is to use relative paths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"../data"</span>)</span>
+<span id="cb5-2"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"../files"</span>)</span>
+<span id="cb5-3"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"..</span><span class="sc" style="color: #5E5E5E;">\t</span><span class="st" style="color: #20794D;">mp"</span>)</span></code></pre></div>
+</div>
+<p>Within R, an even better idea is to use the <a href="https://github.com/r-lib/here">here</a> R package will recognize the top-level directory of a Git repo and supports building all paths relative to that. For more on project-oriented workflow suggestions, read <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">this post</a> from Jenny Bryan.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/cracked_setwd.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on setwd() function</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<section id="the-here-package" class="level3">
+<h3 class="anchored" data-anchor-id="the-here-package">The <code>here</code> package</h3>
+<p>In her post, Jenny Bryan writes</p>
+<blockquote class="blockquote">
+<p>“I suggest organizing each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.”</p>
+</blockquote>
+<p>Instead of using <code>setwd()</code> at the top your <code>.R</code> or <code>.Rmd</code> file, she suggests:</p>
+<ul>
+<li>Organize each logical project into a folder on your computer.</li>
+<li>Make sure the top-level folder advertises itself as such. This can be as simple as having an empty file named <code>.here</code>. Or, if you use RStudio and/or Git, those both leave characteristic files behind that will get the job done.</li>
+<li>Use the <code>here()</code> function from the <code>here</code> package to build the path when you read or write a file. Create paths relative to the top-level directory.</li>
+<li>Whenever you work on this project, launch the R process from the project’s top-level directory. If you launch R from the shell, <code>cd</code> to the correct folder first.</li>
+</ul>
+<p>Let’s test this out. We can use <code>getwd()</code> to see our current working directory path and the files available using <code>list.files()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;">getwd</span>()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;">list.files</span>()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "index.qmd"       "index.rmarkdown"</code></pre>
+</div>
+</div>
+<p>OK so our current location is in the reading and writing lectures sub-folder of the <code>jhustatcomputing2021</code> course repository. Let’s try using the <code>here</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;">library</span>(here)</span>
+<span id="cb10-2"></span>
+<span id="cb10-3"><span class="fu" style="color: #4758AB;">list.files</span>(here<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">here</span>())</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "_freeze"                    "_post_template.qmd"        
+ [3] "_quarto.yml"                "_site"                     
+ [5] "data"                       "images"                    
+ [7] "index.qmd"                  "jhustatcomputing2022.Rproj"
+ [9] "lectures.qmd"               "posts"                     
+[11] "profile.jpg"                "projects"                  
+[13] "projects.qmd"               "README.md"                 
+[15] "resources.qmd"              "schedule.qmd"              
+[17] "scripts"                    "styles.css"                
+[19] "syllabus.qmd"               "videos"                    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="fu" style="color: #4758AB;">list.files</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2016-07-19.csv.bz2" "chicago.rds"        "chocolate.RDS"     
+[4] "team_standings.csv"</code></pre>
+</div>
+</div>
+<p>Now we see that using the <code>here::here()</code> function is a <em>relative</em> path (relative to the <code>.Rproj</code> file in our <code>jhustatcomputing2021</code> repository. We also see there is are two <code>.csv</code> files in the <code>data</code> folder. We will learn how to read those files into R in the next section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/here.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on here package</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+</section>
+<section id="finding-and-creating-files-locally" class="level3">
+<h3 class="anchored" data-anchor-id="finding-and-creating-files-locally">Finding and creating files locally</h3>
+<p>One last thing. If you want to download a file, one way to use the <code>file.exists()</code>, <code>dir.create()</code> and <code>list.files()</code> functions.</p>
+<ul>
+<li><code>file.exists(here("my", "relative", "path"))</code>: logical test if the file exists</li>
+<li><code>dir.create(here("my", "relative", "path"))</code>: create a folder</li>
+<li><code>list.files(here("my", "relative", "path"))</code>: list contents of folder</li>
+<li><code>file.create(here("my", "relative", "path"))</code>: create a file</li>
+<li><code>file.remove(here("my", "relative", "path"))</code>: delete a file</li>
+</ul>
+<p>For example, I can put all this together by</p>
+<ol type="1">
+<li>Checking to see if a file exists in my path. If not, then</li>
+<li>Create a directory in that path.</li>
+<li>List the files in the path.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">!</span><span class="fu" style="color: #4758AB;">file.exists</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"my"</span>, <span class="st" style="color: #20794D;">"relative"</span>, <span class="st" style="color: #20794D;">"path"</span>))){</span>
+<span id="cb14-2">  <span class="fu" style="color: #4758AB;">dir.create</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"my"</span>, <span class="st" style="color: #20794D;">"relative"</span>, <span class="st" style="color: #20794D;">"path"</span>))</span>
+<span id="cb14-3">}</span>
+<span id="cb14-4"><span class="fu" style="color: #4758AB;">list.files</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"my"</span>, <span class="st" style="color: #20794D;">"relative"</span>, <span class="st" style="color: #20794D;">"path"</span>))</span></code></pre></div>
+</div>
+<p>Let’s put relative paths to use while reading and writing data.</p>
+</section>
+</section>
+<section id="reading-data-in-base-r" class="level1">
+<h1>Reading data in base R</h1>
+<p>In this section, we’re going to demonstrate the essential functions you need to know to read and write (or save) data in R.</p>
+<section id="txt-or-csv" class="level3">
+<h3 class="anchored" data-anchor-id="txt-or-csv">txt or csv</h3>
+<p>There are a few primary functions reading data from base R.</p>
+<ul>
+<li><code>read.table()</code>, <code>read.csv()</code>: for reading tabular data</li>
+<li><code>readLines()</code>: for reading lines of a text file</li>
+</ul>
+<p>There are analogous functions for writing data to files</p>
+<ul>
+<li><code>write.table()</code>: for writing tabular data to text files (i.e.&nbsp;CSV) or connections</li>
+<li><code>writeLines()</code>: for writing character data line-by-line to a file or connection</li>
+</ul>
+<p>Let’s try reading some data into R with the <code>read.csv()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1">df <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read.csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"team_standings.csv"</span>))</span>
+<span id="cb15-2">df</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Standing         Team
+1         1        Spain
+2         2  Netherlands
+3         3      Germany
+4         4      Uruguay
+5         5    Argentina
+6         6       Brazil
+7         7        Ghana
+8         8     Paraguay
+9         9        Japan
+10       10        Chile
+11       11     Portugal
+12       12          USA
+13       13      England
+14       14       Mexico
+15       15  South Korea
+16       16     Slovakia
+17       17  Ivory Coast
+18       18     Slovenia
+19       19  Switzerland
+20       20 South Africa
+21       21    Australia
+22       22  New Zealand
+23       23       Serbia
+24       24      Denmark
+25       25       Greece
+26       26        Italy
+27       27      Nigeria
+28       28      Algeria
+29       29       France
+30       30     Honduras
+31       31     Cameroon
+32       32  North Korea</code></pre>
+</div>
+</div>
+<p>We can use the <code>$</code> symbol to pick out a specific column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">df<span class="sc" style="color: #5E5E5E;">$</span>Team</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Spain"        "Netherlands"  "Germany"      "Uruguay"      "Argentina"   
+ [6] "Brazil"       "Ghana"        "Paraguay"     "Japan"        "Chile"       
+[11] "Portugal"     "USA"          "England"      "Mexico"       "South Korea" 
+[16] "Slovakia"     "Ivory Coast"  "Slovenia"     "Switzerland"  "South Africa"
+[21] "Australia"    "New Zealand"  "Serbia"       "Denmark"      "Greece"      
+[26] "Italy"        "Nigeria"      "Algeria"      "France"       "Honduras"    
+[31] "Cameroon"     "North Korea" </code></pre>
+</div>
+</div>
+<p>We can also ask for the full paths for specific files</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"team_standings.csv"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/data/team_standings.csv"</code></pre>
+</div>
+</div>
+<div class="questions">
+<p><strong>Questions</strong>:</p>
+<ul>
+<li>What happens when you use <code>readLines()</code> function with the <code>team_standings.csv</code> data?</li>
+<li>How would you only read in the first 5 lines?</li>
+</ul>
+</div>
+</section>
+<section id="r-code" class="level3">
+<h3 class="anchored" data-anchor-id="r-code">R code</h3>
+<p>Sometimes, someone will give you a file that ends in a <code>.R</code>. This is what’s called an R script file. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use. To use the function, you have to first, read in the function from R script file into R.</p>
+<p>You can check to see if the function already is loaded in R by looking at the Environment tab.</p>
+<p>The function you want to use is</p>
+<ul>
+<li><code>source()</code>: for reading in R code files</li>
+</ul>
+<p>For example, it might be something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><span class="fu" style="color: #4758AB;">source</span>(here<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">'functions.R'</span>))</span></code></pre></div>
+</div>
+</section>
+<section id="r-objects" class="level3">
+<h3 class="anchored" data-anchor-id="r-objects">R objects</h3>
+<p>Alternatively, you might be interested in reading and writing R objects.</p>
+<p>Writing data in e.g.&nbsp;<code>.txt</code>, <code>.csv</code> or Excel file formats is good if you want to open these files with other analysis software, such as Excel. However, these formats do not preserve data structures, such as column data types (numeric, character or factor). In order to do that, the data should be written out in a R data format.</p>
+<p>There are several types R data file formats to be aware of:</p>
+<ul>
+<li><code>.RData</code>: Stores <strong>multiple</strong> R objects</li>
+<li><code>.Rda</code>: This is short for <code>.RData</code> and is equivalent.</li>
+<li><code>.Rds</code>: Stores a <strong>single</strong> R object</li>
+</ul>
+<div class="questions">
+<p><strong>Question: why is saving data in as a R object useful?</strong></p>
+<p>Saving data into R data formats can <strong>typically</strong> reduce considerably the size of large files by compression.</p>
+</div>
+<p>Next, we will learn how to save</p>
+<ol type="1">
+<li>A single R object</li>
+<li>Multiple R objects</li>
+<li>Your entire work space in a specified file</li>
+</ol>
+<p><strong>Reading in data from files</strong></p>
+<ul>
+<li><code>load()</code>: for reading in single or multiple R objects (opposite of <code>save()</code>) with a <code>.Rda</code> or <code>.RData</code> file format (objects must be same name)</li>
+<li><code>readRDS()</code>: for reading in a single object with a <code>.Rds</code> file format (can rename objects)</li>
+<li><code>unserialize()</code>: for reading single R objects in binary form</li>
+</ul>
+<p><strong>Writing data to files</strong></p>
+<ul>
+<li><code>save()</code>: for saving an arbitrary number of R objects in binary format (possibly compressed) to a file.</li>
+<li><code>saveRDS()</code>: for saving a single object</li>
+<li><code>serialize()</code>: for converting an R object into a binary format for outputting to a connection (or file).</li>
+<li><code>save.image()</code>: short for ’save my current workspace; while this <em>sounds</em> nice, it’s not terribly useful for reproducibility (hence not suggested); it’s also what happens when you try to quit R and it asks if you want to save your work space.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/http:/www.sthda.com/sthda/RDoc/images/save-data-into-r-data-formats.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Save data into R data file formats: RDS and RDATA</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<a href="http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata">Source</a>]</p>
+<p>Let’s try an example. Let’s save a vector of length 5 into the two file formats.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span></span>
+<span id="cb22-2"><span class="fu" style="color: #4758AB;">save</span>(x, <span class="at" style="color: #657422;">file=</span><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span>
+<span id="cb22-3"><span class="fu" style="color: #4758AB;">saveRDS</span>(x, <span class="at" style="color: #657422;">file=</span><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rds"</span>))</span>
+<span id="cb22-4"><span class="fu" style="color: #4758AB;">list.files</span>(<span class="at" style="color: #657422;">path=</span><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2016-07-19.csv.bz2" "chicago.rds"        "chocolate.RDS"     
+[4] "team_standings.csv" "x.Rda"              "x.Rds"             </code></pre>
+</div>
+</div>
+<p>Here we assign the imported data to an object using <code>readRDS()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1">new_x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">readRDS</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rds"</span>))</span>
+<span id="cb24-2">new_x1</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<p>Here we assign the imported data to an object using <code>load()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1">new_x2 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">load</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span>
+<span id="cb26-2">new_x2</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x"</code></pre>
+</div>
+</div>
+<p><strong>NOTE: <code>load()</code> simply returns the name of the objects loaded. Not the values.</strong></p>
+<p>Let’s clean up our space.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><span class="fu" style="color: #4758AB;">file.remove</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><span class="fu" style="color: #4758AB;">file.remove</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rds"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><span class="fu" style="color: #4758AB;">rm</span>(x)</span></code></pre></div>
+</div>
+<div class="questions">
+<p>What do you think this code will do?</p>
+<p><strong>Hint</strong>: change <code>eval=TRUE</code> to see result</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span></span>
+<span id="cb33-2">y <span class="ot" style="color: #003B4F;">&lt;-</span> x<span class="sc" style="color: #5E5E5E;">^</span><span class="dv" style="color: #AD0000;">2</span></span>
+<span id="cb33-3"><span class="fu" style="color: #4758AB;">save</span>(x,y, <span class="at" style="color: #657422;">file=</span><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span>
+<span id="cb33-4">new_x2 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">load</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span></code></pre></div>
+</div>
+<p>When you are done:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><span class="fu" style="color: #4758AB;">file.remove</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span></code></pre></div>
+</div>
+</div>
+<p>Now, there are of course, many R packages that have been developed to read in all kinds of other datasets, and you may need to resort to one of these packages if you are working in a specific area.</p>
+<p>For example, check out</p>
+<ul>
+<li><a href="https://github.com/r-dbi/DBI"><code>DBI</code></a> for relational databases</li>
+<li><a href="https://haven.tidyverse.org"><code>haven</code></a> for SPSS, Stata, and SAS data</li>
+<li><a href="https://github.com/r-lib/httr"><code>httr</code></a> for web APIs</li>
+<li><a href="https://readxl.tidyverse.org"><code>readxl</code></a> for <code>.xls</code> and <code>.xlsx</code> sheets</li>
+<li><a href="https://googlesheets4.tidyverse.org"><code>googlesheets4</code></a> for Google Sheets</li>
+<li><a href="https://googledrive.tidyverse.org"><code>googledrive</code></a> for Google Drive files</li>
+<li><a href="https://github.com/tidyverse/rvest"><code>rvest</code></a> for web scraping</li>
+<li><a href="https://github.com/jeroen/jsonlite#jsonlite"><code>jsonlite</code></a> for JSON</li>
+<li><a href="https://github.com/r-lib/xml2"><code>xml2</code></a> for XML.</li>
+</ul>
+</section>
+</section>
+<section id="reading-data-files-with-read.table" class="level1">
+<h1>Reading data files with <code>read.table()</code></h1>
+<p>The <code>read.table()</code> function is one of the most commonly used functions for reading data. The help file for <code>read.table()</code> is worth reading in its entirety if only because the function gets used a lot (run <code>?read.table</code> in R). I know, I know, everyone always says to read the help file, but this one is actually worth reading.</p>
+<p>The <code>read.table()</code> function has a few important arguments:</p>
+<ul>
+<li><code>file</code>, the name of a file, or a connection</li>
+<li><code>header</code>, logical indicating if the file has a header line</li>
+<li><code>sep</code>, a string indicating how the columns are separated</li>
+<li><code>colClasses</code>, a character vector indicating the class of each column in the dataset</li>
+<li><code>nrows</code>, the number of rows in the dataset. By default <code>read.table()</code> reads an entire file.</li>
+<li><code>comment.char</code>, a character string indicating the comment character. This defalts to <code>"#"</code>. If there are no commented lines in your file, it’s worth setting this to be the empty string <code>""</code>.</li>
+<li><code>skip</code>, the number of lines to skip from the beginning</li>
+<li><code>stringsAsFactors</code>, should character variables be coded as factors? This defaults to <code>FALSE</code>. However, back in the “old days”, it defaulted to <code>TRUE</code>. The reason for this was because, if you had data that were stored as strings, it was because those strings represented levels of a categorical variable. Now, we have lots of data that is text data and they do not always represent categorical variables. So you may want to set this to be <code>FALSE</code> in those cases. If you <em>always</em> want this to be <code>FALSE</code>, you can set a global option via <code>options(stringsAsFactors = FALSE)</code>. I’ve never seen so much heat generated on discussion forums about an R function argument than the <code>stringsAsFactors</code> argument. Seriously.</li>
+</ul>
+<p>For small to moderately sized datasets, you can usually call <code>read.table()</code> without specifying any other arguments</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1">data <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read.table</span>(<span class="st" style="color: #20794D;">"foo.txt"</span>)</span></code></pre></div>
+</div>
+<p><strong>Note</strong>: <code>foo.txt</code> is not a real dataset here. It is only used as an example for how to use <code>read.table()</code>.</p>
+<p>In this case, R will automatically:</p>
+<ul>
+<li>skip lines that begin with a #</li>
+<li>figure out how many rows there are (and how much memory needs to be allocated)</li>
+<li>figure what type of variable is in each column of the table.</li>
+</ul>
+<p>Telling R all these things directly makes R run faster and more efficiently. The <code>read.csv()</code> function is identical to <code>read.table()</code> except that some of the defaults are set differently (like the <code>sep</code> argument).</p>
+</section>
+<section id="reading-in-larger-datasets-with-read.table" class="level1">
+<h1>Reading in larger datasets with <code>read.table()</code></h1>
+<p>With much larger datasets, there are a few things that you can do that will make your life easier and will prevent R from choking.</p>
+<ul>
+<li>Read the help page for <code>read.table()</code>, which contains many hints</li>
+<li>Make a rough calculation of the memory required to store your dataset (see the next section for an example of how to do this). If the dataset is larger than the amount of RAM on your computer, you can probably stop right here.</li>
+<li>Set <code>comment.char = ""</code> if there are no commented lines in your file.</li>
+<li>Use the <code>colClasses</code> argument. Specifying this option instead of using the default can make <code>read.table()</code> run MUCH faster, often twice as fast. In order to use this option, you have to know the class of each column in your data frame. If all of the columns are “numeric”, for example, then you can just set <code>colClasses = "numeric"</code>. A quick an dirty way to figure out the classes of each column is the following:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1">initial <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read.table</span>(<span class="st" style="color: #20794D;">"datatable.txt"</span>, <span class="at" style="color: #657422;">nrows =</span> <span class="dv" style="color: #AD0000;">100</span>)</span>
+<span id="cb36-2">classes <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">sapply</span>(initial, class)</span>
+<span id="cb36-3">tabAll <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read.table</span>(<span class="st" style="color: #20794D;">"datatable.txt"</span>, <span class="at" style="color: #657422;">colClasses =</span> classes)</span></code></pre></div>
+</div>
+<p><strong>Note</strong>: <code>datatable.txt</code> is not a real dataset here. It is only used as an example for how to use <code>read.table()</code>.</p>
+<ul>
+<li>Set <code>nrows</code>. This does not make R run faster but it helps with memory usage. A mild overestimate is okay. You can use the Unix tool <code>wc</code> to calculate the number of lines in a file.</li>
+</ul>
+<p>In general, when using R with larger datasets, it’s also useful to know a few things about your system.</p>
+<ul>
+<li>How much memory is available on your system?</li>
+<li>What other applications are in use? Can you close any of them?</li>
+<li>Are there other users logged into the same system?</li>
+<li>What operating system ar you using? Some operating systems can limit the amount of memory a single process can access</li>
+</ul>
+</section>
+<section id="calculating-memory-requirements-for-r-objects" class="level1">
+<h1>Calculating Memory Requirements for R Objects</h1>
+<p>Because R stores all of its objects physical memory, it is important to be cognizant of how much memory is being used up by all of the data objects residing in your workspace. One situation where it is particularly important to understand memory requirements is when you are reading in a new dataset into R. Fortunately, it is easy to make a back of the envelope calculation of how much memory will be required by a new dataset.</p>
+<p>For example, suppose I have a data frame with 1,500,000 rows and 120 columns, all of which are numeric data. Roughly, how much memory is required to store this data frame?</p>
+<p>Well, on most modern computers <a href="http://en.wikipedia.org/wiki/Double-precision_floating-point_format">double precision floating point numbers</a> are stored using 64 bits of memory, or 8 bytes. Given that information, you can do the following calculation</p>
+<p>1,500,000 × 120 × 8 bytes/numeric = 1,440,000,000 bytes</p>
+<p>= 1,440,000,000 / 2<sup>20</sup> bytes/MB</p>
+<p>= 1,373.29 MB</p>
+<p>= 1.34 GB</p>
+<p>So the dataset would require about 1.34 GB of RAM. Most computers these days have at least that much RAM. However, you need to be aware of</p>
+<ul>
+<li>what other programs might be running on your computer, using up RAM</li>
+<li>what other R objects might already be taking up RAM in your workspace</li>
+</ul>
+<p>Reading in a large dataset for which you do not have enough RAM is one easy way to freeze up your computer (or at least your R session). This is usually an unpleasant experience that usually requires you to kill the R process, in the best case scenario, or reboot your computer, in the worst case. So make sure to do a rough calculation of memory requirements before reading in a large dataset. You’ll thank me later.</p>
+</section>
+<section id="using-the-readr-package" class="level1">
+<h1>Using the <code>readr</code> package</h1>
+<p>The <code>readr</code> package is recently developed by RStudio to deal with reading in large flat files quickly. The package provides replacements for functions like <code>read.table()</code> and <code>read.csv()</code>. The analogous functions in <code>readr</code> are <code>read_table()</code> and <code>read_csv()</code>. These functions are often <em>much</em> faster than their base R analogues and provide a few other nice features such as progress meters.</p>
+<p>For example, the package includes a variety of functions in the <code>read_*</code> family that allow you to read in data from different formats of flat files. The following table gives a guide to several functions in the <code>read_*</code> family.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><code>readr</code> function</th>
+<th style="text-align: left;">Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>read_csv</code></td>
+<td style="text-align: left;">Reads comma-separated file</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read_csv2</code></td>
+<td style="text-align: left;">Reads semicolon-separated file</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>read_tsv</code></td>
+<td style="text-align: left;">Reads tab-separated file</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read_delim</code></td>
+<td style="text-align: left;">General function for reading delimited files</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>read_fwf</code></td>
+<td style="text-align: left;">Reads fixed width files</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read_log</code></td>
+<td style="text-align: left;">Reads log files</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Note</strong>: In this code, I have used the <code>kable()</code> function from the <code>knitr</code> package to create the summary table in a table format, rather than as basic R output. This function is very useful for formatting basic tables in R markdown documents. For more complex tables, check out the <code>pander</code> and <code>xtable</code> packages.</p>
+<p>For the most part, you can read use <code>read_table()</code> and <code>read_csv()</code> pretty much anywhere you might use <code>read.table()</code> and <code>read.csv()</code>. In addition, if there are non-fatal problems that occur while reading in the data, you will get a warning and the returned data frame will have some information about which rows/observations triggered the warning. This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis.</p>
+<p>The importance of the <code>read_csv()</code> function is perhaps better understood from an historical perspective. R’s built in <code>read.csv()</code> function similarly reads CSV files, but the <code>read_csv()</code> function in <code>readr</code> builds on that by removing some of the quirks and “gotchas” of <code>read.csv()</code> as well as dramatically optimizing the speed with which it can read data into R. The <code>read_csv()</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</p>
+<p>A typical call to <code>read_csv()</code> will look as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><span class="fu" style="color: #4758AB;">library</span>(readr)</span>
+<span id="cb37-2">teams <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"team_standings.csv"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 32 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Team
+dbl (1): Standing
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1">teams</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 2
+   Standing Team       
+      &lt;dbl&gt; &lt;chr&gt;      
+ 1        1 Spain      
+ 2        2 Netherlands
+ 3        3 Germany    
+ 4        4 Uruguay    
+ 5        5 Argentina  
+ 6        6 Brazil     
+ 7        7 Ghana      
+ 8        8 Paraguay   
+ 9        9 Japan      
+10       10 Chile      
+# … with 22 more rows</code></pre>
+</div>
+</div>
+<p>By default, <code>read_csv()</code> will open a CSV file and read it in line-by-line. Similar to <code>read.table()</code>, you can tell the function to <code>skip</code> lines or which lines are comments:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><span class="fu" style="color: #4758AB;">read_csv</span>(<span class="st" style="color: #20794D;">"The first line of metadata</span></span>
+<span id="cb41-2"><span class="st" style="color: #20794D;">  The second line of metadata</span></span>
+<span id="cb41-3"><span class="st" style="color: #20794D;">  x,y,z</span></span>
+<span id="cb41-4"><span class="st" style="color: #20794D;">  1,2,3"</span>,</span>
+<span id="cb41-5">  <span class="at" style="color: #657422;">skip =</span> <span class="dv" style="color: #AD0000;">2</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): x, y, z
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      x     y     z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     2     3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><span class="fu" style="color: #4758AB;">read_csv</span>(<span class="st" style="color: #20794D;">"# A comment I want to skip</span></span>
+<span id="cb44-2"><span class="st" style="color: #20794D;">  x,y,z</span></span>
+<span id="cb44-3"><span class="st" style="color: #20794D;">  1,2,3"</span>,</span>
+<span id="cb44-4">  <span class="at" style="color: #657422;">comment =</span> <span class="st" style="color: #20794D;">"#"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): x, y, z
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      x     y     z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     2     3</code></pre>
+</div>
+</div>
+<p>It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e.&nbsp;integer, character, etc.). From the <code>read_csv()</code> help page:</p>
+<blockquote class="blockquote">
+<p>If ‘NULL’, all column types will be imputed from the first 1000 rows on the input. This is convenient (and fast), but not robust. If the imputation fails, you’ll need to supply the correct types yourself.</p>
+</blockquote>
+<p>You can specify the type of each column with the <code>col_types</code> argument.</p>
+<p>In general, it is a good idea to specify the column types explicitly. This rules out any possible guessing errors on the part of <code>read_csv()</code>. Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1">teams <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"team_standings.csv"</span>), </span>
+<span id="cb47-2">                  <span class="at" style="color: #657422;">col_types =</span> <span class="st" style="color: #20794D;">"cc"</span>)</span></code></pre></div>
+</div>
+<p>Note that the <code>col_types</code> argument accepts a compact representation. Here <code>"cc"</code> indicates that the first column is <code>character</code> and the second column is <code>character</code> (there are only two columns). Using the <code>col_types</code> argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).</p>
+<p>The <code>read_csv()</code> function will also read compressed files automatically. There is no need to decompress the file first or use the <code>gzfile</code> connection function. The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1">logs <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"2016-07-19.csv.bz2"</span>), </span>
+<span id="cb48-2">                 <span class="at" style="color: #657422;">n_max =</span> <span class="dv" style="color: #AD0000;">10</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 10 Columns: 10
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (6): r_version, r_arch, r_os, package, version, country
+dbl  (2): size, ip_id
+date (1): date
+time (1): time
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Note that the warnings indicate that <code>read_csv()</code> may have had some difficulty identifying the type of each column. This can be solved by using the <code>col_types</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1">logs <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"2016-07-19.csv.bz2"</span>), </span>
+<span id="cb50-2">                 <span class="at" style="color: #657422;">col_types =</span> <span class="st" style="color: #20794D;">"ccicccccci"</span>, </span>
+<span id="cb50-3">                 <span class="at" style="color: #657422;">n_max =</span> <span class="dv" style="color: #AD0000;">10</span>)</span>
+<span id="cb50-4">logs</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 10
+   date       time       size r_ver…¹ r_arch r_os  package version country ip_id
+   &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;
+ 1 2016-07-19 22:00:00 1.89e6 3.3.0   x86_64 ming… data.t… 1.9.6   US          1
+ 2 2016-07-19 22:00:05 4.54e4 3.3.1   x86_64 ming… assert… 0.1     US          2
+ 3 2016-07-19 22:00:03 1.43e7 3.3.1   x86_64 ming… stringi 1.1.1   DE          3
+ 4 2016-07-19 22:00:05 1.89e6 3.3.1   x86_64 ming… data.t… 1.9.6   US          4
+ 5 2016-07-19 22:00:06 3.90e5 3.3.1   x86_64 ming… foreach 1.4.3   US          4
+ 6 2016-07-19 22:00:08 4.88e4 3.3.1   x86_64 linu… tree    1.0-37  CO          5
+ 7 2016-07-19 22:00:12 5.25e2 3.3.1   x86_64 darw… surviv… 2.39-5  US          6
+ 8 2016-07-19 22:00:08 3.23e6 3.3.1   x86_64 ming… Rcpp    0.12.5  US          2
+ 9 2016-07-19 22:00:09 5.56e5 3.3.1   x86_64 ming… tibble  1.1     US          2
+10 2016-07-19 22:00:10 1.52e5 3.3.1   x86_64 ming… magrit… 1.5     US          2
+# … with abbreviated variable name ¹​r_version</code></pre>
+</div>
+</div>
+<p>You can specify the column type in a more detailed fashion by using the various <code>col_*</code> functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a <code>Date</code> object. If we wanted to just read in that first column, we could do</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1">logdates <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"2016-07-19.csv.bz2"</span>), </span>
+<span id="cb52-2">                     <span class="at" style="color: #657422;">col_types =</span> <span class="fu" style="color: #4758AB;">cols_only</span>(<span class="at" style="color: #657422;">date =</span> <span class="fu" style="color: #4758AB;">col_date</span>()),</span>
+<span id="cb52-3">                     <span class="at" style="color: #657422;">n_max =</span> <span class="dv" style="color: #AD0000;">10</span>)</span>
+<span id="cb52-4">logdates</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   date      
+   &lt;date&gt;    
+ 1 2016-07-19
+ 2 2016-07-19
+ 3 2016-07-19
+ 4 2016-07-19
+ 5 2016-07-19
+ 6 2016-07-19
+ 7 2016-07-19
+ 8 2016-07-19
+ 9 2016-07-19
+10 2016-07-19</code></pre>
+</div>
+</div>
+<p>Now the <code>date</code> column is stored as a <code>Date</code> object which can be used for relevant date-related computations (for example, see the <code>lubridate</code> package).</p>
+<p><strong>Note</strong>: The <code>read_csv()</code> function has a <code>progress</code> option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using <code>read_csv()</code> in a function, or perhaps embedding it in a loop, it is probably best to set <code>progress = FALSE</code>.</p>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>What is the point of reference for using relative paths with the <code>here::here()</code> function?</p></li>
+<li><p>Why was the argument <code>stringsAsFactors=TRUE</code> historically used?</p></li>
+<li><p>What is the difference between <code>.Rds</code> and <code>.Rda</code> file formats?</p></li>
+<li><p>What function in <code>readr</code> would you use to read a file where fields were separated with “|”?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv" class="uri">https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv</a></li>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-the-RStudio-IDE" class="uri">https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-the-RStudio-IDE</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/get-data.html" class="uri">https://jhudatascience.org/tidyversecourse/get-data.html</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 1</category>
+  <category>week 2</category>
+  <category>R</category>
+  <category>programming</category>
+  <category>readr</category>
+  <category>here</category>
+  <category>tidyverse</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/index.html</guid>
+  <pubDate>Tue, 06 Sep 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/cracked_setwd.png" medium="image" type="image/png"/>
+</item>
+<item>
+  <title>Managing data frames with the Tidyverse</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<!-- Add interesting quote -->
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/wrangle-data.html#data-wrangling" class="uri">https://jhudatascience.org/tidyversecourse/wrangle-data.html#data-wrangling</a></li>
+<li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">dplyr cheat sheet from RStudio</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-managing-data-frames-with-the-tidyverse.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-managing-data-frames-with-the-tidyverse.html</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/get-data.html#tibbles" class="uri">https://jhudatascience.org/tidyversecourse/get-data.html#tibbles</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Understand the advantages of a <code>tibble</code> and <code>data.frame</code> data objects in R</li>
+<li>Learn about the dplyr R package to manage data frames</li>
+<li>Recognize the key verbs to manage data frames in dplyr</li>
+<li>Use the “pipe” operator to combine verbs together</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="data-frames" class="level1">
+<h1>Data Frames</h1>
+<p>The <strong>data frame</strong> (or <code>data.frame</code>) is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. R has an internal implementation of data frames that is likely the one you will use most often. However, there are packages on CRAN that implement data frames via things like relational databases that allow you to operate on very very large data frames (but we will not discuss them here).</p>
+<p>Given the importance of managing data frames, it is important that we have good tools for dealing with them. For example, operations like filtering rows, re-ordering rows, and selecting columns, can often be tedious operations in R whose syntax is not very intuitive. The <code>dplyr</code> package is designed to mitigate a lot of these problems and to provide a highly optimized set of routines specifically for dealing with data frames.</p>
+<section id="tibbles" class="level3">
+<h3 class="anchored" data-anchor-id="tibbles">Tibbles</h3>
+<p>Another type of data structure that we need to discuss is called the <strong>tibble</strong>! It’s best to think of tibbles as an updated and stylish version of the <code>data.frame</code>. And, tibbles are what tidyverse packages work with most seamlessly. Now, that does not mean tidyverse packages <em>require</em> tibbles. In fact, they still work with <code>data.frames</code>, but the more you work with tidyverse and tidyverse-adjacent packages, the more you will see the advantages of using tibbles.</p>
+<p>Before we go any further, tibbles <em>are</em> data frames, but they have some new bells and whistles to make your life easier.</p>
+<section id="how-tibbles-differ-from-data.frame" class="level4">
+<h4 class="anchored" data-anchor-id="how-tibbles-differ-from-data.frame">How tibbles differ from <code>data.frame</code></h4>
+<p>There are a number of differences between tibbles and <code>data.frames</code>. To see a full vignette about tibbles and how they differ from data.frame, you will want to execute <code>vignette("tibble")</code> and read through that vignette. However, we will summarize some of the most important points here:</p>
+<ul>
+<li><strong>Input type remains unchanged</strong> - <code>data.frame</code> is notorious for treating strings as factors; this will not happen with tibbles</li>
+<li><strong>Variable names remain unchanged</strong> - In base R, creating <code>data.frames</code> will remove spaces from names, converting them to periods or add “x” before numeric column names. Creating tibbles will not change variable (column) names.</li>
+<li><strong>There are no <code>row.names()</code> for a tibble</strong> - Tidy data requires that variables be stored in a consistent way, removing the need for row names.</li>
+<li><strong>Tibbles print first ten rows and columns that fit on one screen</strong> - Printing a tibble to screen will never print the entire huge data frame out. By default, it just shows what fits to your screen.</li>
+</ul>
+</section>
+<section id="creating-a-tibble" class="level4">
+<h4 class="anchored" data-anchor-id="creating-a-tibble">Creating a tibble</h4>
+<p>The tibble package is part of the <code>tidyverse</code> and can thus be loaded in (once installed) using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span></code></pre></div>
+</div>
+</section>
+<section id="as_tibble" class="level4">
+<h4 class="anchored" data-anchor-id="as_tibble"><code>as_tibble()</code></h4>
+<p>Since many packages use the historical data.frame from base R, you will often find yourself in the situation that you have a data.frame and want to convert that data.frame to a tibble. To do so, the <code>as_tibble()</code> function is exactly what you are looking for.</p>
+<p>For the example, in this lesson we will be using a dataset containing air pollution and temperature data for the city of Chicago in the U.S. The dataset is available in this repository.</p>
+<p>You can load the data into R using the <code>readRDS()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;">library</span>(here)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at /Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">readRDS</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"chicago.rds"</span>))</span></code></pre></div>
+</div>
+<p>You can see some basic characteristics of the dataset with the <code>dim()</code> and <code>str()</code> functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;">dim</span>(chicago)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6940    8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;">str</span>(chicago)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   6940 obs. of  8 variables:
+ $ city      : chr  "chic" "chic" "chic" "chic" ...
+ $ tmpd      : num  31.5 33 33 29 32 40 34.5 29 26.5 32.5 ...
+ $ dptp      : num  31.5 29.9 27.4 28.6 28.9 ...
+ $ date      : Date, format: "1987-01-01" "1987-01-02" ...
+ $ pm25tmean2: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ pm10tmean2: num  34 NA 34.2 47 NA ...
+ $ o3tmean2  : num  4.25 3.3 3.33 4.38 4.75 ...
+ $ no2tmean2 : num  20 23.2 23.8 30.4 30.3 ...</code></pre>
+</div>
+</div>
+<p>We see this data structure is a <code>data.frame</code> with 6940 observations and 8 variables. To convert this <code>data.frame</code> to a tibble you would use the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;">str</span>(<span class="fu" style="color: #4758AB;">as_tibble</span>(chicago))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [6,940 × 8] (S3: tbl_df/tbl/data.frame)
+ $ city      : chr [1:6940] "chic" "chic" "chic" "chic" ...
+ $ tmpd      : num [1:6940] 31.5 33 33 29 32 40 34.5 29 26.5 32.5 ...
+ $ dptp      : num [1:6940] 31.5 29.9 27.4 28.6 28.9 ...
+ $ date      : Date[1:6940], format: "1987-01-01" "1987-01-02" ...
+ $ pm25tmean2: num [1:6940] NA NA NA NA NA NA NA NA NA NA ...
+ $ pm10tmean2: num [1:6940] 34 NA 34.2 47 NA ...
+ $ o3tmean2  : num [1:6940] 4.25 3.3 3.33 4.38 4.75 ...
+ $ no2tmean2 : num [1:6940] 20 23.2 23.8 30.4 30.3 ...</code></pre>
+</div>
+</div>
+<p>Note in the above example and as mentioned earlier, that tibbles, by default, only print the first ten rows to screen. If you were to print <code>chicago</code> to screen, all 6940 rows would be displayed. When working with large <code>data.frames</code>, this default behavior can be incredibly frustrating. Using tibbles removes this frustration because of the default settings for tibble printing.</p>
+<p>Additionally, you will note that the type of the variable is printed for each variable in the tibble. This helpful feature is another added bonus of tibbles relative to <code>data.frame</code>.</p>
+<p>If you <em>do</em> want to see more rows from the tibble, there are a few options! First, the <code>View()</code> function in RStudio is incredibly helpful. The input to this function is the data.frame or tibble you would like to see. Specifically, <code>View(chicago)</code> would provide you, the viewer, with a scrollable view (in a new tab) of the complete dataset.</p>
+<p>A second option is the fact that <code>print()</code> enables you to specify how many rows and columns you would like to display. Here, we again display the <code>chicago</code> data.frame as a tibble but specify that we’d only like to see 5 rows. The <code>width = Inf</code> argument specifies that we would like to see all the possible columns. Here, there are only 8, but for larger datasets, this can be helpful to specify.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;">as_tibble</span>(chicago) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> </span>
+<span id="cb11-2">  <span class="fu" style="color: #4758AB;">print</span>(<span class="at" style="color: #657422;">n =</span> <span class="dv" style="color: #AD0000;">5</span>, <span class="at" style="color: #657422;">width =</span> <span class="cn" style="color: #8f5902;">Inf</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,940 × 8
+  city   tmpd  dptp date       pm25tmean2 pm10tmean2 o3tmean2 no2tmean2
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;          &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 chic   31.5  31.5 1987-01-01         NA       34       4.25      20.0
+2 chic   33    29.9 1987-01-02         NA       NA       3.30      23.2
+3 chic   33    27.4 1987-01-03         NA       34.2     3.33      23.8
+4 chic   29    28.6 1987-01-04         NA       47       4.38      30.4
+5 chic   32    28.9 1987-01-05         NA       NA       4.75      30.3
+# … with 6,935 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="tibble" class="level4">
+<h4 class="anchored" data-anchor-id="tibble"><code>tibble()</code></h4>
+<p>Alternatively, you can create a tibble on the fly by using <code>tibble()</code> and specifying the information you’d like stored in each column. Note that if you provide a single value, this value will be repeated across all rows of the tibble. This is referred to as “recycling inputs of length 1.”</p>
+<p>In the example here, we see that the column <code>c</code> will contain the value ‘1’ across all rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="fu" style="color: #4758AB;">tibble</span>(</span>
+<span id="cb13-2">  <span class="at" style="color: #657422;">a =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span>,</span>
+<span id="cb13-3">  <span class="at" style="color: #657422;">b =</span> <span class="dv" style="color: #AD0000;">6</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>,</span>
+<span id="cb13-4">  <span class="at" style="color: #657422;">c =</span> <span class="dv" style="color: #AD0000;">1</span>,</span>
+<span id="cb13-5">  <span class="at" style="color: #657422;">z =</span> (a <span class="sc" style="color: #5E5E5E;">+</span> b)<span class="sc" style="color: #5E5E5E;">^</span><span class="dv" style="color: #AD0000;">2</span> <span class="sc" style="color: #5E5E5E;">+</span> c</span>
+<span id="cb13-6">)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+      a     b     c     z
+  &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     6     1    50
+2     2     7     1    82
+3     3     8     1   122
+4     4     9     1   170
+5     5    10     1   226</code></pre>
+</div>
+</div>
+<p>The <code>tibble()</code> function allows you to quickly generate tibbles and even allows you to reference columns within the tibble you’re creating, as seen in column z of the example above.</p>
+<p>We also noted previously that tibbles can have column names that are not allowed in data.frame. In this example, we see that to utilize a nontraditional variable name, you surround the column name with backticks. Note that to refer to such columns in other tidyverse packages, you’ll continue to use backticks surrounding the variable name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="fu" style="color: #4758AB;">tibble</span>(</span>
+<span id="cb15-2">  <span class="st" style="color: #20794D;">`</span><span class="at" style="color: #657422;">two words</span><span class="st" style="color: #20794D;">`</span> <span class="ot" style="color: #003B4F;">=</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span>,</span>
+<span id="cb15-3">  <span class="st" style="color: #20794D;">`</span><span class="at" style="color: #657422;">12</span><span class="st" style="color: #20794D;">`</span> <span class="ot" style="color: #003B4F;">=</span> <span class="st" style="color: #20794D;">"numeric"</span>,</span>
+<span id="cb15-4">  <span class="st" style="color: #20794D;">`</span><span class="at" style="color: #657422;">:)</span><span class="st" style="color: #20794D;">`</span> <span class="ot" style="color: #003B4F;">=</span> <span class="st" style="color: #20794D;">"smile"</span>,</span>
+<span id="cb15-5">)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  `two words` `12`    `:)` 
+        &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;
+1           1 numeric smile
+2           2 numeric smile
+3           3 numeric smile
+4           4 numeric smile
+5           5 numeric smile</code></pre>
+</div>
+</div>
+</section>
+<section id="subsetting" class="level4">
+<h4 class="anchored" data-anchor-id="subsetting">Subsetting</h4>
+<p>Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, <code>[[</code> can subset by name or position; <code>$</code> only subsets by name. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">df <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">tibble</span>(</span>
+<span id="cb17-2">  <span class="at" style="color: #657422;">a =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span>,</span>
+<span id="cb17-3">  <span class="at" style="color: #657422;">b =</span> <span class="dv" style="color: #AD0000;">6</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>,</span>
+<span id="cb17-4">  <span class="at" style="color: #657422;">c =</span> <span class="dv" style="color: #AD0000;">1</span>,</span>
+<span id="cb17-5">  <span class="at" style="color: #657422;">z =</span> (a <span class="sc" style="color: #5E5E5E;">+</span> b)<span class="sc" style="color: #5E5E5E;">^</span><span class="dv" style="color: #AD0000;">2</span> <span class="sc" style="color: #5E5E5E;">+</span> c</span>
+<span id="cb17-6">)</span>
+<span id="cb17-7"></span>
+<span id="cb17-8"><span class="co" style="color: #5E5E5E;"># Extract by name using $ or [[]]</span></span>
+<span id="cb17-9">df<span class="sc" style="color: #5E5E5E;">$</span>z</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  50  82 122 170 226</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1">df[[<span class="st" style="color: #20794D;">"z"</span>]]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  50  82 122 170 226</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><span class="co" style="color: #5E5E5E;"># Extract by position requires [[]]</span></span>
+<span id="cb21-2">df[[<span class="dv" style="color: #AD0000;">4</span>]]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  50  82 122 170 226</code></pre>
+</div>
+</div>
+<p>Having now discussed tibbles, which are the type of object most tidyverse and tidyverse-adjacent packages work best with, we now know the goal. In many cases, tibbles are ultimately what we want to work with in R. However, data are stored in many different formats outside of R. We will spend the rest of this lesson discussing wrangling functions that work either a <code>data.frame</code> or tibble.</p>
+</section>
+</section>
+</section>
+<section id="the-dplyr-package" class="level1">
+<h1>The <code>dplyr</code> Package</h1>
+<p>The <code>dplyr</code> package was developed by RStudio and is an optimized and distilled version of the older <code>plyr</code> package for data manipulation. The <code>dplyr</code> package does not provide any “new” functionality to R per se, in the sense that everything <code>dplyr</code> does could already be done with base R, but it <strong>greatly</strong> simplifies existing functionality in R.</p>
+<p>One important contribution of the <code>dplyr</code> package is that it provides a “grammar” (in particular, verbs) for data manipulation and for operating on data frames. With this grammar, you can sensibly communicate what it is that you are doing to a data frame that other people can understand (assuming they also know the grammar). This is useful because it provides an abstraction for data manipulation that previously did not exist. Another useful contribution is that the <code>dplyr</code> functions are <strong>very</strong> fast, as many key operations are coded in C++.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_wrangling.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on the dplyr package</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<section id="dplyr-grammar" class="level3">
+<h3 class="anchored" data-anchor-id="dplyr-grammar"><code>dplyr</code> grammar</h3>
+<p>Some of the key “verbs” provided by the <code>dplyr</code> package are</p>
+<ul>
+<li><p><code>select()</code>: return a subset of the columns of a data frame, using a flexible notation</p></li>
+<li><p><code>filter()</code>: extract a subset of rows from a data frame based on logical conditions</p></li>
+<li><p><code>arrange()</code>: reorder rows of a data frame</p></li>
+<li><p><code>rename()</code>: rename variables in a data frame</p></li>
+<li><p><code>mutate()</code>: add new variables/columns or transform existing variables</p></li>
+<li><p><code>summarise()</code> / <code>summarize()</code>: generate summary statistics of different variables in the data frame, possibly within strata</p></li>
+<li><p><code>%&gt;%</code>: the “pipe” operator is used to connect multiple verb actions together into a pipeline</p></li>
+</ul>
+<p>The <code>dplyr</code> package as a number of its own data types that it takes advantage of. For example, there is a handy <code>print</code> method that prevents you from printing a lot of data to the console. Most of the time, these additional data types are transparent to the user and do not need to be worried about.</p>
+</section>
+<section id="dplyr-functions" class="level3">
+<h3 class="anchored" data-anchor-id="dplyr-functions"><code>dplyr</code> functions</h3>
+<p>All of the functions that we will discuss in this Chapter will have a few common characteristics. In particular,</p>
+<ol type="1">
+<li><p>The first argument is a data frame.</p></li>
+<li><p>The subsequent arguments describe what to do with the data frame specified in the first argument, and you can refer to columns in the data frame directly (without using the <code>$</code> operator, just use the column names).</p></li>
+<li><p>The return result of a function is a new data frame.</p></li>
+<li><p>Data frames must be properly formatted and annotated for this to all be useful. In particular, the data must be <a href="http://www.jstatsoft.org/v59/i10/paper">tidy</a>. In short, there should be one observation per row, and each column should represent a feature or characteristic of that observation.</p></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_1.jpg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on tidy data</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+</section>
+<section id="dplyr-installation" class="level3">
+<h3 class="anchored" data-anchor-id="dplyr-installation"><code>dplyr</code> installation</h3>
+<p>The <code>dplyr</code> package can be installed from CRAN or from GitHub using the <code>devtools</code> package and the <code>install_github()</code> function. The GitHub repository will usually contain the latest updates to the package and the development version.</p>
+<p>To install from CRAN, just run</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="fu" style="color: #4758AB;">install.packages</span>(<span class="st" style="color: #20794D;">"dplyr"</span>)</span></code></pre></div>
+</div>
+<p>The <code>dplyr</code> package is also installed when you install the <code>tidyverse</code> meta-package.</p>
+<p>After installing the package it is important that you load it into your R session with the <code>library()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="fu" style="color: #4758AB;">library</span>(dplyr)</span></code></pre></div>
+</div>
+<p>You may get some warnings when the package is loaded because there are functions in the <code>dplyr</code> package that have the same name as functions in other packages. For now you can ignore the warnings.</p>
+</section>
+<section id="select" class="level3">
+<h3 class="anchored" data-anchor-id="select"><code>select()</code></h3>
+<p>We will continue to use the <code>chicago</code> dataset containing air pollution and temperature data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">as_tibble</span>(chicago)</span>
+<span id="cb25-2"><span class="fu" style="color: #4758AB;">str</span>(chicago)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [6,940 × 8] (S3: tbl_df/tbl/data.frame)
+ $ city      : chr [1:6940] "chic" "chic" "chic" "chic" ...
+ $ tmpd      : num [1:6940] 31.5 33 33 29 32 40 34.5 29 26.5 32.5 ...
+ $ dptp      : num [1:6940] 31.5 29.9 27.4 28.6 28.9 ...
+ $ date      : Date[1:6940], format: "1987-01-01" "1987-01-02" ...
+ $ pm25tmean2: num [1:6940] NA NA NA NA NA NA NA NA NA NA ...
+ $ pm10tmean2: num [1:6940] 34 NA 34.2 47 NA ...
+ $ o3tmean2  : num [1:6940] 4.25 3.3 3.33 4.38 4.75 ...
+ $ no2tmean2 : num [1:6940] 20 23.2 23.8 30.4 30.3 ...</code></pre>
+</div>
+</div>
+<p>The <code>select()</code> function can be used to select columns of a data frame that you want to focus on. Often you will have a large data frame containing “all” of the data, but any <em>given</em> analysis might only use a subset of variables or observations. The <code>select()</code> function allows you to get the few columns you might need.</p>
+<p>Suppose we wanted to take the first 3 columns only. There are a few ways to do this. We could for example use numerical indices. But we can also use the names directly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;">names</span>(chicago)[<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span>]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "city" "tmpd" "dptp"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1">subset <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">select</span>(chicago, city<span class="sc" style="color: #5E5E5E;">:</span>dptp)</span>
+<span id="cb29-2"><span class="fu" style="color: #4758AB;">head</span>(subset)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  city   tmpd  dptp
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 chic   31.5  31.5
+2 chic   33    29.9
+3 chic   33    27.4
+4 chic   29    28.6
+5 chic   32    28.9
+6 chic   40    35.1</code></pre>
+</div>
+</div>
+<p>Note that the <code>:</code> normally cannot be used with names or strings, but inside the <code>select()</code> function you can use it to specify a range of variable names.</p>
+<p>You can also <strong>omit</strong> variables using the <code>select()</code> function by using the negative sign. With <code>select()</code> you can do</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><span class="fu" style="color: #4758AB;">select</span>(chicago, <span class="sc" style="color: #5E5E5E;">-</span>(city<span class="sc" style="color: #5E5E5E;">:</span>dptp))</span></code></pre></div>
+</div>
+<p>which indicates that we should include every variable <em>except</em> the variables <code>city</code> through <code>dptp</code>. The equivalent code in base R would be</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1">i <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">match</span>(<span class="st" style="color: #20794D;">"city"</span>, <span class="fu" style="color: #4758AB;">names</span>(chicago))</span>
+<span id="cb32-2">j <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">match</span>(<span class="st" style="color: #20794D;">"dptp"</span>, <span class="fu" style="color: #4758AB;">names</span>(chicago))</span>
+<span id="cb32-3"><span class="fu" style="color: #4758AB;">head</span>(chicago[, <span class="sc" style="color: #5E5E5E;">-</span>(i<span class="sc" style="color: #5E5E5E;">:</span>j)])</span></code></pre></div>
+</div>
+<p>Not super intuitive, right?</p>
+<p>The <code>select()</code> function also allows a special syntax that allows you to specify variable names based on patterns. So, for example, if you wanted to keep every variable that ends with a “2”, we could do</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1">subset <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">select</span>(chicago, <span class="fu" style="color: #4758AB;">ends_with</span>(<span class="st" style="color: #20794D;">"2"</span>))</span>
+<span id="cb33-2"><span class="fu" style="color: #4758AB;">str</span>(subset)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [6,940 × 4] (S3: tbl_df/tbl/data.frame)
+ $ pm25tmean2: num [1:6940] NA NA NA NA NA NA NA NA NA NA ...
+ $ pm10tmean2: num [1:6940] 34 NA 34.2 47 NA ...
+ $ o3tmean2  : num [1:6940] 4.25 3.3 3.33 4.38 4.75 ...
+ $ no2tmean2 : num [1:6940] 20 23.2 23.8 30.4 30.3 ...</code></pre>
+</div>
+</div>
+<p>Or if we wanted to keep every variable that starts with a “d”, we could do</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1">subset <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">select</span>(chicago, <span class="fu" style="color: #4758AB;">starts_with</span>(<span class="st" style="color: #20794D;">"d"</span>))</span>
+<span id="cb35-2"><span class="fu" style="color: #4758AB;">str</span>(subset)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [6,940 × 2] (S3: tbl_df/tbl/data.frame)
+ $ dptp: num [1:6940] 31.5 29.9 27.4 28.6 28.9 ...
+ $ date: Date[1:6940], format: "1987-01-01" "1987-01-02" ...</code></pre>
+</div>
+</div>
+<p>You can also use more general regular expressions if necessary. See the help page (<code>?select</code>) for more details.</p>
+</section>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter"><code>filter()</code></h3>
+<p>The <code>filter()</code> function is used to extract subsets of rows from a data frame. This function is similar to the existing <code>subset()</code> function in R but is quite a bit faster in my experience.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_filter.jpg" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on filter() function</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<p>Suppose we wanted to extract the rows of the <code>chicago</code> data frame where the levels of PM2.5 are greater than 30 (which is a reasonably high level), we could do</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1">chic.f <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">filter</span>(chicago, pm25tmean2 <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">30</span>)</span>
+<span id="cb37-2"><span class="fu" style="color: #4758AB;">str</span>(chic.f)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [194 × 8] (S3: tbl_df/tbl/data.frame)
+ $ city      : chr [1:194] "chic" "chic" "chic" "chic" ...
+ $ tmpd      : num [1:194] 23 28 55 59 57 57 75 61 73 78 ...
+ $ dptp      : num [1:194] 21.9 25.8 51.3 53.7 52 56 65.8 59 60.3 67.1 ...
+ $ date      : Date[1:194], format: "1998-01-17" "1998-01-23" ...
+ $ pm25tmean2: num [1:194] 38.1 34 39.4 35.4 33.3 ...
+ $ pm10tmean2: num [1:194] 32.5 38.7 34 28.5 35 ...
+ $ o3tmean2  : num [1:194] 3.18 1.75 10.79 14.3 20.66 ...
+ $ no2tmean2 : num [1:194] 25.3 29.4 25.3 31.4 26.8 ...</code></pre>
+</div>
+</div>
+<p>You can see that there are now only 194 rows in the data frame and the distribution of the <code>pm25tmean2</code> values is.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><span class="fu" style="color: #4758AB;">summary</span>(chic.f<span class="sc" style="color: #5E5E5E;">$</span>pm25tmean2)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  30.05   32.12   35.04   36.63   39.53   61.50 </code></pre>
+</div>
+</div>
+<p>We can place an arbitrarily complex logical sequence inside of <code>filter()</code>, so we could for example extract the rows where PM2.5 is greater than 30 <em>and</em> temperature is greater than 80 degrees Fahrenheit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1">chic.f <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">filter</span>(chicago, pm25tmean2 <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">30</span> <span class="sc" style="color: #5E5E5E;">&amp;</span> tmpd <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">80</span>)</span>
+<span id="cb41-2"><span class="fu" style="color: #4758AB;">select</span>(chic.f, date, tmpd, pm25tmean2)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 3
+   date        tmpd pm25tmean2
+   &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+ 1 1998-08-23    81       39.6
+ 2 1998-09-06    81       31.5
+ 3 2001-07-20    82       32.3
+ 4 2001-08-01    84       43.7
+ 5 2001-08-08    85       38.8
+ 6 2001-08-09    84       38.2
+ 7 2002-06-20    82       33  
+ 8 2002-06-23    82       42.5
+ 9 2002-07-08    81       33.1
+10 2002-07-18    82       38.8
+11 2003-06-25    82       33.9
+12 2003-07-04    84       32.9
+13 2005-06-24    86       31.9
+14 2005-06-27    82       51.5
+15 2005-06-28    85       31.2
+16 2005-07-17    84       32.7
+17 2005-08-03    84       37.9</code></pre>
+</div>
+</div>
+<p>Now there are only 17 observations where both of those conditions are met.</p>
+<p>Other logical operators you should be aware of include:</p>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 37%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Operator</th>
+<th style="text-align: right;">Meaning</th>
+<th style="text-align: right;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>==</code></td>
+<td style="text-align: right;">Equals</td>
+<td style="text-align: right;"><code>city == chic</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>!=</code></td>
+<td style="text-align: right;">Does not equal</td>
+<td style="text-align: right;"><code>city != chic</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>&gt;</code></td>
+<td style="text-align: right;">Greater than</td>
+<td style="text-align: right;"><code>tmpd &gt; 32.0</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>&gt;=</code></td>
+<td style="text-align: right;">Greater than or equal to</td>
+<td style="text-align: right;"><code>tmpd &gt;- 32.0</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>&lt;</code></td>
+<td style="text-align: right;">Less than</td>
+<td style="text-align: right;"><code>tmpd &lt; 32.0</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>&lt;=</code></td>
+<td style="text-align: right;">Less than or equal to</td>
+<td style="text-align: right;"><code>tmpd &lt;= 32.0</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>%in%</code></td>
+<td style="text-align: right;">Included in</td>
+<td style="text-align: right;"><code>city %in% c("chic", "bmore")</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>is.na()</code></td>
+<td style="text-align: right;">Is a missing value</td>
+<td style="text-align: right;"><code>is.na(pm10tmean2)</code></td>
+</tr>
+</tbody>
+</table>
+<p>If you are ever unsure of how to write a logical statement, but know how to write its opposite, you can use the <code>!</code> operator to negate the whole statement. A common use of this is to identify observations with non-missing data (e.g., <code>!(is.na(pm10tmean2))</code>).</p>
+</section>
+<section id="arrange" class="level3">
+<h3 class="anchored" data-anchor-id="arrange"><code>arrange()</code></h3>
+<p>The <code>arrange()</code> function is used to reorder rows of a data frame according to one of the variables/columns. Reordering rows of a data frame (while preserving corresponding order of other columns) is normally a pain to do in R. The <code>arrange()</code> function simplifies the process quite a bit.</p>
+<p>Here we can order the rows of the data frame by date, so that the first row is the earliest (oldest) observation and the last row is the latest (most recent) observation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">arrange</span>(chicago, date)</span></code></pre></div>
+</div>
+<p>We can now check the first few rows</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><span class="fu" style="color: #4758AB;">head</span>(<span class="fu" style="color: #4758AB;">select</span>(chicago, date, pm25tmean2), <span class="dv" style="color: #AD0000;">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  date       pm25tmean2
+  &lt;date&gt;          &lt;dbl&gt;
+1 1987-01-01         NA
+2 1987-01-02         NA
+3 1987-01-03         NA</code></pre>
+</div>
+</div>
+<p>and the last few rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><span class="fu" style="color: #4758AB;">tail</span>(<span class="fu" style="color: #4758AB;">select</span>(chicago, date, pm25tmean2), <span class="dv" style="color: #AD0000;">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  date       pm25tmean2
+  &lt;date&gt;          &lt;dbl&gt;
+1 2005-12-29       7.45
+2 2005-12-30      15.1 
+3 2005-12-31      15   </code></pre>
+</div>
+</div>
+<p>Columns can be arranged in descending order too by useing the special <code>desc()</code> operator.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">arrange</span>(chicago, <span class="fu" style="color: #4758AB;">desc</span>(date))</span></code></pre></div>
+</div>
+<p>Looking at the first three and last three rows shows the dates in descending order.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><span class="fu" style="color: #4758AB;">head</span>(<span class="fu" style="color: #4758AB;">select</span>(chicago, date, pm25tmean2), <span class="dv" style="color: #AD0000;">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  date       pm25tmean2
+  &lt;date&gt;          &lt;dbl&gt;
+1 2005-12-31      15   
+2 2005-12-30      15.1 
+3 2005-12-29       7.45</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><span class="fu" style="color: #4758AB;">tail</span>(<span class="fu" style="color: #4758AB;">select</span>(chicago, date, pm25tmean2), <span class="dv" style="color: #AD0000;">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  date       pm25tmean2
+  &lt;date&gt;          &lt;dbl&gt;
+1 1987-01-03         NA
+2 1987-01-02         NA
+3 1987-01-01         NA</code></pre>
+</div>
+</div>
+</section>
+<section id="rename" class="level3">
+<h3 class="anchored" data-anchor-id="rename"><code>rename()</code></h3>
+<p>Renaming a variable in a data frame in R is surprisingly hard to do! The <code>rename()</code> function is designed to make this process easier.</p>
+<p>Here you can see the names of the first five variables in the <code>chicago</code> data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><span class="fu" style="color: #4758AB;">head</span>(chicago[, <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span>], <span class="dv" style="color: #AD0000;">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  city   tmpd  dptp date       pm25tmean2
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;          &lt;dbl&gt;
+1 chic     35  30.1 2005-12-31      15   
+2 chic     36  31   2005-12-30      15.1 
+3 chic     35  29.4 2005-12-29       7.45</code></pre>
+</div>
+</div>
+<p>The <code>dptp</code> column is supposed to represent the dew point temperature adn the <code>pm25tmean2</code> column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rename</span>(chicago, <span class="at" style="color: #657422;">dewpoint =</span> dptp, <span class="at" style="color: #657422;">pm25 =</span> pm25tmean2)</span>
+<span id="cb55-2"><span class="fu" style="color: #4758AB;">head</span>(chicago[, <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">5</span>], <span class="dv" style="color: #AD0000;">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  city   tmpd dewpoint date        pm25
+  &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;
+1 chic     35     30.1 2005-12-31 15   
+2 chic     36     31   2005-12-30 15.1 
+3 chic     35     29.4 2005-12-29  7.45</code></pre>
+</div>
+</div>
+<p>The syntax inside the <code>rename()</code> function is to have the new name on the left-hand side of the <code>=</code> sign and the old name on the right-hand side.</p>
+<div class="questions">
+<p><strong>Question</strong>: How would you do the equivalent in base R without <code>dplyr</code>?</p>
+</div>
+</section>
+<section id="mutate" class="level3">
+<h3 class="anchored" data-anchor-id="mutate"><code>mutate()</code></h3>
+<p>The <code>mutate()</code> function exists to compute transformations of variables in a data frame. Often, you want to create new variables that are derived from existing variables and <code>mutate()</code> provides a clean interface for doing that.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_mutate.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Artwork by Allison Horst on mutate() function</figcaption><p></p>
+</figure>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<p>For example, with air pollution data, we often want to <em>detrend</em> the data by subtracting the mean from the data. That way we can look at whether a given day’s air pollution level is higher than or less than average (as opposed to looking at its absolute level).</p>
+<p>Here we create a <code>pm25detrend</code> variable that subtracts the mean from the <code>pm25</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">mutate</span>(chicago, <span class="at" style="color: #657422;">pm25detrend =</span> pm25 <span class="sc" style="color: #5E5E5E;">-</span> <span class="fu" style="color: #4758AB;">mean</span>(pm25, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>))</span>
+<span id="cb57-2"><span class="fu" style="color: #4758AB;">head</span>(chicago)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  city   tmpd dewpoint date        pm25 pm10tmean2 o3tmean2 no2tmean2 pm25detr…¹
+  &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 chic     35     30.1 2005-12-31 15          23.5     2.53      13.2      -1.23
+2 chic     36     31   2005-12-30 15.1        19.2     3.03      22.8      -1.17
+3 chic     35     29.4 2005-12-29  7.45       23.5     6.79      20.0      -8.78
+4 chic     37     34.5 2005-12-28 17.8        27.5     3.26      19.3       1.52
+5 chic     40     33.6 2005-12-27 23.6        27       4.47      23.5       7.33
+6 chic     35     29.6 2005-12-26  8.4         8.5    14.0       16.8      -7.83
+# … with abbreviated variable name ¹​pm25detrend</code></pre>
+</div>
+</div>
+<p>There is also the related <code>transmute()</code> function, which does the same thing as <code>mutate()</code> but then <em>drops all non-transformed variables</em>.</p>
+<p>Here, we de-trend the PM10 and ozone (O3) variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><span class="fu" style="color: #4758AB;">head</span>(<span class="fu" style="color: #4758AB;">transmute</span>(chicago, </span>
+<span id="cb59-2">               <span class="at" style="color: #657422;">pm10detrend =</span> pm10tmean2 <span class="sc" style="color: #5E5E5E;">-</span> <span class="fu" style="color: #4758AB;">mean</span>(pm10tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>),</span>
+<span id="cb59-3">               <span class="at" style="color: #657422;">o3detrend =</span> o3tmean2 <span class="sc" style="color: #5E5E5E;">-</span> <span class="fu" style="color: #4758AB;">mean</span>(o3tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>)))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  pm10detrend o3detrend
+        &lt;dbl&gt;     &lt;dbl&gt;
+1      -10.4     -16.9 
+2      -14.7     -16.4 
+3      -10.4     -12.6 
+4       -6.40    -16.2 
+5       -6.90    -15.0 
+6      -25.4      -5.39</code></pre>
+</div>
+</div>
+<p>Note that there are only two columns in the transmuted data frame.</p>
+</section>
+<section id="group_by" class="level3">
+<h3 class="anchored" data-anchor-id="group_by"><code>group_by()</code></h3>
+<p>The <code>group_by()</code> function is used to generate summary statistics from the data frame within strata defined by a variable. For example, in this air pollution dataset, you might want to know what the average annual level of PM2.5 is. So the stratum is the year, and that is something we can derive from the <code>date</code> variable.</p>
+<p>In conjunction with the <code>group_by()</code> function we often use the <code>summarize()</code> function (or <code>summarise()</code> for some parts of the world).</p>
+<p>The general operation here is a combination of splitting a data frame into separate pieces defined by a variable or group of variables (<code>group_by()</code>), and then applying a summary function across those subsets (<code>summarize()</code>).</p>
+<p>First, we can create a <code>year</code> variable using <code>as.POSIXlt()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">mutate</span>(chicago, <span class="at" style="color: #657422;">year =</span> <span class="fu" style="color: #4758AB;">as.POSIXlt</span>(date)<span class="sc" style="color: #5E5E5E;">$</span>year <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1900</span>)</span></code></pre></div>
+</div>
+<p>Now we can create a separate data frame that splits the original data frame by year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1">years <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">group_by</span>(chicago, year)</span></code></pre></div>
+</div>
+<p>Finally, we compute summary statistics for each year in the data frame with the <code>summarize()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><span class="fu" style="color: #4758AB;">summarize</span>(years, <span class="at" style="color: #657422;">pm25 =</span> <span class="fu" style="color: #4758AB;">mean</span>(pm25, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>), </span>
+<span id="cb63-2">          <span class="at" style="color: #657422;">o3 =</span> <span class="fu" style="color: #4758AB;">max</span>(o3tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>), </span>
+<span id="cb63-3">          <span class="at" style="color: #657422;">no2 =</span> <span class="fu" style="color: #4758AB;">median</span>(no2tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 19 × 4
+    year  pm25    o3   no2
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  1987 NaN    63.0  23.5
+ 2  1988 NaN    61.7  24.5
+ 3  1989 NaN    59.7  26.1
+ 4  1990 NaN    52.2  22.6
+ 5  1991 NaN    63.1  21.4
+ 6  1992 NaN    50.8  24.8
+ 7  1993 NaN    44.3  25.8
+ 8  1994 NaN    52.2  28.5
+ 9  1995 NaN    66.6  27.3
+10  1996 NaN    58.4  26.4
+11  1997 NaN    56.5  25.5
+12  1998  18.3  50.7  24.6
+13  1999  18.5  57.5  24.7
+14  2000  16.9  55.8  23.5
+15  2001  16.9  51.8  25.1
+16  2002  15.3  54.9  22.7
+17  2003  15.2  56.2  24.6
+18  2004  14.6  44.5  23.4
+19  2005  16.2  58.8  22.6</code></pre>
+</div>
+</div>
+<p><code>summarize()</code> returns a data frame with <code>year</code> as the first column, and then the annual averages of <code>pm25</code>, <code>o3</code>, and <code>no2</code>.</p>
+<p>In a slightly more complicated example, we might want to know what are the average levels of ozone (<code>o3</code>) and nitrogen dioxide (<code>no2</code>) within quintiles of <code>pm25</code>. A slicker way to do this would be through a regression model, but we can actually do this quickly with <code>group_by()</code> and <code>summarize()</code>.</p>
+<p>First, we can create a categorical variable of <code>pm25</code> divided into quantiles</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1">qq <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">quantile</span>(chicago<span class="sc" style="color: #5E5E5E;">$</span>pm25, <span class="fu" style="color: #4758AB;">seq</span>(<span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.2</span>), <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>)</span>
+<span id="cb65-2">chicago <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">mutate</span>(chicago, <span class="at" style="color: #657422;">pm25.quint =</span> <span class="fu" style="color: #4758AB;">cut</span>(pm25, qq))</span></code></pre></div>
+</div>
+<p>Now we can group the data frame by the <code>pm25.quint</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1">quint <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">group_by</span>(chicago, pm25.quint)</span></code></pre></div>
+</div>
+<p>Finally, we can compute the mean of <code>o3</code> and <code>no2</code> within quintiles of <code>pm25</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><span class="fu" style="color: #4758AB;">summarize</span>(quint, <span class="at" style="color: #657422;">o3 =</span> <span class="fu" style="color: #4758AB;">mean</span>(o3tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>), </span>
+<span id="cb67-2">          <span class="at" style="color: #657422;">no2 =</span> <span class="fu" style="color: #4758AB;">mean</span>(no2tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  pm25.quint     o3   no2
+  &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;
+1 (1.7,8.7]    21.7  18.0
+2 (8.7,12.4]   20.4  22.1
+3 (12.4,16.7]  20.7  24.4
+4 (16.7,22.6]  19.9  27.3
+5 (22.6,61.5]  20.3  29.6
+6 &lt;NA&gt;         18.8  25.8</code></pre>
+</div>
+</div>
+<p>From the table, it seems there is not a strong relationship between <code>pm25</code> and <code>o3</code>, but there appears to be a positive correlation between <code>pm25</code> and <code>no2</code>. More sophisticated statistical modeling can help to provide precise answers to these questions, but a simple application of <code>dplyr</code> functions can often get you most of the way there.</p>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"><code>%&gt;%</code></h3>
+<p>The pipeline operator <code>%&gt;%</code> is very handy for stringing together multiple <code>dplyr</code> functions in a sequence of operations. Notice above that every time we wanted to apply more than one function, the sequence gets buried in a sequence of nested function calls that is difficult to read, i.e.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><span class="fu" style="color: #4758AB;">third</span>(<span class="fu" style="color: #4758AB;">second</span>(<span class="fu" style="color: #4758AB;">first</span>(x)))</span></code></pre></div>
+</div>
+<p>This nesting is not a natural way to think about a sequence of operations. The <code>%&gt;%</code> operator allows you to string operations in a left-to-right fashion, i.e.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><span class="fu" style="color: #4758AB;">first</span>(x) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> second <span class="sc" style="color: #5E5E5E;">%&gt;%</span> third</span></code></pre></div>
+</div>
+<p>Take the example that we just did in the last section where we computed the mean of <code>o3</code> and <code>no2</code> within quintiles of <code>pm25</code>. There we had to</p>
+<ol type="1">
+<li>create a new variable <code>pm25.quint</code></li>
+<li>split the data frame by that new variable</li>
+<li>compute the mean of <code>o3</code> and <code>no2</code> in the sub-groups defined by <code>pm25.quint</code></li>
+</ol>
+<p>That can be done with the following sequence in a single R expression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><span class="fu" style="color: #4758AB;">mutate</span>(chicago, <span class="at" style="color: #657422;">pm25.quint =</span> <span class="fu" style="color: #4758AB;">cut</span>(pm25, qq)) <span class="sc" style="color: #5E5E5E;">%&gt;%</span>    </span>
+<span id="cb71-2">        <span class="fu" style="color: #4758AB;">group_by</span>(pm25.quint) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> </span>
+<span id="cb71-3">        <span class="fu" style="color: #4758AB;">summarize</span>(<span class="at" style="color: #657422;">o3 =</span> <span class="fu" style="color: #4758AB;">mean</span>(o3tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>), </span>
+<span id="cb71-4">                  <span class="at" style="color: #657422;">no2 =</span> <span class="fu" style="color: #4758AB;">mean</span>(no2tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  pm25.quint     o3   no2
+  &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;
+1 (1.7,8.7]    21.7  18.0
+2 (8.7,12.4]   20.4  22.1
+3 (12.4,16.7]  20.7  24.4
+4 (16.7,22.6]  19.9  27.3
+5 (22.6,61.5]  20.3  29.6
+6 &lt;NA&gt;         18.8  25.8</code></pre>
+</div>
+</div>
+<p>This way we do not have to create a set of temporary variables along the way or create a massive nested sequence of function calls.</p>
+<p>Notice in the above code that I pass the <code>chicago</code> data frame to the first call to <code>mutate()</code>, but then afterwards I do not have to pass the first argument to <code>group_by()</code> or <code>summarize()</code>. Once you travel down the pipeline with <code>%&gt;%</code>, the first argument is taken to be the output of the previous element in the pipeline.</p>
+<p>Another example might be computing the average pollutant level by month. This could be useful to see if there are any seasonal trends in the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><span class="fu" style="color: #4758AB;">mutate</span>(chicago, <span class="at" style="color: #657422;">month =</span> <span class="fu" style="color: #4758AB;">as.POSIXlt</span>(date)<span class="sc" style="color: #5E5E5E;">$</span>mon <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> </span>
+<span id="cb73-2">        <span class="fu" style="color: #4758AB;">group_by</span>(month) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> </span>
+<span id="cb73-3">        <span class="fu" style="color: #4758AB;">summarize</span>(<span class="at" style="color: #657422;">pm25 =</span> <span class="fu" style="color: #4758AB;">mean</span>(pm25, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>), </span>
+<span id="cb73-4">                  <span class="at" style="color: #657422;">o3 =</span> <span class="fu" style="color: #4758AB;">max</span>(o3tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>), </span>
+<span id="cb73-5">                  <span class="at" style="color: #657422;">no2 =</span> <span class="fu" style="color: #4758AB;">median</span>(no2tmean2, <span class="at" style="color: #657422;">na.rm =</span> <span class="cn" style="color: #8f5902;">TRUE</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+   month  pm25    o3   no2
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1  17.8  28.2  25.4
+ 2     2  20.4  37.4  26.8
+ 3     3  17.4  39.0  26.8
+ 4     4  13.9  47.9  25.0
+ 5     5  14.1  52.8  24.2
+ 6     6  15.9  66.6  25.0
+ 7     7  16.6  59.5  22.4
+ 8     8  16.9  54.0  23.0
+ 9     9  15.9  57.5  24.5
+10    10  14.2  47.1  24.2
+11    11  15.2  29.5  23.6
+12    12  17.5  27.7  24.5</code></pre>
+</div>
+</div>
+<p>Here, we can see that <code>o3</code> tends to be low in the winter months and high in the summer while <code>no2</code> is higher in the winter and lower in the summer.</p>
+</section>
+<section id="slice_" class="level3">
+<h3 class="anchored" data-anchor-id="slice_"><code>slice_*()</code></h3>
+<p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><span class="fu" style="color: #4758AB;">slice_sample</span>(chicago, <span class="at" style="color: #657422;">n =</span> <span class="dv" style="color: #AD0000;">10</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 11
+   city   tmpd dewpoint date        pm25 pm10tme…¹ o3tme…² no2tm…³ pm25d…⁴  year
+   &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1 chic   39       15.8 2002-03-23  12.1      39     26.8     17.9   -4.13  2002
+ 2 chic   21       10.8 2002-02-27   9.2      26     18.3     23.7   -7.03  2002
+ 3 chic   45       32.6 2000-03-14  26.1      45.5   14.0     25.3    9.87  2000
+ 4 chic   76       66.2 1999-06-26  24.9      37.5   35.6     27.1    8.67  1999
+ 5 chic   67       46.1 2001-05-09  10.7      59     36.9     29.3   -5.53  2001
+ 6 chic   44       29.5 1992-04-28  NA        55     18.1     41.6   NA     1992
+ 7 chic   67       59.9 2003-09-02  12.5      21     31.8     21.9   -3.73  2003
+ 8 chic   30       21.8 2004-12-03  21        28      6.92    27.3    4.77  2004
+ 9 chic   81.5     68.8 1991-09-15  NA        34.3   22.2     16.9   NA     1991
+10 chic   58       34.6 1988-10-10  NA        39     20.8     17.3   NA     1988
+# … with 1 more variable: pm25.quint &lt;fct&gt;, and abbreviated variable names
+#   ¹​pm10tmean2, ²​o3tmean2, ³​no2tmean2, ⁴​pm25detrend</code></pre>
+</div>
+</div>
+<p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the <code>n</code> argument.</p>
+<p>This will show the first 5 rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><span class="fu" style="color: #4758AB;">slice_head</span>(chicago, <span class="at" style="color: #657422;">n =</span> <span class="dv" style="color: #AD0000;">5</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 11
+  city   tmpd dewpoint date        pm25 pm10tmean2 o3tme…¹ no2tm…² pm25d…³  year
+  &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 chic     35     30.1 2005-12-31 15          23.5    2.53    13.2   -1.23  2005
+2 chic     36     31   2005-12-30 15.1        19.2    3.03    22.8   -1.17  2005
+3 chic     35     29.4 2005-12-29  7.45       23.5    6.79    20.0   -8.78  2005
+4 chic     37     34.5 2005-12-28 17.8        27.5    3.26    19.3    1.52  2005
+5 chic     40     33.6 2005-12-27 23.6        27      4.47    23.5    7.33  2005
+# … with 1 more variable: pm25.quint &lt;fct&gt;, and abbreviated variable names
+#   ¹​o3tmean2, ²​no2tmean2, ³​pm25detrend</code></pre>
+</div>
+</div>
+<p>This will show the last 5 rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><span class="fu" style="color: #4758AB;">slice_tail</span>(chicago, <span class="at" style="color: #657422;">n =</span> <span class="dv" style="color: #AD0000;">5</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 11
+  city   tmpd dewpoint date        pm25 pm10tmean2 o3tme…¹ no2tm…² pm25d…³  year
+  &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 chic   32       28.9 1987-01-05    NA       NA      4.75    30.3      NA  1987
+2 chic   29       28.6 1987-01-04    NA       47      4.38    30.4      NA  1987
+3 chic   33       27.4 1987-01-03    NA       34.2    3.33    23.8      NA  1987
+4 chic   33       29.9 1987-01-02    NA       NA      3.30    23.2      NA  1987
+5 chic   31.5     31.5 1987-01-01    NA       34      4.25    20.0      NA  1987
+# … with 1 more variable: pm25.quint &lt;fct&gt;, and abbreviated variable names
+#   ¹​o3tmean2, ²​no2tmean2, ³​pm25detrend</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>The <code>dplyr</code> pacfkage provides a concise set of operations for managing data frames. With these functions we can do a number of complex operations in just a few lines of code. In particular, we can often conduct the beginnings of an exploratory analysis with the powerful combination of <code>group_by()</code> and <code>summarize()</code>.</p>
+<p>Once you learn the <code>dplyr</code> grammar there are a few additional benefits</p>
+<ul>
+<li><p><code>dplyr</code> can work with other data frame “back ends” such as SQL databases. There is an SQL interface for relational databases via the DBI package</p></li>
+<li><p><code>dplyr</code> can be integrated with the <code>data.table</code> package for large fast tables</p></li>
+</ul>
+<p>The <code>dplyr</code> package is handy way to both simplify and speed up your data frame management code. It is rare that you get such a combination at the same time!</p>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>How can you tell if an object is a tibble?</li>
+<li>What option controls how many additional column names are printed at the footer of a tibble?</li>
+<li>Using the <code>trees</code> dataset in base R (this dataset stores the girth, height, and volume for Black Cherry Trees) and using the pipe operator: (i) convert the <code>data.frame</code> to a tibble, (ii) filter for rows with a tree height of greater than 70, and (iii) order rows by <code>Volume</code> (smallest to largest).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><span class="fu" style="color: #4758AB;">head</span>(trees)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Girth Height Volume
+1   8.3     70   10.3
+2   8.6     65   10.3
+3   8.8     63   10.2
+4  10.5     72   16.4
+5  10.7     81   18.8
+6  10.8     83   19.7</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/wrangle-data.html#data-wrangling" class="uri">https://jhudatascience.org/tidyversecourse/wrangle-data.html#data-wrangling</a></li>
+<li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">dplyr cheat sheet from RStudio</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 1</category>
+  <category>week 2</category>
+  <category>R</category>
+  <category>programming</category>
+  <category>dplyr</category>
+  <category>here</category>
+  <category>tibble</category>
+  <category>tidyverse</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/index.html</guid>
+  <pubDate>Tue, 06 Sep 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_wrangling.png" medium="image" type="image/png"/>
+</item>
 <item>
   <title>Reproducible Research</title>
   <dc:creator>Stephanie Hicks</dc:creator>
