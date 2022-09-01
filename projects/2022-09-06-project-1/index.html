@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.168">
+<meta name="generator" content="quarto-1.1.175">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -444,11 +444,11 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(dat, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 1
-         x
-     &lt;dbl&gt;
-1  0.00104
-2 -1.18   
-3  1.26   </code></pre>
+        x
+    &lt;dbl&gt;
+1 -1.17  
+2  0.0494
+3 -1.63  </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a new column that indicates whether the value of 'x' is positive or negative</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
@@ -458,18 +458,18 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 100 × 2
-          x is_positive
-      &lt;dbl&gt; &lt;chr&gt;      
- 1  0.00104 Yes        
- 2 -1.18    No         
- 3  1.26    Yes        
- 4 -0.129   No         
- 5 -2.52    No         
- 6  0.414   Yes        
- 7  0.428   Yes        
- 8 -0.853   No         
- 9  0.499   Yes        
-10 -0.321   No         
+         x is_positive
+     &lt;dbl&gt; &lt;chr&gt;      
+ 1 -1.17   No         
+ 2  0.0494 Yes        
+ 3 -1.63   No         
+ 4 -1.43   No         
+ 5 -0.934  No         
+ 6  0.618  Yes        
+ 7  0.877  Yes        
+ 8 -0.568  No         
+ 9 -0.459  No         
+10  1.75   Yes        
 # … with 90 more rows</code></pre>
 </div>
 </div>

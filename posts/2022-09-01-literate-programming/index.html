@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.168">
+<meta name="generator" content="quarto-1.1.175">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -306,7 +306,7 @@ div.csl-indent {
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
   <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
-  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  <li><a href="#questions-1" id="toc-questions-1" class="nav-link" data-scroll-target="#questions-1">Questions</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   </ul></li>
   </ul>
@@ -378,22 +378,41 @@ Learning objectives
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>One basic idea to make writing reproducible reports easier is what’s known as <em>literate statistical programming</em> (or sometimes called <a href="http://www.r-project.org/conferences/DSC-2001/Proceedings/Rossini.pdf">literate statistical practice</a>). This comes from the idea of <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> in the area of writing computer programs.</p>
-<p>The idea is to think of a report or a publication as a stream of text and code. The text is readable by people and the code is readable by computers. The analysis is described in a series of text and code chunks. Each kind of code chunk will do something like load some data or compute some results. Each text chunk will relay something in a human readable language. There might also be presentation code that formats tables and figures and there’s article text that explains what’s going on around all this code. This stream of text and code is a literate statistical program or a literate statistical analysis.</p>
+<p>The idea is to <strong>think of a report or a publication as a stream of text and code</strong>.</p>
+<ul>
+<li><p>The text is readable by people and the code is readable by computers.</p></li>
+<li><p>The analysis is described in a series of text and code chunks.</p></li>
+<li><p>Each kind of code chunk will do something like load some data or compute some results.</p></li>
+<li><p>Each text chunk will relay something in a human readable language.</p></li>
+</ul>
+<p>There might also be <strong>presentation code</strong> that formats tables and figures and there’s article text that explains what’s going on around all this code. This stream of text and code is a literate statistical program or a literate statistical analysis.</p>
 <section id="weaving-and-tangling" class="level3">
 <h3 class="anchored" data-anchor-id="weaving-and-tangling">Weaving and Tangling</h3>
-<p>Literate programs by themselves are a bit difficult to work with, but they can be processed in two important ways. Literate programs can be <strong>weaved</strong> to produce human readable documents like PDFs or HTML web pages, and they can <strong>tangled</strong> to produce machine-readable “documents”, or in other words, machine readable code. The basic idea behind literate programming in order to generate the different kinds of output you might need, you only need a <em>single source document</em>—you can weave and tangle to get the rest. In order to use a system like this you need a documentational language, that’s human readable, and you need a programming language that’s machine readable (or can be compiled/interpreted into something that’s machine readable).</p>
+<p>Literate programs by themselves are a bit difficult to work with, but they can be processed in two important ways.</p>
+<p>Literate programs can be <strong>weaved</strong> to produce human readable documents like PDFs or HTML web pages, and they can <strong>tangled</strong> to produce machine-readable “documents”, or in other words, machine readable code.</p>
+<p>The basic idea behind literate programming in order to generate the different kinds of output you might need, <strong>you only need a single source document</strong>—you can weave and tangle to get the rest.</p>
+<p>In order to use a system like this you need a documentational language, that’s human readable, and you need a programming language that’s machine readable (or can be compiled/interpreted into something that’s machine readable).</p>
 </section>
 <section id="sweave" class="level3">
 <h3 class="anchored" data-anchor-id="sweave">Sweave</h3>
-<p>One of the original literate programming systems in R that was designed to do this was called Sweave. Sweave enables users to combine R code with a documentation program called LaTeX. Sweave files ends a <code>.Rnw</code> and have R code weaved through the document:</p>
+<p>One of the original literate programming systems in R that was designed to do this was called Sweave. Sweave enables users to combine R code with a documentation program called LaTeX.</p>
+<p><strong>Sweave files ends a <code>.Rnw</code></strong> and have R code weaved through the document:</p>
 <pre><code>&lt;&lt;plot1, height=4, width=5, eval=FALSE&gt;&gt;=
 data(airquality)
 plot(airquality$Ozone ~ airquality$Wind)
 @</code></pre>
 <p>Once you have created your <code>.Rnw</code> file, Sweave will process the file, executing the R chunks and replacing them with output as appropriate before creating the PDF document.</p>
 <p>It was originally developed by Fritz Leisch, who is a core member of R, and the code base is still maintained by R Core. The Sweave system comes with any installation of R.</p>
-<p>There are many limitations to the original Sweave system. One of the limitations is that it is focused primarily on LaTeX, which is not a documentation language that many people are familiar with. Therefore, it can be difficult to learn this type of markup language if you’re not already in a field that uses it regularly. Sweave also lacks a lot of features that people find useful like caching, and multiple plots per page and mixing programming languages.</p>
-<p>Instead, folks have moved towards using something called knitr, which offers everything Sweave does, plus it extends it further. With Sweave, additional tools are required for advanced operations, whereas knitr supports more internally. We’ll discuss knitr below.</p>
+<p>There are many limitations to the original Sweave system.</p>
+<ul>
+<li>One of the limitations is that it is <strong>focused primarily on LaTeX</strong>, which is not a documentation language that many people are familiar with.</li>
+<li>Therefore, it <strong>can be difficult to learn this type of markup language</strong> if you’re not already in a field that uses it regularly.</li>
+<li>Sweave also <strong>lacks a lot of features that people find useful</strong> like caching, and multiple plots per page and mixing programming languages.</li>
+</ul>
+<p>Instead, folks have <strong>moved towards using something called knitr</strong>, which offers everything Sweave does, plus it extends it further.</p>
+<ul>
+<li>With Sweave, additional tools are required for advanced operations, whereas knitr supports more internally. We’ll discuss knitr below.</li>
+</ul>
 </section>
 <section id="rmarkdown" class="level3">
 <h3 class="anchored" data-anchor-id="rmarkdown">rmarkdown</h3>
@@ -426,7 +445,7 @@ Tip
 </blockquote>
 </div>
 </div>
-<p>Because this is lecture is built in a <code>.Rmd</code> file, let’s demonstrate how this work. I am going to change <code>eval=FALSE</code> to <code>eval=TRUE</code>.</p>
+<p>Because this is lecture is built in a <code>.qmd</code> file (which is very similar to a <code>.Rmd</code> file), let’s demonstrate how this work. I am going to change <code>eval=FALSE</code> to <code>eval=TRUE</code>.</p>
 <div class="cell" height="4" width="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(airquality<span class="sc">$</span>Ozone <span class="sc">~</span> airquality<span class="sc">$</span>Wind)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -434,11 +453,21 @@ Tip
 <p><img src="index_files/figure-html/plot2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="questions">
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>Why do we not see the back ticks ``` anymore in the code chunk above that made the plot?</li>
 <li>What do you think we should do if we want to have the code executed, but we want to hide the code that made it?</li>
 </ol>
+</div>
 </div>
 <p>Before we leave this section, I find that there is quite a bit of terminology to understand the magic behind <code>rmarkdown</code> that can be confusing, so let’s break it down:</p>
 <ul>
@@ -473,7 +502,13 @@ Tip
 </section>
 <section id="knitr" class="level3">
 <h3 class="anchored" data-anchor-id="knitr">knitr</h3>
-<p>One of the alternative that has come up in recent times is something called <code>knitr</code>. The <code>knitr</code> package for R takes a lot of these ideas of literate programming and updates and improves upon them. <code>knitr</code> still uses R as its programming language, but it allows you to mix other programming languages in. You can also use a variety of documentation languages now, such as LaTeX, markdown and HTML. <code>knitr</code> was developed by Yihui Xie while he was a graduate student at Iowa State and it has become a very popular package for writing literate statistical programs.</p>
+<p>One of the alternative that has come up in recent times is something called <code>knitr</code>.</p>
+<ul>
+<li>The <code>knitr</code> package for R takes a lot of these ideas of literate programming and updates and improves upon them.</li>
+<li><code>knitr</code> still uses R as its programming language, but it allows you to mix other programming languages in.</li>
+<li>You can also use a variety of documentation languages now, such as LaTeX, markdown and HTML.</li>
+<li><code>knitr</code> was developed by Yihui Xie while he was a graduate student at Iowa State and it has become a very popular package for writing literate statistical programs.</li>
+</ul>
 <p>Knitr takes a plain text document with embedded code, executes the code and ‘knits’ the results back into the document.</p>
 <p>For for example, it converts</p>
 <ul>
@@ -481,12 +516,12 @@ Tip
 <li>An <code>.Rnw</code> (Sweave) file into to <code>.tex</code> format.</li>
 <li>An <code>.Rhtml</code> file into to <code>.html</code>.</li>
 </ul>
-<p>The core function is knitr::knit() and by default this will look at the input document and try and guess what type it is e.g.&nbsp;<code>Rnw</code>, <code>Rmd</code> etc.</p>
+<p>The core function is <code>knitr::knit()</code> and by default this will look at the input document and try and guess what type it is e.g.&nbsp;<code>Rnw</code>, <code>Rmd</code> etc.</p>
 <p>This core function performs three roles:</p>
 <ul>
-<li>A source parser, which looks at the input document and detects which parts are code that the user wants to be evaluated.</li>
-<li>A code evaluator, which evaluates this code</li>
-<li>An output renderer, which writes the results of evaluation back to the document in a format which is interpretable by the raw output type. For instance, if the input file is an <code>.Rmd</code>, the output render marks up the output of code evaluation in <code>.md</code> format.</li>
+<li>A <strong>source parser</strong>, which looks at the input document and detects which parts are code that the user wants to be evaluated.</li>
+<li>A <strong>code evaluator</strong>, which evaluates this code</li>
+<li>An <strong>output renderer</strong>, which writes the results of evaluation back to the document in a format which is interpretable by the raw output type. For instance, if the input file is an <code>.Rmd</code>, the output render marks up the output of code evaluation in <code>.md</code> format.</li>
 </ul>
 <div class="cell" data-layout-align="center" data-preview="true">
 <div class="cell-output-display">
@@ -553,7 +588,12 @@ Tip
 </div>
 </div>
 <p>[<a href="https://bookdown.org/yihui/bookdown/images/logo.png">Source</a>]</p>
-<p>The <code>blogdown</code> R package is built on top of R Markdown, supports multi-page HTML output to write a blog post or a general page in an Rmd document, or a plain Markdown document. These source documents (e.g.&nbsp;<code>.Rmd</code> or <code>.md</code>) are built into a static website (i.e.&nbsp;a bunch of static HTML files, images and CSS files). Using this folder of files, it is very easy to publish it to any web server as a website. Also, it is easy to maintain because it is only a single folder.</p>
+<p>The <code>blogdown</code> R package is built on top of R Markdown, supports multi-page HTML output to write a blog post or a general page in an Rmd document, or a plain Markdown document.</p>
+<ul>
+<li>These source documents (e.g.&nbsp;<code>.Rmd</code> or <code>.md</code>) are built into a static website (i.e.&nbsp;a bunch of static HTML files, images and CSS files).</li>
+<li>Using this folder of files, it is very easy to publish it to any web server as a website.</li>
+<li>Also, it is easy to maintain because it is only a single folder.</li>
+</ul>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -574,7 +614,8 @@ Tip
 </ul>
 </div>
 </div>
-<p>Other advantages include the content likely being reproducible, easier to maintain, and easy to convert pages to e.g.&nbsp;PDF or other formats in the future if you do not want to convert to HTML files. Because it is based on the Markdown syntax, it is easy to write technical documents, including math equations, insert figures or tables with captions, cross-reference with figure or table numbers, add citations, and present theorems or proofs.</p>
+<p>Other advantages include the content likely being reproducible, easier to maintain, and easy to convert pages to e.g.&nbsp;PDF or other formats in the future if you do not want to convert to HTML files.</p>
+<p>Because it is based on the Markdown syntax, it is easy to write technical documents, including math equations, insert figures or tables with captions, cross-reference with figure or table numbers, add citations, and present theorems or proofs.</p>
 <p>Here’s a video you can watch of someone making a blogdown website.</p>
 <p align="center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/AADnslLpzJ4" frameborder="0" allowfullscreen="">
@@ -595,7 +636,7 @@ Tip
 </div>
 </div>
 <p>[<a href="https://bookdown.org/yihui/bookdown/images/logo.png">Source</a>]</p>
-<p>Similar to <code>blogdown</code>, the <code>bookdown</code> R package is built on top of R Markdown, but also offers features like multi-page HTML output, numbering and cross-referencing figures/tables/sections/equations, inserting parts/appendices, and imported the GitBook style (https://www.gitbook.com) to create elegant and appealing HTML book pages. Share</p>
+<p>Similar to <code>blogdown</code>, the <code>bookdown</code> R package is built on top of R Markdown, but also offers features like multi-page HTML output, numbering and cross-referencing figures/tables/sections/equations, inserting parts/appendices, and imported the GitBook style (<a href="https://www.gitbook.com" class="uri">https://www.gitbook.com</a>) to create elegant and appealing HTML book pages. Share</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -638,7 +679,7 @@ Tip
 <li>Support for a wide variety of diagramming tools for illustrating concepts. The ability to incorporate JavaScript and D3-based interactive visualizations.</li>
 <li>A variety of ways to publish articles, including support for publishing sets of articles as a Distill website or as a Distill blog.</li>
 </ul>
-<p>Th3 course website from last year was built in Distill for R Markdown:</p>
+<p>The course website from last year was built in Distill for R Markdown:</p>
 <ul>
 <li>Website: <a href="https://stephaniehicks.com/jhustatcomputing2021" class="uri">https://stephaniehicks.com/jhustatcomputing2021</a></li>
 <li>Github: <a href="https://github.com/stephaniehicks/jhustatcomputing2021" class="uri">https://github.com/stephaniehicks/jhustatcomputing2021</a></li>
@@ -839,8 +880,8 @@ Tip
 <h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
 <p>Here are some post-lecture questions to help you think about the material discussed.</p>
 </section>
-<section id="questions" class="level3 questions">
-<h3 class="anchored" data-anchor-id="questions">Questions</h3>
+<section id="questions-1" class="level3 questions">
+<h3 class="anchored" data-anchor-id="questions-1">Questions</h3>
 <ol type="1">
 <li><p>What is literate programming?</p></li>
 <li><p>What was the first literate statistical programming tool to weave together a statistical language (R) with a markup language (LaTeX)?</p></li>
