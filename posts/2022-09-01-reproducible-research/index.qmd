@@ -25,13 +25,11 @@ library(here)
 ### Read ahead
 
 ::: callout-note
-
 ### Read ahead
 
 **Before class, you can prepare by reading the following materials:**
 
 1.  [Statistical programming, Small mistakes, big impacts](https://rss.onlinelibrary.wiley.com/doi/epdf/10.1111/1740-9713.01522) by Simon Schwab and Leonhard Held
-
 2.  [Reproducible Research: A Retrospective](https://www.annualreviews.org/doi/abs/10.1146/annurev-publhealth-012420-105110) by Roger Peng and Stephanie Hicks
 :::
 
@@ -46,8 +44,7 @@ Material for this lecture was borrowed and adopted from
 # Learning objectives
 
 ::: callout-note
-
-# Learning objectives 
+# Learning objectives
 
 **At the end of this lesson you will:**
 
@@ -61,26 +58,35 @@ Material for this lecture was borrowed and adopted from
 
 This lecture will be about **reproducible reporting**, and I want to take the opportunity to cover some basic concepts and ideas that are related to reproducible reporting, just in case you have not heard about it or don not know what it is.
 
-Before we get to **reproducibility**, we need to cover a little background with respect to how science works (even if you are not a scientist, this is important). The basic idea is that in science, **replication** is the most important element of verifying and validating findings. So if you claim that X causes Y, or that Vitamin C improves disease, or that something causes a problem, what happens is that other scientists that are independent of you will try to investigate that same question and see if they come up with a similar result. If lots of different people come up with the same result and replicate the original finding, then we tend to think that the original finding was probably true and that this is a real relationship or real finding.
+Before we get to **reproducibility**, we need to cover a little background with respect to how science works (even if you are not a scientist, this is important). 
 
-The ultimate standard in strengthening scientific evidence is replication. The goal is to have independent people to do independent things with different data, different methods, and different laboratories and see if you get the same result. There is a sense that if a relationship in nature is truly there, then it should be robust to having different people discover it in different ways. Replication is particularly important in areas where findings can have big policy impacts or can influence regulatory types of decisions.
+The ultimate standard in strengthening scientific evidence is **replication**. Assume you claim that X causes Y, or that Vitamin C improves disease. The goal of replication is to **have independent people to do independent things with different data, different methods, and different laboratories and see if they get the same result**. 
+
+There is a sense that if a relationship in nature is truly there, then it should be robust to having different people discover it in different ways. Replication is particularly important in areas where findings can have big policy impacts or can influence regulatory types of decisions.
 
 ### What is wrong with replication?
 
-There is really nothing wrong with it. This is what science has been doing for a long time, through hundreds of years. And there is nothing wrong with it today. But the problem is that it is becoming more and more challenging to do replication or to replicate other studies. Here are some reasons:
+There is really nothing wrong with it. This is what science has been doing for a long time, through hundreds of years. And there is nothing wrong with it today. 
 
-1.  Often times studies are much larger and more costly than previously. If you want to do ten versions of the same study, you need ten times as much money and there is not as much money around as there used to be.
-2.  Sometimes it is difficult to replicate a study because if the original study took 20 years to do, it is difficult to wait around another 20 years for replication.
-3.  Some studies are just plain unique, such as studying the impact of a massive earthquake in a very specific location and time. If you are looking at a unique situation in time or a unique population, you cannot readily replicate that situation.
+But the problem is that it is **becoming more and more challenging to do replication** or to replicate other studies. 
 
-There are a lot of good reasons why you cannot replicate a study. If you cannot replicate a study, is the alternative just to do nothing, just let that study stand by itself?
+Here are some reasons:
 
-The idea behind a reproducible reporting is to create a kind of **minimum standard** (or a middle ground) where we will not be replicating a study, but maybe we can do something in between. The basic problem is that you have the gold standard, which is replication, and then you have the worst standard which is doing nothing. What can we do that's in between the gold standard and doing nothing? That is where reproducibility comes in. That's how we can kind of bridge the gap between replication and nothing.
+1.  Often times studies are **much larger and more costly** than previously. If you want to do ten versions of the same study, you need ten times as much money and there is not as much money around as there used to be.
+2.  Sometimes it is difficult to replicate a study because **if the original study took 20 years to complete**, it is difficult to wait around another 20 years for replication.
+3.  Some studies are just plain **unique**, such as studying the impact of a massive earthquake in a very specific location and time. If you are looking at a unique situation in time or a unique population, you cannot readily replicate that situation.
 
-In non-research settings, often full replication is not even the point. Often the goal is to preserve something to the point where anybody in an organization can repeat what you did (for example, after you leave the organization). In this case, reproducibility is key to maintaining the history of a project and making sure that every step along the way is clear.
+There are a lot of good reasons why you cannot replicate a study. If you cannot replicate a study, **is the alternative just to do nothing** (?? `r emojifont::emoji('scream')`), just let that study stand by itself?
+
+The idea behind a reproducible reporting is to create a kind of **minimum standard** (or a middle ground) where we will not be replicating a study, but maybe we can **do something in between**. What can we do that's in between the gold standard and doing nothing? 
+
+That is where reproducibility comes in. That's how we can kind of **bridge the gap between replication and nothing**.
+
+In non-research settings, often full replication is not even the point. Often the goal is to preserve something to the point where anybody in an organization can repeat what you did (for example, after you leave the organization). 
+
+- In this case, reproducibility is key to maintaining the history of a project and making sure that every step along the way is clear.
 
 ::: callout-note
-
 #### Summary
 
 -   Replication, whereby scientific questions are examined and verified independently by different scientists, is the gold standard for scientific validity.
@@ -92,11 +98,11 @@ In non-research settings, often full replication is not even the point. Often th
 
 # Reproducibility to the Rescue
 
-Why do we need this kind of middle ground? I have not clearly defined reproducibility yet, but the basic idea is that you need to make the **data** available for the original study and the **computational methods** available so that other people can look at your data and run the kind of analysis that you have run, and come to the same findings that you found.
+Let's first define reproducibility. The basic idea is that you need to make the **data** available for the original study and the **computational methods** available so that other people can look at your data and run the kind of analysis that you have run, and come to the same findings that you found.
 
-What reproducible reporting is about is a **validation of the data analysis**. Because you are not collecting independent data using independent methods, it is a little bit more difficult to validate the scientific question itself. But if you can take someone's data and reproduce their findings, then you can, in some sense, validate the data analysis.
+What reproducible reporting is about is a **validation of the data analysis (not the original question itself)**. Because you are not collecting independent data using independent methods, it is a little bit more difficult to validate the scientific question itself. But if you can take someone's data and reproduce their findings, then you can, in some sense, validate the data analysis.
 
-This involves having the data and the code because more likely than not, the analysis will have been done on the computer using some sort of programming language, like R. So you can take their code and their data and reproduce the findings that they come up with. Then you can at least have confidence that you can reproduce the analysis.
+In this way, you can at least have **confidence that you can reproduce the analysis**.
 
 Recently, there has been a lot of discussion of reproducibility in the media and in the scientific literature. The journal *Science* had a special issue on reproducibility and data replication.
 
@@ -145,7 +151,6 @@ What do we need for computational reproducibility? There are a variety of ways t
 4.  **Distribution**. Finally, there needs to be some standard means of distribution, so all this data in the code is easily accessible.
 
 ::: callout-note
-
 #### Summary
 
 -   Reproducible reporting is about is a validation of the data analysis
@@ -157,9 +162,15 @@ What do we need for computational reproducibility? There are a variety of ways t
 
 # "X" to "Computational X"
 
-What is driving this need for a "reproducibility middle ground" between replication and doing nothing? For starters, there are a lot of new technologies on the scene and in many different fields of study including, biology, chemistry and environmental science. These technologies allow us to collect data at a much higher throughput so we end up with these very complex and very high dimensional data sets. These datasets can be collected almost instantaneously compared to even just ten years ago---the technology has allowed us to create huge data sets at essentially the touch of a button. Furthermore, we the computing power to take existing (already huge) databases and merge them into even bigger and bigger databases. Finally, the massive increase in computing power has allowed us to implement more sophisticated and complex analysis routines.
+What is driving this need for a "reproducibility middle ground" between replication and doing nothing? 
 
-The analyses themselves, the models that we fit and the algorithms that we run, are much much more complicated than they used to be. Having a basic understanding of these algorithms is difficult, even for a sophisticated person, and it is almost impossible to describe these algorithms with words alone. Understanding what someone did in a data analysis now requires looking at *code* and scrutinizing the computer programs that people used.
+For starters, there are **a lot of new technologies on the scene** and in many different fields of study including, biology, chemistry and environmental science. These **technologies allow us to collect data at a much higher throughput** so we end up with these very complex and very high dimensional data sets. 
+
+These **datasets can be collected almost instantaneously** compared to even just ten years ago---the technology has allowed us to create huge data sets at essentially the touch of a button. Furthermore, we the computing power to take existing (already huge) databases and merge them into even bigger and bigger databases. Finally, the **massive increase in computing power** has allowed us to implement more sophisticated and complex analysis routines.
+
+The analyses themselves, the models that we fit and **the algorithms that we run, are much much more complicated** than they used to be. Having a basic understanding of these algorithms is difficult, even for a sophisticated person, and it is almost impossible to describe these algorithms with words alone. 
+
+Understanding what someone did in a data analysis now **requires looking at code and scrutinizing the computer programs** that people used.
 
 The bottom line with all these different trends is that for every field "X", there is now "Computational X". There's computational biology, computational astronomy---whatever it is you want, there is a computational version of it.
 
@@ -179,11 +190,18 @@ As in many cases it is difficult to impose a single standard that divides work i
 
 # The Data Science Pipeline
 
-The basic issue is when you read a description of a data analysis, such as in an article or a technical report, for the most part, what you get is the report and nothing else. Of course, everyone knows that behind the scenes there's *a lot* that went into this report and that is what I call the **data science pipeline**.
+The basic issue is when you read a description of a data analysis, such as in an article or a technical report, for the most part, what you get is the report and nothing else. 
+
+Of course, everyone knows that behind the scenes **there's a lot that went into this article** and that is what I call the **data science pipeline**.
 
 ![The Data Science Pipeline](../../images/dspipeline.png)
 
-In this pipeline, there are two "actors": the *author* of the report/article and the *reader*. On the left side, the author is going from left to right along this pipeline. The reader is going from right to left. If you are the reader, you read the article, and you may want to know more about what happened e.g.
+In this pipeline, there are two "actors": the *author* of the report/article and the *reader*. 
+
+- On the left side, the **author is going from left to right** along this pipeline. 
+- On the right side, the **reader is going from right to left**. 
+
+If you are the reader, you read the article, and you may want to know more about what happened e.g.
 
 -   Where are the data?
 -   What methods were used here?
@@ -194,11 +212,20 @@ The basic idea behind **computational reproducibility** is to focus on the eleme
 
 It is important to realize that there are multiple players when you talk about reproducibility--there are different types of parties that have different types of interests. There are **authors** who produce research and they want to make their research reproducible. There are also **readers** of research and they want to reproduce that work. Everyone needs tools to make their lives easier.
 
-One current challenge is that authors of research have to undergo considerable effort to make their results available to a wide audience. Publishing data and code today is not necessarily a trivial task. Although there are a number of resources available now, that were not available even five years ago, it is still a bit of a challenge to get things out on the web (or at least distributed widely). Resources like [GitHub](https://github.com), [kipoi](https://kipoi.org), and [RPubs](http://rpubs.com) and various data repositories have made a big difference, but there is still a ways to go with respect to building up the public reproducibility infrastructure.
+One current **challenge is that authors of research have to undergo considerable effort to make their results available to a wide audience**. 
 
-Furthermore, even when data and code are available, readers often have to download the data, download the code, and then they have to piece everything together, usually by hand. It's not always an easy task to put the data and code together. Also, readers may not have the same computational resources that the original authors did. If the original authors used an enormous computing cluster, for example, to do their analysis, the readers may not have that same enormous computing cluster at their disposal. It may be difficult for readers to reproduce the same results.
+- Publishing data and code today is not necessarily a trivial task. Although there are a number of resources available now, that were not available even five years ago, it is still a bit of a challenge to get things out on the web (or at least distributed widely). 
+- Resources like [GitHub](https://github.com), [kipoi](https://kipoi.org), and [RPubs](http://rpubs.com) and various data repositories have made a big difference, but there is still a ways to go with respect to building up the public reproducibility infrastructure.
 
-Generally, the toolbox for doing reproducible research is small, although it's definitely growing. In practice, authors often just throw things up on the web. There are journals and supplementary materials, but they are famously disorganized. There are only a few central databases that authors can take advantage of to post their data and make it available. So if you are working in a field that has a central database that everyone uses, that is great. If you are not, then you have to assemble your own resources.
+Furthermore, **even when data and code are available**, readers often have to download the data, download the code, and then they have to piece everything together, usually by hand. It's **not always an easy task to put the data and code together**.
+
+- Readers may not have the same computational resources that the original authors did. 
+- If the original authors used an enormous computing cluster, for example, to do their analysis, the readers may not have that same enormous computing cluster at their disposal. It may be difficult for readers to reproduce the same results.
+
+Generally, the **toolbox for doing reproducible research is small**, although **it's definitely growing**. 
+
+- In practice, authors often just throw things up on the web. There are journals and supplementary materials, but they are famously disorganized. 
+- There are only a few central databases that authors can take advantage of to post their data and make it available. So if you are working in a field that has a central database that everyone uses, that is great. If you are not, then you have to assemble your own resources.
 
 ::: callout-note
 #### Summary
@@ -217,7 +244,6 @@ Generally, the toolbox for doing reproducible research is small, although it's d
 Here are some post-lecture questions to help you think about the material discussed.
 
 ::: callout-note
-
 ## Questions
 
 1.  What is the difference between replication and reproducible?

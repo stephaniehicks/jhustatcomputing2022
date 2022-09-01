@@ -18,42 +18,34 @@ bibliography: my-refs.bib
 ### Read ahead
 
 ::: callout-note
-
 ## Read ahead
 
 **Before class, you can prepare by reading the following materials:**
 
-1. Authoring in [R Markdown from RStudio](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-2. Citations from [Reproducible Research in R](https://monashdatafluency.github.io/r-rep-res/citations.html) from the [Monash Data Fluency](https://monashdatafluency.github.io) initiative 
-3. Bibliography from [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html)
-
-
+1.  Authoring in [R Markdown from RStudio](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
+2.  Citations from [Reproducible Research in R](https://monashdatafluency.github.io/r-rep-res/citations.html) from the [Monash Data Fluency](https://monashdatafluency.github.io) initiative
+3.  Bibliography from [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html)
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
-- https://andreashandel.github.io/MADAcourse/
-- https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html
-- https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html
-- https://monashdatafluency.github.io/r-rep-res/citations.html
-
-
+-   <https://andreashandel.github.io/MADAcourse>
+-   <https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
+-   <https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html>
+-   <https://monashdatafluency.github.io/r-rep-res/citations.html>
 
 # Learning objectives
 
 ::: callout-note
-
 # Learning objectives
 
 **At the end of this lesson you will:**
 
-- Know what types of bibliography file formats can be used in a R Markdown file
-- Learn how to add citations to a R Markdown file
-- Know how to change the citation style (e.g. APA, Chicago, etc)
-
-
+-   Know what types of bibliography file formats can be used in a R Markdown file
+-   Learn how to add citations to a R Markdown file
+-   Know how to change the citation style (e.g. APA, Chicago, etc)
 :::
 
 # Introduction
@@ -66,21 +58,19 @@ R provides nice function `citation()` that helps us generating citation blob for
 citation("rmarkdown")
 ```
 
+I assume you are familiar with how citing references works, and hopefully, you are already using a reference manager. If not, let me know in the discussion boards.
 
-I assume you are familiar with how citing references works, and hopefully, you are already using a reference manager. If not, let me know in the discussion boards. 
+To have something that plays well with R Markdown, you need file format that stores all the references. Click here to learn more other possible file formats available to you to use within a R Markdown file:
 
-To have something that plays well with R Markdown, you need file format that stores all the references. Click here to learn more other possible file formats available to you to use within a R Markdown file: 
-
-- <https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
-
+-   <https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
 
 ### Citation management software
 
-As you can see, there are ton of file formats including `.medline` (MEDLINE), `.bib` (BibTeX), `.ris` (RIS), `.enl` (EndNote). 
+As you can see, there are ton of file formats including `.medline` (MEDLINE), `.bib` (BibTeX), `.ris` (RIS), `.enl` (EndNote).
 
-I will not discuss underlying citational management software itself, but I will talk briefly how you might create one of these file formats. 
+I will not discuss underlying citational management software itself, but I will talk briefly how you might create one of these file formats.
 
-If you recall the output from `citation("rmarkdown")` above, we might consider manually copying and pasting the output into a citation management software, but instead we can use `write_bib()` function from `knitr` package to create a bibliography file ending in `.bib`. 
+If you recall the output from `citation("rmarkdown")` above, we might consider manually copying and pasting the output into a citation management software, but instead we can use `write_bib()` function from `knitr` package to create a bibliography file ending in `.bib`.
 
 Let's run the following code in order to generate a `my-refs.bib` file
 
@@ -88,72 +78,65 @@ Let's run the following code in order to generate a `my-refs.bib` file
 knitr::write_bib("rmarkdown", file = "my-refs.bib")
 ```
 
-Now we can see we have the file saved locally. 
+Now we can see we have the file saved locally.
 
 ```{r}
 list.files()
 ```
 
+If you open up the `my-refs.bib` file, you will see
 
-If you open up the `my-refs.bib` file, you will see 
+    @Manual{R-rmarkdown,
+      title = {rmarkdown: Dynamic Documents for R},
+      author = {JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and Winston Chang and Richard Iannone},
+      year = {2021},
+      note = {R package version 2.8},
+      url = {https://CRAN.R-project.org/package=rmarkdown},
+    }
 
-```
-@Manual{R-rmarkdown,
-  title = {rmarkdown: Dynamic Documents for R},
-  author = {JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and Winston Chang and Richard Iannone},
-  year = {2021},
-  note = {R package version 2.8},
-  url = {https://CRAN.R-project.org/package=rmarkdown},
-}
+    @Book{rmarkdown2018,
+      title = {R Markdown: The Definitive Guide},
+      author = {Yihui Xie and J.J. Allaire and Garrett Grolemund},
+      publisher = {Chapman and Hall/CRC},
+      address = {Boca Raton, Florida},
+      year = {2018},
+      note = {ISBN 9781138359338},
+      url = {https://bookdown.org/yihui/rmarkdown},
+    }
 
-@Book{rmarkdown2018,
-  title = {R Markdown: The Definitive Guide},
-  author = {Yihui Xie and J.J. Allaire and Garrett Grolemund},
-  publisher = {Chapman and Hall/CRC},
-  address = {Boca Raton, Florida},
-  year = {2018},
-  note = {ISBN 9781138359338},
-  url = {https://bookdown.org/yihui/rmarkdown},
-}
+    @Book{rmarkdown2020,
+      title = {R Markdown Cookbook},
+      author = {Yihui Xie and Christophe Dervieux and Emily Riederer},
+      publisher = {Chapman and Hall/CRC},
+      address = {Boca Raton, Florida},
+      year = {2020},
+      note = {ISBN 9780367563837},
+      url = {https://bookdown.org/yihui/rmarkdown-cookbook},
+    }
 
-@Book{rmarkdown2020,
-  title = {R Markdown Cookbook},
-  author = {Yihui Xie and Christophe Dervieux and Emily Riederer},
-  publisher = {Chapman and Hall/CRC},
-  address = {Boca Raton, Florida},
-  year = {2020},
-  note = {ISBN 9780367563837},
-  url = {https://bookdown.org/yihui/rmarkdown-cookbook},
-}
-```
+::: resources
+**Note there are three keys that we will use later on**:
 
+-   `R-rmarkdown`
+-   `rmarkdown2018`
+-   `rmarkdown2020`
+:::
 
-:::resources 
-
-**Note there are three keys that we will use later on**: 
-
-- `R-rmarkdown`
-- `rmarkdown2018`
-- `rmarkdown2020`
-
-::: 
-
-
-### Linking `.bib` file with `.rmd` (and `.qmd`) files 
+### Linking `.bib` file with `.rmd` (and `.qmd`) files
 
 In order to use references within a R Markdown file, you will need to specify the name and a location of a bibliography file using the bibliography metadata field in a YAML metadata section. For example:
 
-```yaml
+``` yaml
 ---
 title: "My top ten favorite R packages"
 output: html_document
 bibliography: my-refs.bib
 ---
-````
+```
 
 You can include multiple reference files using the following syntax, alternatively you can concatenate two bib files into one.
 
-```yaml
+``` yaml
 ---
 bibliography: ["my-refs1.bib", "my-refs2.bib"]
 ---
@@ -163,18 +146,18 @@ bibliography: ["my-refs1.bib", "my-refs2.bib"]
 
 Now we can start using those bib keys that we have learned just before, using the following syntax
 
-- `[@key]` for single citation
-- `[@key1; @key2]` multiple citation can be separated by semi-colon
-- `[-@key]` in order to suppress author name, and just display the year
-- `[see @key1 p 12; also this ref @key2]` is also a valid syntax
+-   `[@key]` for single citation
+-   `[@key1; @key2]` multiple citation can be separated by semi-colon
+-   `[-@key]` in order to suppress author name, and just display the year
+-   `[see @key1 p 12; also this ref @key2]` is also a valid syntax
 
-Let's start by citing the `rmarkdown` package using the following code and press `Knit` button: 
+Let's start by citing the `rmarkdown` package using the following code and press `Knit` button:
 
---- 
+------------------------------------------------------------------------
 
-I have been using the amazing Rmarkdown package [@R-rmarkdown]! I should also go and read [@rmarkdown2018; and @rmarkdown2020] books. 
+I have been using the amazing Rmarkdown package [@R-rmarkdown]! I should also go and read [@rmarkdown2018; and @rmarkdown2020] books.
 
----
+------------------------------------------------------------------------
 
 Pretty cool, eh??
 
@@ -184,20 +167,18 @@ By default, Pandoc will use a Chicago author-date format for citations and refer
 
 To use another style, you will need to specify a CSL (Citation Style Language) file in the `csl` metadata field, e.g.,
 
-```yaml
+``` yaml
 ---
 title: "My top ten favorite R packages"
 output: html_document
 bibliography: my-refs.bib
 csl: biomed-central.csl
 ---
-````
+```
 
-:::resources 
-
+::: resources
 To find your required formats, we recommend using the [Zotero Style Repository](https://www.zotero.org/styles), which makes it easy to search for and download your desired style.
-
-::: 
+:::
 
 CSL files can be tweaked to meet custom formatting requirements. For example, we can change the number of authors required before "et al." is used to abbreviate them. This can be simplified through the use of visual editors such as the one available at https://editor.citationstyles.org.
 
@@ -207,7 +188,7 @@ CSL files can be tweaked to meet custom formatting requirements. For example, we
 
 By default, the bibliography will only display items that are directly referenced in the document. If you want to include items in the bibliography without actually citing them in the body text, you can define a dummy nocite metadata field and put the citations there.
 
-```yaml
+``` yaml
 ---
 nocite: |
   @item1, @item2
@@ -218,7 +199,7 @@ nocite: |
 
 If we do not wish to explicitly state all of the items within the bibliography but would still like to show them in our references, we can use the following syntax:
 
-```yaml
+``` yaml
 ---
 nocite: '@*'
 ---
@@ -226,25 +207,19 @@ nocite: '@*'
 
 This will force all items to be displayed in the bibliography.
 
-:::resources 
+::: resources
+You can also have an appendix appear after bibliography. For more on this, see:
 
-You can also have an appendix appear after bibliography. For more on this, see: 
-
-- <https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html>
-
-::: 
-
+-   <https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html>
+:::
 
 # Other useful tips
 
-We have learned that inside your file that contains all your references (e.g. `my-refs.bib`), typically each reference gets a key, which is a shorthand that is generated by the reference manager or you can create yourself. 
+We have learned that inside your file that contains all your references (e.g. `my-refs.bib`), typically each reference gets a key, which is a shorthand that is generated by the reference manager or you can create yourself.
 
-For instance, I use a format of lower-case first author last name followed by 4 digit year for each reference followed by a keyword (e.g name of a software package). Alternatively, you can omit the keyword. But note that if I cite a paper by the same first author that was published in the same year, then a lower case letter is added to the end. For instance, for a paper that I wrote as 1st author in 2010, my bibtex key might be `hicks2022` or `hicks2022a`. You can decide what scheme to use, just pick one and use it _forever_. 
+For instance, I use a format of lower-case first author last name followed by 4 digit year for each reference followed by a keyword (e.g name of a software package). Alternatively, you can omit the keyword. But note that if I cite a paper by the same first author that was published in the same year, then a lower case letter is added to the end. For instance, for a paper that I wrote as 1st author in 2010, my bibtex key might be `hicks2022` or `hicks2022a`. You can decide what scheme to use, just pick one and use it *forever*.
 
-In your R Markdown document, you can then cite the reference by adding the key, such as `...in the paper by Hicks et al. [@hicks2022]...`. 
-
-
-
+In your R Markdown document, you can then cite the reference by adding the key, such as `...in the paper by Hicks et al. [@hicks2022]...`.
 
 # Post-lecture materials
 
@@ -253,14 +228,13 @@ In your R Markdown document, you can then cite the reference by adding the key, 
 Here are some post-lecture tasks to practice some of the material discussed.
 
 ::: callout-note
-
 ### Questions
 
 **Try out the following:**
 
-1. What do you notice that's different when you run `citation("tidyverse")` (compared to `citation("rmarkdown")`)?
+1.  What do you notice that's different when you run `citation("tidyverse")` (compared to `citation("rmarkdown")`)?
 
-2. Install the following packages: 
+2.  Install the following packages:
 
 ```{r}
 #| eval: false
@@ -269,22 +243,16 @@ install.packages(c("bibtex", "RefManageR")
 
 What do they do? How might they be helpful to you in terms of reference management?
 
-3. Instead of using a `.bib` file, try using a different bibliography file format in an R Markdown document. 
+3.  Instead of using a `.bib` file, try using a different bibliography file format in an R Markdown document.
 
-4. Practice using a different CSL file to change the citation style. 
-
-
-
+4.  Practice using a different CSL file to change the citation style.
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-
 -   Add here.
-
 :::
-
 
 ## rtistry
 
@@ -294,7 +262,5 @@ What do they do? How might they be helpful to you in terms of reference manageme
 #| fig-cap-location: "top"
 
 ```
-[Add here.]
 
-
-
+\[Add here.\]

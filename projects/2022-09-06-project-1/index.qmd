@@ -43,7 +43,6 @@ That data for this part of the assignment comes from [TidyTuesday](https://www.t
 
 \[**Source**: [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/static/tt_logo.png)\]
 
-
 If we look at the [TidyTuesday github repo](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022#2022-data) from 2022, we see this dataset chocolate bar reviews.
 
 To access the data, you need to install the `tidytuesdayR` R package and use the function `tt_load()` with the date of '2022-01-18' to load the data.
@@ -52,14 +51,15 @@ To access the data, you need to install the `tidytuesdayR` R package and use the
 install.packages("tidytuesdayR")
 ```
 
-This is how you can download the data. 
+This is how you can download the data.
+
 ```{r}
 #| eval: false
 tuesdata <- tidytuesdayR::tt_load('2022-01-18')
 chocolate <- tuesdata$chocolate
 ```
 
-However, if you use this code, you will hit an API limit after trying to compile the document a few times. Instead, I suggest you use the following code below. Here, I provide the code below for you to avoid re-downloading data: 
+However, if you use this code, you will hit an API limit after trying to compile the document a few times. Instead, I suggest you use the following code below. Here, I provide the code below for you to avoid re-downloading data:
 
 ```{r}
 #| message: false
@@ -79,7 +79,7 @@ if(!file.exists(here("data","chocolate.RDS"))) {
 }
 ```
 
-Here we read in the `.RDS` dataset locally from our computing environment: 
+Here we read in the `.RDS` dataset locally from our computing environment:
 
 ```{r}
 #| eval: true
@@ -93,7 +93,6 @@ We can take a glimpse at the data
 ```{r}
 glimpse(chocolate)
 ```
-
 
 Here is a data dictionary for what all the column names mean:
 
@@ -110,7 +109,6 @@ In this part, use functions from `dplyr` and `ggplot2` to answer the following q
 
 ```
 
-
 The ratings are discrete values making the histogram look strange. When you make the bin size smaller, it aggregates the ratings together in larger groups removing that effect. I picked 15, but there really is no wrong answer. Just looking for an answer here.
 
 2.  Consider the countries where the beans originated from. How many reviews come from each country of bean origin?
@@ -120,14 +118,12 @@ The ratings are discrete values making the histogram look strange. When you make
 
 ```
 
-
 3.  What is average `rating` scores from reviews of chocolate bars that have Ecuador as `country_of_bean_origin` in this dataset? For this same set of reviews, also calculate (1) the total number of reviews and (2) the standard deviation of the `rating` scores. Your answer should be a new data frame with these three summary statistics in three columns. Label the name of these columns `mean`, `sd`, and `total`.
 
 ```{r}
 # Add your solution here
 
 ```
-
 
 4.  Which country makes the best chocolate (or has the highest ratings on average) with beans from Ecuador?
 
@@ -136,7 +132,6 @@ The ratings are discrete values making the histogram look strange. When you make
 
 ```
 
-
 5.  Calculate the average rating across all country of origins for beans. Which top 3 countries have the highest ratings on average?
 
 ```{r}
@@ -144,14 +139,12 @@ The ratings are discrete values making the histogram look strange. When you make
 
 ```
 
-
 6.  Following up on the previous problem, now remove any countries of bean origins that have less than 10 chocolate bar reviews. Now, which top 3 countries have the highest ratings on average?
 
 ```{r}
 # Add your solution here
 
 ```
-
 
 7.  For this last part, let's explore the relationship between percent chocolate and ratings.
 
@@ -186,18 +179,16 @@ dat %>%
 
 ```
 
-
-
 # Part 2: Join two datasets together
 
 The goal of this part of the assignment is to join two datasets together. `gapminder` is a [R package](https://cran.r-project.org/web/packages/gapminder/README.html) that contains an excerpt from the [Gapminder data](https://www.gapminder.org/data/).
 
 ### Tasks
 
-1. Use this dataset it to create a new column called `continent` in our `chocolate` dataset that contains the continent name for each review where the country of bean origin is. 
-2. Only keep reviews that have reviews from countries of bean origin with at least 10 reviews. 
-3. Also, remove the country of bean origin named `"Blend"`.
-4. Make a set of violin plots with ratings on the y-axis and `continent`s on the x-axis.
+1.  Use this dataset it to create a new column called `continent` in our `chocolate` dataset that contains the continent name for each review where the country of bean origin is.
+2.  Only keep reviews that have reviews from countries of bean origin with at least 10 reviews.
+3.  Also, remove the country of bean origin named `"Blend"`.
+4.  Make a set of violin plots with ratings on the y-axis and `continent`s on the x-axis.
 
 **Hint**:
 
@@ -208,8 +199,6 @@ The goal of this part of the assignment is to join two datasets together. `gapmi
 
 ```
 
-
-
 # Part 3: Convert wide data into long data
 
 The goal of this part of the assignment is to take a dataset that is either messy or simply not tidy and to make them tidy datasets. The objective is to gain some familiarity with the functions in the `dplyr`, `tidyr` packages. You may find it helpful to review the section on spreading and gathering data.
@@ -218,8 +207,8 @@ The goal of this part of the assignment is to take a dataset that is either mess
 
 We are going to create a set of features for us to plot over time. Use the functions in `dplyr` and `tidyr` to perform the following steps to the `chocolate` dataset:
 
-1. Create a new set of columns titled `beans`, `sugar`, `cocoa_butter`, `vanilla`, `letchin`, and `salt` that contain a 1 or 0 representing whether or not that review for the chocolate bar contained that ingredient (1) or not (0). 
-2. Create a new set of columns titled `char_cocoa`, `char_sweet`, `char_nutty`, `char_creamy`, `char_roasty`, `char_earthy` that contain a 1 or 0 representing whether or not that the most memorable characteristic for the chocolate bar had that word (1) or not (0). For example, if the word "sweet" appears in the `most_memorable_characteristics`, then record a 1, otherwise a 0 for that review in the `char_sweet` column (**Hint**: check out `str_detect()` from the `stringr` package).
+1.  Create a new set of columns titled `beans`, `sugar`, `cocoa_butter`, `vanilla`, `letchin`, and `salt` that contain a 1 or 0 representing whether or not that review for the chocolate bar contained that ingredient (1) or not (0).
+2.  Create a new set of columns titled `char_cocoa`, `char_sweet`, `char_nutty`, `char_creamy`, `char_roasty`, `char_earthy` that contain a 1 or 0 representing whether or not that the most memorable characteristic for the chocolate bar had that word (1) or not (0). For example, if the word "sweet" appears in the `most_memorable_characteristics`, then record a 1, otherwise a 0 for that review in the `char_sweet` column (**Hint**: check out `str_detect()` from the `stringr` package).
 3.  For each year (i.e. `review_date`), calculate the mean value in each new column you created across all reviews for that year. (**Hint**: If all has gone well thus far, you should have a dataset with 16 rows and 13 columns).
 4.  Convert this wide dataset into a long dataset with a new `feature` and `mean_score` column.
 
@@ -249,8 +238,6 @@ It should look something like this:
 
 ```
 
-
-
 # Part 4: Data visualization
 
 In this part of the project, we will continue to work with our now tidy song dataset from the previous part.
@@ -276,7 +263,6 @@ Consider playing around with the `theme()` function to make the figure shine, in
 # Add your solution here
 
 ```
-
 
 # Part 5: Make the worst plot you can!
 

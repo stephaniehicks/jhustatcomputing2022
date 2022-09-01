@@ -22,19 +22,17 @@ categories: [module 1, week 2, R, programming, dplyr, here, tidyverse]
 
 **Before class, you can prepare by reading the following materials:**
 
-1. <https://r4ds.had.co.nz/relational-data.html>
-2. <https://rafalab.github.io/dsbook/joining-tables.html>
-
+1.  <https://r4ds.had.co.nz/relational-data.html>
+2.  <https://rafalab.github.io/dsbook/joining-tables.html>
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
-- <https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html>
-- <https://r4ds.had.co.nz/relational-data.html>
-- <https://rafalab.github.io/dsbook/joining-tables.html>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html>
+-   <https://r4ds.had.co.nz/relational-data.html>
+-   <https://rafalab.github.io/dsbook/joining-tables.html>
 
 # Learning objectives
 
@@ -43,13 +41,12 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Be able to define relational data and keys
-- Be able to define the three types of join functions for relational data
-- Be able to implement mutational join functions
-
+-   Be able to define relational data and keys
+-   Be able to define the three types of join functions for relational data
+-   Be able to implement mutational join functions
 :::
 
-# Relational data 
+# Relational data
 
 Data analyses rarely involve only a single table of data. Typically you have many tables of data, and you must combine them to answer the questions that you are interested in. Collectively, multiple tables of data are called **relational data** because it is the relations, not just the individual datasets, that are important.
 
@@ -57,24 +54,22 @@ Relations are always defined between a pair of tables. All other relations are b
 
 To work with relational data you need verbs that work with pairs of tables. There are three families of verbs designed to work with relational data:
 
-- [**Mutating joins**](https://r4ds.had.co.nz/relational-data.html#mutating-joins): A mutating join allows you to combine variables from two tables. It first matches observations by their keys, then copies across variables from one table to the other on the right side of the table (similar to `mutate()`). We will discuss a few of these below.
-- [**Filtering joins**](https://r4ds.had.co.nz/relational-data.html#filtering-joins): filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables (i.e. filter observations from one data frame based on whether or not they match an observation in the other). Two types: `semi_join(x, y)` and `anti_join(x, y)`.
-- [**Set operations**](https://r4ds.had.co.nz/relational-data.html#set-operations): treat observations as if they were set elements. Typically used less frequently, but occasionally useful when you want to break a single complex filter into simpler pieces. All these operations work with a complete row, comparing the values of every variable. These expect the x and y inputs to have the same variables, and treat the observations like sets: e.g. `intersect(x, y)`, `union(x, y)`, and `setdiff(x, y)`.
-
+-   [**Mutating joins**](https://r4ds.had.co.nz/relational-data.html#mutating-joins): A mutating join allows you to combine variables from two tables. It first matches observations by their keys, then copies across variables from one table to the other on the right side of the table (similar to `mutate()`). We will discuss a few of these below.
+-   [**Filtering joins**](https://r4ds.had.co.nz/relational-data.html#filtering-joins): filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables (i.e. filter observations from one data frame based on whether or not they match an observation in the other). Two types: `semi_join(x, y)` and `anti_join(x, y)`.
+-   [**Set operations**](https://r4ds.had.co.nz/relational-data.html#set-operations): treat observations as if they were set elements. Typically used less frequently, but occasionally useful when you want to break a single complex filter into simpler pieces. All these operations work with a complete row, comparing the values of every variable. These expect the x and y inputs to have the same variables, and treat the observations like sets: e.g. `intersect(x, y)`, `union(x, y)`, and `setdiff(x, y)`.
 
 ### Keys
 
-The variables used to connect each pair of tables are called **keys**. A key is a variable (or set of variables) that uniquely identifies an observation. In simple cases, a single variable is sufficient to identify an observation. 
+The variables used to connect each pair of tables are called **keys**. A key is a variable (or set of variables) that uniquely identifies an observation. In simple cases, a single variable is sufficient to identify an observation.
 
 There are two types of keys:
 
-- A **primary key** uniquely identifies an observation in its own table. 
-- A **foreign key** uniquely identifies an observation in another table. 
-
+-   A **primary key** uniquely identifies an observation in its own table.
+-   A **foreign key** uniquely identifies an observation in another table.
 
 # Mutating joins
 
-The `dplyr` package provides a set of functions for joining two data frames into a single data frame based on a set of key columns. There are several functions in the `*_join()` family. These functions all merge together two data frames; they differ in how they handle observations that exist in one but not both data frames. Here, are the four functions from this family that you will likely use the most often: 
+The `dplyr` package provides a set of functions for joining two data frames into a single data frame based on a set of key columns. There are several functions in the `*_join()` family. These functions all merge together two data frames; they differ in how they handle observations that exist in one but not both data frames. Here, are the four functions from this family that you will likely use the most often:
 
 ```{r echo = FALSE, , out.width = '60%', fig.align='center', preview=TRUE}
 library(knitr)
@@ -89,8 +84,7 @@ join_funcs <- data.frame(func = c("`left_join()`",
 knitr::kable(join_funcs, col.names = c("Function", "What it includes in merged data frame"))
 ```
 
-
-### The first table 
+### The first table
 
 Imagine you are conduct a study and collecting data on subjects and a health outcome. Often, subjects will make multiple visits (a so-called longitudinal study) and so we will record the outcome for each visit. Similarly, we may record other information about them, such as the kind of housing they live in.
 
@@ -110,8 +104,6 @@ print(outcomes)
 
 Note that subjects are labeled by their id in the `id` column.
 
-
-
 ### A second table
 
 Here is some code to create a second table (we will be joining the first and second tables shortly). This table contains some data about the hypothetical subjects' housing situation by recording the type of house they live in.
@@ -125,7 +117,6 @@ subjects <- tibble(
 print(subjects)
 ```
 
-
 ### Left Join
 
 Now suppose we want to create a table that combines the information about houses with the information about the outcomes. We can use the `left_join()` function to merge the `outcomes` and `subjects` tables and produce the output above.
@@ -136,12 +127,9 @@ left_join(x = outcomes, y = subjects, by = "id")
 
 The `by` argument indicates the column (or columns) that the two tables have in common.
 
-
-
 ### Left Join with Incomplete Data
 
 In the previous examples, the `subjects` table didn't have a `visit` column. But suppose it did? Maybe people move around during the study. We could image a table like this one.
-
 
 ```{r}
 subjects <- tibble(
@@ -175,7 +163,6 @@ subjects <- tibble(
 subjects
 ```
 
-
 But we can still join the tables together and the `house` values for subject `a` will all be `NA`.
 
 ```{r}
@@ -184,17 +171,13 @@ left_join(x = outcomes, y = subjects, by = c("id", "visit"))
 
 The bottom line for `left_join()` is that it always retains the values in the "left" argument (in this case the `outcomes` table). If there are no corresponding values in the "right" argument, `NA` values will be filled in.
 
-
 ### Inner Join
-
 
 The `inner_join()` function only retains the rows of both tables that have corresponding values. Here we can see the difference.
 
 ```{r}
 inner_join(x = outcomes, y = subjects, by = c("id", "visit"))
 ```
-
-
 
 ### Right Join
 
@@ -204,16 +187,13 @@ The `right_join()` function is like the `left_join()` function except that it gi
 right_join(x = outcomes, y = subjects, by = c("id", "visit"))
 ```
 
-
 # Summary
 
-* `left_join()` is useful for merging a "large" data frame with a "smaller" one while retaining all the rows of the "large" data frame
+-   `left_join()` is useful for merging a "large" data frame with a "smaller" one while retaining all the rows of the "large" data frame
 
-* `inner_join()` gives you the intersection of the rows between two data frames 
+-   `inner_join()` gives you the intersection of the rows between two data frames
 
-* `right_join()` is like `left_join()` with the arguments reversed (likely only useful at the end of a pipeline)
-
-
+-   `right_join()` is like `left_join()` with the arguments reversed (likely only useful at the end of a pipeline)
 
 # Post-lecture materials
 
@@ -224,9 +204,9 @@ Here are some post-lecture questions to help you think about the material discus
 ::: callout-note
 ### Questions
 
-1. If you had three data frames to combine with a shared key, how would you join them using the verbs you now know?
+1.  If you had three data frames to combine with a shared key, how would you join them using the verbs you now know?
 
-2. Using `df1` and `df2` below, what is the difference between `inner_join(df1, df2)`, `semi_join(df1, df2)` and `anti_join(df1, df2)`? 
+2.  Using `df1` and `df2` below, what is the difference between `inner_join(df1, df2)`, `semi_join(df1, df2)` and `anti_join(df1, df2)`?
 
 ```{r}
 # Create first example data frame
@@ -237,18 +217,15 @@ df2 <- data.frame(ID = 2:4,
                   X2 = c("b1", "b2", "b3"))
 ```
 
-3. Try changing the order from the above e.g. `inner_join(df2, df1)`, `semi_join(df2, df1)` and `anti_join(df2, df1)`. What changed? What did not change? 
-
+3.  Try changing the order from the above e.g. `inner_join(df2, df1)`, `semi_join(df2, df1)` and `anti_join(df2, df1)`. What changed? What did not change?
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-
-- <https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html>
-- <https://r4ds.had.co.nz/relational-data.html>
-- <https://rafalab.github.io/dsbook/joining-tables.html>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html>
+-   <https://r4ds.had.co.nz/relational-data.html>
+-   <https://rafalab.github.io/dsbook/joining-tables.html>
 :::
 
 ## rtistry

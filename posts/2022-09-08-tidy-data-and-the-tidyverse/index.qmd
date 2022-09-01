@@ -13,15 +13,12 @@ categories: [module 1, week 2, R, programming, tidyr, here, tidyverse]
 
 <!-- Add interesting quote -->
 
-> "Happy families are all alike; every unhappy family is unhappy in 
-> its own way." –– Leo Tolstoy
+> "Happy families are all alike; every unhappy family is unhappy in its own way." ---- Leo Tolstoy
 
-> "Tidy datasets are all alike, but every messy dataset is messy in 
-> its own way." –– Hadley Wickham
-
-
+> "Tidy datasets are all alike, but every messy dataset is messy in its own way." ---- Hadley Wickham
 
 # Pre-lecture materials
+
 
 ### Read ahead
 
@@ -30,19 +27,17 @@ categories: [module 1, week 2, R, programming, tidyr, here, tidyverse]
 
 **Before class, you can prepare by reading the following materials:**
 
-1. [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) paper published in the Journal of Statistical Software
-2. <https://r4ds.had.co.nz/tidy-data.html>
-3. [tidyr cheat sheet from RStudio](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-
+1.  [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) paper published in the Journal of Statistical Software
+2.  <https://r4ds.had.co.nz/tidy-data.html>
+3.  [tidyr cheat sheet from RStudio](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
-- <https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse.html>
-- <https://r4ds.had.co.nz/tidy-data.html>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse.html>
+-   <https://r4ds.had.co.nz/tidy-data.html>
 
 # Learning objectives
 
@@ -51,29 +46,26 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Define tidy data 
-- Be able to transform non-tidy data into tidy data
-- Be able to transform wide data into long data
-- Be able to separate character columns into multiple columns
-- Be able to unite multiple character columns into one column
-
+-   Define tidy data
+-   Be able to transform non-tidy data into tidy data
+-   Be able to transform wide data into long data
+-   Be able to separate character columns into multiple columns
+-   Be able to unite multiple character columns into one column
 :::
 
 # Tidy data
 
 As we learned in the last lesson, one unifying concept of the tidyverse is the notion of **tidy data**. As defined by Hadley Wickham in his 2014 paper published in the *Journal of Statistical Software*, a [tidy dataset](https://www.jstatsoft.org/article/view/v059i10) has the following properties:
 
-1. Each variable forms a column.
+1.  Each variable forms a column.
 
-2. Each observation forms a row.
+2.  Each observation forms a row.
 
-3. Each type of observational unit forms a table.
-
+3.  Each type of observational unit forms a table.
 
 ![Artwork by Allison Horst on tidy data](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_1.jpg){width="80%"}
 
 \[**Source**: [Artwork by Allison Horst](https://github.com/allisonhorst/stats-illustrations)\]
-
 
 The purpose of defining tidy data is to highlight the fact that *most data do not start out life as tidy*. In fact, much of the work of data analysis may involve simply making the data tidy (at least this has been our experience). Once a dataset is tidy, it can be used as input into a variety of other functions that may transform, model, or visualize the data.
 
@@ -84,7 +76,7 @@ library(tidyr)
 relig_income
 ```
 
-While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy. This format violates the tidy form because there are variables in the columns. In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table. 
+While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy. This format violates the tidy form because there are variables in the columns. In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table.
 
 Converting this data to tidy format would give us
 
@@ -96,24 +88,23 @@ relig_income %>%
   mutate(religion = factor(religion), income = factor(income))
 ```
 
-Some of these functions you have seen before, others might be new to you. Let's talk about each one in the context of the Tidyverse package. 
-
+Some of these functions you have seen before, others might be new to you. Let's talk about each one in the context of the Tidyverse package.
 
 # The "Tidyverse"
 
 There are a number of R packages that take advantage of the tidy data form and can be used to do interesting things with data. Many (but not all) of these packages are written by Hadley Wickham and the collection of packages is sometimes referred to as the "tidyverse" because of their dependence on and presumption of tidy data. "Tidyverse" packages include:
 
-* [ggplot2](https://cran.r-project.org/package=ggplot2): a plotting system based on the grammar of graphics
+-   [ggplot2](https://cran.r-project.org/package=ggplot2): a plotting system based on the grammar of graphics
 
-* [magrittr](https://cran.r-project.org/package=magrittr"): defines the `%>%` operator for chaining functions together in a series of operations on data
+-   [magrittr](https://cran.r-project.org/package=magrittr%22): defines the `%>%` operator for chaining functions together in a series of operations on data
 
-* [dplyr](https://cran.r-project.org/package=dplyr): a suite of (fast) functions for working with data frames
+-   [dplyr](https://cran.r-project.org/package=dplyr): a suite of (fast) functions for working with data frames
 
-* [tidyr](https://cran.r-project.org/package=tidyr): easily tidy data with `pivot_wider()` and `pivot_longer()` functions (also `separate()` and `unite()`)
+-   [tidyr](https://cran.r-project.org/package=tidyr): easily tidy data with `pivot_wider()` and `pivot_longer()` functions (also `separate()` and `unite()`)
 
 We will be using these packages quite a bit this week.
 
-The "tidyverse" package can be used to install all of the packages in the tidyverse at once. For example, instead of starting an R script with this: 
+The "tidyverse" package can be used to install all of the packages in the tidyverse at once. For example, instead of starting an R script with this:
 
 ```{r, eval = FALSE}
 library(dplyr)
@@ -122,25 +113,24 @@ library(readr)
 library(ggplot2)
 ```
 
-You can start with this: 
+You can start with this:
 
 ```{r, eval = FALSE}
 library(tidyverse)
 ```
 
-In the code above, let's talk about what we did using the
-`pivot_longer()` function. We will also talk about `pivot_wider()`. 
+In the code above, let's talk about what we did using the `pivot_longer()` function. We will also talk about `pivot_wider()`.
 
 ### `pivot_longer()` and `pivot_wider()`
 
-The `tidyr` package includes functions to transfer a data frame between *long* and *wide*. 
+The `tidyr` package includes functions to transfer a data frame between *long* and *wide*.
 
-- **Wide format** data tends to have different attributes or variables describing an observation placed in separate columns. 
-- **Long format** data tends to have different attributes encoded as levels of a single variable, followed by another column that contains tha values of the observation at those different levels. 
+-   **Wide format** data tends to have different attributes or variables describing an observation placed in separate columns.
+-   **Long format** data tends to have different attributes encoded as levels of a single variable, followed by another column that contains tha values of the observation at those different levels.
 
-In the section above, we showed an example that used `pivot_longer()` to convert data into a tidy format. 
+In the section above, we showed an example that used `pivot_longer()` to convert data into a tidy format.
 
-The key problem with the tidyness of the data is that the income variables are not in their own columns, but rather are embedded in the structure of the columns. 
+The key problem with the tidyness of the data is that the income variables are not in their own columns, but rather are embedded in the structure of the columns.
 
 To fix this, you can use the `pivot_longer()` function to gather values spread across several columns into a single column, with the column names gathered into an `income` column. When gathering, exclude any columns that you do not want "gathered" (`religion` in this case) by including the column names with a the minus sign in the `pivot_longer()` function. For example:
 
@@ -150,7 +140,7 @@ relig_income %>%
   pivot_longer(-religion, names_to = "income", values_to = "respondents")
 ```
 
-Even if your data is in a tidy format, `pivot_longer()` is occasionally useful for pulling data together to take advantage of faceting, or plotting separate plots based on a grouping variable. We will talk more about that in a future lecture. 
+Even if your data is in a tidy format, `pivot_longer()` is occasionally useful for pulling data together to take advantage of faceting, or plotting separate plots based on a grouping variable. We will talk more about that in a future lecture.
 
 The `pivot_wider()` function is less commonly needed to tidy data. It can, however, be useful for creating summary tables. For example, you use the `summarize()` function in `dplyr` to summarize the total number of respondents per income category.
 
@@ -167,8 +157,7 @@ relig_income %>%
 
 Notice in this example how `pivot_wider()` has been used at the very end of the code sequence to convert the summarized data into a shape that offers a better tabular presentation for a report. In the `pivot_wider()` call, you first specify the name of the column to use for the new column names (`income` in this example) and then specify the column to use for the cell values (`total_respondents` here).
 
-:::{.callout-note}
-
+::: callout-note
 ### Example
 
 Let's try another dataset. This data contain an excerpt of the [Gapminder data](https://cran.r-project.org/web/packages/gapminder/README.html#gapminder) on life expectancy, GDP per capita, and population by country.
@@ -178,25 +167,20 @@ library(gapminder)
 gapminder
 ```
 
-If we wanted to make `lifeExp`, `pop` and `gdpPercap` (all measurements that we observe) go from a wide table into a long table, what would we do? 
+If we wanted to make `lifeExp`, `pop` and `gdpPercap` (all measurements that we observe) go from a wide table into a long table, what would we do?
 
 ```{r}
 # try it yourself
 
 ```
-
 :::
 
-
-
-:::{.callout-note}
-
+::: callout-note
 ### Example
 
+One more! Try using `pivot_longer()` to convert the the following data that contains made-up revenues for three companies by quarter for years 2006 to 2009.
 
-One more! Try using `pivot_longer()` to convert the the following data that contains made-up revenues for three companies by quarter for years 2006 to 2009. 
-
-Afterward, use `group_by()` and `summarize()` to calculate the average revenue for each company across all years and all quarters. 
+Afterward, use `group_by()` and `summarize()` to calculate the average revenue for each company across all years and all quarters.
 
 **Bonus**: Calculate a mean revenue for each company AND each year (averaged across all 4 quarters).
 
@@ -216,37 +200,29 @@ df
 # try it yourself 
 
 ```
-
-
 :::
 
 ### `separate()` and `unite()`
 
-The same `tidyr` package also contains two useful functions: 
+The same `tidyr` package also contains two useful functions:
 
-- `unite()`: combine contents of two or more columns into a single column
-- `separate()`:  separate contents of a column into two or more columns
+-   `unite()`: combine contents of two or more columns into a single column
+-   `separate()`: separate contents of a column into two or more columns
 
-
-First, we combine the first three columns into one new column using `unite()`. 
+First, we combine the first three columns into one new column using `unite()`.
 
 ```{r}
 gapminder %>% 
   unite(col="country_continent_year", country:year, sep="_")
 ```
 
-Next, we show how to separate the columns into three separate columns using `separate()` using the `col`, `into` and `sep` arguments. 
+Next, we show how to separate the columns into three separate columns using `separate()` using the `col`, `into` and `sep` arguments.
 
 ```{r}
 gapminder %>% 
   unite(col="country_continent_year", country:year, sep="_") %>% 
   separate(col="country_continent_year", into=c("country", "continent", "year"), sep="_")
 ```
-
-
-
-
-
 
 # Post-lecture materials
 
@@ -255,12 +231,11 @@ gapminder %>%
 Here are some post-lecture questions to help you think about the material discussed.
 
 ::: callout-note
-
 ### Questions
 
-1. Using prose, describe how the variables and observations are organised in a tidy dataset versus an non-tidy dataset.
+1.  Using prose, describe how the variables and observations are organised in a tidy dataset versus an non-tidy dataset.
 
-2. What do the extra and fill arguments do in `separate()`? Experiment with the various options for the following two toy datasets.
+2.  What do the extra and fill arguments do in `separate()`? Experiment with the various options for the following two toy datasets.
 
 ```{r, eval=FALSE}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
@@ -270,20 +245,17 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
 ```
 
-3. Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to FALSE?
+3.  Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to FALSE?
 
-4. Compare and contrast `separate()` and `extract()`. Why are there three variations of separation (by position, by separator, and with groups), but only one `unite()`?
-
+4.  Compare and contrast `separate()` and `extract()`. Why are there three variations of separation (by position, by separator, and with groups), but only one `unite()`?
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-
-- [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) paper published in the Journal of Statistical Software
-- https://r4ds.had.co.nz/tidy-data.html 
-- [tidyr cheat sheet from RStudio](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-
+-   [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) paper published in the Journal of Statistical Software
+-   https://r4ds.had.co.nz/tidy-data.html
+-   [tidyr cheat sheet from RStudio](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 :::
 
 ## rtistry
