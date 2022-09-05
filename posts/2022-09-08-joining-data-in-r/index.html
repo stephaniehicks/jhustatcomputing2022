@@ -264,13 +264,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#relational-data" id="toc-relational-data" class="nav-link" data-scroll-target="#relational-data">Relational data</a>
   <ul class="collapse">
   <li><a href="#keys" id="toc-keys" class="nav-link" data-scroll-target="#keys">Keys</a></li>
-  </ul></li>
-  <li><a href="#mutating-joins" id="toc-mutating-joins" class="nav-link" data-scroll-target="#mutating-joins">Mutating joins</a>
+  <li><a href="#example-of-keys" id="toc-example-of-keys" class="nav-link" data-scroll-target="#example-of-keys">Example of keys</a>
   <ul class="collapse">
   <li><a href="#the-first-table" id="toc-the-first-table" class="nav-link" data-scroll-target="#the-first-table">The first table</a></li>
   <li><a href="#a-second-table" id="toc-a-second-table" class="nav-link" data-scroll-target="#a-second-table">A second table</a></li>
-  <li><a href="#left-join" id="toc-left-join" class="nav-link" data-scroll-target="#left-join">Left Join</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-mutjoins" id="toc-sec-mutjoins" class="nav-link" data-scroll-target="#sec-mutjoins">Mutating joins</a>
+  <ul class="collapse">
+  <li><a href="#left-join" id="toc-left-join" class="nav-link" data-scroll-target="#left-join">Left Join</a>
+  <ul class="collapse">
   <li><a href="#left-join-with-incomplete-data" id="toc-left-join-with-incomplete-data" class="nav-link" data-scroll-target="#left-join-with-incomplete-data">Left Join with Incomplete Data</a></li>
+  </ul></li>
   <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner Join</a></li>
   <li><a href="#right-join" id="toc-right-join" class="nav-link" data-scroll-target="#right-join">Right Join</a></li>
   </ul></li>
@@ -348,28 +353,144 @@ Learning objectives
 </section>
 <section id="relational-data" class="level1">
 <h1>Relational data</h1>
-<p>Data analyses rarely involve only a single table of data. Typically you have many tables of data, and you must combine them to answer the questions that you are interested in. Collectively, multiple tables of data are called <strong>relational data</strong> because it is the relations, not just the individual datasets, that are important.</p>
-<p>Relations are always defined between a pair of tables. All other relations are built up from this simple idea: the relations of three or more tables are always a property of the relations between each pair. Sometimes both elements of a pair can be the same table! This is needed if, for example, you have a table of people, and each person has a reference to their parents.</p>
-<p>To work with relational data you need verbs that work with pairs of tables. There are three families of verbs designed to work with relational data:</p>
+<p>Data analyses rarely involve only a single table of data.</p>
+<p>Typically you have many tables of data, and you <strong>must combine the datasets</strong> to answer the questions that you are interested in.</p>
+<p>Collectively, <strong>multiple tables of data are called relational data</strong> because it is the <em>relations</em>, not just the individual datasets, that are important.</p>
+<p>Relations are <strong>always defined between a pair of tables</strong>. All other relations are built up from this simple idea: the relations of three or more tables are always a property of the relations between each pair.</p>
+<p>Sometimes both elements of a pair can be the same table! This is needed if, for example, you have a table of people, and each person has a reference to their parents.</p>
+<p>To work with relational data you <strong>need verbs that work with pairs of tables</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Three important families of verbs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are three families of verbs designed to work with relational data:</p>
 <ul>
-<li><a href="https://r4ds.had.co.nz/relational-data.html#mutating-joins"><strong>Mutating joins</strong></a>: A mutating join allows you to combine variables from two tables. It first matches observations by their keys, then copies across variables from one table to the other on the right side of the table (similar to <code>mutate()</code>). We will discuss a few of these below.</li>
-<li><a href="https://r4ds.had.co.nz/relational-data.html#filtering-joins"><strong>Filtering joins</strong></a>: filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables (i.e.&nbsp;filter observations from one data frame based on whether or not they match an observation in the other). Two types: <code>semi_join(x, y)</code> and <code>anti_join(x, y)</code>.</li>
-<li><a href="https://r4ds.had.co.nz/relational-data.html#set-operations"><strong>Set operations</strong></a>: treat observations as if they were set elements. Typically used less frequently, but occasionally useful when you want to break a single complex filter into simpler pieces. All these operations work with a complete row, comparing the values of every variable. These expect the x and y inputs to have the same variables, and treat the observations like sets: e.g.&nbsp;<code>intersect(x, y)</code>, <code>union(x, y)</code>, and <code>setdiff(x, y)</code>.</li>
+<li><a href="https://r4ds.had.co.nz/relational-data.html#mutating-joins"><strong>Mutating joins</strong></a>: A mutating join allows you to <strong>combine variables from two tables</strong>. It first matches observations by their keys, then copies across variables from one table to the other on the right side of the table (similar to <code>mutate()</code>). We will discuss a few of these below.
+<ul>
+<li>See <a href="#sec-mutjoins">Section&nbsp;4</a> for Table of mutating joins.</li>
+</ul></li>
+<li><a href="https://r4ds.had.co.nz/relational-data.html#filtering-joins"><strong>Filtering joins</strong></a>: Filtering joins <strong>match observations</strong> in the same way as mutating joins, <strong>but affect the observations, not the variables</strong> (i.e.&nbsp;filter observations from one data frame based on whether or not they match an observation in the other).
+<ul>
+<li>Two types: <code>semi_join(x, y)</code> and <code>anti_join(x, y)</code>.</li>
+</ul></li>
+<li><a href="https://r4ds.had.co.nz/relational-data.html#set-operations"><strong>Set operations</strong></a>: Treat <strong>observations as if they were set elements</strong>. Typically used less frequently, but occasionally useful when you want to break a single complex filter into simpler pieces. All these operations work with a complete row, comparing the values of every variable. These expect the x and y inputs to have the same variables, and treat the observations like sets:
+<ul>
+<li>Examples of set operations: <code>intersect(x, y)</code>, <code>union(x, y)</code>, and <code>setdiff(x, y)</code>.</li>
+</ul></li>
 </ul>
-<section id="keys" class="level3">
-<h3 class="anchored" data-anchor-id="keys">Keys</h3>
-<p>The variables used to connect each pair of tables are called <strong>keys</strong>. A key is a variable (or set of variables) that uniquely identifies an observation. In simple cases, a single variable is sufficient to identify an observation.</p>
+</div>
+</div>
+<section id="keys" class="level2">
+<h2 class="anchored" data-anchor-id="keys">Keys</h2>
+<p>The <strong>variables used to connect each pair of tables</strong> are called <strong>keys</strong>. A key is a variable (or set of variables) that uniquely identifies an observation. In simple cases, a single variable is sufficient to identify an observation.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>There are two types of keys:</p>
 <ul>
 <li>A <strong>primary key</strong> uniquely identifies an observation in its own table.</li>
 <li>A <strong>foreign key</strong> uniquely identifies an observation in another table.</li>
 </ul>
+</div>
+</div>
+<p>Let’s consider an example to help us understand the difference between a <strong>primary key</strong> and <strong>foreign key</strong>.</p>
+</section>
+<section id="example-of-keys" class="level2">
+<h2 class="anchored" data-anchor-id="example-of-keys">Example of keys</h2>
+<p>Imagine you are conduct a study and <strong>collecting data on subjects and a health outcome</strong>.</p>
+<p>Often, subjects will <strong>make multiple visits</strong> (a so-called longitudinal study) and so we will record the outcome for each visit. Similarly, we may record other information about them, such as the kind of housing they live in.</p>
+<section id="the-first-table" class="level3">
+<h3 class="anchored" data-anchor-id="the-first-table">The first table</h3>
+<p>This code creates a simple table with some made up data about some hypothetical subjects’ outcomes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">each =</span> <span class="dv">3</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">visit =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">outcome =</span> <span class="fu">rnorm</span>(<span class="dv">3</span> <span class="sc">*</span> <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(outcomes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  id    visit outcome
+  &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
+1 a         0    3.80
+2 a         1    3.74
+3 a         2    3.68
+4 b         0    3.20
+5 b         1    4.74
+6 b         2    4.20
+7 c         0    2.22
+8 c         1    2.28
+9 c         2    3.28</code></pre>
+</div>
+</div>
+<p>Note that subjects are labeled by a unique identifer in the <code>id</code> column.</p>
+</section>
+<section id="a-second-table" class="level3">
+<h3 class="anchored" data-anchor-id="a-second-table">A second table</h3>
+<p>Here is some code to create a second table (we will be joining the first and second tables shortly). This table contains some data about the hypothetical subjects’ housing situation by recording the type of house they live in.</p>
+<div class="cell" data-exercise="true">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">house =</span> <span class="fu">c</span>(<span class="st">"detached"</span>, <span class="st">"rowhouse"</span>, <span class="st">"rowhouse"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(subjects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  id    house   
+  &lt;chr&gt; &lt;chr&gt;   
+1 a     detached
+2 b     rowhouse
+3 c     rowhouse</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What is the <strong>primary key</strong> and <strong>foreign key</strong>?</p>
+<ul>
+<li>The <code>outcomes$id</code> is a <strong>primary key</strong> because it uniquely identifies each subject in the <code>outcomes</code> table.</li>
+<li>The <code>subjects$id</code> is a <strong>foreign key</strong> because it appears in the <code>subjects</code> table where it matches each subject to a unique <code>id</code>.</li>
+</ul>
+</div>
+</div>
 </section>
 </section>
-<section id="mutating-joins" class="level1">
+</section>
+<section id="sec-mutjoins" class="level1">
 <h1>Mutating joins</h1>
-<p>The <code>dplyr</code> package provides a set of functions for joining two data frames into a single data frame based on a set of key columns. There are several functions in the <code>*_join()</code> family. These functions all merge together two data frames; they differ in how they handle observations that exist in one but not both data frames. Here, are the four functions from this family that you will likely use the most often:</p>
-<div class="cell" data-layout-align="center" data-preview="true">
+<p>The <code>dplyr</code> package provides a set of <strong>functions for joining two data frames</strong> into a single data frame based on a set of key columns.</p>
+<p>There are several functions in the <code>*_join()</code> family.</p>
+<ul>
+<li>These functions all merge together two data frames</li>
+<li>They differ in how they handle observations that exist in one but not both data frames.</li>
+</ul>
+<p>Here, are the <strong>four functions from this family</strong> that you will likely use the most often:</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
@@ -403,47 +524,26 @@ Learning objectives
 </table>
 </div>
 </div>
-<section id="the-first-table" class="level3">
-<h3 class="anchored" data-anchor-id="the-first-table">The first table</h3>
-<p>Imagine you are conduct a study and collecting data on subjects and a health outcome. Often, subjects will make multiple visits (a so-called longitudinal study) and so we will record the outcome for each visit. Similarly, we may record other information about them, such as the kind of housing they live in.</p>
-<p>This code creates a simple table with some made up data about some hypothetical subjects’ outcomes.</p>
+<section id="left-join" class="level2">
+<h2 class="anchored" data-anchor-id="left-join">Left Join</h2>
+<p>Recall the <code>outcomes</code> and <code>subjects</code> datasets above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">each =</span> <span class="dv">3</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">visit =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">outcome =</span> <span class="fu">rnorm</span>(<span class="dv">3</span> <span class="sc">*</span> <span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(outcomes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>outcomes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 3
   id    visit outcome
   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
-1 a         0    2.18
-2 a         1    2.48
-3 a         2    1.64
-4 b         0    2.70
-5 b         1    3.42
-6 b         2    4.66
-7 c         0    1.52
-8 c         1    2.17
-9 c         2    3.97</code></pre>
+1 a         0    3.80
+2 a         1    3.74
+3 a         2    3.68
+4 b         0    3.20
+5 b         1    4.74
+6 b         2    4.20
+7 c         0    2.22
+8 c         1    2.28
+9 c         2    3.28</code></pre>
 </div>
-</div>
-<p>Note that subjects are labeled by their id in the <code>id</code> column.</p>
-</section>
-<section id="a-second-table" class="level3">
-<h3 class="anchored" data-anchor-id="a-second-table">A second table</h3>
-<p>Here is some code to create a second table (we will be joining the first and second tables shortly). This table contains some data about the hypothetical subjects’ housing situation by recording the type of house they live in.</p>
-<div class="cell" data-exercise="true">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">house =</span> <span class="fu">c</span>(<span class="st">"detached"</span>, <span class="st">"rowhouse"</span>, <span class="st">"rowhouse"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(subjects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>subjects</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   id    house   
@@ -453,40 +553,49 @@ Learning objectives
 3 c     rowhouse</code></pre>
 </div>
 </div>
-</section>
-<section id="left-join" class="level3">
-<h3 class="anchored" data-anchor-id="left-join">Left Join</h3>
-<p>Now suppose we want to create a table that combines the information about houses with the information about the outcomes. We can use the <code>left_join()</code> function to merge the <code>outcomes</code> and <code>subjects</code> tables and produce the output above.</p>
+<p>Suppose we want to create a table that combines the information about houses (<code>subjects</code>) with the information about the outcomes (<code>outcomes</code>).</p>
+<p>We can use the <code>left_join()</code> function to merge the <code>outcomes</code> and <code>subjects</code> tables and produce the output above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 a         0    2.18 detached
-2 a         1    2.48 detached
-3 a         2    1.64 detached
-4 b         0    2.70 rowhouse
-5 b         1    3.42 rowhouse
-6 b         2    4.66 rowhouse
-7 c         0    1.52 rowhouse
-8 c         1    2.17 rowhouse
-9 c         2    3.97 rowhouse</code></pre>
+1 a         0    3.80 detached
+2 a         1    3.74 detached
+3 a         2    3.68 detached
+4 b         0    3.20 rowhouse
+5 b         1    4.74 rowhouse
+6 b         2    4.20 rowhouse
+7 c         0    2.22 rowhouse
+8 c         1    2.28 rowhouse
+9 c         2    3.28 rowhouse</code></pre>
 </div>
 </div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The <code>by</code> argument indicates the column (or columns) that the two tables have in common.</p>
-</section>
+</div>
+</div>
 <section id="left-join-with-incomplete-data" class="level3">
 <h3 class="anchored" data-anchor-id="left-join-with-incomplete-data">Left Join with Incomplete Data</h3>
 <p>In the previous examples, the <code>subjects</code> table didn’t have a <code>visit</code> column. But suppose it did? Maybe people move around during the study. We could image a table like this one.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">visit =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">house =</span> <span class="fu">c</span>(<span class="st">"detached"</span>, <span class="st">"rowhouse"</span>, <span class="st">"rowhouse"</span>),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(subjects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">visit =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">house =</span> <span class="fu">c</span>(<span class="st">"detached"</span>, <span class="st">"rowhouse"</span>, <span class="st">"rowhouse"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(subjects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   id    visit house   
@@ -498,33 +607,48 @@ Learning objectives
 </div>
 <p>When we left joint the tables now we get:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(outcomes, subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(outcomes, subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 a         0    2.18 detached
-2 a         1    2.48 &lt;NA&gt;    
-3 a         2    1.64 &lt;NA&gt;    
-4 b         0    2.70 &lt;NA&gt;    
-5 b         1    3.42 rowhouse
-6 b         2    4.66 &lt;NA&gt;    
-7 c         0    1.52 rowhouse
-8 c         1    2.17 &lt;NA&gt;    
-9 c         2    3.97 &lt;NA&gt;    </code></pre>
+1 a         0    3.80 detached
+2 a         1    3.74 &lt;NA&gt;    
+3 a         2    3.68 &lt;NA&gt;    
+4 b         0    3.20 &lt;NA&gt;    
+5 b         1    4.74 rowhouse
+6 b         2    4.20 &lt;NA&gt;    
+7 c         0    2.22 rowhouse
+8 c         1    2.28 &lt;NA&gt;    
+9 c         2    3.28 &lt;NA&gt;    </code></pre>
 </div>
 </div>
-<p>Notice how now if we do not have information about a subject’s housing in a given visit, the <code>left_join()</code> function automatically inserts an <code>NA</code> value to indicate that it is missing.</p>
-<p>Also, in the above example, we joined on the <code>id</code> and the <code>visit</code> columns.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Two things to point out here:</p>
+<ol type="1">
+<li><p>If we do not have information about a subject’s housing in a given visit, the <code>left_join()</code> function automatically inserts an <code>NA</code> value to indicate that it is missing.</p></li>
+<li><p>We can “join” on multiple variable (e.g.&nbsp;here we joined on the <code>id</code> and the <code>visit</code> columns).</p></li>
+</ol>
+</div>
+</div>
 <p>We may even have a situation where we are missing housing data for a subject completely. The following table has no information about subject <code>a</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"c"</span>),</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">visit =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">house =</span> <span class="fu">c</span>(<span class="st">"rowhouse"</span>, <span class="st">"rowhouse"</span>),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>subjects</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"c"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">visit =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">house =</span> <span class="fu">c</span>(<span class="st">"rowhouse"</span>, <span class="st">"rowhouse"</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>subjects</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   id    visit house   
@@ -535,49 +659,65 @@ Learning objectives
 </div>
 <p>But we can still join the tables together and the <code>house</code> values for subject <code>a</code> will all be <code>NA</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 a         0    2.18 &lt;NA&gt;    
-2 a         1    2.48 &lt;NA&gt;    
-3 a         2    1.64 &lt;NA&gt;    
-4 b         0    2.70 &lt;NA&gt;    
-5 b         1    3.42 rowhouse
-6 b         2    4.66 &lt;NA&gt;    
-7 c         0    1.52 rowhouse
-8 c         1    2.17 &lt;NA&gt;    
-9 c         2    3.97 &lt;NA&gt;    </code></pre>
+1 a         0    3.80 &lt;NA&gt;    
+2 a         1    3.74 &lt;NA&gt;    
+3 a         2    3.68 &lt;NA&gt;    
+4 b         0    3.20 &lt;NA&gt;    
+5 b         1    4.74 rowhouse
+6 b         2    4.20 &lt;NA&gt;    
+7 c         0    2.22 rowhouse
+8 c         1    2.28 &lt;NA&gt;    
+9 c         2    3.28 &lt;NA&gt;    </code></pre>
 </div>
 </div>
-<p>The bottom line for <code>left_join()</code> is that it always retains the values in the “left” argument (in this case the <code>outcomes</code> table). If there are no corresponding values in the “right” argument, <code>NA</code> values will be filled in.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The bottom line for <code>left_join()</code> is that it <strong>always retains the values in the “left” argument</strong> (in this case the <code>outcomes</code> table).</p>
+<ul>
+<li>If there are no corresponding values in the “right” argument, <code>NA</code> values will be filled in.</li>
+</ul>
+</div>
+</div>
 </section>
-<section id="inner-join" class="level3">
-<h3 class="anchored" data-anchor-id="inner-join">Inner Join</h3>
-<p>The <code>inner_join()</code> function only retains the rows of both tables that have corresponding values. Here we can see the difference.</p>
+</section>
+<section id="inner-join" class="level2">
+<h2 class="anchored" data-anchor-id="inner-join">Inner Join</h2>
+<p>The <code>inner_join()</code> function only <strong>retains the rows of both tables</strong> that have corresponding values. Here we can see the difference.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 b         1    3.42 rowhouse
-2 c         0    1.52 rowhouse</code></pre>
+1 b         1    4.74 rowhouse
+2 c         0    2.22 rowhouse</code></pre>
 </div>
 </div>
 </section>
-<section id="right-join" class="level3">
-<h3 class="anchored" data-anchor-id="right-join">Right Join</h3>
-<p>The <code>right_join()</code> function is like the <code>left_join()</code> function except that it gives priority to the “right” hand argument.</p>
+<section id="right-join" class="level2">
+<h2 class="anchored" data-anchor-id="right-join">Right Join</h2>
+<p>The <code>right_join()</code> function is like the <code>left_join()</code> function except that it <strong>gives priority to the “right” hand argument</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(<span class="at">x =</span> outcomes, <span class="at">y =</span> subjects, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 b         1    3.42 rowhouse
-2 c         0    1.52 rowhouse</code></pre>
+1 b         1    4.74 rowhouse
+2 c         0    2.22 rowhouse</code></pre>
 </div>
 </div>
 </section>
@@ -610,12 +750,12 @@ Questions
 <li><p>Using <code>df1</code> and <code>df2</code> below, what is the difference between <code>inner_join(df1, df2)</code>, <code>semi_join(df1, df2)</code> and <code>anti_join(df1, df2)</code>?</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create first example data frame</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">X1 =</span> <span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"a2"</span>, <span class="st">"a3"</span>))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second example data frame</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">X2 =</span> <span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create first example data frame</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">X1 =</span> <span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"a2"</span>, <span class="st">"a3"</span>))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second example data frame</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">X2 =</span> <span class="fu">c</span>(<span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"b3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li>Try changing the order from the above e.g.&nbsp;<code>inner_join(df2, df1)</code>, <code>semi_join(df2, df1)</code> and <code>anti_join(df2, df1)</code>. What changed? What did not change?</li>
@@ -636,9 +776,9 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><a href="https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html</a></li>
-<li><a href="https://r4ds.had.co.nz/relational-data.html" class="uri">https://r4ds.had.co.nz/relational-data.html</a></li>
-<li><a href="https://rafalab.github.io/dsbook/joining-tables.html" class="uri">https://rafalab.github.io/dsbook/joining-tables.html</a></li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics" class="uri">https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/relational-data" class="uri">https://r4ds.had.co.nz/relational-data</a></li>
+<li><a href="https://rafalab.github.io/dsbook/joining-tables" class="uri">https://rafalab.github.io/dsbook/joining-tables</a></li>
 </ul>
 </div>
 </div>
