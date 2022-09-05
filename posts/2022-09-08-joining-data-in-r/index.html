@@ -429,15 +429,15 @@ Note
 <pre><code># A tibble: 9 × 3
   id    visit outcome
   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
-1 a         0    3.80
-2 a         1    3.74
-3 a         2    3.68
-4 b         0    3.20
-5 b         1    4.74
-6 b         2    4.20
-7 c         0    2.22
-8 c         1    2.28
-9 c         2    3.28</code></pre>
+1 a         0   3.74 
+2 a         1   4.36 
+3 a         2   3.23 
+4 b         0   3.22 
+5 b         1   0.290
+6 b         2   1.33 
+7 c         0   3.14 
+8 c         1   3.29 
+9 c         2   3.39 </code></pre>
 </div>
 </div>
 <p>Note that subjects are labeled by a unique identifer in the <code>id</code> column.</p>
@@ -524,6 +524,8 @@ Question
 </table>
 </div>
 </div>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/aeab386461820b029b7e7606ccff1286f623bae1/ef0d4/diagrams/join-venn.png" class="img-fluid"></p>
+<p>[<a href="https://r4ds.had.co.nz/relational-data#relational-data">Source from R for Data Science</a>]</p>
 <section id="left-join" class="level2">
 <h2 class="anchored" data-anchor-id="left-join">Left Join</h2>
 <p>Recall the <code>outcomes</code> and <code>subjects</code> datasets above.</p>
@@ -533,15 +535,15 @@ Question
 <pre><code># A tibble: 9 × 3
   id    visit outcome
   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
-1 a         0    3.80
-2 a         1    3.74
-3 a         2    3.68
-4 b         0    3.20
-5 b         1    4.74
-6 b         2    4.20
-7 c         0    2.22
-8 c         1    2.28
-9 c         2    3.28</code></pre>
+1 a         0   3.74 
+2 a         1   4.36 
+3 a         2   3.23 
+4 b         0   3.22 
+5 b         1   0.290
+6 b         2   1.33 
+7 c         0   3.14 
+8 c         1   3.29 
+9 c         2   3.39 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>subjects</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -561,15 +563,15 @@ Question
 <pre><code># A tibble: 9 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 a         0    3.80 detached
-2 a         1    3.74 detached
-3 a         2    3.68 detached
-4 b         0    3.20 rowhouse
-5 b         1    4.74 rowhouse
-6 b         2    4.20 rowhouse
-7 c         0    2.22 rowhouse
-8 c         1    2.28 rowhouse
-9 c         2    3.28 rowhouse</code></pre>
+1 a         0   3.74  detached
+2 a         1   4.36  detached
+3 a         2   3.23  detached
+4 b         0   3.22  rowhouse
+5 b         1   0.290 rowhouse
+6 b         2   1.33  rowhouse
+7 c         0   3.14  rowhouse
+8 c         1   3.29  rowhouse
+9 c         2   3.39  rowhouse</code></pre>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -612,15 +614,15 @@ Note
 <pre><code># A tibble: 9 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 a         0    3.80 detached
-2 a         1    3.74 &lt;NA&gt;    
-3 a         2    3.68 &lt;NA&gt;    
-4 b         0    3.20 &lt;NA&gt;    
-5 b         1    4.74 rowhouse
-6 b         2    4.20 &lt;NA&gt;    
-7 c         0    2.22 rowhouse
-8 c         1    2.28 &lt;NA&gt;    
-9 c         2    3.28 &lt;NA&gt;    </code></pre>
+1 a         0   3.74  detached
+2 a         1   4.36  &lt;NA&gt;    
+3 a         2   3.23  &lt;NA&gt;    
+4 b         0   3.22  &lt;NA&gt;    
+5 b         1   0.290 rowhouse
+6 b         2   1.33  &lt;NA&gt;    
+7 c         0   3.14  rowhouse
+8 c         1   3.29  &lt;NA&gt;    
+9 c         2   3.39  &lt;NA&gt;    </code></pre>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -664,15 +666,15 @@ Note
 <pre><code># A tibble: 9 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 a         0    3.80 &lt;NA&gt;    
-2 a         1    3.74 &lt;NA&gt;    
-3 a         2    3.68 &lt;NA&gt;    
-4 b         0    3.20 &lt;NA&gt;    
-5 b         1    4.74 rowhouse
-6 b         2    4.20 &lt;NA&gt;    
-7 c         0    2.22 rowhouse
-8 c         1    2.28 &lt;NA&gt;    
-9 c         2    3.28 &lt;NA&gt;    </code></pre>
+1 a         0   3.74  &lt;NA&gt;    
+2 a         1   4.36  &lt;NA&gt;    
+3 a         2   3.23  &lt;NA&gt;    
+4 b         0   3.22  &lt;NA&gt;    
+5 b         1   0.290 rowhouse
+6 b         2   1.33  &lt;NA&gt;    
+7 c         0   3.14  rowhouse
+8 c         1   3.29  &lt;NA&gt;    
+9 c         2   3.39  &lt;NA&gt;    </code></pre>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -702,8 +704,8 @@ Important
 <pre><code># A tibble: 2 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 b         1    4.74 rowhouse
-2 c         0    2.22 rowhouse</code></pre>
+1 b         1   0.290 rowhouse
+2 c         0   3.14  rowhouse</code></pre>
 </div>
 </div>
 </section>
@@ -716,8 +718,8 @@ Important
 <pre><code># A tibble: 2 × 4
   id    visit outcome house   
   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
-1 b         1    4.74 rowhouse
-2 c         0    2.22 rowhouse</code></pre>
+1 b         1   0.290 rowhouse
+2 c         0   3.14  rowhouse</code></pre>
 </div>
 </div>
 </section>
