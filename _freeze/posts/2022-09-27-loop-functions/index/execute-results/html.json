@@ -1,0 +1,14 @@
+{
+  "hash": "1c97ab2069fa7887ad583d64c977beec",
+  "result": {
+    "markdown": "---\ntitle: \"Add title\"\nauthor: \n  - name: Stephanie Hicks\n    url: https://stephaniehicks.com\n    affiliation: Department of Biostatistics, Johns Hopkins\n    affiliation_url: https://publichealth.jhu.edu\ndescription: \"Add title\"\ndate: 2022-08-30\ndraft: true\ncategories: [add here]\n---\n\n\n<!-- Add interesting quote -->\n\n# Pre-lecture materials\n\n### Read ahead\n\n::: callout-note\n## Read ahead\n\n**Before class, you can prepare by reading the following materials:**\n\n1.  Add here.\n2.  Add here.\n:::\n\n### Acknowledgements\n\nMaterial for this lecture was borrowed and adopted from\n\n-   Add here.\n\n# Learning objectives\n\n::: callout-note\n# Learning objectives\n\n**At the end of this lesson you will:**\n\n-   Add here.\n:::\n\n# Add lecture here\n\n# Post-lecture materials\n\n### Final Questions\n\nHere are some post-lecture questions to help you think about the material discussed.\n\n::: callout-note\n### Questions\n\n1.  Add here.\n:::\n\n### Additional Resources\n\n::: callout-tip\n-   Add here.\n:::\n\n## rtistry\n\n\n::: {.cell .fig-cap-location-top}\n\n:::\n\n\n\\[Add here.\\]\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

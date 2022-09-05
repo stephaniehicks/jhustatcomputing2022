@@ -7,7 +7,6 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to relational data and join functions in the dplyr R package"
 date: 2022-09-08
-draft: true
 categories: [module 1, week 2, R, programming, dplyr, here, tidyverse]
 ---
 
@@ -130,7 +129,7 @@ subjects <- tibble(
 print(subjects)
 ```
 
-:::{.callout-tip}
+:::{.callout-note}
 
 ### Question
 
@@ -169,7 +168,9 @@ join_funcs <- data.frame(func = c("`left_join()`",
 knitr::kable(join_funcs, col.names = c("Function", "What it includes in merged data frame"))
 ```
 
+![](https://d33wubrfki0l68.cloudfront.net/aeab386461820b029b7e7606ccff1286f623bae1/ef0d4/diagrams/join-venn.png)
 
+[[Source from R for Data Science](https://r4ds.had.co.nz/relational-data#relational-data)]
 
 ## Left Join
 
@@ -289,6 +290,7 @@ right_join(x = outcomes, y = subjects, by = c("id", "visit"))
 Here are some post-lecture questions to help you think about the material discussed.
 
 ::: callout-note
+
 ### Questions
 
 1.  If you had three data frames to combine with a shared key, how would you join them using the verbs you now know?
