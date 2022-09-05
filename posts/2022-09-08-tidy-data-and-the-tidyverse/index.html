@@ -264,14 +264,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data">Tidy data</a></li>
   <li><a href="#the-tidyverse" id="toc-the-tidyverse" class="nav-link" data-scroll-target="#the-tidyverse">The “Tidyverse”</a>
   <ul class="collapse">
-  <li><a href="#pivot_longer-and-pivot_wider" id="toc-pivot_longer-and-pivot_wider" class="nav-link" data-scroll-target="#pivot_longer-and-pivot_wider"><code>pivot_longer()</code> and <code>pivot_wider()</code></a></li>
+  <li><a href="#pivot_longer" id="toc-pivot_longer" class="nav-link" data-scroll-target="#pivot_longer"><code>pivot_longer()</code></a></li>
+  <li><a href="#pivot_wider" id="toc-pivot_wider" class="nav-link" data-scroll-target="#pivot_wider"><code>pivot_wider()</code></a></li>
   <li><a href="#separate-and-unite" id="toc-separate-and-unite" class="nav-link" data-scroll-target="#separate-and-unite"><code>separate()</code> and <code>unite()</code></a></li>
   </ul></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
   <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -309,7 +309,7 @@ Read ahead
 <p><strong>Before class, you can prepare by reading the following materials:</strong></p>
 <ol type="1">
 <li><a href="https://www.jstatsoft.org/article/view/v059i10">Tidy Data</a> paper published in the Journal of Statistical Software</li>
-<li><a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a></li>
+<li><a href="https://r4ds.had.co.nz/tidy-data" class="uri">https://r4ds.had.co.nz/tidy-data</a></li>
 <li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">tidyr cheat sheet from RStudio</a></li>
 </ol>
 </div>
@@ -319,8 +319,8 @@ Read ahead
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li><a href="https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse.html</a></li>
-<li><a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a></li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse" class="uri">https://rdpeng.github.io/Biostat776/lecture-tidy-data-and-the-tidyverse</a></li>
+<li><a href="https://r4ds.had.co.nz/tidy-data" class="uri">https://r4ds.had.co.nz/tidy-data</a></li>
 </ul>
 </section>
 </section>
@@ -349,7 +349,8 @@ Learning objectives
 </section>
 <section id="tidy-data" class="level1">
 <h1>Tidy data</h1>
-<p>As we learned in the last lesson, one unifying concept of the tidyverse is the notion of <strong>tidy data</strong>. As defined by Hadley Wickham in his 2014 paper published in the <em>Journal of Statistical Software</em>, a <a href="https://www.jstatsoft.org/article/view/v059i10">tidy dataset</a> has the following properties:</p>
+<p>As we learned in the last lesson, one unifying concept of the tidyverse is the notion of <strong>tidy data</strong>.</p>
+<p>As defined by Hadley Wickham in his 2014 paper published in the <em>Journal of Statistical Software</em>, a <a href="https://www.jstatsoft.org/article/view/v059i10">tidy dataset</a> has the following properties:</p>
 <ol type="1">
 <li><p>Each variable forms a column.</p></li>
 <li><p>Each observation forms a row.</p></li>
@@ -362,8 +363,23 @@ Learning objectives
 </figure>
 </div>
 <p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
-<p>The purpose of defining tidy data is to highlight the fact that <em>most data do not start out life as tidy</em>. In fact, much of the work of data analysis may involve simply making the data tidy (at least this has been our experience). Once a dataset is tidy, it can be used as input into a variety of other functions that may transform, model, or visualize the data.</p>
-<p>As a quick example, consider the following data illustrating religion and income survey data with the number of respondees with income range in column name. This is in a classic table format:</p>
+<p>The <strong>purpose of defining tidy data</strong> is to highlight the fact that <strong>most data do not start out life as tidy</strong>.</p>
+<p>In fact, much of the work of data analysis may involve simply making the data tidy (at least this has been our experience).</p>
+<ul>
+<li>Once a dataset is tidy, it <strong>can be used as input into a variety of other functions</strong> that may transform, model, or visualize the data.</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As a quick example, consider the following data illustrating <strong>religion and income survey data</strong> with the number of respondents with income range in column name.</p>
+<p>This is in a classic table format:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>relig_income</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -394,7 +410,13 @@ Learning objectives
 #   ⁵​`$50-75k`, ⁶​`$75-100k`, ⁷​`$100-150k`</code></pre>
 </div>
 </div>
-<p>While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy. This format violates the tidy form because there are variables in the columns. In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table.</p>
+</div>
+</div>
+<p>While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy.</p>
+<p><strong>This format violates the tidy form</strong> because there are variables in the columns.</p>
+<ul>
+<li>In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table.</li>
+</ul>
 <p>Converting this data to tidy format would give us</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -419,19 +441,34 @@ Learning objectives
 # … with 170 more rows</code></pre>
 </div>
 </div>
-<p>Some of these functions you have seen before, others might be new to you. Let’s talk about each one in the context of the Tidyverse package.</p>
+<p>Some of these functions you have seen before, others might be new to you. Let’s talk about each one in the context of the <code>tidyverse</code> R packages.</p>
 </section>
 <section id="the-tidyverse" class="level1">
 <h1>The “Tidyverse”</h1>
-<p>There are a number of R packages that take advantage of the tidy data form and can be used to do interesting things with data. Many (but not all) of these packages are written by Hadley Wickham and the collection of packages is sometimes referred to as the “tidyverse” because of their dependence on and presumption of tidy data. “Tidyverse” packages include:</p>
+<p>There are a number of R packages that take advantage of the tidy data form and can be used to do interesting things with data. Many (but not all) of these packages are written by Hadley Wickham and <strong>the collection of packages is often referred to as the “tidyverse”</strong> because of their <strong>dependence on and presumption of tidy data</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A subset of the “Tidyverse” packages include:</p>
 <ul>
 <li><p><a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>: a plotting system based on the grammar of graphics</p></li>
 <li><p><a href="https://cran.r-project.org/package=magrittr%22">magrittr</a>: defines the <code>%&gt;%</code> operator for chaining functions together in a series of operations on data</p></li>
 <li><p><a href="https://cran.r-project.org/package=dplyr">dplyr</a>: a suite of (fast) functions for working with data frames</p></li>
 <li><p><a href="https://cran.r-project.org/package=tidyr">tidyr</a>: easily tidy data with <code>pivot_wider()</code> and <code>pivot_longer()</code> functions (also <code>separate()</code> and <code>unite()</code>)</p></li>
 </ul>
-<p>We will be using these packages quite a bit this week.</p>
-<p>The “tidyverse” package can be used to install all of the packages in the tidyverse at once. For example, instead of starting an R script with this:</p>
+<p>A complete list can be found here (<a href="https://www.tidyverse.org/packages" class="uri">https://www.tidyverse.org/packages</a>).</p>
+</div>
+</div>
+<p>We will be using these packages quite a bit.</p>
+<p>The “tidyverse” package can be used to install all of the packages in the tidyverse at once.</p>
+<p>For example, instead of starting an R script with this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
@@ -442,17 +479,30 @@ Learning objectives
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the code above, let’s talk about what we did using the <code>pivot_longer()</code> function. We will also talk about <code>pivot_wider()</code>.</p>
-<section id="pivot_longer-and-pivot_wider" class="level3">
-<h3 class="anchored" data-anchor-id="pivot_longer-and-pivot_wider"><code>pivot_longer()</code> and <code>pivot_wider()</code></h3>
+<p>In the example above, let’s talk about what we did using the <code>pivot_longer()</code> function.</p>
+<p>We will also talk about <code>pivot_wider()</code>.</p>
+<section id="pivot_longer" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_longer"><code>pivot_longer()</code></h3>
 <p>The <code>tidyr</code> package includes functions to transfer a data frame between <em>long</em> and <em>wide</em>.</p>
 <ul>
 <li><strong>Wide format</strong> data tends to have different attributes or variables describing an observation placed in separate columns.</li>
 <li><strong>Long format</strong> data tends to have different attributes encoded as levels of a single variable, followed by another column that contains tha values of the observation at those different levels.</li>
 </ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>In the section above, we showed an example that used <code>pivot_longer()</code> to convert data into a tidy format.</p>
-<p>The key problem with the tidyness of the data is that the income variables are not in their own columns, but rather are embedded in the structure of the columns.</p>
-<p>To fix this, you can use the <code>pivot_longer()</code> function to gather values spread across several columns into a single column, with the column names gathered into an <code>income</code> column. When gathering, exclude any columns that you do not want “gathered” (<code>religion</code> in this case) by including the column names with a the minus sign in the <code>pivot_longer()</code> function. For example:</p>
+<p>The <strong>key problem</strong> with the tidyness of the data is that the income variables are not in their own columns, but rather are embedded in the structure of the columns.</p>
+<p>To <strong>fix this</strong>, you can use the <code>pivot_longer()</code> function to <strong>gather values spread across several columns into a single column</strong>, here with the column names gathered into an <code>income</code> column.</p>
+<p><strong>Note</strong>: when gathering, exclude any columns that you do not want “gathered” (<code>religion</code> in this case) by including the column names with a the minus sign in the <code>pivot_longer()</code> function.</p>
+<p>For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gather everything EXCEPT religion to tidy data</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>relig_income <span class="sc">%&gt;%</span></span>
@@ -474,8 +524,24 @@ Learning objectives
 # … with 170 more rows</code></pre>
 </div>
 </div>
+</div>
+</div>
 <p>Even if your data is in a tidy format, <code>pivot_longer()</code> is occasionally useful for pulling data together to take advantage of faceting, or plotting separate plots based on a grouping variable. We will talk more about that in a future lecture.</p>
-<p>The <code>pivot_wider()</code> function is less commonly needed to tidy data. It can, however, be useful for creating summary tables. For example, you use the <code>summarize()</code> function in <code>dplyr</code> to summarize the total number of respondents per income category.</p>
+</section>
+<section id="pivot_wider" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_wider"><code>pivot_wider()</code></h3>
+<p>The <code>pivot_wider()</code> function is less commonly needed to tidy data. It can, however, be useful for creating summary tables.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You use the <code>summarize()</code> function in <code>dplyr</code> to summarize the total number of respondents per income category.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>relig_income <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>religion, <span class="at">names_to =</span> <span class="st">"income"</span>, <span class="at">values_to =</span> <span class="st">"respondents"</span>) <span class="sc">%&gt;%</span></span>
@@ -530,14 +596,29 @@ Learning objectives
 </table>
 </div>
 </div>
-<p>Notice in this example how <code>pivot_wider()</code> has been used at the very end of the code sequence to convert the summarized data into a shape that offers a better tabular presentation for a report. In the <code>pivot_wider()</code> call, you first specify the name of the column to use for the new column names (<code>income</code> in this example) and then specify the column to use for the cell values (<code>total_respondents</code> here).</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+</div>
+</div>
+<p>Notice in this example how <code>pivot_wider()</code> has been used at the <strong>very end of the code sequence</strong> to convert the summarized data into a shape that <strong>offers a better tabular presentation for a report</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Example
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the <code>pivot_wider()</code> call, you first specify the name of the column to use for the new column names (<code>income</code> in this example) and then specify the column to use for the cell values (<code>total_respondents</code> here).</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example of <code>pivot_longer()</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -568,7 +649,7 @@ Example
 </div>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -595,18 +676,18 @@ Example
 <pre><code># A tibble: 12 × 6
    company  year    Q1    Q2    Q3    Q4
      &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
- 1       1  2006    86    17    39    89
- 2       1  2007    65    69    32     2
- 3       1  2008    76    99    95    64
- 4       1  2009    75    97     8    36
- 5       2  2006    49    89    17    45
- 6       2  2007    29    77    61    86
- 7       2  2008    88    68    49    23
- 8       2  2009    82    78    93    94
- 9       3  2006    74    57    12    59
-10       3  2007    66     6    65    61
-11       3  2008     4    85    90    57
-12       3  2009    24    54    98    85</code></pre>
+ 1       1  2006    94    95    50    87
+ 2       1  2007    73    16    86    82
+ 3       1  2008    64    50    85    61
+ 4       1  2009     6     4    87     1
+ 5       2  2006    88    24    74    52
+ 6       2  2007    32    98    52    94
+ 7       2  2008     4    42    79     3
+ 8       2  2009    23    97    71    76
+ 9       3  2006     1    75    97    66
+10       3  2007    30    87    58     5
+11       3  2008    17    91    61    70
+12       3  2009    14    12     1    60</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -625,7 +706,9 @@ Example
 <p>First, we combine the first three columns into one new column using <code>unite()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, country<span class="sc">:</span>year, <span class="at">sep=</span><span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        country<span class="sc">:</span>year, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">sep=</span><span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,704 × 4
    country_continent_year lifeExp      pop gdpPercap
@@ -646,8 +729,12 @@ Example
 <p>Next, we show how to separate the columns into three separate columns using <code>separate()</code> using the <code>col</code>, <code>into</code> and <code>sep</code> arguments.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, country<span class="sc">:</span>year, <span class="at">sep=</span><span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"year"</span>), <span class="at">sep=</span><span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        country<span class="sc">:</span>year, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">sep=</span><span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col=</span><span class="st">"country_continent_year"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">into=</span><span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"year"</span>), </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep=</span><span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,704 × 6
    country     continent year  lifeExp      pop gdpPercap
@@ -719,13 +806,6 @@ Tip
 </ul>
 </div>
 </div>
-</section>
-<section id="rtistry" class="level2">
-<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
-<div class="cell fig-cap-location-top">
-
-</div>
-<p>[Add here.]</p>
 
 
 </section>
