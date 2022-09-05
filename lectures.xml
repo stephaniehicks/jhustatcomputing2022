@@ -9,7 +9,7 @@
 <link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.1.175</generator>
+<generator>quarto-1.1.189</generator>
 <lastBuildDate>Tue, 06 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Reading and Writing data</title>
@@ -44,8 +44,8 @@ Read ahead
 <div class="callout-body-container callout-body">
 <p><strong>Before class, you can prepare by reading the following materials:</strong></p>
 <ol type="1">
-<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html</a></li>
-<li><a href="https://jhudatascience.org/tidyversecourse/get-data.html" class="uri">https://jhudatascience.org/tidyversecourse/get-data.html</a></li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data</a></li>
+<li><a href="https://jhudatascience.org/tidyversecourse/get-data" class="uri">https://jhudatascience.org/tidyversecourse/get-data</a></li>
 </ol>
 </div>
 </div>
@@ -54,8 +54,8 @@ Read ahead
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data.html</a></li>
-<li><a href="https://r4ds.had.co.nz/data-import.html" class="uri">https://r4ds.had.co.nz/data-import.html</a></li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data" class="uri">https://rdpeng.github.io/Biostat776/lecture-getting-and-cleaning-data</a></li>
+<li><a href="https://r4ds.had.co.nz/data-import" class="uri">https://r4ds.had.co.nz/data-import</a></li>
 </ul>
 </section>
 </section>
@@ -84,12 +84,13 @@ Learning objectives
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>This lesson introduces ways to read and write data (e.g.&nbsp;<code>.txt</code> and <code>.csv</code> files) using base R functions as well as more modern R packages, such as <code>readr</code>, which is typically <a href="https://r4ds.had.co.nz/data-import.html#compared-to-base-r">10x faster than base R</a>.</p>
+<p>This lesson introduces <strong>ways to read and write data</strong> (e.g.&nbsp;<code>.txt</code> and <code>.csv</code> files) using base R functions as well as more modern R packages, such as <code>readr</code>, which is typically <a href="https://r4ds.had.co.nz/data-import.html#compared-to-base-r">10x faster than base R</a>.</p>
 <p>We will also briefly describe different ways for reading and writing other data types such as, Excel files, google spreadsheets, or SQL databases.</p>
 </section>
 <section id="relative-versus-absolute-paths" class="level1">
 <h1>Relative versus absolute paths</h1>
-<p>When you are starting a data analysis, you have already learned about the use of <code>.Rproj</code> files. When you open up a <code>.Rproj</code> file, RStudio changes the path (location on your computer) to the <code>.Rproj</code> location.</p>
+<p>When you are starting a data analysis, you can create a new <code>.Rproj</code> file that asks RStudio to change the path (location on your computer) to the <code>.Rproj</code> location.</p>
+<p>Let’s try this out. In RStudio, click <code>Project: (None)</code> in the top right corner and <code>New Project</code>.</p>
 <p>After opening up a <code>.Rproj</code> file, you can test this by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">getwd</span>()</span></code></pre></div>
@@ -99,18 +100,18 @@ Learning objectives
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;">setwd</span>()</span></code></pre></div>
 </div>
 <p>function being used which explicitly tells R to change the absolute path or absolute location of which directory to move into.</p>
-<p>For example, say I want to clone a GitHub repo from Roger, which has 100 R script files, and in every one of those files at the top is:</p>
+<p>For example, say I want to clone a GitHub repo from my colleague Brian, which has 100 R script files, and in every one of those files at the top is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"C:\Users\Roger\path\only</span><span class="sc" style="color: #5E5E5E;">\t</span><span class="st" style="color: #20794D;">hat\Roger\has"</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"C:\Users\Brian\path\only</span><span class="sc" style="color: #5E5E5E;">\t</span><span class="st" style="color: #20794D;">hat\Brian\has"</span>)</span></code></pre></div>
 </div>
-<p>The problem is, if I want to use his code, I will need to go and hand-edit every single one of those paths (<code>C:\Users\Roger\path\only\that\Roger\has</code>) to the path that I want to use on my computer or wherever I saved the folder on my computer (e.g.&nbsp;<code>/Users/Stephanie/Documents/path/only/I/have</code>).</p>
+<p>The problem is, if I want to use his code, I will need to go and hand-edit every single one of those paths (<code>C:\Users\Brian\path\only\that\Brian\has</code>) to the path that I want to use on my computer or wherever I saved the folder on my computer (e.g.&nbsp;<code>/Users/Stephanie/Documents/path/only/I/have</code>).</p>
 <ol type="1">
 <li>This is an unsustainable practice.</li>
 <li>I can go in and manually edit the path, but this assumes I know how to set a working directory. Not everyone does.</li>
 </ol>
 <p>So instead of absolute paths:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"/Users/jtleek/data"</span>)</span>
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"/Users/bcaffo/data"</span>)</span>
 <span id="cb4-2"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"~/Desktop/files/data"</span>)</span>
 <span id="cb4-3"><span class="fu" style="color: #4758AB;">setwd</span>(<span class="st" style="color: #20794D;">"C:</span><span class="sc" style="color: #5E5E5E;">\\</span><span class="st" style="color: #20794D;">Users</span><span class="sc" style="color: #5E5E5E;">\\</span><span class="st" style="color: #20794D;">Michelle</span><span class="sc" style="color: #5E5E5E;">\\</span><span class="st" style="color: #20794D;">Downloads"</span>)</span></code></pre></div>
 </div>
@@ -152,7 +153,7 @@ Learning objectives
 <pre><code>[1] "index.qmd"       "index.rmarkdown"</code></pre>
 </div>
 </div>
-<p>OK so our current location is in the reading and writing lectures sub-folder of the <code>jhustatcomputing2021</code> course repository. Let’s try using the <code>here</code> package.</p>
+<p>OK so our current location is in the reading and writing lectures sub-folder of the <code>jhustatcomputing2022</code> course repository. Let’s try using the <code>here</code> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;">library</span>(here)</span>
 <span id="cb10-2"></span>
@@ -162,12 +163,13 @@ Learning objectives
  [3] "_quarto.yml"                "_site"                     
  [5] "data"                       "images"                    
  [7] "index.qmd"                  "jhustatcomputing2022.Rproj"
- [9] "lectures.qmd"               "posts"                     
-[11] "profile.jpg"                "projects"                  
-[13] "projects.qmd"               "README.md"                 
-[15] "resources.qmd"              "schedule.qmd"              
-[17] "scripts"                    "styles.css"                
-[19] "syllabus.qmd"               "videos"                    </code></pre>
+ [9] "lectures.qmd"               "my-refs.bib"               
+[11] "posts"                      "profile.jpg"               
+[13] "projects"                   "projects.qmd"              
+[15] "README.md"                  "resources.qmd"             
+[17] "schedule.qmd"               "scripts"                   
+[19] "styles.css"                 "syllabus.qmd"              
+[21] "videos"                    </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="fu" style="color: #4758AB;">list.files</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -175,7 +177,7 @@ Learning objectives
 [4] "team_standings.csv"</code></pre>
 </div>
 </div>
-<p>Now we see that using the <code>here::here()</code> function is a <em>relative</em> path (relative to the <code>.Rproj</code> file in our <code>jhustatcomputing2021</code> repository. We also see there is are two <code>.csv</code> files in the <code>data</code> folder. We will learn how to read those files into R in the next section.</p>
+<p>Now we see that using the <code>here::here()</code> function is a <em>relative</em> path (relative to the <code>.Rproj</code> file in our <code>jhustatcomputing2022</code> repository. We also see there is are two <code>.csv</code> files in the <code>data</code> folder. We will learn how to read those files into R in the next section.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/https:/github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/here.png" class="img-fluid figure-img" style="width:80.0%"></p>
@@ -284,17 +286,28 @@ Learning objectives
 <pre><code>[1] "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/data/team_standings.csv"</code></pre>
 </div>
 </div>
-<div class="questions">
-<p><strong>Questions</strong>:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>What happens when you use <code>readLines()</code> function with the <code>team_standings.csv</code> data?</li>
 <li>How would you only read in the first 5 lines?</li>
 </ul>
 </div>
+</div>
 </section>
 <section id="r-code" class="level3">
 <h3 class="anchored" data-anchor-id="r-code">R code</h3>
-<p>Sometimes, someone will give you a file that ends in a <code>.R</code>. This is what’s called an R script file. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use. To use the function, you have to first, read in the function from R script file into R.</p>
+<p>Sometimes, someone will give you a file that ends in a <code>.R</code>.</p>
+<p>This is what’s called an <strong>R script file</strong>. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use.</p>
+<p>To use the function, <strong>you have to first, read in the function from R script file into R</strong>.</p>
 <p>You can check to see if the function already is loaded in R by looking at the Environment tab.</p>
 <p>The function you want to use is</p>
 <ul>
@@ -315,9 +328,19 @@ Learning objectives
 <li><code>.Rda</code>: This is short for <code>.RData</code> and is equivalent.</li>
 <li><code>.Rds</code>: Stores a <strong>single</strong> R object</li>
 </ul>
-<div class="questions">
-<p><strong>Question: why is saving data in as a R object useful?</strong></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Why is saving data in as a R object useful?</strong></p>
 <p>Saving data into R data formats can <strong>typically</strong> reduce considerably the size of large files by compression.</p>
+</div>
 </div>
 <p>Next, we will learn how to save</p>
 <ol type="1">
@@ -336,7 +359,7 @@ Learning objectives
 <li><code>save()</code>: for saving an arbitrary number of R objects in binary format (possibly compressed) to a file.</li>
 <li><code>saveRDS()</code>: for saving a single object</li>
 <li><code>serialize()</code>: for converting an R object into a binary format for outputting to a connection (or file).</li>
-<li><code>save.image()</code>: short for ’save my current workspace; while this <em>sounds</em> nice, it’s not terribly useful for reproducibility (hence not suggested); it’s also what happens when you try to quit R and it asks if you want to save your work space.</li>
+<li><code>save.image()</code>: short for ‘save my current workspace’; while this <strong>sounds</strong> nice, it’s not terribly useful for reproducibility (hence not suggested); it’s also what happens when you try to quit R and it asks if you want to save your work space.</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -376,7 +399,19 @@ Learning objectives
 <pre><code>[1] "x"</code></pre>
 </div>
 </div>
-<p><strong>NOTE: <code>load()</code> simply returns the name of the objects loaded. Not the values.</strong></p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>load()</code> simply returns the name of the objects loaded. Not the values.</p>
+</div>
+</div>
 <p>Let’s clean up our space.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><span class="fu" style="color: #4758AB;">file.remove</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span></code></pre></div>
@@ -389,7 +424,16 @@ Learning objectives
 </div>
 <div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><span class="fu" style="color: #4758AB;">rm</span>(x)</span></code></pre></div>
 </div>
-<div class="questions">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>What do you think this code will do?</p>
 <p><strong>Hint</strong>: change <code>eval=TRUE</code> to see result</p>
 <div class="cell">
@@ -401,6 +445,7 @@ Learning objectives
 <p>When you are done:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><span class="fu" style="color: #4758AB;">file.remove</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"x.Rda"</span>))</span></code></pre></div>
+</div>
 </div>
 </div>
 <p>Now, there are of course, many R packages that have been developed to read in all kinds of other datasets, and you may need to resort to one of these packages if you are working in a specific area.</p>
@@ -420,7 +465,8 @@ Learning objectives
 </section>
 <section id="reading-data-files-with-read.table" class="level1">
 <h1>Reading data files with <code>read.table()</code></h1>
-<p>The <code>read.table()</code> function is one of the most commonly used functions for reading data. The help file for <code>read.table()</code> is worth reading in its entirety if only because the function gets used a lot (run <code>?read.table</code> in R). I know, I know, everyone always says to read the help file, but this one is actually worth reading.</p>
+<p>The <code>read.table()</code> function is one of the most commonly used functions for reading data. The help file for <code>read.table()</code> is worth reading in its entirety if only because the function gets used a lot (run <code>?read.table</code> in R).</p>
+<p><strong>I know, I know</strong>, everyone always says to read the help file, but this one is actually worth reading.</p>
 <p>The <code>read.table()</code> function has a few important arguments:</p>
 <ul>
 <li><code>file</code>, the name of a file, or a connection</li>
@@ -428,22 +474,48 @@ Learning objectives
 <li><code>sep</code>, a string indicating how the columns are separated</li>
 <li><code>colClasses</code>, a character vector indicating the class of each column in the dataset</li>
 <li><code>nrows</code>, the number of rows in the dataset. By default <code>read.table()</code> reads an entire file.</li>
-<li><code>comment.char</code>, a character string indicating the comment character. This defalts to <code>"#"</code>. If there are no commented lines in your file, it’s worth setting this to be the empty string <code>""</code>.</li>
+<li><code>comment.char</code>, a character string indicating the comment character. This defaults to <code>"#"</code>. If there are no commented lines in your file, it’s worth setting this to be the empty string <code>""</code>.</li>
 <li><code>skip</code>, the number of lines to skip from the beginning</li>
-<li><code>stringsAsFactors</code>, should character variables be coded as factors? This defaults to <code>FALSE</code>. However, back in the “old days”, it defaulted to <code>TRUE</code>. The reason for this was because, if you had data that were stored as strings, it was because those strings represented levels of a categorical variable. Now, we have lots of data that is text data and they do not always represent categorical variables. So you may want to set this to be <code>FALSE</code> in those cases. If you <em>always</em> want this to be <code>FALSE</code>, you can set a global option via <code>options(stringsAsFactors = FALSE)</code>. I’ve never seen so much heat generated on discussion forums about an R function argument than the <code>stringsAsFactors</code> argument. Seriously.</li>
+<li><code>stringsAsFactors</code>, should character variables be coded as factors? This defaults to <code>FALSE</code>. However, back in the “old days”, it defaulted to <code>TRUE</code>. The reason for this was because, if you had data that were stored as strings, it was because those strings represented levels of a categorical variable. Now, we have lots of data that is text data and they do not always represent categorical variables. So you may want to set this to be <code>FALSE</code> in those cases. If you <em>always</em> want this to be <code>FALSE</code>, you can set a global option via <code>options(stringsAsFactors = FALSE)</code>.</li>
 </ul>
+<p>I’ve never seen so much heat generated on discussion forums about an R function argument than the <code>stringsAsFactors</code> argument. <strong>Seriously</strong>.</p>
 <p>For small to moderately sized datasets, you can usually call <code>read.table()</code> without specifying any other arguments</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1">data <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read.table</span>(<span class="st" style="color: #20794D;">"foo.txt"</span>)</span></code></pre></div>
 </div>
-<p><strong>Note</strong>: <code>foo.txt</code> is not a real dataset here. It is only used as an example for how to use <code>read.table()</code>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>foo.txt</code> is not a real dataset here. It is only used as an example for how to use <code>read.table()</code></p>
+</div>
+</div>
 <p>In this case, R will automatically:</p>
 <ul>
 <li>skip lines that begin with a #</li>
 <li>figure out how many rows there are (and how much memory needs to be allocated)</li>
 <li>figure what type of variable is in each column of the table.</li>
 </ul>
-<p>Telling R all these things directly makes R run faster and more efficiently. The <code>read.csv()</code> function is identical to <code>read.table()</code> except that some of the defaults are set differently (like the <code>sep</code> argument).</p>
+<p>Telling R all these things directly makes R run faster and more efficiently.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>read.csv()</code> function is identical to <code>read.table()</code> except that some of the defaults are set differently (like the <code>sep</code> argument).</p>
+</div>
+</div>
 </section>
 <section id="reading-in-larger-datasets-with-read.table" class="level1">
 <h1>Reading in larger datasets with <code>read.table()</code></h1>
@@ -473,7 +545,8 @@ Learning objectives
 </section>
 <section id="calculating-memory-requirements-for-r-objects" class="level1">
 <h1>Calculating Memory Requirements for R Objects</h1>
-<p>Because R stores all of its objects physical memory, it is important to be cognizant of how much memory is being used up by all of the data objects residing in your workspace. One situation where it is particularly important to understand memory requirements is when you are reading in a new dataset into R. Fortunately, it is easy to make a back of the envelope calculation of how much memory will be required by a new dataset.</p>
+<p>Because <strong>R stores all of its objects in physical memory</strong>, it is important to be cognizant of how much memory is being used up by all of the data objects residing in your workspace.</p>
+<p>One situation where it is particularly important to understand memory requirements is when you are reading in a new dataset into R. Fortunately, it is easy to make a back of the envelope calculation of how much memory will be required by a new dataset.</p>
 <p>For example, suppose I have a data frame with 1,500,000 rows and 120 columns, all of which are numeric data. Roughly, how much memory is required to store this data frame?</p>
 <p>Well, on most modern computers <a href="http://en.wikipedia.org/wiki/Double-precision_floating-point_format">double precision floating point numbers</a> are stored using 64 bits of memory, or 8 bytes. Given that information, you can do the following calculation</p>
 <p>1,500,000 × 120 × 8 bytes/numeric = 1,440,000,000 bytes</p>
@@ -489,8 +562,9 @@ Learning objectives
 </section>
 <section id="using-the-readr-package" class="level1">
 <h1>Using the <code>readr</code> package</h1>
-<p>The <code>readr</code> package is recently developed by RStudio to deal with reading in large flat files quickly. The package provides replacements for functions like <code>read.table()</code> and <code>read.csv()</code>. The analogous functions in <code>readr</code> are <code>read_table()</code> and <code>read_csv()</code>. These functions are often <em>much</em> faster than their base R analogues and provide a few other nice features such as progress meters.</p>
-<p>For example, the package includes a variety of functions in the <code>read_*</code> family that allow you to read in data from different formats of flat files. The following table gives a guide to several functions in the <code>read_*</code> family.</p>
+<p>The <code>readr</code> package was developed by Posit (formerly known as RStudio) to deal with reading in large flat files quickly.</p>
+<p>The package provides replacements for functions like <code>read.table()</code> and <code>read.csv()</code>. The analogous functions in <code>readr</code> are <code>read_table()</code> and <code>read_csv()</code>. These <strong>functions are often much faster than their base R analogues</strong> and provide a few other nice features such as progress meters.</p>
+<p>For example, the package includes a variety of functions in the <code>read_*()</code> family that allow you to read in data from different formats of flat files. The following table gives a guide to several functions in the <code>read_*()</code> family.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -502,36 +576,60 @@ Learning objectives
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>read_csv</code></td>
+<td style="text-align: left;"><code>read_csv()</code></td>
 <td style="text-align: left;">Reads comma-separated file</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>read_csv2</code></td>
+<td style="text-align: left;"><code>read_csv2()</code></td>
 <td style="text-align: left;">Reads semicolon-separated file</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>read_tsv</code></td>
+<td style="text-align: left;"><code>read_tsv()</code></td>
 <td style="text-align: left;">Reads tab-separated file</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>read_delim</code></td>
+<td style="text-align: left;"><code>read_delim()</code></td>
 <td style="text-align: left;">General function for reading delimited files</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>read_fwf</code></td>
+<td style="text-align: left;"><code>read_fwf()</code></td>
 <td style="text-align: left;">Reads fixed width files</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>read_log</code></td>
+<td style="text-align: left;"><code>read_log()</code></td>
 <td style="text-align: left;">Reads log files</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><strong>Note</strong>: In this code, I have used the <code>kable()</code> function from the <code>knitr</code> package to create the summary table in a table format, rather than as basic R output. This function is very useful for formatting basic tables in R markdown documents. For more complex tables, check out the <code>pander</code> and <code>xtable</code> packages.</p>
-<p>For the most part, you can read use <code>read_table()</code> and <code>read_csv()</code> pretty much anywhere you might use <code>read.table()</code> and <code>read.csv()</code>. In addition, if there are non-fatal problems that occur while reading in the data, you will get a warning and the returned data frame will have some information about which rows/observations triggered the warning. This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis.</p>
-<p>The importance of the <code>read_csv()</code> function is perhaps better understood from an historical perspective. R’s built in <code>read.csv()</code> function similarly reads CSV files, but the <code>read_csv()</code> function in <code>readr</code> builds on that by removing some of the quirks and “gotchas” of <code>read.csv()</code> as well as dramatically optimizing the speed with which it can read data into R. The <code>read_csv()</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this code, I used the <code>kable()</code> function from the <code>knitr</code> package to create the summary table in a table format, rather than as basic R output.</p>
+<p>This function is very useful <strong>for formatting basic tables in R markdown documents</strong>. For more complex tables, check out the <code>pander</code> and <code>xtable</code> packages.</p>
+</div>
+</div>
+<p>For the most part, you can read use <code>read_table()</code> and <code>read_csv()</code> pretty much anywhere you might use <code>read.table()</code> and <code>read.csv()</code>.</p>
+<p>In addition, if there are non-fatal problems that occur while reading in the data, you will <strong>get a warning and the returned data frame will have some information about which rows/observations triggered the warning</strong>.</p>
+<p>This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis.</p>
+<section id="advantages" class="level2">
+<h2 class="anchored" data-anchor-id="advantages">Advantages</h2>
+<p>The advantage of the <code>read_csv()</code> function is perhaps better understood from an historical perspective.</p>
+<ul>
+<li>R’s built in <code>read.csv()</code> function similarly reads CSV files, but the <code>read_csv()</code> function in <code>readr</code> builds on that by <strong>removing some of the quirks and “gotchas”</strong> of <code>read.csv()</code> as well as <strong>dramatically optimizing the speed</strong> with which it can read data into R.</li>
+<li>The <code>read_csv()</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</li>
+</ul>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
 <p>A typical call to <code>read_csv()</code> will look as follows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><span class="fu" style="color: #4758AB;">library</span>(readr)</span>
@@ -587,6 +685,7 @@ dbl (3): x, y, z
 1     1     2     3</code></pre>
 </div>
 </div>
+<p>Alternatively, you can use the <code>comment</code> argument:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><span class="fu" style="color: #4758AB;">read_csv</span>(<span class="st" style="color: #20794D;">"# A comment I want to skip</span></span>
 <span id="cb44-2"><span class="st" style="color: #20794D;">  x,y,z</span></span>
@@ -608,18 +707,47 @@ dbl (3): x, y, z
 1     1     2     3</code></pre>
 </div>
 </div>
-<p>It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e.&nbsp;integer, character, etc.). From the <code>read_csv()</code> help page:</p>
+<p>It will also (<strong>by default</strong>), <strong>read in the first few rows of the table</strong> in order to figure out the type of each column (i.e.&nbsp;integer, character, etc.). From the <code>read_csv()</code> help page:</p>
 <blockquote class="blockquote">
 <p>If ‘NULL’, all column types will be imputed from the first 1000 rows on the input. This is convenient (and fast), but not robust. If the imputation fails, you’ll need to supply the correct types yourself.</p>
 </blockquote>
 <p>You can specify the type of each column with the <code>col_types</code> argument.</p>
-<p>In general, it is a good idea to specify the column types explicitly. This rules out any possible guessing errors on the part of <code>read_csv()</code>. Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In general, it is a good idea to <strong>specify the column types explicitly</strong>.</p>
+<p>This rules out any possible guessing errors on the part of <code>read_csv()</code>.</p>
+<p>Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.</p>
+</div>
+</div>
+<p>Here is an example of how to specify the column types explicitly:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1">teams <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"team_standings.csv"</span>), </span>
 <span id="cb47-2">                  <span class="at" style="color: #657422;">col_types =</span> <span class="st" style="color: #20794D;">"cc"</span>)</span></code></pre></div>
 </div>
 <p>Note that the <code>col_types</code> argument accepts a compact representation. Here <code>"cc"</code> indicates that the first column is <code>character</code> and the second column is <code>character</code> (there are only two columns). Using the <code>col_types</code> argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).</p>
-<p>The <code>read_csv()</code> function will also read compressed files automatically. There is no need to decompress the file first or use the <code>gzfile</code> connection function. The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>read_csv()</code> function <strong>will also read compressed files</strong> automatically.</p>
+<p>There is no need to decompress the file first or use the <code>gzfile</code> connection function.</p>
+</div>
+</div>
+<p>The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1">logs <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"2016-07-19.csv.bz2"</span>), </span>
 <span id="cb48-2">                 <span class="at" style="color: #657422;">n_max =</span> <span class="dv" style="color: #AD0000;">10</span>)</span></code></pre></div>
@@ -659,7 +787,9 @@ time (1): time
 # … with abbreviated variable name ¹​r_version</code></pre>
 </div>
 </div>
-<p>You can specify the column type in a more detailed fashion by using the various <code>col_*</code> functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a <code>Date</code> object. If we wanted to just read in that first column, we could do</p>
+<p>You can <strong>specify the column type in a more detailed fashion</strong> by using the various <code>col_*()</code> functions.</p>
+<p>For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a <code>Date</code> object.</p>
+<p>If we wanted to just read in that first column, we could do</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1">logdates <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"2016-07-19.csv.bz2"</span>), </span>
 <span id="cb52-2">                     <span class="at" style="color: #657422;">col_types =</span> <span class="fu" style="color: #4758AB;">cols_only</span>(<span class="at" style="color: #657422;">date =</span> <span class="fu" style="color: #4758AB;">col_date</span>()),</span>
@@ -682,7 +812,22 @@ time (1): time
 </div>
 </div>
 <p>Now the <code>date</code> column is stored as a <code>Date</code> object which can be used for relevant date-related computations (for example, see the <code>lubridate</code> package).</p>
-<p><strong>Note</strong>: The <code>read_csv()</code> function has a <code>progress</code> option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using <code>read_csv()</code> in a function, or perhaps embedding it in a loop, it is probably best to set <code>progress = FALSE</code>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>read_csv()</code> function has a <code>progress</code> option that defaults to TRUE.</p>
+<p>This options provides a nice progress meter while the CSV file is being read.</p>
+<p>However, if you are using <code>read_csv()</code> in a function, or perhaps embedding it in a loop, it is probably best to set <code>progress = FALSE</code>.</p>
+</div>
+</div>
+</section>
 </section>
 <section id="post-lecture-materials" class="level1">
 <h1>Post-lecture materials</h1>
