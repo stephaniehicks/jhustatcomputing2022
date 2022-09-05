@@ -27,8 +27,8 @@ For Qmd files (markdown document with [Quarto](https://quarto.org/docs/authoring
  Week 2 | Sept 6  | `r emojifont::emoji('eyes')` Reading and writing data [[html](posts/2022-09-06-reading-and-writing-data/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-06-reading-and-writing-data/index.qmd)]   | `r emojifont::emoji('palm_tree')` Project 1 [[html](projects/2022-09-06-project-1/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/projects/2022-09-06-project-1/index.qmd)] |
 | | | `r emojifont::emoji('scissors')` Managing data frames with Tidyverse [[html](posts/2022-09-06-managing-data-frames-with-tidyverse/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-06-managing-data-frames-with-tidyverse/index.qmd)] | | 
 | | | | | 
-| | Sept 8  | `r emojifont::emoji('heart_eyes_cat')` Tidy data and the Tidyverse | `r emojifont::emoji('fallen_leaf')` Project 0 due  |
-| | | `r emojifont::emoji('handshake')` Joining data in R: Basics | | 
+| | Sept 8  | `r emojifont::emoji('heart_eyes_cat')` Tidy data and the Tidyverse [[html](posts/2022-09-08-tidy-data-and-the-tidyverse/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-08-tidy-data-and-the-tidyverse/index.qmd)] | `r emojifont::emoji('fallen_leaf')` Project 0 due  |
+| | | `r emojifont::emoji('handshake')` Joining data in R: Basics [[html](posts/2022-09-08-joining-data-in-r/index.qmd)] [[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-08-joining-data-in-r/index.qmd)] | | 
 | | | | | 
 | **Module 3** | | **Data visualizations R** | |              
 | | | | | 
