@@ -22,17 +22,17 @@ categories: [module 1, week 2, R, programming, dplyr, here, tidyverse]
 
 **Before class, you can prepare by reading the following materials:**
 
-1.  <https://r4ds.had.co.nz/relational-data.html>
-2.  <https://rafalab.github.io/dsbook/joining-tables.html>
+1.  <https://r4ds.had.co.nz/relational-data>
+2.  <https://rafalab.github.io/dsbook/joining-tables>
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
--   <https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics.html>
--   <https://r4ds.had.co.nz/relational-data.html>
--   <https://rafalab.github.io/dsbook/joining-tables.html>
+-   <https://rdpeng.github.io/Biostat776/lecture-joining-data-in-r-basics>
+-   <https://r4ds.had.co.nz/relational-data>
+-   <https://rafalab.github.io/dsbook/joining-tables>
 
 # Learning objectives
 
@@ -228,13 +228,3 @@ df2 <- data.frame(ID = 2:4,
 -   <https://rafalab.github.io/dsbook/joining-tables.html>
 :::
 
-## rtistry
-
-```{r}
-#| label: flametree
-#| echo: false
-#| fig-cap-location: "top"
-
-```
-
-\[Add here.\]

@@ -7,7 +7,6 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Finding great chocolate bars!"
 date: 2022-09-06
-draft: true
 categories: [project 1, projects]
 ---
 
@@ -16,6 +15,7 @@ categories: [project 1, projects]
 **Due date: Sept 16 at 11:59pm**
 
 ### To submit your project
+
 
 Please write up your project using R Markdown and `knitr`. Compile your document as an **HTML file** and submit your HTML file to the dropbox on Courseplus. Please **show all your code** for each of the answers to each part.
 
