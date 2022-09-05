@@ -271,15 +271,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#txt-or-csv" id="toc-txt-or-csv" class="nav-link" data-scroll-target="#txt-or-csv">txt or csv</a></li>
   <li><a href="#r-code" id="toc-r-code" class="nav-link" data-scroll-target="#r-code">R code</a></li>
-  <li><a href="#r-objects" id="toc-r-objects" class="nav-link" data-scroll-target="#r-objects">R objects</a></li>
+  <li><a href="#r-objects" id="toc-r-objects" class="nav-link" data-scroll-target="#r-objects">R objects</a>
+  <ul class="collapse">
+  <li><a href="#reading-in-data-from-files" id="toc-reading-in-data-from-files" class="nav-link" data-scroll-target="#reading-in-data-from-files">Reading in data from files</a></li>
+  <li><a href="#writing-data-to-files" id="toc-writing-data-to-files" class="nav-link" data-scroll-target="#writing-data-to-files">Writing data to files</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
   </ul></li>
+  <li><a href="#other-data-types" id="toc-other-data-types" class="nav-link" data-scroll-target="#other-data-types">Other data types</a></li>
   <li><a href="#reading-data-files-with-read.table" id="toc-reading-data-files-with-read.table" class="nav-link" data-scroll-target="#reading-data-files-with-read.table">Reading data files with <code>read.table()</code></a></li>
   <li><a href="#reading-in-larger-datasets-with-read.table" id="toc-reading-in-larger-datasets-with-read.table" class="nav-link" data-scroll-target="#reading-in-larger-datasets-with-read.table">Reading in larger datasets with <code>read.table()</code></a></li>
+  </ul></li>
   <li><a href="#calculating-memory-requirements-for-r-objects" id="toc-calculating-memory-requirements-for-r-objects" class="nav-link" data-scroll-target="#calculating-memory-requirements-for-r-objects">Calculating Memory Requirements for R Objects</a></li>
   <li><a href="#using-the-readr-package" id="toc-using-the-readr-package" class="nav-link" data-scroll-target="#using-the-readr-package">Using the <code>readr</code> package</a>
   <ul class="collapse">
   <li><a href="#advantages" id="toc-advantages" class="nav-link" data-scroll-target="#advantages">Advantages</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a></li>
   </ul></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
@@ -441,13 +447,12 @@ Learning objectives
  [3] "_quarto.yml"                "_site"                     
  [5] "data"                       "images"                    
  [7] "index.qmd"                  "jhustatcomputing2022.Rproj"
- [9] "lectures.qmd"               "my-refs.bib"               
-[11] "posts"                      "profile.jpg"               
-[13] "projects"                   "projects.qmd"              
-[15] "README.md"                  "resources.qmd"             
-[17] "schedule.qmd"               "scripts"                   
-[19] "styles.css"                 "syllabus.qmd"              
-[21] "videos"                    </code></pre>
+ [9] "lectures.qmd"               "posts"                     
+[11] "profile.jpg"                "projects"                  
+[13] "projects.qmd"               "README.md"                 
+[15] "resources.qmd"              "schedule.qmd"              
+[17] "scripts"                    "styles.css"                
+[19] "syllabus.qmd"               "videos"                    </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="fu">here</span>(<span class="st">"data"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -492,8 +497,8 @@ Learning objectives
 <section id="reading-data-in-base-r" class="level1">
 <h1>Reading data in base R</h1>
 <p>In this section, we’re going to demonstrate the essential functions you need to know to read and write (or save) data in R.</p>
-<section id="txt-or-csv" class="level3">
-<h3 class="anchored" data-anchor-id="txt-or-csv">txt or csv</h3>
+<section id="txt-or-csv" class="level2">
+<h2 class="anchored" data-anchor-id="txt-or-csv">txt or csv</h2>
 <p>There are a few primary functions reading data from base R.</p>
 <ul>
 <li><code>read.table()</code>, <code>read.csv()</code>: for reading tabular data</li>
@@ -581,8 +586,8 @@ Questions
 </div>
 </div>
 </section>
-<section id="r-code" class="level3">
-<h3 class="anchored" data-anchor-id="r-code">R code</h3>
+<section id="r-code" class="level2">
+<h2 class="anchored" data-anchor-id="r-code">R code</h2>
 <p>Sometimes, someone will give you a file that ends in a <code>.R</code>.</p>
 <p>This is what’s called an <strong>R script file</strong>. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use.</p>
 <p>To use the function, <strong>you have to first, read in the function from R script file into R</strong>.</p>
@@ -596,8 +601,8 @@ Questions
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'functions.R'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="r-objects" class="level3">
-<h3 class="anchored" data-anchor-id="r-objects">R objects</h3>
+<section id="r-objects" class="level2">
+<h2 class="anchored" data-anchor-id="r-objects">R objects</h2>
 <p>Alternatively, you might be interested in reading and writing R objects.</p>
 <p>Writing data in e.g.&nbsp;<code>.txt</code>, <code>.csv</code> or Excel file formats is good if you want to open these files with other analysis software, such as Excel. However, these formats do not preserve data structures, such as column data types (numeric, character or factor). In order to do that, the data should be written out in a R data format.</p>
 <p>There are several types R data file formats to be aware of:</p>
@@ -620,19 +625,22 @@ Question
 <p>Saving data into R data formats can <strong>typically</strong> reduce considerably the size of large files by compression.</p>
 </div>
 </div>
-<p>Next, we will learn how to save</p>
+<p>Next, we will learn how to read and save</p>
 <ol type="1">
 <li>A single R object</li>
 <li>Multiple R objects</li>
 <li>Your entire work space in a specified file</li>
 </ol>
-<p><strong>Reading in data from files</strong></p>
+<section id="reading-in-data-from-files" class="level3">
+<h3 class="anchored" data-anchor-id="reading-in-data-from-files">Reading in data from files</h3>
 <ul>
 <li><code>load()</code>: for reading in single or multiple R objects (opposite of <code>save()</code>) with a <code>.Rda</code> or <code>.RData</code> file format (objects must be same name)</li>
 <li><code>readRDS()</code>: for reading in a single object with a <code>.Rds</code> file format (can rename objects)</li>
 <li><code>unserialize()</code>: for reading single R objects in binary form</li>
 </ul>
-<p><strong>Writing data to files</strong></p>
+</section>
+<section id="writing-data-to-files" class="level3">
+<h3 class="anchored" data-anchor-id="writing-data-to-files">Writing data to files</h3>
 <ul>
 <li><code>save()</code>: for saving an arbitrary number of R objects in binary format (possibly compressed) to a file.</li>
 <li><code>saveRDS()</code>: for saving a single object</li>
@@ -650,6 +658,9 @@ Question
 </div>
 </div>
 <p>[<a href="http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata">Source</a>]</p>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
 <p>Let’s try an example. Let’s save a vector of length 5 into the two file formats.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
@@ -726,6 +737,10 @@ Question
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="other-data-types" class="level2">
+<h2 class="anchored" data-anchor-id="other-data-types">Other data types</h2>
 <p>Now, there are of course, many R packages that have been developed to read in all kinds of other datasets, and you may need to resort to one of these packages if you are working in a specific area.</p>
 <p>For example, check out</p>
 <ul>
@@ -740,9 +755,12 @@ Question
 <li><a href="https://github.com/r-lib/xml2"><code>xml2</code></a> for XML.</li>
 </ul>
 </section>
-</section>
-<section id="reading-data-files-with-read.table" class="level1">
-<h1>Reading data files with <code>read.table()</code></h1>
+<section id="reading-data-files-with-read.table" class="level2">
+<h2 class="anchored" data-anchor-id="reading-data-files-with-read.table">Reading data files with <code>read.table()</code></h2>
+<details>
+<summary>
+For details on reading data with <code>read.table()</code>, click here.
+</summary>
 <p>The <code>read.table()</code> function is one of the most commonly used functions for reading data. The help file for <code>read.table()</code> is worth reading in its entirety if only because the function gets used a lot (run <code>?read.table</code> in R).</p>
 <p><strong>I know, I know</strong>, everyone always says to read the help file, but this one is actually worth reading.</p>
 <p>The <code>read.table()</code> function has a few important arguments:</p>
@@ -794,9 +812,14 @@ Note
 <p>The <code>read.csv()</code> function is identical to <code>read.table()</code> except that some of the defaults are set differently (like the <code>sep</code> argument).</p>
 </div>
 </div>
+</details>
 </section>
-<section id="reading-in-larger-datasets-with-read.table" class="level1">
-<h1>Reading in larger datasets with <code>read.table()</code></h1>
+<section id="reading-in-larger-datasets-with-read.table" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-larger-datasets-with-read.table">Reading in larger datasets with <code>read.table()</code></h2>
+<details>
+<summary>
+For details on reading larger datasets with <code>read.table()</code>, click here.
+</summary>
 <p>With much larger datasets, there are a few things that you can do that will make your life easier and will prevent R from choking.</p>
 <ul>
 <li>Read the help page for <code>read.table()</code>, which contains many hints</li>
@@ -820,6 +843,8 @@ Note
 <li>Are there other users logged into the same system?</li>
 <li>What operating system ar you using? Some operating systems can limit the amount of memory a single process can access</li>
 </ul>
+</details>
+</section>
 </section>
 <section id="calculating-memory-requirements-for-r-objects" class="level1">
 <h1>Calculating Memory Requirements for R Objects</h1>
@@ -906,8 +931,8 @@ Note
 <li>The <code>read_csv()</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</li>
 </ul>
 </section>
-<section id="example" class="level2">
-<h2 class="anchored" data-anchor-id="example">Example</h2>
+<section id="example-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-1">Example</h2>
 <p>A typical call to <code>read_csv()</code> will look as follows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
