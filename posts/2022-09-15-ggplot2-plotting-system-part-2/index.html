@@ -262,29 +262,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
   <li><a href="#the-ggplot2-plotting-system" id="toc-the-ggplot2-plotting-system" class="nav-link" data-scroll-target="#the-ggplot2-plotting-system">The ggplot2 Plotting System</a>
   <ul class="collapse">
-  <li><a href="#basic-components-of-a-ggplot2-plot" id="toc-basic-components-of-a-ggplot2-plot" class="nav-link" data-scroll-target="#basic-components-of-a-ggplot2-plot">Basic components of a ggplot2 plot</a>
-  <ul class="collapse">
+  <li><a href="#basic-components-of-a-ggplot2-plot" id="toc-basic-components-of-a-ggplot2-plot" class="nav-link" data-scroll-target="#basic-components-of-a-ggplot2-plot">Basic components of a ggplot2 plot</a></li>
   <li><a href="#example-bmi-pm2.5-asthma" id="toc-example-bmi-pm2.5-asthma" class="nav-link" data-scroll-target="#example-bmi-pm2.5-asthma">Example: BMI, PM2.5, Asthma</a></li>
   </ul></li>
-  <li><a href="#building-up-in-layers" id="toc-building-up-in-layers" class="nav-link" data-scroll-target="#building-up-in-layers">Building up in layers</a></li>
+  <li><a href="#building-up-in-layers" id="toc-building-up-in-layers" class="nav-link" data-scroll-target="#building-up-in-layers">Building up in layers</a>
+  <ul class="collapse">
   <li><a href="#first-plot-with-point-layer" id="toc-first-plot-with-point-layer" class="nav-link" data-scroll-target="#first-plot-with-point-layer">First plot with point layer</a></li>
   <li><a href="#adding-more-layers" id="toc-adding-more-layers" class="nav-link" data-scroll-target="#adding-more-layers">Adding more layers</a>
   <ul class="collapse">
   <li><a href="#smooth" id="toc-smooth" class="nav-link" data-scroll-target="#smooth">smooth</a></li>
   <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets">facets</a></li>
   </ul></li>
+  </ul></li>
   <li><a href="#modifying-geom-properties" id="toc-modifying-geom-properties" class="nav-link" data-scroll-target="#modifying-geom-properties">Modifying geom properties</a>
   <ul class="collapse">
+  <li><a href="#map-aesthetics-to-constants" id="toc-map-aesthetics-to-constants" class="nav-link" data-scroll-target="#map-aesthetics-to-constants">map aesthetics to constants</a></li>
   <li><a href="#map-aesthetics-to-variables" id="toc-map-aesthetics-to-variables" class="nav-link" data-scroll-target="#map-aesthetics-to-variables">map aesthetics to variables</a></li>
   <li><a href="#customizing-the-smooth" id="toc-customizing-the-smooth" class="nav-link" data-scroll-target="#customizing-the-smooth">Customizing the smooth</a></li>
   </ul></li>
-  <li><a href="#modifying-labels" id="toc-modifying-labels" class="nav-link" data-scroll-target="#modifying-labels">Modifying labels</a></li>
+  <li><a href="#other-important-stuff" id="toc-other-important-stuff" class="nav-link" data-scroll-target="#other-important-stuff">Other important stuff</a>
+  <ul class="collapse">
   <li><a href="#changing-the-theme" id="toc-changing-the-theme" class="nav-link" data-scroll-target="#changing-the-theme">Changing the theme</a></li>
+  <li><a href="#modifying-labels" id="toc-modifying-labels" class="nav-link" data-scroll-target="#modifying-labels">Modifying labels</a></li>
   <li><a href="#a-quick-aside-about-axis-limits" id="toc-a-quick-aside-about-axis-limits" class="nav-link" data-scroll-target="#a-quick-aside-about-axis-limits">A quick aside about axis limits</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   <li><a href="#more-complex-example-with-ggplot2" id="toc-more-complex-example-with-ggplot2" class="nav-link" data-scroll-target="#more-complex-example-with-ggplot2">More complex example with <code>ggplot2</code></a></li>
   <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
@@ -376,10 +380,10 @@ Key components
 <ul>
 <li><p>A <strong>data frame</strong>: stores all of the data that will be displayed on the plot</p></li>
 <li><p><strong>aesthetic mappings</strong>: describe how data are mapped to color, size, shape, location</p></li>
-<li><p><strong>geoms</strong>: geometric objects like points, lines, shapes.</p></li>
+<li><p><strong>geoms</strong>: geometric objects like points, lines, shapes</p></li>
 <li><p><strong>facets</strong>: describes how conditional/panel plots should be constructed</p></li>
-<li><p><strong>stats</strong>: statistical transformations like binning, quantiles, smoothing.</p></li>
-<li><p><strong>scales</strong>: what scale an aesthetic map uses (example: left-handed = red, right-handed = blue).</p></li>
+<li><p><strong>stats</strong>: statistical transformations like binning, quantiles, smoothing</p></li>
+<li><p><strong>scales</strong>: what scale an aesthetic map uses (example: left-handed = red, right-handed = blue)</p></li>
 <li><p><strong>coordinate system</strong>: describes the system in which the locations of the geoms will be drawn</p></li>
 </ul>
 </div>
@@ -406,8 +410,9 @@ Note
 </div>
 </div>
 <p>For quick exploratory plots you may not get past step 1.</p>
-<section id="example-bmi-pm2.5-asthma" class="level3">
-<h3 class="anchored" data-anchor-id="example-bmi-pm2.5-asthma">Example: BMI, PM2.5, Asthma</h3>
+</section>
+<section id="example-bmi-pm2.5-asthma" class="level2">
+<h2 class="anchored" data-anchor-id="example-bmi-pm2.5-asthma">Example: BMI, PM2.5, Asthma</h2>
 <p>To demonstrate the various pieces of <code>ggplot2</code> we will use a running example from the <strong>Mouse Allergen and Asthma Cohort Study (MAACS)</strong>, which was used as a case study in the previous lesson. Here, the question we are interested in is</p>
 <blockquote class="blockquote">
 <p>“Are overweight individuals, as measured by body mass index (BMI), more susceptible than normal weight individuals to the harmful effects of PM2.5 on asthma symptoms?”</p>
@@ -465,7 +470,7 @@ Example
 </div>
 </div>
 </div>
-<p>The outcome we will look at here, <code>NocturnalSymp</code>, is the number of days in the past 2 weeks where the child experienced asthma symptoms (e.g.&nbsp;coughing, wheezing) while sleeping.</p>
+<p>The outcome we will look at here (<code>NocturnalSymp</code>) is the number of days in the past 2 weeks where the child experienced asthma symptoms (e.g.&nbsp;coughing, wheezing) while sleeping.</p>
 <p>The other key variables are:</p>
 <ul>
 <li><p><code>logpm25</code>: average level of PM2.5 over the course of 7 days (micrograms per cubic meter) on the log scale</p></li>
@@ -474,8 +479,8 @@ Example
 </ul>
 </section>
 </section>
-<section id="building-up-in-layers" class="level2">
-<h2 class="anchored" data-anchor-id="building-up-in-layers">Building up in layers</h2>
+<section id="building-up-in-layers" class="level1">
+<h1>Building up in layers</h1>
 <p>First, we can <strong>create a <code>ggplot</code> object</strong> that stores the dataset and the basic aesthetics for mapping the x- and y-coordinates for the plot.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -534,7 +539,6 @@ faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 </div>
 </div>
 </div>
-</section>
 <section id="first-plot-with-point-layer" class="level2">
 <h2 class="anchored" data-anchor-id="first-plot-with-point-layer">First plot with point layer</h2>
 <p>To make a scatter plot, we need add at least one <strong>geom</strong>, such as points.</p>
@@ -659,9 +663,12 @@ Example
 <p>This plot suggests that overweight individuals may be more susceptible to the effects of PM2.5.</p>
 </section>
 </section>
-<section id="modifying-geom-properties" class="level2">
-<h2 class="anchored" data-anchor-id="modifying-geom-properties">Modifying geom properties</h2>
+</section>
+<section id="modifying-geom-properties" class="level1">
+<h1>Modifying geom properties</h1>
 <p>You can <strong>modify properties of geoms</strong> by specifying options to their respective <code>geom_*()</code> functions.</p>
+<section id="map-aesthetics-to-constants" class="level3">
+<h3 class="anchored" data-anchor-id="map-aesthetics-to-constants">map aesthetics to constants</h3>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -686,9 +693,10 @@ Example
 </div>
 </div>
 </div>
+</section>
 <section id="map-aesthetics-to-variables" class="level3">
 <h3 class="anchored" data-anchor-id="map-aesthetics-to-variables">map aesthetics to variables</h3>
-<p>In addition to setting specific geom attributes to constants, we can <strong>map aesthetics to variables</strong>.</p>
+<p>In addition to setting specific geom attributes to constant values, we can <strong>map aesthetics to variables</strong> in our dataset.</p>
 <p>For example, we can map the aesthetic <code>color</code> to the variable <code>bmicat</code>, so the points will be colored according to the levels of <code>bmicat</code>.</p>
 <p>We use the <code>aes()</code> function to indicate this difference from the plot above.</p>
 <div class="cell">
@@ -703,8 +711,8 @@ Example
 </div>
 </div>
 </section>
-<section id="customizing-the-smooth" class="level3">
-<h3 class="anchored" data-anchor-id="customizing-the-smooth">Customizing the smooth</h3>
+<section id="customizing-the-smooth" class="level2">
+<h2 class="anchored" data-anchor-id="customizing-the-smooth">Customizing the smooth</h2>
 <p>We can also <strong>customize aspects of the geoms</strong>.</p>
 <p>For example, we can customize the smoother that we overlay on the points with <code>geom_smooth()</code>.</p>
 <p>Here we change the line type and increase the size from the default. We also remove the shaded standard error from the line.</p>
@@ -727,6 +735,80 @@ Example
 </div>
 </div>
 </section>
+</section>
+<section id="other-important-stuff" class="level1">
+<h1>Other important stuff</h1>
+<section id="changing-the-theme" class="level2">
+<h2 class="anchored" data-anchor-id="changing-the-theme">Changing the theme</h2>
+<p>The <strong>default theme for <code>ggplot2</code> uses the gray background</strong> with white grid lines.</p>
+<p>If you don’t find this suitable, you can use the black and white theme by using the <code>theme_bw()</code> function.</p>
+<p>The <code>theme_bw()</code> function also allows you to set the typeface for the plot, in case you don’t want the default Helvetica. Here we change the typeface to Times.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For things that only make sense globally, use <code>theme()</code>, i.e.&nbsp;<code>theme(legend.position = "none")</code>. Two standard appearance themes are included</p>
+<ul>
+<li><code>theme_gray()</code>: The default theme (gray background)</li>
+<li><code>theme_bw()</code>: More stark/plain</li>
+</ul>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> bmicat)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_family =</span> <span class="st">"Times"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Modifying the theme for a plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s take our <code>palmerpenguins</code> scatterplot from above and change out the theme to use <code>theme_dark()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>penguins </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
+#   ²​body_mass_g</code></pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="modifying-labels" class="level2">
 <h2 class="anchored" data-anchor-id="modifying-labels">Modifying labels</h2>
@@ -751,99 +833,34 @@ Note
 </div>
 <p>Here is an example of modifying the title and the <code>x</code> and <code>y</code> labels to make the plot a bit more informative.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> bmicat)) <span class="sc">+</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"MAACS Cohort"</span>) <span class="sc">+</span> </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="st">"log "</span> <span class="sc">*</span> PM[<span class="fl">2.5</span>]), </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Nocturnal Symptoms"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> bmicat)) <span class="sc">+</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"MAACS Cohort"</span>) <span class="sc">+</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="st">"log "</span> <span class="sc">*</span> PM[<span class="fl">2.5</span>]), </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Nocturnal Symptoms"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Modifying plot labels</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="changing-the-theme" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-theme">Changing the theme</h2>
-<p>The <strong>default theme for <code>ggplot2</code> uses the gray background</strong> with white grid lines.</p>
-<p>If you don’t find this suitable, you can use the black and white theme by using the <code>theme_bw()</code> function.</p>
-<p>The <code>theme_bw()</code> function also allows you to set the typeface for the plot, in case you don’t want the default Helvetica. Here we change the typeface to Times.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For things that only make sense globally, use <code>theme()</code>, i.e.&nbsp;<code>theme(legend.position = "none")</code>. Two standard appearance themes are included</p>
-<ul>
-<li><code>theme_gray()</code>: The default theme (gray background)</li>
-<li><code>theme_bw()</code>: More stark/plain</li>
-</ul>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> bmicat)) <span class="sc">+</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_bw</span>(<span class="at">base_family =</span> <span class="st">"Times"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Modifying the theme for a plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let’s take our <code>palmerpenguins</code> scatterplot from above and change out the theme to use <code>theme_dark()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>penguins </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 × 8
-   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
-   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
- 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
- 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
- 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
- 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
- 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
- 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
- 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
- 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
- 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
-10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
-# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
-#   ²​body_mass_g</code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
 <section id="a-quick-aside-about-axis-limits" class="level2">
 <h2 class="anchored" data-anchor-id="a-quick-aside-about-axis-limits">A quick aside about axis limits</h2>
-<p>One quick quirk about <code>ggplot2</code> that caught me up when I first started using the package can be displayed in the following example. I make a lot of time series plots and I often want to restrict the range of the y-axis while still plotting all the data. In the base graphics system you can do that as follows.</p>
+<p>One quick <strong>quirk about <code>ggplot2</code></strong> that caught me up when I first started using the package can be displayed in the following example.</p>
+<p>If you make a lot of time series plots, you often <strong>want to restrict the range of the y-axis</strong> while still plotting all the data.</p>
+<p>In the base graphics system you can do that as follows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>testdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>testdat[<span class="dv">50</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="do">## Outlier!</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(testdat<span class="sc">$</span>x, testdat<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>testdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>testdat[<span class="dv">50</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="do">## Outlier!</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(testdat<span class="sc">$</span>x, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>     testdat<span class="sc">$</span>y,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"l"</span>, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -853,7 +870,17 @@ Question
 </div>
 </div>
 </div>
-<p>Here I’ve restricted the y-axis range to be between -3 and 3, even though there is a clear outlier in the data.</p>
+<p>Here, we have restricted the y-axis range to be between -3 and 3, even though there is a clear outlier in the data.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>With <code>ggplot2</code> the default settings will give you this.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(testdat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y))</span>
@@ -867,9 +894,11 @@ Question
 </div>
 </div>
 </div>
-<p>Modifying the <code>ylim()</code> attribute would seem to give you the same thing as the base plot, but it doesn’t.</p>
+<p>One might think that modifying the <code>ylim()</code> attribute would give you the same thing as the base plot, but it doesn’t (?????)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -879,10 +908,14 @@ Question
 </div>
 </div>
 </div>
+</div>
+</div>
 <p>Effectively, what this does is subset the data so that only observations between -3 and 3 are included, then plot the data.</p>
 <p>To plot the data without subsetting it first and still get the restricted range, you have to do the following.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -894,17 +927,17 @@ Question
 </div>
 <p>And now you know!</p>
 </section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<ul>
-<li>The <em>ggplot2</em> book by Hadley Wickham</li>
-<li>The <em>R Graphics Cookbook</em> by Winston Chang (examples in base plots and in ggplot2)</li>
-<li><a href="http://ggplot2.tidyverse.org">tidyverse web site</a></li>
-</ul>
-</section>
 </section>
 <section id="post-lecture-materials" class="level1">
 <h1>Post-lecture materials</h1>
+<section id="resources" class="level3">
+<h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<ul>
+<li>The <em>ggplot2</em> book by Hadley Wickham</li>
+<li>The <em>R Graphics Cookbook</em> by Winston Chang (examples in base plots and in <code>ggplot2</code>)</li>
+<li><a href="http://ggplot2.tidyverse.org">tidyverse web site</a></li>
+</ul>
+</section>
 <section id="more-complex-example-with-ggplot2" class="level3">
 <h3 class="anchored" data-anchor-id="more-complex-example-with-ggplot2">More complex example with <code>ggplot2</code></h3>
 <p>Now you get the sense that plots in the <code>ggplot2</code> system are constructed by successively adding components to the plot, starting with the base dataset and maybe a scatterplot. In this section bleow, you can see a slightly more complicated example with an additional variable.</p>
