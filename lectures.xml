@@ -10,7 +10,1050 @@
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
 <generator>quarto-1.1.189</generator>
-<lastBuildDate>Thu, 08 Sep 2022 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 13 Sep 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>The ggplot2 plotting system: qplot()</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<blockquote class="blockquote">
+<p>“The greatest value of a picture is when it forces us to notice what we never expected to see.” —John Tukey</p>
+</blockquote>
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://r4ds.had.co.nz/data-visualisation" class="uri">https://r4ds.had.co.nz/data-visualisation</a></li>
+<li><a href="http://vita.had.co.nz/papers/layered-grammar.pdf" class="uri">http://vita.had.co.nz/papers/layered-grammar.pdf</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-the-ggplot2-plotting-system-part-1" class="uri">https://rdpeng.github.io/Biostat776/lecture-the-ggplot2-plotting-system-part-1</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Recognize the difference between <em>aesthetics</em> and <em>geoms</em></li>
+<li>Become familiar with different types of plots (e.g.&nbsp;scatterplots, boxplots, and histograms)</li>
+<li>Be able to facet plots into a grid</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="the-ggplot2-plotting-system" class="level1">
+<h1>The ggplot2 Plotting System</h1>
+<p>The <code>ggplot2</code> package in R is <strong>an implementation of <em>The Grammar of Graphics</em></strong> as described by Leland Wilkinson in his book. The <strong>package was originally written by Hadley Wickham</strong> while he was a graduate student at Iowa State University (he still actively maintains the package).</p>
+<p>The package implements what might be considered a third graphics system for R (along with <code>base</code> graphics and <code>lattice</code>).</p>
+<p>The package is available from <a href="http://cran.r-project.org/package=ggplot2">CRAN</a> via <code>install.packages()</code>; the latest version of the source can be found on the package’s <a href="https://github.com/hadley/ggplot2">GitHub Repository</a>. Documentation of the package can be found at <a href="https://ggplot2.tidyverse.org">the tidyverse web site</a>.</p>
+<p>The <strong>grammar of graphics</strong> represents <strong>an abstraction of graphics ideas and objects</strong>.</p>
+<p>You can think of this as <strong>developing the verbs, nouns, and adjectives for data graphics</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Developing such a <strong>grammar allows for a “theory” of graphics</strong> on which to build new graphics and graphics objects.</p>
+<p>To quote from Hadley Wickham’s book on <code>ggplot2</code>, we want to “shorten the distance from mind to page”. In summary,</p>
+<blockquote class="blockquote">
+<p>“…the grammar tells us that a statistical graphic is a <strong>mapping</strong> from data to <strong>aesthetic</strong> attributes (colour, shape, size) of <strong>geometric</strong> objects (points, lines, bars). The plot may also contain statistical transformations of the data and is drawn on a specific coordinate system” – from <em>ggplot2</em> book</p>
+</blockquote>
+</div>
+</div>
+<p>You might ask yourself “Why do we need a grammar of graphics?”.</p>
+<p>Well, for much the same reasons that <strong>having a grammar is useful for spoken languages</strong>. The grammar allows for</p>
+<ul>
+<li>A more compact summary of the base components of a language</li>
+<li>An extension of the language to handle situations that we have not before seen</li>
+</ul>
+<p>If you think about making a plot with the base graphics system, the plot is <strong>constructed by calling a series of functions that either create or annotate a plot</strong>. There’s <strong>no convenient agreed-upon way to describe the plot</strong>, except to just recite the series of R functions that were called to create the thing in the first place.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider the following plot made using base graphics previously.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">with</span>(airquality, { </span>
+<span id="cb1-2">        <span class="fu" style="color: #4758AB;">plot</span>(Temp, Ozone)</span>
+<span id="cb1-3">        <span class="fu" style="color: #4758AB;">lines</span>(<span class="fu" style="color: #4758AB;">loess.smooth</span>(Temp, Ozone))</span>
+<span id="cb1-4">})</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Scatterplot of Temperature and Ozone in New York (base graphics)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>How would one <strong>describe the creation of this plot</strong>?</p>
+<p>Well, we could say that we called the <code>plot()</code> function and then added a loess smoother by calling the <code>lines()</code> function on the output of <code>loess.smooth()</code>.</p>
+<p>While the base plotting system is convenient and it often mirrors how we think of building plots and analyzing data, there are <strong>drawbacks</strong>:</p>
+<ul>
+<li>You cannot go back once plot has started (e.g.&nbsp;to adjust margins), so there is in fact a need to plan in advance.</li>
+<li>It is difficult to “translate” a plot to others because there is no formal graphical language; each plot is just a series of R commands.</li>
+</ul>
+</div>
+</div>
+<p>Here is the same plot made using <code>ggplot2</code> in the <code>tidyverse</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb2-2">airquality <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb2-3">        <span class="fu" style="color: #4758AB;">ggplot</span>(<span class="fu" style="color: #4758AB;">aes</span>(Temp, Ozone)) <span class="sc" style="color: #5E5E5E;">+</span> </span>
+<span id="cb2-4">        <span class="fu" style="color: #4758AB;">geom_point</span>() <span class="sc" style="color: #5E5E5E;">+</span> </span>
+<span id="cb2-5">        <span class="fu" style="color: #4758AB;">geom_smooth</span>(<span class="at" style="color: #657422;">method =</span> <span class="st" style="color: #20794D;">"loess"</span>, </span>
+<span id="cb2-6">                    <span class="at" style="color: #657422;">se =</span> <span class="cn" style="color: #8f5902;">FALSE</span>) <span class="sc" style="color: #5E5E5E;">+</span> </span>
+<span id="cb2-7">        <span class="fu" style="color: #4758AB;">theme_minimal</span>()</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Scatterplot of Temperature and Ozone in New York (ggplot2)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The output is roughly equivalent and the amount of code is similar, but <code>ggplot2</code> allows for a more elegant way of expressing the components of the plot.</p>
+<p>In this case, the plot is a <strong>dataset</strong> (<code>airquality</code>) with <strong>aesthetic mappings</strong> (visual properties of the objects in your plot) derived from the <code>Temp</code> and <code>Ozone</code> variables, a set of <strong>points</strong>, and a <strong>smoother</strong>.</p>
+</div>
+</div>
+<p>In a sense, the <code>ggplot2</code> system takes many of the cues from the base plotting system and from the <code>lattice</code> plotting systems, and formalizes the cues a bit.</p>
+<p>It <strong>automatically handles things like margins and spacing</strong>, and also has the concept of “themes” which <strong>provide a default set of plotting symbols and colors</strong> (which are all customizable).</p>
+<p>While <code>ggplot2</code> bears a superficial similarity to <code>lattice</code>, <code>ggplot2</code> is generally easier and more intuitive to use.</p>
+<section id="the-basics-qplot" class="level2">
+<h2 class="anchored" data-anchor-id="the-basics-qplot">The Basics: <code>qplot()</code></h2>
+<p>The <code>qplot()</code> function in <code>ggplot2</code> is meant to get you going <strong>q</strong>uickly.</p>
+<p>It works much like the <code>plot()</code> function in base graphics system. It <strong>looks for variables to plot within a data frame</strong>, similar to lattice, or in the parent environment.</p>
+<p>In general, it is good to get used to putting your data in a data frame and then passing it to <code>qplot()</code>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>qplot()</code> function is <strong>somewhat discouraged</strong> in <code>ggplot2</code> now and new users are encouraged to use the more general <code>ggplot()</code> function (more details in the next lesson).</p>
+<p>However, the <code>qplot()</code> function is still useful and may be easier to use if transitioning from the base plotting system or a different statistical package.</p>
+</div>
+</div>
+<p>Plots are made up of</p>
+<ul>
+<li><strong>aesthetics</strong> (e.g.&nbsp;size, shape, color)</li>
+<li><strong>geoms</strong> (e.g.&nbsp;points, lines)</li>
+</ul>
+<p>Factors play an important role for indicating subsets of the data (if they are to have different properties) so they should be <strong>labeled</strong> properly.</p>
+<p>The <code>qplot()</code> hides much of what goes on underneath, which is okay for most operations, <code>ggplot()</code> is the core function and is very flexible for doing things <code>qplot()</code> cannot do.</p>
+</section>
+<section id="before-you-start-label-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="before-you-start-label-your-data">Before you start: label your data</h2>
+<p>One thing that is always true, but is particularly useful when using <code>ggplot2</code>, is that you should always use informative and descriptive labels on your data. More generally, your data should have appropriate <em>metadata</em> so that you can quickly look at a dataset and know</p>
+<ul>
+<li><p>what the variables are</p></li>
+<li><p>what the values of each variable mean</p></li>
+</ul>
+<p>This means that each column of a data frame should have a meaningful (but concise) variable name that accurately reflects the data stored in that column. Also, non-numeric or categorical variables should be coded as factor variables and have meaningful labels for each level of the factor. For example, it is common to code a binary variable as a “0” or a “1”, but the problem is that from quickly looking at the data, it’s impossible to know whether which level of that variable is represented by a “0” or a “1”. Much better to simply label each observation as what they are. If a variable represents temperature categories, it might be better to use “cold”, “mild”, and “hot” rather than “1”, “2”, and “3”.</p>
+<p>While it is sometimes a pain to make sure all of your data are properly labeled, this investment in time can pay dividends down the road when you’re trying to figure out what you were plotting. In other words, including the proper metadata can make your exploratory plots essentially self-documenting.</p>
+</section>
+<section id="ggplot2-hello-world" class="level2">
+<h2 class="anchored" data-anchor-id="ggplot2-hello-world">ggplot2 “Hello, world!”</h2>
+<p>This example dataset comes with the <code>ggplot2</code> package and contains data on the fuel economy of 38 popular car models from 1999 to 2008.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;">library</span>(tidyverse) <span class="co" style="color: #5E5E5E;"># this loads the ggplot2 R package</span></span>
+<span id="cb3-2"><span class="co" style="color: #5E5E5E;"># library(ggplot2) # an alternative way to just load the ggplot2 R package</span></span>
+<span id="cb3-3"><span class="fu" style="color: #4758AB;">glimpse</span>(mpg)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 234
+Columns: 11
+$ manufacturer &lt;chr&gt; "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+$ model        &lt;chr&gt; "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
+$ cyl          &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …
+$ trans        &lt;chr&gt; "auto(l5)", "manual(m5)", "manual(m6)", "auto(av)", "auto…
+$ drv          &lt;chr&gt; "f", "f", "f", "f", "f", "f", "f", "4", "4", "4", "4", "4…
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…
+$ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
+$ fl           &lt;chr&gt; "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p…
+$ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact", "c…</code></pre>
+</div>
+</div>
+<p>You can see from the <code>glimpse()</code> (part of the <code>dplyr</code> package) output that all of the categorical variables (like “manufacturer” or “class”) are appropriately coded with meaningful labels. This will come in handy when <code>qplot()</code> has to label different aspects of a plot. Also note that all of the columns/variables have meaningful (if sometimes abbreviated) names, rather than names like “X1”, and “X2”, etc.</p>
+<p>We can make a quick scatterplot of the engine displacement (<code>displ</code>) and the highway miles per gallon (<code>hwy</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="at" style="color: #657422;">x =</span> displ, <span class="at" style="color: #657422;">y =</span> hwy, <span class="at" style="color: #657422;">data =</span> mpg)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Plot of engine displacement and highway mileage using the mtcars dataset</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It has a <em>very</em> similar feeling to <code>plot()</code> in base R.</p>
+<div class="keyideas">
+<p><strong>Note</strong>: In the call to <code>qplot()</code> you must specify the <code>data</code> argument so that <code>qplot()</code> knows where to look up the variables.</p>
+<p>You must also specify <code>x</code> and <code>y</code>, but hopefully that part is obvious.</p>
+</div>
+</section>
+<section id="modifying-aesthetics" class="level2">
+<h2 class="anchored" data-anchor-id="modifying-aesthetics">Modifying aesthetics</h2>
+<p>We can introduce a third variable into the plot by modifying the color of the points based on the value of that third variable.</p>
+<p>Color (or colour) is one type of aesthetic and using the ggplot2 language:</p>
+<blockquote class="blockquote">
+<p>“the color of each point can be mapped to a variable”.</p>
+</blockquote>
+<p>This sounds technical, but let’s give an example.</p>
+<div class="keyideas">
+<p><strong>Note</strong>: the x-coordinates and y-coordinates are aesthetics too, and they got mapped to the <code>displ</code> and <code>hwy</code> variables, respectively</p>
+</div>
+<p>Here, we will map the color to the <code>drv</code> variable, which indicates whether a car is front wheel drive, rear wheel drive, or 4-wheel drive.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;">qplot</span>(displ, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">color =</span> drv)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Engine displacement and highway mileage by drive class</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we can see that the front wheel drive cars tend to have lower displacement relative to the 4-wheel or rear wheel drive cars. Also, it’s clear that the 4-wheel drive cars have the lowest highway gas mileage.</p>
+<div class="questions">
+<p><strong>Question</strong>: In the above plot, I did not specify the <code>x</code> and <code>y</code> variable. What happens when you run these two code chunks. What’s the difference?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;">qplot</span>(displ, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">color =</span> drv)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="at" style="color: #657422;">x =</span> displ, <span class="at" style="color: #657422;">y =</span> hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">color =</span> drv)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;">qplot</span>(hwy, displ, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">color =</span> drv)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="at" style="color: #657422;">y =</span> hwy, <span class="at" style="color: #657422;">x =</span> displ, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">color =</span> drv)</span></code></pre></div>
+</div>
+</div>
+<div class="questions">
+<p><strong>Example</strong>: Let’s try mapping colors in another dataset, namely the <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a> dataset. These data contain observations for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;">library</span>(palmerpenguins)</span>
+<span id="cb11-2"><span class="fu" style="color: #4758AB;">glimpse</span>(penguins)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+<p>If we wanted to count the number of penguins for each of the three species, we can use the <code>count()</code> function in <code>dplyr</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1">penguins <span class="sc" style="color: #5E5E5E;">%&gt;%</span> </span>
+<span id="cb13-2">  <span class="fu" style="color: #4758AB;">count</span>(species)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  species       n
+  &lt;fct&gt;     &lt;int&gt;
+1 Adelie      152
+2 Chinstrap    68
+3 Gentoo      124</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/https:/allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p></p><figcaption class="figure-caption">Palmer penguins</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
+<p><strong>Question</strong>: If we wanted to use <code>qplot()</code> to map <code>flipper_length_mm</code> and <code>bill_length_mm</code> to the x and y coordinates, what would we do?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span></code></pre></div>
+</div>
+<p>Now try mapping color to the <code>species</code> variable on top of the code you just wrote:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span></code></pre></div>
+</div>
+</div>
+</section>
+<section id="adding-a-geom" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-geom">Adding a geom</h2>
+<p>Sometimes it is nice to add a smoother to a scatterplot to highlight any trends. Trends can be difficult to see if the data are very noisy or there are many data points obscuring the view. A smooth is a “geom” that you can add along with your data points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="fu" style="color: #4758AB;">qplot</span>(displ, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">geom =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"point"</span>, <span class="st" style="color: #20794D;">"smooth"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Engine displacement and highway mileage w/smoother</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that previously, we did not have to specify <code>geom = "point"</code> because that was done automatically. But if you want the smoother overlaid with the points, then you need to specify both explicitly.</p>
+<p>Here it seems that engine displacement and highway mileage have a nonlinear U-shaped relationship, but from the previous plot we know that this is largely due to confounding by the drive class of the car.</p>
+<p>Look at what happens if we <em>do not</em> include the <code>point</code> geom.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><span class="fu" style="color: #4758AB;">qplot</span>(displ, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">geom =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"smooth"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Engine displacement and highway mileage w/smoother</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sometimes that is the plot you want to show, but in this case it might make more sense to show the data along with the smoother.</p>
+<div class="questions">
+<p><strong>Example</strong>: Let’s add a smoother to our <code>palmerpenguins</code> dataset example. Using the code we previously wrote mapping variables to points and color, add a “point” and “smooth” geom:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span></code></pre></div>
+</div>
+</div>
+</section>
+<section id="histograms-and-boxplots" class="level2">
+<h2 class="anchored" data-anchor-id="histograms-and-boxplots">Histograms and boxplots</h2>
+<p>The <code>qplot()</code> function can be used to be used to plot 1-dimensional data too. By specifying a single variable, <code>qplot()</code> will by default make a histogram.</p>
+<p>Here, we make a histogram if the highway mileage data and stratify on the drive class. So technically this is three histograms overlayed on top of each other.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="fu" style="color: #4758AB;">qplot</span>(hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">fill =</span> drv, <span class="at" style="color: #657422;">binwidth =</span> <span class="dv" style="color: #AD0000;">2</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Histogram of highway mileage by drive class</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="questions">
+<p><strong>Question</strong>: Notice, I used <code>fill</code> here to map color to the <code>drv</code> variable. Why is this? What happens when you use <code>color</code> instead?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span></code></pre></div>
+</div>
+</div>
+<p>Having the different colors for each drive class is nice, but the three histograms can be a bit difficult to separate out. Side-by-side boxplots is one solution to this problem.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="fu" style="color: #4758AB;">qplot</span>(drv, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">geom =</span> <span class="st" style="color: #20794D;">"boxplot"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Boxplots of highway mileage by drive class</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Another solution is to plot the histograms in separate panels using facets.</p>
+</section>
+<section id="facets" class="level2">
+<h2 class="anchored" data-anchor-id="facets">Facets</h2>
+<p>Facets are a way to create multiple panels of plots based on the levels of categorical variable. Here, we want to see a histogram of the highway mileages and the categorical variable is the drive class variable. We can do that using the <code>facets</code> argument to <code>qplot()</code>.</p>
+<p>The <code>facets</code> argument expects a formula type of input, with a <code>~</code> separating the left hand side variable and the right hand side variable. The left hand side variable indicates how the rows of the panels should be divided and the right hand side variable indicates how the columns of the panels should be divided. Here, we just want three rows of histograms (and just one column), one for each drive class, so we specify <code>drv</code> on the left hand side and <code>.</code> on the right hand side indicating that there’s no variable there (it’s empty).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><span class="fu" style="color: #4758AB;">qplot</span>(hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">facets =</span> drv <span class="sc" style="color: #5E5E5E;">~</span> ., <span class="at" style="color: #657422;">binwidth =</span> <span class="dv" style="color: #AD0000;">2</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Histogram of highway mileage by drive class</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We could also look at more data using facets, so instead of histograms we could look at scatterplots of engine displacement and highway mileage by drive class. Here, we put the <code>drv</code> variable on the right hand side to indicate that we want a column for each drive class (as opposed to splitting by rows like we did above).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><span class="fu" style="color: #4758AB;">qplot</span>(displ, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">facets =</span> . <span class="sc" style="color: #5E5E5E;">~</span> drv)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Engine displacement and highway mileage by drive class</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What if you wanted to add a smoother to each one of those panels? Simple, you literally just add the smoother as another geom.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;">qplot</span>(displ, hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">facets =</span> . <span class="sc" style="color: #5E5E5E;">~</span> drv) <span class="sc" style="color: #5E5E5E;">+</span> <span class="fu" style="color: #4758AB;">geom_smooth</span>(<span class="at" style="color: #657422;">method =</span> <span class="st" style="color: #20794D;">"lm"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">Engine displacement and highway mileage by drive class w/smoother</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="keyideas">
+<p><strong>Note</strong>: we used a different type of smoother. Here, we add a linear regression line (a type of smoother) to each group to see if there’s any difference.</p>
+</div>
+<div class="questions">
+<p><strong>Example</strong>: Let’s facet our <code>palmerpenguins</code> dataset example and explore different types of plots.</p>
+<p>Building off the code we previously wrote, perform the following tasks:</p>
+<ul>
+<li>Facet the plot based on <code>species</code> with the the three species along rows.</li>
+<li>Add a linear regression line to each the types of <code>species</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span></code></pre></div>
+</div>
+<p>Next, make a histogram of the <code>body_mass_g</code> for each of the species colored by the three species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span></code></pre></div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>The <code>qplot()</code> function in <code>ggplot2</code> is the analog of <code>plot()</code> in base graphics but with many built-in features that the traditionaly <code>plot()</code> does not provide. The syntax is somewhere in between the base and lattice graphics system. The <code>qplot()</code> function is useful for quickly putting data on the page/screen, but for ultimate customization, it may make more sense to use some of the lower level functions that we discuss later in the next lesson.</p>
+</section>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="case-study-maacs-cohort" class="level3">
+<h3 class="anchored" data-anchor-id="case-study-maacs-cohort">Case Study: MAACS Cohort</h3>
+<details>
+<summary>
+Click here for case study practicing the <code>qplot()</code> function.
+</summary>
+<p>This case study will use data based on the Mouse Allergen and Asthma Cohort Study (MAACS). This study was aimed at characterizing the indoor (home) environment and its relationship with asthma morbidity amonst children aged 5–17 living in Baltimore, MD. The children all had persistent asthma, defined as having had an exacerbation in the past year. A representative publication of results from this study can be found in this paper by <a href="https://pubmed.ncbi.nlm.nih.gov/23403052/">Lu, et al.</a></p>
+<div class="keyideas">
+<p>Because the individual-level data for this study are protected by various U.S. privacy laws, we cannot make those data available. For the purposes of this lesson, we have simulated data that share many of the same features of the original data, but do not contain any of the actual measurements or values contained in the original dataset.</p>
+</div>
+<p>Here is a snapshot of what the data look like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><span class="fu" style="color: #4758AB;">library</span>(here)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at /Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1">maacs <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">read_csv</span>(<span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"data"</span>, <span class="st" style="color: #20794D;">"maacs_sim.csv"</span>), <span class="at" style="color: #657422;">col_types =</span> <span class="st" style="color: #20794D;">"icnn"</span>)</span>
+<span id="cb33-2">maacs</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 750 × 4
+      id mopos  pm25    eno
+   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1     1 yes    6.01  28.8 
+ 2     2 no    25.2   17.7 
+ 3     3 yes   21.8   43.6 
+ 4     4 no    13.4  288.  
+ 5     5 no    49.4    7.60
+ 6     6 no    43.4   12.0 
+ 7     7 yes   33.0   79.2 
+ 8     8 yes   32.7   34.2 
+ 9     9 yes   52.2   12.1 
+10    10 yes   51.9   65.0 
+# … with 740 more rows</code></pre>
+</div>
+</div>
+<p>The key variables are:</p>
+<ul>
+<li><p><code>mopos</code>: an indicator of whether the subject is allergic to mouse allergen (yes/no)</p></li>
+<li><p><code>pm25</code>: average level of PM2.5 over the course of 7 days (micrograms per cubic meter)</p></li>
+<li><p><code>eno</code>: exhaled nitric oxide</p></li>
+</ul>
+<p>The outcome of interest for this analysis will be exhaled nitric oxide (eNO), which is a measure of pulmonary inflamation. We can get a sense of how eNO is distributed in this population by making a quick histogram of the variable. Here, we take the log of eNO because some right-skew in the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Histogram of log eNO</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A quick glance suggests that the histogram is a bit “fat”, suggesting that there might be multiple groups of people being lumped together. We can stratify the histogram by whether they are allergic to mouse.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">fill =</span> mopos)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Histogram of log eNO by mouse allergic status</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see from this plot that the non-allergic subjects are shifted slightly to the left, indicating a lower eNO and less pulmonary inflammation. That said, there is significant overlap between the two groups.</p>
+<p>An alternative to histograms is a density smoother, which sometimes can be easier to visualize when there are multiple groups. Here is a density smooth of the entire study population.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">geom =</span> <span class="st" style="color: #20794D;">"density"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Density smooth of log eNO</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And here are the densities straitified by allergic status. We can map the color aesthetic to the <code>mopos</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">geom =</span> <span class="st" style="color: #20794D;">"density"</span>, <span class="at" style="color: #657422;">color =</span> mopos)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Density smooth of log eNO by mouse allergic status</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>These tell the same story as the stratified histograms, which should come as no surprise.</p>
+<p>Now we can examine the indoor environment and its relationship to eNO. Here, we use the level of indoor PM2.5 as a measure of indoor environment air quality. We can make a simple scatterplot of PM2.5 and eNO.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(pm25), <span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">geom =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"point"</span>, <span class="st" style="color: #20794D;">"smooth"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">eNO and PM2.5</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The relationship appears modest at best, as there is substantial noise in the data. However, one question that we might be interested in is whether allergic individuals are perhaps more sensitive to PM2.5 inhalation than non-allergic individuals. To examine that question we can stratify the data into two groups.</p>
+<p>This first plot uses different plot symbols for the two groups and overlays them on a single canvas. We can do this by mapping the <code>mopos</code> variable to the <code>shape</code> aesthetic.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(pm25), <span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">shape =</span> mopos)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">eNO and PM2.5 by mouse allergic status</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Because there is substantial overlap in the data it is a bit challenging to discern the circles from the triangles. Part of the reason might be that all of the symbols are the same color (black).</p>
+<p>We can plot each group a different color to see if that helps.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(pm25), <span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">color =</span> mopos)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">eNO and PM2.5 by mouse allergic status</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is slightly better but the substantial overlap makes it difficult to discern any trends in the data. For this we need to add a smoother of some sort. Here we add a linear regression line (a type of smoother) to each group to see if there’s any difference.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(pm25), <span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">color =</span> mopos) <span class="sc" style="color: #5E5E5E;">+</span> </span>
+<span id="cb45-2">        <span class="fu" style="color: #4758AB;">geom_smooth</span>(<span class="at" style="color: #657422;">method =</span> <span class="st" style="color: #20794D;">"lm"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Here we see quite clearly that the red group and the green group exhibit rather different relationships between PM2.5 and eNO. For the non-allergic individuals, there appears to be a slightly negative relationship between PM2.5 and eNO and for the allergic individuals, there is a positive relationship. This suggests a strong interaction between PM2.5 and allergic status, an hypothesis perhaps worth following up on in greater detail than this brief exploratory analysis.</p>
+<p>Another, and perhaps more clear, way to visualize this interaction is to use separate panels for the non-allergic and allergic individuals using the <code>facets</code> argument to <code>qplot()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="fu" style="color: #4758AB;">log</span>(pm25), <span class="fu" style="color: #4758AB;">log</span>(eno), <span class="at" style="color: #657422;">data =</span> maacs, <span class="at" style="color: #657422;">facets =</span> . <span class="sc" style="color: #5E5E5E;">~</span> mopos) <span class="sc" style="color: #5E5E5E;">+</span> </span>
+<span id="cb47-2">        <span class="fu" style="color: #4758AB;">geom_smooth</span>(<span class="at" style="color: #657422;">method =</span> <span class="st" style="color: #20794D;">"lm"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</details>
+</section>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>What is gone wrong with this code? Why are the points not blue?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><span class="fu" style="color: #4758AB;">qplot</span>(<span class="at" style="color: #657422;">x =</span> displ, <span class="at" style="color: #657422;">y =</span> hwy, <span class="at" style="color: #657422;">data =</span> mpg, <span class="at" style="color: #657422;">color =</span> <span class="st" style="color: #20794D;">"blue"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Which variables in <code>mpg</code> are categorical? Which variables are continuous? (Hint: type <code>?mpg</code> to read the documentation for the dataset). How can you see this information when you run <code>mpg</code>?</p></li>
+<li><p>Map a continuous variable to <code>color</code>, <code>size</code>, and <code>shape</code> aesthetics. How do these aesthetics behave differently for categorical vs.&nbsp;continuous variables?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://r4ds.had.co.nz/data-visualisation" class="uri">https://r4ds.had.co.nz/data-visualisation</a></li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-the-ggplot2-plotting-system-part-1" class="uri">https://rdpeng.github.io/Biostat776/lecture-the-ggplot2-plotting-system-part-1</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 1</category>
+  <category>week 3</category>
+  <category>R</category>
+  <category>programming</category>
+  <category>ggplot2</category>
+  <category>data viz</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index.html</guid>
+  <pubDate>Tue, 13 Sep 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Plotting Systems</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<blockquote class="blockquote">
+<p>The data may not contain the answer. And, if you torture the data long enough, it will tell you anything. —<em>John W. Tukey</em></p>
+</blockquote>
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://r4ds.had.co.nz/data-visualisation" class="uri">https://r4ds.had.co.nz/data-visualisation</a></li>
+<li>Paul Murrell (2011). <em>R Graphics</em>, CRC Press.</li>
+<li>Hadley Wickham (2009). <em>ggplot2</em>, Springer.</li>
+<li>Deepayan Sarkar (2008). <em>Lattice: Multivariate Data Visualization with R</em>, Springer.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-plotting-systems" class="uri">https://rdpeng.github.io/Biostat776/lecture-plotting-systems</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Be able to identify and describe the three plotting systems in R</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="plotting-systems" class="level1">
+<h1>Plotting Systems</h1>
+<p>There are <strong>three different plotting systems in R</strong> and they each have different characteristics and modes of operation.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The three systems are</p>
+<ol type="1">
+<li>The base plotting system</li>
+<li>The lattice system</li>
+<li>The ggplot2 system</li>
+</ol>
+<p><strong>This course will focus primarily on the ggplot2 plotting system</strong>. The other two systems are presented for context.</p>
+</div>
+</div>
+<section id="the-base-plotting-system" class="level2">
+<h2 class="anchored" data-anchor-id="the-base-plotting-system">The Base Plotting System</h2>
+<p>The <strong>base plotting system</strong> is the original plotting system for R. The basic model is sometimes <strong>referred to as the “artist’s palette” model</strong>.</p>
+<p>The idea is you start with blank canvas and build up from there.</p>
+<p>In more R-specific terms, you <strong>typically start with <code>plot()</code> function</strong> (or similar plot creating function) to <em>initiate</em> a plot and then <em>annotate</em> the plot with various annotation functions (<code>text</code>, <code>lines</code>, <code>points</code>, <code>axis</code>)</p>
+<p>The base plotting system is <strong>often the most convenient plotting system</strong> to use because it mirrors how we sometimes think of building plots and analyzing data.</p>
+<p>If we do not have a completely well-formed idea of how we want to look at some data, often we will start by “throwing some data on the page” and then slowly add more information to it as our thought process evolves.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We might look at a simple scatterplot and then decide to add a linear regression line or a smoother to it to highlight the trends.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">data</span>(airquality)</span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;">with</span>(airquality, {</span>
+<span id="cb1-3">        <span class="fu" style="color: #4758AB;">plot</span>(Temp, Ozone)</span>
+<span id="cb1-4">        <span class="fu" style="color: #4758AB;">lines</span>(<span class="fu" style="color: #4758AB;">loess.smooth</span>(Temp, Ozone))</span>
+<span id="cb1-5">})</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Scatterplot with loess curve</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>In the code above:</p>
+<ul>
+<li>The <code>plot()</code> function creates the initial plot and draws the points (circles) on the canvas.</li>
+<li>The <code>lines</code> function is used to annotate or add to the plot (in this case it adds a loess smoother to the scatterplot).</li>
+</ul>
+<p>Next, we use the <code>plot()</code> function to draw the points on the scatterplot and then use the <code>main</code> argument to add a main title to the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;">data</span>(airquality)</span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;">with</span>(airquality, {</span>
+<span id="cb2-3">        <span class="fu" style="color: #4758AB;">plot</span>(Temp, Ozone, <span class="at" style="color: #657422;">main =</span> <span class="st" style="color: #20794D;">"my plot"</span>)</span>
+<span id="cb2-4">        <span class="fu" style="color: #4758AB;">lines</span>(<span class="fu" style="color: #4758AB;">loess.smooth</span>(Temp, Ozone))</span>
+<span id="cb2-5">})</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Scatterplot with loess curve</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>One downside with constructing base plots is that you <strong>cannot go backwards once the plot has started</strong>.</p>
+<p>It is possible that you could start down the road of constructing a plot and realize later (when it is too late) that you do not have enough room to add a y-axis label or something like that</p>
+</div>
+</div>
+<p>If you have specific plot in mind, there is then a need to <strong>plan in advance</strong> to make sure, for example, that you have set your margins to be the right size to fit all of the annotations that you may want to include.</p>
+<p>While the base plotting system is nice in that it gives you the flexibility to specify these kinds of details to painstaking accuracy, <strong>sometimes it would be nice if the system could just figure it out for you</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Another downside of the base plotting system is that it is <strong>difficult to describe or translate a plot to others because there is no clear graphical language or grammar</strong> that can be used to communicate what you have done.</p>
+<p>The only real way to describe what you have done in a base plot is to just list the series of commands/functions that you have executed, which is not a particularly compact way of communicating things.</p>
+<p>This is one problem that the <code>ggplot2</code> package attempts to address.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Another typical base plot is constructed with the following code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;">data</span>(cars)</span>
+<span id="cb3-2"></span>
+<span id="cb3-3"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Create the plot / draw canvas</span></span>
+<span id="cb3-4"><span class="fu" style="color: #4758AB;">with</span>(cars, <span class="fu" style="color: #4758AB;">plot</span>(speed, dist))</span>
+<span id="cb3-5"></span>
+<span id="cb3-6"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Add annotation</span></span>
+<span id="cb3-7"><span class="fu" style="color: #4758AB;">title</span>(<span class="st" style="color: #20794D;">"Speed vs. Stopping distance"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Base plot with title</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>We will go into more detail on what these functions do in later lessons.</p>
+</section>
+<section id="the-lattice-system" class="level2">
+<h2 class="anchored" data-anchor-id="the-lattice-system">The Lattice System</h2>
+<p>The <strong>lattice plotting system</strong> is implemented in the <code>lattice</code> R package which comes with every installation of R (although it is not loaded by default).</p>
+<p>To <strong>use the lattice plotting functions</strong>, you must first load the <code>lattice</code> package with the <code>library</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;">library</span>(lattice)</span></code></pre></div>
+</div>
+<p>With the lattice system, <strong>plots are created with a single function call</strong>, such as <code>xyplot()</code> or <code>bwplot()</code>.</p>
+<p>There is <strong>no real distinction between functions that create or initiate plots</strong> and <strong>functions that annotate plots</strong> because it all happens at once.</p>
+<p>Lattice plots tend to be <strong>most useful for conditioning types of plots</strong>, i.e.&nbsp;looking at how <code>y</code> changes with <code>x</code> across levels of <code>z</code>.</p>
+<ul>
+<li>e.g.&nbsp;these types of plots are useful for looking at multi-dimensional data and often allow you to squeeze a lot of information into a single window or page.</li>
+</ul>
+<p>Another aspect of lattice that makes it different from base plotting is that <strong>things like margins and spacing are set automatically</strong>.</p>
+<p>This is possible because entire plot is specified at once via a single function call, so all of the available information needed to figure out the spacing and margins is already there.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here is a lattice plot that looks at the relationship between life expectancy and income and how that relationship varies by region in the United States.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">state <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">data.frame</span>(state.x77, <span class="at" style="color: #657422;">region =</span> state.region)</span>
+<span id="cb5-2"><span class="fu" style="color: #4758AB;">xyplot</span>(Life.Exp <span class="sc" style="color: #5E5E5E;">~</span> Income <span class="sc" style="color: #5E5E5E;">|</span> region, <span class="at" style="color: #657422;">data =</span> state, <span class="at" style="color: #657422;">layout =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">4</span>, <span class="dv" style="color: #AD0000;">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Lattice plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>You can see that the entire plot was generated by the call to <code>xyplot()</code> and all of the data for the plot were stored in the <code>state</code> data frame.</p>
+<p>The <strong>plot itself contains four panels</strong>—one for each region—and <strong>within each panel is a scatterplot</strong> of life expectancy and income.</p>
+<p>The notion of <em>panels</em> comes up a lot with lattice plots because you typically have many panels in a lattice plot (each panel typically represents a <em>condition</em>, like “region”).</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Downsides with the lattice system</p>
+<ul>
+<li>It can sometimes be very <strong>awkward to specify an entire plot</strong> in a single function call (you end up with functions with many many arguments).</li>
+<li><strong>Annotation in panels in plots is not especially intuitive</strong> and can be difficult to explain. In particular, the use of custom panel functions and subscripts can be difficult to wield and requires intense preparation.</li>
+<li>Once a plot is created, <strong>you cannot “add” to the plot</strong> (but of course you can just make it again with modifications).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="the-ggplot2-system" class="level2">
+<h2 class="anchored" data-anchor-id="the-ggplot2-system">The ggplot2 System</h2>
+<p>The <strong>ggplot2 plotting system</strong> attempts to split the difference between base and lattice in a number of ways.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Taking cues from lattice, the ggplot2 system automatically deals with spacings, text, titles but also allows you to annotate by “adding” to a plot.</p>
+</div>
+</div>
+<p>The ggplot2 system is implemented in the <code>ggplot2</code> package (part of the <code>tidyverse</code> package), which is available from CRAN (it does not come with R).</p>
+<p>You can install it from CRAN via</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;">install.packages</span>(<span class="st" style="color: #20794D;">"ggplot2"</span>)</span></code></pre></div>
+</div>
+<p>and then load it into R via the <code>library()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;">library</span>(ggplot2)</span></code></pre></div>
+</div>
+<p>Superficially, the <code>ggplot2</code> functions are similar to <code>lattice</code>, but the system is generally easier and more intuitive to use.</p>
+<p>The defaults used in <code>ggplot2</code> make many choices for you, but you can still customize plots to your heart’s desire.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A typical plot with the <code>ggplot2</code> package looks as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb8-2"><span class="fu" style="color: #4758AB;">data</span>(mpg)</span>
+<span id="cb8-3">mpg <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb8-4">  <span class="fu" style="color: #4758AB;">ggplot</span>(<span class="fu" style="color: #4758AB;">aes</span>(displ, hwy)) <span class="sc" style="color: #5E5E5E;">+</span> </span>
+<span id="cb8-5">  <span class="fu" style="color: #4758AB;">geom_point</span>()</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption">ggplot2 plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>There are additional functions in <code>ggplot2</code> that allow you to make arbitrarily sophisticated plots.</p>
+<p>We will discuss more about this in the next lecture.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 1</category>
+  <category>week 3</category>
+  <category>R</category>
+  <category>programming</category>
+  <category>ggplot2</category>
+  <category>data viz</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index.html</guid>
+  <pubDate>Tue, 13 Sep 2022 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Tidy data and the Tidyverse</title>
   <dc:creator>Stephanie Hicks</dc:creator>

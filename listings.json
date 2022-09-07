@@ -9,6 +9,8 @@
   {
     "listing": "/lectures.html",
     "items": [
+      "/posts/2022-09-13-ggplot2-plotting-system-part-1/index.html",
+      "/posts/2022-09-13-plotting-systems/index.html",
       "/posts/2022-09-08-tidy-data-and-the-tidyverse/index.html",
       "/posts/2022-09-08-joining-data-in-r/index.html",
       "/posts/2022-09-06-reading-and-writing-data/index.html",
