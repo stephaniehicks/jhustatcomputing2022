@@ -17,7 +17,6 @@ categories: [module 1, week 2, R, programming, dplyr, here, tibble, tidyverse]
 ### Read ahead
 
 ::: callout-note
-
 ## Read ahead
 
 **Before class, you can prepare by reading the following materials:**
@@ -26,7 +25,6 @@ categories: [module 1, week 2, R, programming, dplyr, here, tibble, tidyverse]
 2.  <https://jhudatascience.org/tidyversecourse/wrangle-data.html#data-wrangling>
 3.  [dplyr cheat sheet from RStudio](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 :::
-
 
 ### Acknowledgements
 
@@ -50,21 +48,21 @@ Material for this lecture was borrowed and adopted from
 
 # Data Frames
 
-The **data frame** (or `data.frame`) is a **key data structure** in statistics and in R. 
+The **data frame** (or `data.frame`) is a **key data structure** in statistics and in R.
 
-The basic structure of a data frame is that there is **one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation**. 
+The basic structure of a data frame is that there is **one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation**.
 
 R has an internal implementation of data frames that is likely the one you will use most often. However, there are packages on CRAN that implement data frames via things like relational databases that allow you to operate on very, very large data frames (but we will not discuss them here).
 
-Given the importance of managing data frames, it is **important that we have good tools for dealing with them.** 
+Given the importance of managing data frames, it is **important that we have good tools for dealing with them.**
 
 For example, **operations** like filtering rows, re-ordering rows, and selecting columns, can often be tedious operations in R whose syntax is not very intuitive. The `dplyr` package is designed to mitigate a lot of these problems and to provide a highly optimized set of routines specifically for dealing with data frames.
 
 ## Tibbles
 
-Another type of data structure that we need to discuss is called the **tibble**! It's best to think of tibbles as an updated and stylish version of the `data.frame`. 
+Another type of data structure that we need to discuss is called the **tibble**! It's best to think of tibbles as an updated and stylish version of the `data.frame`.
 
-Tibbles are what tidyverse packages work with most seamlessly. Now, that **does not mean tidyverse packages *require* tibbles**. 
+Tibbles are what tidyverse packages work with most seamlessly. Now, that **does not mean tidyverse packages *require* tibbles**.
 
 In fact, they still work with `data.frames`, but the more you work with tidyverse and tidyverse-adjacent packages, the more you will see the advantages of using tibbles.
 
@@ -74,12 +72,10 @@ Before we go any further, tibbles *are* data frames, but they have some new bell
 
 There are a number of differences between tibbles and `data.frames`.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-To see a full vignette about tibbles and how they differ from data.frame, you will want to execute `vignette("tibble")` and read through that vignette. 
-
+To see a full vignette about tibbles and how they differ from data.frame, you will want to execute `vignette("tibble")` and read through that vignette.
 :::
 
 We will summarize some of the most important points here:
@@ -100,11 +96,11 @@ library(tidyverse)
 
 ### `as_tibble()`
 
-Since many packages use the historical `data.frame` from base R, you will often find yourself in the situation that you have a `data.frame` and want to convert that `data.frame` to a `tibbl`e. 
+Since many packages use the historical `data.frame` from base R, you will often find yourself in the situation that you have a `data.frame` and want to convert that `data.frame` to a `tibbl`e.
 
 To do so, the `as_tibble()` function is exactly what you are looking for.
 
-For the example, here we use a dataset (`chicago.rds`) containing air pollution and temperature data for the city of Chicago in the U.S. 
+For the example, here we use a dataset (`chicago.rds`) containing air pollution and temperature data for the city of Chicago in the U.S.
 
 The dataset is available in the `/data` repository. You can load the data into R using the `readRDS()` function.
 
@@ -120,7 +116,7 @@ dim(chicago)
 str(chicago)
 ```
 
-We see this data structure is a `data.frame` with 6940 observations and 8 variables. 
+We see this data structure is a `data.frame` with 6940 observations and 8 variables.
 
 To convert this `data.frame` to a tibble you would use the following:
 
@@ -128,29 +124,27 @@ To convert this `data.frame` to a tibble you would use the following:
 str(as_tibble(chicago))
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-Tibbles, by default, **only print the first ten rows to screen**. 
+Tibbles, by default, **only print the first ten rows to screen**.
 
-If you were to print the `data.frame` `chicago` to screen, all 6940 rows would be displayed. When working with large `data.frames`, this **default behavior can be incredibly frustrating**. 
+If you were to print the `data.frame` `chicago` to screen, all 6940 rows would be displayed. When working with large `data.frames`, this **default behavior can be incredibly frustrating**.
 
 Using tibbles removes this frustration because of the default settings for tibble printing.
-
 :::
 
 Additionally, you will note that the **type of the variable is printed for each variable in the tibble**. This helpful feature is another added bonus of tibbles relative to `data.frame`.
 
 #### Want to see more of the tibble?
 
-If you *do* want to see more rows from the tibble, there are a few options! 
+If you *do* want to see more rows from the tibble, there are a few options!
 
-1. The `View()` function in RStudio is incredibly helpful. The input to this function is the `data.frame` or tibble you would like to see. 
+1.  The `View()` function in RStudio is incredibly helpful. The input to this function is the `data.frame` or tibble you would like to see.
 
 Specifically, `View(chicago)` would provide you, the viewer, with a scrollable view (in a new tab) of the complete dataset.
 
-2. Use the fact that `print()` enables you to specify how many rows and columns you would like to display. 
+2.  Use the fact that `print()` enables you to specify how many rows and columns you would like to display.
 
 Here, we again display the `chicago` data.frame as a tibble but specify that we would only like to see 5 rows. The `width = Inf` argument specifies that we would like to see all the possible columns. Here, there are only 8, but for larger datasets, this can be helpful to specify.
 
@@ -161,11 +155,9 @@ as_tibble(chicago) %>%
 
 ### `tibble()`
 
-Alternatively, you can **create a tibble on the fly** by using `tibble()` and specifying the information you would like stored in each column. 
+Alternatively, you can **create a tibble on the fly** by using `tibble()` and specifying the information you would like stored in each column.
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 If you provide a single value, this value will be repeated across all rows of the tibble. This is referred to as "recycling inputs of length 1."
@@ -180,19 +172,16 @@ tibble(
   z = (a + b)^2 + c
 )
 ```
-
 :::
 
 The `tibble()` function allows you to quickly generate tibbles and even allows you to **reference columns within the tibble you are creating**, as seen in column z of the example above.
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-**Tibbles can have column names that are not allowed** in `data.frame`. 
+**Tibbles can have column names that are not allowed** in `data.frame`.
 
-In the example below, we see that to utilize a nontraditional variable name, you surround the column name with backticks. 
+In the example below, we see that to utilize a nontraditional variable name, you surround the column name with backticks.
 
 Note that to refer to such columns in other tidyverse packages, you willl continue to use backticks surrounding the variable name.
 
@@ -203,17 +192,16 @@ tibble(
   `:)` = "smile",
 )
 ```
-
 :::
 
 ## Subsetting tibbles
 
 Subsetting tibbles also differs slightly from how subsetting occurs with `data.frame`.
 
-When it comes to tibbles, 
+When it comes to tibbles,
 
-- `[[` can subset by name or position 
-- `$` only subsets by name 
+-   `[[` can subset by name or position
+-   `$` only subsets by name
 
 For example:
 
@@ -233,9 +221,9 @@ df[["z"]]
 df[[4]]
 ```
 
-Having now discussed tibbles, which are the type of object most tidyverse and tidyverse-adjacent packages work best with, we now know the goal. 
+Having now discussed tibbles, which are the type of object most tidyverse and tidyverse-adjacent packages work best with, we now know the goal.
 
-In many cases, **tibbles are ultimately what we want to work with in R**. 
+In many cases, **tibbles are ultimately what we want to work with in R**.
 
 However, **data are stored in many different formats outside of R**. We will spend the rest of this lesson discussing wrangling functions that work either a `data.frame` or `tibble`.
 
@@ -247,15 +235,13 @@ The `dplyr` package was developed by Posit (formely RStudio) and is **an optimiz
 
 \[**Source**: [Artwork by Allison Horst](https://github.com/allisonhorst/stats-illustrations)\]
 
-
 The `dplyr` package does not provide any "new" functionality to R per se, in the sense that everything `dplyr` does could already be done with base R, but it **greatly** simplifies existing functionality in R.
 
-One important contribution of the `dplyr` package is that it **provides a "grammar" (in particular, verbs) for data manipulation and for operating on data frames**. 
+One important contribution of the `dplyr` package is that it **provides a "grammar" (in particular, verbs) for data manipulation and for operating on data frames**.
 
-With this grammar, you can sensibly communicate what it is that you are doing to a data frame that other people can understand (assuming they also know the grammar). This is useful because it **provides an abstraction for data manipulation that previously did not exist**. 
+With this grammar, you can sensibly communicate what it is that you are doing to a data frame that other people can understand (assuming they also know the grammar). This is useful because it **provides an abstraction for data manipulation that previously did not exist**.
 
 Another useful contribution is that the `dplyr` functions are **very** fast, as many key operations are coded in C++.
-
 
 ### `dplyr` grammar
 
@@ -275,14 +261,12 @@ Some of the key "verbs" provided by the `dplyr` package are
 
 -   `%>%`: the "pipe" operator is used to connect multiple verb actions together into a pipeline
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-The `dplyr` package as a number of its own data types that it takes advantage of. 
+The `dplyr` package as a number of its own data types that it takes advantage of.
 
 For example, there is a handy `print()` method that prevents you from printing a lot of data to the console. Most of the time, these additional data types are transparent to the user and do not need to be worried about.
-
 :::
 
 ### `dplyr` functions
@@ -330,20 +314,18 @@ chicago <- as_tibble(chicago)
 str(chicago)
 ```
 
-The `select()` function can be used to **select columns of a data frame** that you want to focus on. 
+The `select()` function can be used to **select columns of a data frame** that you want to focus on.
 
-:::{.callout-tip}
+::: callout-tip
+### Example
 
-### Example 
+Suppose we wanted to take the first 3 columns only. There are a few ways to do this.
 
-Suppose we wanted to take the first 3 columns only. There are a few ways to do this. 
-
-We could for example use numerical indices: 
+We could for example use numerical indices:
 
 ```{r}
 names(chicago)[1:3]
 ```
-
 
 But we can also use the names directly:
 
@@ -351,16 +333,12 @@ But we can also use the names directly:
 subset <- select(chicago, city:dptp)
 head(subset)
 ```
-
 :::
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 The `:` normally cannot be used with names or strings, but inside the `select()` function you can use it to specify a range of variable names.
-
 :::
 
 You can also **omit** variables using the `select()` function by using the negative sign. With `select()` you can do
@@ -403,9 +381,8 @@ The `filter()` function is used to **extract subsets of rows** from a data frame
 
 \[**Source**: [Artwork by Allison Horst](https://github.com/allisonhorst/stats-illustrations)\]
 
-:::{.callout-tip}
-
-### Example 
+::: callout-tip
+### Example
 
 Suppose we wanted to extract the rows of the `chicago` data frame where the levels of PM2.5 are greater than 30 (which is a reasonably high level), we could do
 
@@ -413,7 +390,6 @@ Suppose we wanted to extract the rows of the `chicago` data frame where the leve
 chic.f <- filter(chicago, pm25tmean2 > 30)
 str(chic.f)
 ```
-
 :::
 
 You can see that there are now only `r nrow(chic.f)` rows in the data frame and the distribution of the `pm25tmean2` values is.
@@ -444,15 +420,12 @@ Other logical operators you should be aware of include:
 |    `%in%` |              Included in | `city %in% c("chic", "bmore")` |
 | `is.na()` |       Is a missing value |            `is.na(pm10tmean2)` |
 
-
-:::{.callout-tip}
-
-### Note 
+::: callout-tip
+### Note
 
 If you are ever unsure of how to write a logical statement, but know how to write its opposite, you can use the `!` operator to negate the whole statement.
 
 A common use of this is to identify observations with non-missing data (e.g., `!(is.na(pm10tmean2))`).
-
 :::
 
 ### `arrange()`
@@ -500,7 +473,7 @@ Here you can see the names of the first five variables in the `chicago` data fra
 head(chicago[, 1:5], 3)
 ```
 
-The `dptp` column is supposed to represent the dew point temperature and the `pm25tmean2` column provides the PM2.5 data. 
+The `dptp` column is supposed to represent the dew point temperature and the `pm25tmean2` column provides the PM2.5 data.
 
 However, these names are pretty obscure or awkward and probably be renamed to something more sensible.
 
@@ -511,11 +484,10 @@ head(chicago[, 1:5], 3)
 
 The syntax inside the `rename()` function is to have the new name on the left-hand side of the `=` sign and the old name on the right-hand side.
 
-:::{.callout-note}
-
+::: callout-note
 ### Question
-How would you do the equivalent in base R without `dplyr`?
 
+How would you do the equivalent in base R without `dplyr`?
 :::
 
 ### `mutate()`
@@ -526,9 +498,9 @@ The `mutate()` function exists to **compute transformations of variables** in a 
 
 \[**Source**: [Artwork by Allison Horst](https://github.com/allisonhorst/stats-illustrations)\]
 
-For example, with air pollution data, we often want to *detrend* the data by subtracting the mean from the data. 
+For example, with air pollution data, we often want to *detrend* the data by subtracting the mean from the data.
 
-- That way we can look at whether a given day's air pollution level is higher than or less than average (as opposed to looking at its absolute level).
+-   That way we can look at whether a given day's air pollution level is higher than or less than average (as opposed to looking at its absolute level).
 
 Here, we create a `pm25detrend` variable that subtracts the mean from the `pm25` variable.
 
@@ -551,29 +523,25 @@ Note that there are only two columns in the transmuted data frame.
 
 ### `group_by()`
 
-The `group_by()` function is used to **generate summary statistics** from the data frame within strata defined by a variable. 
+The `group_by()` function is used to **generate summary statistics** from the data frame within strata defined by a variable.
 
-For example, in this air pollution dataset, you might want to know what the average annual level of PM2.5 is? 
+For example, in this air pollution dataset, you might want to know what the average annual level of PM2.5 is?
 
 So the stratum is the year, and that is something we can derive from the `date` variable.
 
 **In conjunction** with the `group_by()` function, we often use the `summarize()` function (or `summarise()` for some parts of the world).
 
+::: callout-tip
+### Note
 
-:::{.callout-tip}
+The **general operation** here is a combination of
 
-### Note 
-
-The **general operation** here is a combination of 
-
-1. Splitting a data frame into separate pieces defined by a variable or group of variables (`group_by()`)
-2. Then, applying a summary function across those subsets (`summarize()`)
-
+1.  Splitting a data frame into separate pieces defined by a variable or group of variables (`group_by()`)
+2.  Then, applying a summary function across those subsets (`summarize()`)
 :::
 
-:::{.callout-tip}
-
-### Example 
+::: callout-tip
+### Example
 
 First, we can create a `year` variable using `as.POSIXlt()`.
 
@@ -594,14 +562,12 @@ summarize(years, pm25 = mean(pm25, na.rm = TRUE),
           o3 = max(o3tmean2, na.rm = TRUE), 
           no2 = median(no2tmean2, na.rm = TRUE))
 ```
-
 :::
 
 `summarize()` returns a data frame with `year` as the first column, and then the annual summary statistics of `pm25`, `o3`, and `no2`.
 
-:::{.callout-tip}
-
-### More complicated example 
+::: callout-tip
+### More complicated example
 
 In a slightly more complicated example, we might want to know what are the average levels of ozone (`o3`) and nitrogen dioxide (`no2`) within quintiles of `pm25`. A slicker way to do this would be through a regression model, but we can actually do this quickly with `group_by()` and `summarize()`.
 
@@ -624,17 +590,15 @@ Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
           no2 = mean(no2tmean2, na.rm = TRUE))
 ```
-
 :::
 
-From the table, it seems there is not a strong relationship between `pm25` and `o3`, but there appears to be a positive correlation between `pm25` and `no2`. 
+From the table, it seems there is not a strong relationship between `pm25` and `o3`, but there appears to be a positive correlation between `pm25` and `no2`.
 
 More sophisticated statistical modeling can help to provide precise answers to these questions, but a simple application of `dplyr` functions can often get you most of the way there.
 
-
 ### `%>%`
 
-The pipeline operator `%>%` is very handy for **stringing together multiple `dplyr` functions in a sequence of operations**. 
+The pipeline operator `%>%` is very handy for **stringing together multiple `dplyr` functions in a sequence of operations**.
 
 Notice above that every time we wanted to apply more than one function, the sequence gets buried in a sequence of nested function calls that is difficult to read, i.e.
 
@@ -642,7 +606,7 @@ Notice above that every time we wanted to apply more than one function, the sequ
 third(second(first(x)))
 ```
 
-This **nesting is not a natural way** to think about a sequence of operations. 
+This **nesting is not a natural way** to think about a sequence of operations.
 
 The `%>%` operator allows you to string operations in a left-to-right fashion, i.e.
 
@@ -650,10 +614,8 @@ The `%>%` operator allows you to string operations in a left-to-right fashion, i
 first(x) %>% second %>% third
 ```
 
-
-:::{.callout-tip}
-
-### Example 
+::: callout-tip
+### Example
 
 Take the example that we just did in the last section where we computed the mean of `o3` and `no2` within quintiles of `pm25`. There we had to
 
@@ -669,20 +631,16 @@ mutate(chicago, pm25.quint = cut(pm25, qq)) %>%
         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
                   no2 = mean(no2tmean2, na.rm = TRUE))
 ```
-
 :::
 
 This way we do not have to create a set of temporary variables along the way or create a massive nested sequence of function calls.
 
+::: callout-tip
+### Note
 
-:::{.callout-tip}
-
-### Note 
-
-In the above code, I pass the `chicago` data frame to the first call to `mutate()`, but then afterwards I do not have to pass the first argument to `group_by()` or `summarize()`. 
+In the above code, I pass the `chicago` data frame to the first call to `mutate()`, but then afterwards I do not have to pass the first argument to `group_by()` or `summarize()`.
 
 Once you travel down the pipeline with `%>%`, the first argument is taken to be the output of the previous element in the pipeline.
-
 :::
 
 Another example might be computing the average pollutant level by month. This could be useful to see if there are any seasonal trends in the data.
@@ -699,21 +657,19 @@ Here, we can see that `o3` tends to be low in the winter months and high in the 
 
 ### `slice_*()`
 
-The `slice_sample()` function of the `dplyr` package will allow you to see a **sample of random rows** in random order. 
+The `slice_sample()` function of the `dplyr` package will allow you to see a **sample of random rows** in random order.
 
-The number of rows to show is specified by the `n` argument. 
+The number of rows to show is specified by the `n` argument.
 
-- This can be useful if you **do not want to print the entire tibble**, but you want to get a greater sense of the values. 
-- This is a **good option for data analysis reports**, where printing the entire tibble would not be appropriate if the tibble is quite large.
+-   This can be useful if you **do not want to print the entire tibble**, but you want to get a greater sense of the values.
+-   This is a **good option for data analysis reports**, where printing the entire tibble would not be appropriate if the tibble is quite large.
 
-:::{.callout-tip}
-
-### Example 
+::: callout-tip
+### Example
 
 ```{r}
 slice_sample(chicago, n = 10)
 ```
-
 :::
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the `n` argument.

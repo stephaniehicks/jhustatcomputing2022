@@ -66,7 +66,7 @@ We will also briefly describe different ways for reading and writing other data 
 
 When you are starting a data analysis, you can create a new `.Rproj` file that asks RStudio to change the path (location on your computer) to the `.Rproj` location.
 
-Let's try this out. In RStudio, click `Project: (None)` in the top right corner and `New Project`. 
+Let's try this out. In RStudio, click `Project: (None)` in the top right corner and `New Project`.
 
 After opening up a `.Rproj` file, you can test this by
 
@@ -144,7 +144,7 @@ list.files(here::here())
 list.files(here("data"))
 ```
 
-Now we see that using the `here::here()` function is a *relative* path (relative to the `.Rproj` file in our `jhustatcomputing2022` repository. We also see there is are two `.csv`  files in the `data` folder. We will learn how to read those files into R in the next section.
+Now we see that using the `here::here()` function is a *relative* path (relative to the `.Rproj` file in our `jhustatcomputing2022` repository. We also see there is are two `.csv` files in the `data` folder. We will learn how to read those files into R in the next section.
 
 ![Artwork by Allison Horst on here package](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/here.png){width="80%"}
 
@@ -210,8 +210,7 @@ We can also ask for the full paths for specific files
 here("data", "team_standings.csv")
 ```
 
-:::{.callout-note}
-
+::: callout-note
 ### Questions
 
 -   What happens when you use `readLines()` function with the `team_standings.csv` data?
@@ -220,9 +219,9 @@ here("data", "team_standings.csv")
 
 ## R code
 
-Sometimes, someone will give you a file that ends in a `.R`. 
+Sometimes, someone will give you a file that ends in a `.R`.
 
-This is what's called an **R script file**. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use. 
+This is what's called an **R script file**. It may contain code someone has written (maybe even you!), for example, a function that you can use with your data. In this case, you want the function available for you to use.
 
 To use the function, **you have to first, read in the function from R script file into R**.
 
@@ -250,8 +249,7 @@ There are several types R data file formats to be aware of:
 -   `.Rda`: This is short for `.RData` and is equivalent.
 -   `.Rds`: Stores a **single** R object
 
-:::{.callout-note}
-
+::: callout-note
 ### Question
 
 **Why is saving data in as a R object useful?**
@@ -309,11 +307,10 @@ new_x2 <- load(here("data", "x.Rda"))
 new_x2
 ```
 
-:::{.callout-tip}
-### Note 
+::: callout-tip
+### Note
 
 `load()` simply returns the name of the objects loaded. Not the values.
-
 :::
 
 Let's clean up our space.
@@ -324,8 +321,7 @@ file.remove(here("data", "x.Rds"))
 rm(x)
 ```
 
-:::{.callout-note} 
-
+::: callout-note
 ### Question
 
 What do you think this code will do?
@@ -344,7 +340,6 @@ When you are done:
 ```{r, eval=FALSE}
 file.remove(here("data", "x.Rda"))
 ```
-
 :::
 
 ## Other data types
@@ -365,7 +360,9 @@ For example, check out
 
 ## Reading data files with `read.table()`
 
-<details> <summary> For details on reading data with `read.table()`, click here.</summary>
+<details>
+
+<summary>For details on reading data with `read.table()`, click here.</summary>
 
 The `read.table()` function is one of the most commonly used functions for reading data. The help file for `read.table()` is worth reading in its entirety if only because the function gets used a lot (run `?read.table` in R).
 
@@ -380,7 +377,7 @@ The `read.table()` function has a few important arguments:
 -   `nrows`, the number of rows in the dataset. By default `read.table()` reads an entire file.
 -   `comment.char`, a character string indicating the comment character. This defaults to `"#"`. If there are no commented lines in your file, it's worth setting this to be the empty string `""`.
 -   `skip`, the number of lines to skip from the beginning
--   `stringsAsFactors`, should character variables be coded as factors? This defaults to `FALSE`. However, back in the "old days", it defaulted to `TRUE`. The reason for this was because, if you had data that were stored as strings, it was because those strings represented levels of a categorical variable. Now, we have lots of data that is text data and they do not always represent categorical variables. So you may want to set this to be `FALSE` in those cases. If you *always* want this to be `FALSE`, you can set a global option via `options(stringsAsFactors = FALSE)`. 
+-   `stringsAsFactors`, should character variables be coded as factors? This defaults to `FALSE`. However, back in the "old days", it defaulted to `TRUE`. The reason for this was because, if you had data that were stored as strings, it was because those strings represented levels of a categorical variable. Now, we have lots of data that is text data and they do not always represent categorical variables. So you may want to set this to be `FALSE` in those cases. If you *always* want this to be `FALSE`, you can set a global option via `options(stringsAsFactors = FALSE)`.
 
 I've never seen so much heat generated on discussion forums about an R function argument than the `stringsAsFactors` argument. **Seriously**.
 
@@ -390,13 +387,10 @@ For small to moderately sized datasets, you can usually call `read.table()` with
 data <- read.table("foo.txt")
 ```
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 `foo.txt` is not a real dataset here. It is only used as an example for how to use `read.table()`
-
 :::
 
 In this case, R will automatically:
@@ -405,22 +399,21 @@ In this case, R will automatically:
 -   figure out how many rows there are (and how much memory needs to be allocated)
 -   figure what type of variable is in each column of the table.
 
-Telling R all these things directly makes R run faster and more efficiently. 
+Telling R all these things directly makes R run faster and more efficiently.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 The `read.csv()` function is identical to `read.table()` except that some of the defaults are set differently (like the `sep` argument).
-
 :::
 
-</details> 
+</details>
 
 ## Reading in larger datasets with `read.table()`
 
-<details> <summary> For details on reading larger datasets with `read.table()`, click here.</summary>
+<details>
 
+<summary>For details on reading larger datasets with `read.table()`, click here.</summary>
 
 With much larger datasets, there are a few things that you can do that will make your life easier and will prevent R from choking.
 
@@ -446,11 +439,11 @@ In general, when using R with larger datasets, it's also useful to know a few th
 -   Are there other users logged into the same system?
 -   What operating system ar you using? Some operating systems can limit the amount of memory a single process can access
 
-</details> 
+</details>
 
 # Calculating Memory Requirements for R Objects
 
-Because **R stores all of its objects in physical memory**, it is important to be cognizant of how much memory is being used up by all of the data objects residing in your workspace. 
+Because **R stores all of its objects in physical memory**, it is important to be cognizant of how much memory is being used up by all of the data objects residing in your workspace.
 
 One situation where it is particularly important to understand memory requirements is when you are reading in a new dataset into R. Fortunately, it is easy to make a back of the envelope calculation of how much memory will be required by a new dataset.
 
@@ -475,7 +468,7 @@ Reading in a large dataset for which you do not have enough RAM is one easy way 
 
 # Using the `readr` package
 
-The `readr` package was developed by Posit (formerly known as RStudio) to deal with reading in large flat files quickly. 
+The `readr` package was developed by Posit (formerly known as RStudio) to deal with reading in large flat files quickly.
 
 The package provides replacements for functions like `read.table()` and `read.csv()`. The analogous functions in `readr` are `read_table()` and `read_csv()`. These **functions are often much faster than their base R analogues** and provide a few other nice features such as progress meters.
 
@@ -497,30 +490,26 @@ readr_functions <- data.frame(func = c("`read_csv()`",
 knitr::kable(readr_functions, col.names = c("`readr` function", "Use"))
 ```
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-In this code, I used the `kable()` function from the `knitr` package to create the summary table in a table format, rather than as basic R output. 
+In this code, I used the `kable()` function from the `knitr` package to create the summary table in a table format, rather than as basic R output.
 
 This function is very useful **for formatting basic tables in R markdown documents**. For more complex tables, check out the `pander` and `xtable` packages.
-
 :::
 
-For the most part, you can read use `read_table()` and `read_csv()` pretty much anywhere you might use `read.table()` and `read.csv()`. 
+For the most part, you can read use `read_table()` and `read_csv()` pretty much anywhere you might use `read.table()` and `read.csv()`.
 
-In addition, if there are non-fatal problems that occur while reading in the data, you will **get a warning and the returned data frame will have some information about which rows/observations triggered the warning**. 
+In addition, if there are non-fatal problems that occur while reading in the data, you will **get a warning and the returned data frame will have some information about which rows/observations triggered the warning**.
 
 This can be very helpful for "debugging" problems with your data before you get neck deep in data analysis.
 
+## Advantages
 
-## Advantages 
+The advantage of the `read_csv()` function is perhaps better understood from an historical perspective.
 
-The advantage of the `read_csv()` function is perhaps better understood from an historical perspective. 
-
-- R's built in `read.csv()` function similarly reads CSV files, but the `read_csv()` function in `readr` builds on that by **removing some of the quirks and "gotchas"** of `read.csv()` as well as **dramatically optimizing the speed** with which it can read data into R. 
-- The `read_csv()` function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.
+-   R's built in `read.csv()` function similarly reads CSV files, but the `read_csv()` function in `readr` builds on that by **removing some of the quirks and "gotchas"** of `read.csv()` as well as **dramatically optimizing the speed** with which it can read data into R.
+-   The `read_csv()` function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.
 
 ## Example
 
@@ -542,7 +531,7 @@ read_csv("The first line of metadata
   skip = 2)
 ```
 
-Alternatively, you can use the `comment` argument: 
+Alternatively, you can use the `comment` argument:
 
 ```{r}
 read_csv("# A comment I want to skip
@@ -557,19 +546,17 @@ It will also (**by default**), **read in the first few rows of the table** in or
 
 You can specify the type of each column with the `col_types` argument.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 In general, it is a good idea to **specify the column types explicitly**.
 
-This rules out any possible guessing errors on the part of `read_csv()`. 
+This rules out any possible guessing errors on the part of `read_csv()`.
 
 Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.
-
 :::
 
-Here is an example of how to specify the column types explicitly: 
+Here is an example of how to specify the column types explicitly:
 
 ```{r}
 teams <- read_csv(here("data", "team_standings.csv"), 
@@ -578,15 +565,12 @@ teams <- read_csv(here("data", "team_standings.csv"),
 
 Note that the `col_types` argument accepts a compact representation. Here `"cc"` indicates that the first column is `character` and the second column is `character` (there are only two columns). Using the `col_types` argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-The `read_csv()` function **will also read compressed files** automatically. 
+The `read_csv()` function **will also read compressed files** automatically.
 
-There is no need to decompress the file first or use the `gzfile` connection function. 
-
+There is no need to decompress the file first or use the `gzfile` connection function.
 :::
 
 The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.
@@ -607,7 +591,7 @@ logs
 
 You can **specify the column type in a more detailed fashion** by using the various `col_*()` functions.
 
-For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a `Date` object. 
+For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a `Date` object.
 
 If we wanted to just read in that first column, we could do
 
@@ -620,16 +604,14 @@ logdates
 
 Now the `date` column is stored as a `Date` object which can be used for relevant date-related computations (for example, see the `lubridate` package).
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-The `read_csv()` function has a `progress` option that defaults to TRUE. 
+The `read_csv()` function has a `progress` option that defaults to TRUE.
 
-This options provides a nice progress meter while the CSV file is being read. 
+This options provides a nice progress meter while the CSV file is being read.
 
 However, if you are using `read_csv()` in a function, or perhaps embedding it in a loop, it is probably best to set `progress = FALSE`.
-
 :::
 
 # Post-lecture materials
