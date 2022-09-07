@@ -472,13 +472,35 @@ Pro tip
 </section>
 <section id="before-you-start-label-your-data" class="level2">
 <h2 class="anchored" data-anchor-id="before-you-start-label-your-data">Before you start: label your data</h2>
-<p>One thing that is always true, but is particularly useful when using <code>ggplot2</code>, is that you should always use informative and descriptive labels on your data. More generally, your data should have appropriate <em>metadata</em> so that you can quickly look at a dataset and know</p>
+<p>One thing that is always true, but is particularly useful when using <code>ggplot2</code>, is that you should always <strong>use informative and descriptive labels on your data</strong>.</p>
+<p>More generally, your data should have appropriate <strong>metadata</strong> so that you can quickly look at a dataset and know</p>
 <ul>
-<li><p>what the variables are</p></li>
-<li><p>what the values of each variable mean</p></li>
+<li>what are variables?</li>
+<li>what do the values of each variable mean?</li>
 </ul>
-<p>This means that each column of a data frame should have a meaningful (but concise) variable name that accurately reflects the data stored in that column. Also, non-numeric or categorical variables should be coded as factor variables and have meaningful labels for each level of the factor. For example, it is common to code a binary variable as a “0” or a “1”, but the problem is that from quickly looking at the data, it’s impossible to know whether which level of that variable is represented by a “0” or a “1”. Much better to simply label each observation as what they are. If a variable represents temperature categories, it might be better to use “cold”, “mild”, and “hot” rather than “1”, “2”, and “3”.</p>
-<p>While it is sometimes a pain to make sure all of your data are properly labeled, this investment in time can pay dividends down the road when you’re trying to figure out what you were plotting. In other words, including the proper metadata can make your exploratory plots essentially self-documenting.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Each column</strong> of a data frame should <strong>have a meaningful (but concise) variable name</strong> that accurately reflects the data stored in that column</li>
+<li>Non-numeric or <strong>categorical variables should be coded as factor variables</strong> and have meaningful labels for each level of the factor.
+<ul>
+<li>Might be common to code a binary variable as a “0” or a “1”, but the problem is that from quickly looking at the data, it’s impossible to know whether which level of that variable is represented by a “0” or a “1”.</li>
+<li>Much better to simply label each observation as what they are.</li>
+<li>If a variable represents temperature categories, it might be better to use “cold”, “mild”, and “hot” rather than “1”, “2”, and “3”.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p>While it is sometimes a pain to make sure all of your data are properly labeled, this <strong>investment in time can pay dividends down the road</strong> when you’re trying to figure out what you were plotting.</p>
+<p>In other words, including the proper metadata can make your exploratory plots essentially self-documenting.</p>
 </section>
 <section id="ggplot2-hello-world" class="level2">
 <h2 class="anchored" data-anchor-id="ggplot2-hello-world">ggplot2 “Hello, world!”</h2>
@@ -503,8 +525,20 @@ $ fl           &lt;chr&gt; "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p"
 $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact", "c…</code></pre>
 </div>
 </div>
-<p>You can see from the <code>glimpse()</code> (part of the <code>dplyr</code> package) output that all of the categorical variables (like “manufacturer” or “class”) are appropriately coded with meaningful labels. This will come in handy when <code>qplot()</code> has to label different aspects of a plot. Also note that all of the columns/variables have meaningful (if sometimes abbreviated) names, rather than names like “X1”, and “X2”, etc.</p>
-<p>We can make a quick scatterplot of the engine displacement (<code>displ</code>) and the highway miles per gallon (<code>hwy</code>).</p>
+<p>You can see from the <code>glimpse()</code> (part of the <code>dplyr</code> package) output that all of the categorical variables (like “manufacturer” or “class”) are **appropriately coded with meaningful label*s**.</p>
+<p>This will come in handy when <code>qplot()</code> has to label different aspects of a plot.</p>
+<p>Also note that all of the <strong>columns/variables have meaningful names</strong> (if sometimes abbreviated), rather than names like “X1”, and “X2”, etc.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can <strong>make a quick scatterplot</strong> using <code>qplot()</code> of the engine displacement (<code>displ</code>) and the highway miles per gallon (<code>hwy</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">data =</span> mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -516,24 +550,43 @@ $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact"
 </div>
 </div>
 </div>
+</div>
+</div>
 <p>It has a <em>very</em> similar feeling to <code>plot()</code> in base R.</p>
-<div class="keyideas">
-<p><strong>Note</strong>: In the call to <code>qplot()</code> you must specify the <code>data</code> argument so that <code>qplot()</code> knows where to look up the variables.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the call to <code>qplot()</code> you <strong>must specify the <code>data</code> argument</strong> so that <code>qplot()</code> knows where to look up the variables.</p>
 <p>You must also specify <code>x</code> and <code>y</code>, but hopefully that part is obvious.</p>
+</div>
 </div>
 </section>
 <section id="modifying-aesthetics" class="level2">
 <h2 class="anchored" data-anchor-id="modifying-aesthetics">Modifying aesthetics</h2>
-<p>We can introduce a third variable into the plot by modifying the color of the points based on the value of that third variable.</p>
-<p>Color (or colour) is one type of aesthetic and using the ggplot2 language:</p>
+<p>We can introduce a third variable into the plot by <strong>modifying the color</strong> of the points based on the value of that third variable.</p>
+<p>Color (or colour) is one type of <strong>aesthetic</strong> and using the <code>ggplot2</code> language:</p>
 <blockquote class="blockquote">
-<p>“the color of each point can be mapped to a variable”.</p>
+<p>“the color of each point can be mapped to a variable”</p>
 </blockquote>
 <p>This sounds technical, but let’s give an example.</p>
-<div class="keyideas">
-<p><strong>Note</strong>: the x-coordinates and y-coordinates are aesthetics too, and they got mapped to the <code>displ</code> and <code>hwy</code> variables, respectively</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Here, we will map the color to the <code>drv</code> variable, which indicates whether a car is front wheel drive, rear wheel drive, or 4-wheel drive.</p>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We map the <code>color</code> argument to the <code>drv</code> variable, which indicates whether a car is front wheel drive, rear wheel drive, or 4-wheel drive.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">color =</span> drv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -545,9 +598,34 @@ $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact"
 </div>
 </div>
 </div>
-<p>Now we can see that the front wheel drive cars tend to have lower displacement relative to the 4-wheel or rear wheel drive cars. Also, it’s clear that the 4-wheel drive cars have the lowest highway gas mileage.</p>
-<div class="questions">
-<p><strong>Question</strong>: In the above plot, I did not specify the <code>x</code> and <code>y</code> variable. What happens when you run these two code chunks. What’s the difference?</p>
+</div>
+</div>
+<p>Now we can see that the front wheel drive cars tend to have lower displacement relative to the 4-wheel or rear wheel drive cars.</p>
+<p>Also, it’s clear that the 4-wheel drive cars have the lowest highway gas mileage.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>x</code> argument and <code>y</code> argument are aesthetics too, and they got mapped to the <code>displ</code> and <code>hwy</code> variables, respectively.</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the above plot, I did not specify the <code>x</code> and <code>y</code> variable. What happens when you run these two code chunks. What’s the difference?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">color =</span> drv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -561,11 +639,34 @@ $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact"
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">y =</span> hwy, <span class="at">x =</span> displ, <span class="at">data =</span> mpg, <span class="at">color =</span> drv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="questions">
-<p><strong>Example</strong>: Let’s try mapping colors in another dataset, namely the <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a> dataset. These data contain observations for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.</p>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try mapping colors in another dataset, namely the <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a> dataset. These data contain observations for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p></p><figcaption class="figure-caption">Palmer penguins</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 344
 Columns: 8
@@ -581,8 +682,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </div>
 <p>If we wanted to count the number of penguins for each of the three species, we can use the <code>count()</code> function in <code>dplyr</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   species       n
@@ -592,97 +693,162 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 3 Gentoo      124</code></pre>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<p></p><figcaption class="figure-caption">Palmer penguins</figcaption><p></p>
-</figure>
 </div>
 </div>
+<p>For example, we see there are a total of 152 Adelie penguins in the <code>palmerpenguins</code> dataset.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>[<strong>Source</strong>: <a href="https://github.com/allisonhorst/stats-illustrations">Artwork by Allison Horst</a>]</p>
-<p><strong>Question</strong>: If we wanted to use <code>qplot()</code> to map <code>flipper_length_mm</code> and <code>bill_length_mm</code> to the x and y coordinates, what would we do?</p>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If we wanted to use <code>qplot()</code> to map <code>flipper_length_mm</code> and <code>bill_length_mm</code> to the x and y coordinates, what would we do?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now try mapping color to the <code>species</code> variable on top of the code you just wrote:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </section>
 <section id="adding-a-geom" class="level2">
 <h2 class="anchored" data-anchor-id="adding-a-geom">Adding a geom</h2>
-<p>Sometimes it is nice to add a smoother to a scatterplot to highlight any trends. Trends can be difficult to see if the data are very noisy or there are many data points obscuring the view. A smooth is a “geom” that you can add along with your data points.</p>
+<p>Sometimes it is nice to <strong>add a smoother</strong> to a scatterplot to highlight any trends.</p>
+<p>Trends can be difficult to see if the data are very noisy or there are many data points obscuring the view.</p>
+<p>A smoother is a <strong>type of “geom”</strong> that you can add along with your data points.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"point"</span>, <span class="st">"smooth"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"point"</span>, <span class="st">"smooth"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Engine displacement and highway mileage w/smoother</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Note that previously, we did not have to specify <code>geom = "point"</code> because that was done automatically. But if you want the smoother overlaid with the points, then you need to specify both explicitly.</p>
+</div>
+</div>
 <p>Here it seems that engine displacement and highway mileage have a nonlinear U-shaped relationship, but from the previous plot we know that this is largely due to confounding by the drive class of the car.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Previously, we did not have to specify <code>geom = "point"</code> because that was done automatically.</p>
+<p>But if you want the smoother overlaid with the points, then you need to specify both explicitly.</p>
+</div>
+</div>
 <p>Look at what happens if we <em>do not</em> include the <code>point</code> geom.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"smooth"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"smooth"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Engine displacement and highway mileage w/smoother</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Sometimes that is the plot you want to show, but in this case it might make more sense to show the data along with the smoother.</p>
-<div class="questions">
-<p><strong>Example</strong>: Let’s add a smoother to our <code>palmerpenguins</code> dataset example. Using the code we previously wrote mapping variables to points and color, add a “point” and “smooth” geom:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s <strong>add a smoother</strong> to our <code>palmerpenguins</code> dataset example.</p>
+<p>Using the code we previously wrote mapping variables to points and color, add a “point” and “smooth” geom:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </section>
 <section id="histograms-and-boxplots" class="level2">
 <h2 class="anchored" data-anchor-id="histograms-and-boxplots">Histograms and boxplots</h2>
-<p>The <code>qplot()</code> function can be used to be used to plot 1-dimensional data too. By specifying a single variable, <code>qplot()</code> will by default make a histogram.</p>
-<p>Here, we make a histogram if the highway mileage data and stratify on the drive class. So technically this is three histograms overlayed on top of each other.</p>
+<p>The <code>qplot()</code> function can be used to be used to plot 1-dimensional data too.</p>
+<p>By <strong>specifying a single variable</strong>, <code>qplot()</code> will by default make a <strong>histogram</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can make a histogram of the highway mileage data and stratify on the drive class. So technically this is three histograms on top of each other.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(hwy, <span class="at">data =</span> mpg, <span class="at">fill =</span> drv, <span class="at">binwidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(hwy, <span class="at">data =</span> mpg, <span class="at">fill =</span> drv, <span class="at">binwidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Histogram of highway mileage by drive class</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="questions">
-<p><strong>Question</strong>: Notice, I used <code>fill</code> here to map color to the <code>drv</code> variable. Why is this? What happens when you use <code>color</code> instead?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Having the different colors for each drive class is nice, but the three histograms can be a bit difficult to separate out. Side-by-side boxplots is one solution to this problem.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice, I used <code>fill</code> here to map color to the <code>drv</code> variable. Why is this? What happens when you use <code>color</code> instead?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(drv, hwy, <span class="at">data =</span> mpg, <span class="at">geom =</span> <span class="st">"boxplot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Having the different colors for each drive class is nice, but the three histograms can be a bit difficult to separate out.</p>
+<p><strong>Side-by-side boxplots</strong> are one solution to this problem.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(drv, hwy, <span class="at">data =</span> mpg, <span class="at">geom =</span> <span class="st">"boxplot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Boxplots of highway mileage by drive class</figcaption><p></p>
 </figure>
 </div>
@@ -692,51 +858,100 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 <section id="facets" class="level2">
 <h2 class="anchored" data-anchor-id="facets">Facets</h2>
-<p>Facets are a way to create multiple panels of plots based on the levels of categorical variable. Here, we want to see a histogram of the highway mileages and the categorical variable is the drive class variable. We can do that using the <code>facets</code> argument to <code>qplot()</code>.</p>
-<p>The <code>facets</code> argument expects a formula type of input, with a <code>~</code> separating the left hand side variable and the right hand side variable. The left hand side variable indicates how the rows of the panels should be divided and the right hand side variable indicates how the columns of the panels should be divided. Here, we just want three rows of histograms (and just one column), one for each drive class, so we specify <code>drv</code> on the left hand side and <code>.</code> on the right hand side indicating that there’s no variable there (it’s empty).</p>
+<p><strong>Facets</strong> are a way to <strong>create multiple panels of plots based on the levels of categorical variable</strong>.</p>
+<p>Here, we want to see a histogram of the highway mileages and the categorical variable is the drive class variable. We can do that using the <code>facets</code> argument to <code>qplot()</code>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>facets</code> argument <strong>expects a formula type of input</strong>, with a <code>~</code> separating the left hand side variable and the right hand side variable.</p>
+<ul>
+<li>The <strong>left hand side</strong> variable indicates how the rows of the panels should be divided</li>
+<li>The <strong>right hand side</strong> variable indicates how the columns of the panels should be divided</li>
+</ul>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here, we just want three rows of histograms (and just one column), one for each drive class, so we specify <code>drv</code> on the left hand side and <code>.</code> on the right hand side indicating that there’s no variable there (it’s empty).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(hwy, <span class="at">data =</span> mpg, <span class="at">facets =</span> drv <span class="sc">~</span> ., <span class="at">binwidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(hwy, <span class="at">data =</span> mpg, <span class="at">facets =</span> drv <span class="sc">~</span> ., <span class="at">binwidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="480"></p>
 <p></p><figcaption class="figure-caption">Histogram of highway mileage by drive class</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We could also look at more data using facets, so instead of histograms we could look at scatterplots of engine displacement and highway mileage by drive class. Here, we put the <code>drv</code> variable on the right hand side to indicate that we want a column for each drive class (as opposed to splitting by rows like we did above).</p>
+</div>
+</div>
+<p>We could also look at <strong>more data using facets</strong>, so instead of histograms we could look at scatter plots of engine displacement and highway mileage by drive class.</p>
+<p>Here, we put the <code>drv</code> variable on the right hand side to indicate that we want a column for each drive class (as opposed to splitting by rows like we did above).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">facets =</span> . <span class="sc">~</span> drv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">facets =</span> . <span class="sc">~</span> drv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="576"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="576"></p>
 <p></p><figcaption class="figure-caption">Engine displacement and highway mileage by drive class</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>What if you wanted to add a smoother to each one of those panels? Simple, you literally just add the smoother as another geom.</p>
+<p>What if you wanted to <strong>add a smoother to each one of those panels</strong>? Simple, you literally just add the smoother as another <strong>geom</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">facets =</span> . <span class="sc">~</span> drv) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(displ, hwy, <span class="at">data =</span> mpg, <span class="at">facets =</span> . <span class="sc">~</span> drv) <span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="576"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="576"></p>
 <p></p><figcaption class="figure-caption">Engine displacement and highway mileage by drive class w/smoother</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="keyideas">
-<p><strong>Note</strong>: we used a different type of smoother. Here, we add a linear regression line (a type of smoother) to each group to see if there’s any difference.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="questions">
-<p><strong>Example</strong>: Let’s facet our <code>palmerpenguins</code> dataset example and explore different types of plots.</p>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We used a different type of smoother above.</p>
+<p>Here, we add a <strong>linear regression line</strong> (a type of smoother) to each group to see if there’s any difference.</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s facet our <code>palmerpenguins</code> dataset example and explore different types of plots.</p>
 <p>Building off the code we previously wrote, perform the following tasks:</p>
 <ul>
 <li>Facet the plot based on <code>species</code> with the the three species along rows.</li>
@@ -748,6 +963,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <p>Next, make a histogram of the <code>body_mass_g</code> for each of the species colored by the three species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it yourself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -808,7 +1024,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Histogram of log eNO</figcaption><p></p>
 </figure>
 </div>
@@ -823,7 +1039,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Histogram of log eNO by mouse allergic status</figcaption><p></p>
 </figure>
 </div>
@@ -836,7 +1052,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Density smooth of log eNO</figcaption><p></p>
 </figure>
 </div>
@@ -848,7 +1064,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Density smooth of log eNO by mouse allergic status</figcaption><p></p>
 </figure>
 </div>
@@ -864,7 +1080,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">eNO and PM2.5</figcaption><p></p>
 </figure>
 </div>
@@ -877,7 +1093,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">eNO and PM2.5 by mouse allergic status</figcaption><p></p>
 </figure>
 </div>
@@ -890,7 +1106,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">eNO and PM2.5 by mouse allergic status</figcaption><p></p>
 </figure>
 </div>
@@ -904,7 +1120,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Here we see quite clearly that the red group and the green group exhibit rather different relationships between PM2.5 and eNO. For the non-allergic individuals, there appears to be a slightly negative relationship between PM2.5 and eNO and for the allergic individuals, there is a positive relationship. This suggests a strong interaction between PM2.5 and allergic status, an hypothesis perhaps worth following up on in greater detail than this brief exploratory analysis.</p>
@@ -916,7 +1132,7 @@ Click here for case study practicing the <code>qplot()</code> function.
 <pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="864"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 </details>
@@ -940,7 +1156,7 @@ Questions
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">data =</span> mpg, <span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ol start="2" type="1">
