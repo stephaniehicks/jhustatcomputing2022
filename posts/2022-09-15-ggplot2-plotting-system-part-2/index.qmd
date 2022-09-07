@@ -67,13 +67,13 @@ A **`ggplot2` plot** consists of a number of **key components**.
 
 -   **aesthetic mappings**: describe how data are mapped to color, size, shape, location
 
--   **geoms**: geometric objects like points, lines, shapes.
+-   **geoms**: geometric objects like points, lines, shapes
 
 -   **facets**: describes how conditional/panel plots should be constructed
 
--   **stats**: statistical transformations like binning, quantiles, smoothing.
+-   **stats**: statistical transformations like binning, quantiles, smoothing
 
--   **scales**: what scale an aesthetic map uses (example: left-handed = red, right-handed = blue).
+-   **scales**: what scale an aesthetic map uses (example: left-handed = red, right-handed = blue)
 
 -   **coordinate system**: describes the system in which the locations of the geoms will be drawn
 
@@ -99,7 +99,7 @@ Plots are built up in layers, with the typically ordering being
 
 For quick exploratory plots you may not get past step 1.
 
-### Example: BMI, PM2.5, Asthma
+## Example: BMI, PM2.5, Asthma
 
 To demonstrate the various pieces of `ggplot2` we will use a running example from the **Mouse Allergen and Asthma Cohort Study (MAACS)**, which was used as a case study in the previous lesson. Here, the question we are interested in is
 
@@ -138,7 +138,7 @@ maacs
 
 :::
 
-The outcome we will look at here, `NocturnalSymp`, is the number of days in the past 2 weeks where the child experienced asthma symptoms (e.g. coughing, wheezing) while sleeping.
+The outcome we will look at here (`NocturnalSymp`) is the number of days in the past 2 weeks where the child experienced asthma symptoms (e.g. coughing, wheezing) while sleeping.
 
 The other key variables are:
 
@@ -148,7 +148,7 @@ The other key variables are:
 
 -   `bmicat`: categorical variable with BMI status
 
-## Building up in layers
+# Building up in layers
 
 First, we can **create a `ggplot` object** that stores the dataset and the basic aesthetics for mapping the x- and y-coordinates for the plot. 
 
@@ -262,9 +262,12 @@ Now it seems clear that the relationship between PM2.5 and nocturnal symptoms is
 This plot suggests that overweight individuals may be more susceptible to the effects of PM2.5.
 
 
-## Modifying geom properties
+# Modifying geom properties
 
 You can **modify properties of geoms** by specifying options to their respective `geom_*()` functions. 
+
+
+### map aesthetics to constants
 
 ::: callout-tip
 
@@ -281,7 +284,7 @@ g + geom_point(color = "steelblue", size = 4, alpha = 1/2)
 
 ### map aesthetics to variables
 
-In addition to setting specific geom attributes to constants, we can **map aesthetics to variables**. 
+In addition to setting specific geom attributes to constant values, we can **map aesthetics to variables** in our dataset. 
 
 For example, we can map the aesthetic `color` to the variable `bmicat`, so the points will be colored according to the levels of `bmicat`. 
 
@@ -292,7 +295,7 @@ We use the `aes()` function to indicate this difference from the plot above.
 g + geom_point(aes(color = bmicat), size = 4, alpha = 1/2)
 ```
 
-### Customizing the smooth
+## Customizing the smooth
 
 We can also **customize aspects of the geoms**. 
 
@@ -312,6 +315,50 @@ g +
               method = "lm", 
               se = FALSE)
 ```
+
+
+# Other important stuff
+
+## Changing the theme
+
+The **default theme for `ggplot2` uses the gray background** with white grid lines. 
+
+If you don't find this suitable, you can use the black and white theme by using the `theme_bw()` function.
+
+The `theme_bw()` function also allows you to set the typeface for the plot, in case you don't want the default Helvetica. Here we change the typeface to Times.
+
+:::{.callout-tip}
+
+### Note 
+
+For things that only make sense globally, use `theme()`, i.e. `theme(legend.position = "none")`. Two standard appearance themes are included
+
+-   `theme_gray()`: The default theme (gray background)
+-   `theme_bw()`: More stark/plain
+
+:::
+
+```{r}
+#| fig-cap: "Modifying the theme for a plot"
+g + 
+  geom_point(aes(color = bmicat)) + 
+  theme_bw(base_family = "Times")
+```
+
+::: callout-note
+
+### Question 
+
+Let's take our `palmerpenguins` scatterplot from above and change out the theme to use `theme_dark()`.
+```{r}
+# try it yourself
+
+library(palmerpenguins)
+penguins 
+
+```
+
+:::
 
 
 ## Modifying labels
@@ -342,89 +389,72 @@ g +
 ```
 
 
-## Changing the theme
-
-The **default theme for `ggplot2` uses the gray background** with white grid lines. 
-
-If you don't find this suitable, you can use the black and white theme by using the `theme_bw()` function.
-
-The `theme_bw()` function also allows you to set the typeface for the plot, in case you don't want the default Helvetica. Here we change the typeface to Times.
-
-:::{.callout-tip}
-
-### Note 
-
-For things that only make sense globally, use `theme()`, i.e. `theme(legend.position = "none")`. Two standard appearance themes are included
-
--   `theme_gray()`: The default theme (gray background)
--   `theme_bw()`: More stark/plain
-
-:::
-
-```{r}
-#| fig-cap: "Modifying the theme for a plot"
-g + geom_point(aes(color = bmicat)) + 
-        theme_bw(base_family = "Times")
-```
-
-::: callout-note
-
-### Question 
-
-Let's take our `palmerpenguins` scatterplot from above and change out the theme to use `theme_dark()`.
-```{r}
-# try it yourself
-
-library(palmerpenguins)
-penguins 
-
-```
-
-:::
 
 ## A quick aside about axis limits
 
-One quick quirk about `ggplot2` that caught me up when I first started using the package can be displayed in the following example. I make a lot of time series plots and I often want to restrict the range of the y-axis while still plotting all the data. In the base graphics system you can do that as follows.
+One quick **quirk about `ggplot2`** that caught me up when I first started using the package can be displayed in the following example. 
 
-```{r, fig.cap="Time series plot with base graphics"}
-testdat <- data.frame(x = 1:100, y = rnorm(100))
+If you make a lot of time series plots, you often **want to restrict the range of the y-axis** while still plotting all the data. 
+
+In the base graphics system you can do that as follows.
+
+```{r}
+#| fig-cap: "Time series plot with base graphics"
+testdat <- data.frame(x = 1:100, 
+                      y = rnorm(100))
 testdat[50,2] <- 100  ## Outlier!
-plot(testdat$x, testdat$y, type = "l", ylim = c(-3,3))
+plot(testdat$x, 
+     testdat$y,
+     type = "l", 
+     ylim = c(-3,3))
 ```
 
-Here I've restricted the y-axis range to be between -3 and 3, even though there is a clear outlier in the data.
+Here, we have restricted the y-axis range to be between -3 and 3, even though there is a clear outlier in the data.
+
+::: callout-tip
+
+### Example
 
 With `ggplot2` the default settings will give you this.
 
-```{r,fig.cap="Time series plot with default settings"}
+```{r}
+#| fig-cap: "Time series plot with default settings"
 g <- ggplot(testdat, aes(x = x, y = y))
 g + geom_line()
 ```
 
-Modifying the `ylim()` attribute would seem to give you the same thing as the base plot, but it doesn't.
+One might think that modifying the `ylim()` attribute would give you the same thing as the base plot, but it doesn't (?????)
 
-```{r,fig.cap="Time series plot with modified ylim"}
-g + geom_line() + ylim(-3, 3)
+```{r}
+#| fig-cap: "Time series plot with modified ylim"
+g + 
+  geom_line() + 
+  ylim(-3, 3)
 ```
+
+:::
 
 Effectively, what this does is subset the data so that only observations between -3 and 3 are included, then plot the data.
 
 To plot the data without subsetting it first and still get the restricted range, you have to do the following.
 
-```{r,fig.cap="Time series plot with restricted y-axis range"}
-g + geom_line() + coord_cartesian(ylim = c(-3, 3))
+```{r}
+#| fig-cap: "Time series plot with restricted y-axis range"
+g + 
+  geom_line() + 
+  coord_cartesian(ylim = c(-3, 3))
 ```
 
 And now you know!
 
-## Resources
+# Post-lecture materials
+
+### Resources
 
 -   The *ggplot2* book by Hadley Wickham
--   The *R Graphics Cookbook* by Winston Chang (examples in base plots and in ggplot2)
+-   The *R Graphics Cookbook* by Winston Chang (examples in base plots and in `ggplot2`)
 -   [tidyverse web site](http://ggplot2.tidyverse.org)
 
-
-# Post-lecture materials
 
 ### More complex example with `ggplot2`
 
