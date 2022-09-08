@@ -53,7 +53,7 @@ Material for this lecture was borrowed and adopted from
 
 # Tidy data
 
-As we learned in the last lesson, one unifying concept of the tidyverse is the notion of **tidy data**. 
+As we learned in the last lesson, one unifying concept of the tidyverse is the notion of **tidy data**.
 
 As defined by Hadley Wickham in his 2014 paper published in the *Journal of Statistical Software*, a [tidy dataset](https://www.jstatsoft.org/article/view/v059i10) has the following properties:
 
@@ -67,18 +67,16 @@ As defined by Hadley Wickham in his 2014 paper published in the *Journal of Stat
 
 \[**Source**: [Artwork by Allison Horst](https://github.com/allisonhorst/stats-illustrations)\]
 
-The **purpose of defining tidy data** is to highlight the fact that **most data do not start out life as tidy**. 
+The **purpose of defining tidy data** is to highlight the fact that **most data do not start out life as tidy**.
 
-In fact, much of the work of data analysis may involve simply making the data tidy (at least this has been our experience). 
+In fact, much of the work of data analysis may involve simply making the data tidy (at least this has been our experience).
 
-- Once a dataset is tidy, it **can be used as input into a variety of other functions** that may transform, model, or visualize the data.
+-   Once a dataset is tidy, it **can be used as input into a variety of other functions** that may transform, model, or visualize the data.
 
+::: callout-tip
+### Example
 
-:::{.callout-tip}
-
-### Example 
-
-As a quick example, consider the following data illustrating **religion and income survey data** with the number of respondents with income range in column name. 
+As a quick example, consider the following data illustrating **religion and income survey data** with the number of respondents with income range in column name.
 
 This is in a classic table format:
 
@@ -86,14 +84,13 @@ This is in a classic table format:
 library(tidyr)
 relig_income
 ```
-
 :::
 
-While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy. 
+While this format is canonical and is useful for quickly observing the relationship between multiple variables, it is not tidy.
 
-**This format violates the tidy form** because there are variables in the columns. 
+**This format violates the tidy form** because there are variables in the columns.
 
-- In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table.
+-   In this case the variables are religion, income bracket, and the number of respondents, which is the third variable, is presented inside the table.
 
 Converting this data to tidy format would give us
 
@@ -111,9 +108,8 @@ Some of these functions you have seen before, others might be new to you. Let's 
 
 There are a number of R packages that take advantage of the tidy data form and can be used to do interesting things with data. Many (but not all) of these packages are written by Hadley Wickham and **the collection of packages is often referred to as the "tidyverse"** because of their **dependence on and presumption of tidy data**.
 
-:::{.callout-tip}
-
-### Note 
+::: callout-tip
+### Note
 
 A subset of the "Tidyverse" packages include:
 
@@ -125,14 +121,12 @@ A subset of the "Tidyverse" packages include:
 
 -   [tidyr](https://cran.r-project.org/package=tidyr): easily tidy data with `pivot_wider()` and `pivot_longer()` functions (also `separate()` and `unite()`)
 
-
 A complete list can be found here (<https://www.tidyverse.org/packages>).
-
 :::
 
 We will be using these packages quite a bit.
 
-The "tidyverse" package can be used to install all of the packages in the tidyverse at once. 
+The "tidyverse" package can be used to install all of the packages in the tidyverse at once.
 
 For example, instead of starting an R script with this:
 
@@ -149,7 +143,7 @@ You can start with this:
 library(tidyverse)
 ```
 
-In the example above, let's talk about what we did using the `pivot_longer()` function. 
+In the example above, let's talk about what we did using the `pivot_longer()` function.
 
 We will also talk about `pivot_wider()`.
 
@@ -160,17 +154,16 @@ The `tidyr` package includes functions to transfer a data frame between *long* a
 -   **Wide format** data tends to have different attributes or variables describing an observation placed in separate columns.
 -   **Long format** data tends to have different attributes encoded as levels of a single variable, followed by another column that contains tha values of the observation at those different levels.
 
-:::{.callout-tip}
-
-### Example 
+::: callout-tip
+### Example
 
 In the section above, we showed an example that used `pivot_longer()` to convert data into a tidy format.
 
 The **key problem** with the tidyness of the data is that the income variables are not in their own columns, but rather are embedded in the structure of the columns.
 
-To **fix this**, you can use the `pivot_longer()` function to **gather values spread across several columns into a single column**, here with the column names gathered into an `income` column. 
+To **fix this**, you can use the `pivot_longer()` function to **gather values spread across several columns into a single column**, here with the column names gathered into an `income` column.
 
-**Note**: when gathering, exclude any columns that you do not want "gathered" (`religion` in this case) by including the column names with a the minus sign in the `pivot_longer()` function. 
+**Note**: when gathering, exclude any columns that you do not want "gathered" (`religion` in this case) by including the column names with a the minus sign in the `pivot_longer()` function.
 
 For example:
 
@@ -179,18 +172,16 @@ For example:
 relig_income %>%
   pivot_longer(-religion, names_to = "income", values_to = "respondents")
 ```
-
 :::
 
 Even if your data is in a tidy format, `pivot_longer()` is occasionally useful for pulling data together to take advantage of faceting, or plotting separate plots based on a grouping variable. We will talk more about that in a future lecture.
 
-###  `pivot_wider()`
+### `pivot_wider()`
 
-The `pivot_wider()` function is less commonly needed to tidy data. It can, however, be useful for creating summary tables. 
+The `pivot_wider()` function is less commonly needed to tidy data. It can, however, be useful for creating summary tables.
 
-:::{.callout-tip}
-
-### Example 
+::: callout-tip
+### Example
 
 You use the `summarize()` function in `dplyr` to summarize the total number of respondents per income category.
 
@@ -204,21 +195,17 @@ relig_income %>%
               values_from = "total_respondents") %>%
   knitr::kable()
 ```
-
 :::
 
-Notice in this example how `pivot_wider()` has been used at the **very end of the code sequence** to convert the summarized data into a shape that **offers a better tabular presentation for a report**. 
+Notice in this example how `pivot_wider()` has been used at the **very end of the code sequence** to convert the summarized data into a shape that **offers a better tabular presentation for a report**.
 
-:::{.callout-tip}
-
-### Note 
+::: callout-tip
+### Note
 
 In the `pivot_wider()` call, you first specify the name of the column to use for the new column names (`income` in this example) and then specify the column to use for the cell values (`total_respondents` here).
-
 :::
 
 ::: callout-tip
-
 ### Example of `pivot_longer()`
 
 Let's try another dataset. This data contain an excerpt of the [Gapminder data](https://cran.r-project.org/web/packages/gapminder/README.html#gapminder) on life expectancy, GDP per capita, and population by country.
@@ -237,7 +224,6 @@ If we wanted to make `lifeExp`, `pop` and `gdpPercap` (all measurements that we 
 :::
 
 ::: callout-tip
-
 ### Example
 
 One more! Try using `pivot_longer()` to convert the the following data that contains made-up revenues for three companies by quarter for years 2006 to 2009.
@@ -325,4 +311,3 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 -   https://r4ds.had.co.nz/tidy-data.html
 -   [tidyr cheat sheet from RStudio](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 :::
-

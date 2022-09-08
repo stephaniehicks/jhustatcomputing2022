@@ -617,19 +617,17 @@ first(x) %>% second %>% third
 ::: callout-tip
 ### Example
 
-Take the example that we just did in the last section where we computed the mean of `o3` and `no2` within quintiles of `pm25`. There we had to
-
-1.  create a new variable `pm25.quint`
-2.  split the data frame by that new variable
-3.  compute the mean of `o3` and `no2` in the sub-groups defined by `pm25.quint`
+Take the example that we just did in the last section. 
 
 That can be done with the following sequence in a single R expression.
 
 ```{r}
-mutate(chicago, pm25.quint = cut(pm25, qq)) %>%    
-        group_by(pm25.quint) %>% 
-        summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
-                  no2 = mean(no2tmean2, na.rm = TRUE))
+chicago %>% 
+  mutate(year = as.POSIXlt(date)$year + 1900) %>%    
+  group_by(year) %>% 
+  summarize(pm25 = mean(pm25, na.rm = TRUE), 
+            o3 = max(o3tmean2, na.rm = TRUE), 
+            no2 = median(no2tmean2, na.rm = TRUE))
 ```
 :::
 
@@ -671,6 +669,7 @@ The number of rows to show is specified by the `n` argument.
 slice_sample(chicago, n = 10)
 ```
 :::
+
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the `n` argument.
 

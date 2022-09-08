@@ -47,54 +47,49 @@ Material for this lecture was borrowed and adopted from
 
 # Relational data
 
-Data analyses rarely involve only a single table of data. 
+Data analyses rarely involve only a single table of data.
 
-Typically you have many tables of data, and you **must combine the datasets** to answer the questions that you are interested in. 
+Typically you have many tables of data, and you **must combine the datasets** to answer the questions that you are interested in.
 
 Collectively, **multiple tables of data are called relational data** because it is the *relations*, not just the individual datasets, that are important.
 
-Relations are **always defined between a pair of tables**. All other relations are built up from this simple idea: the relations of three or more tables are always a property of the relations between each pair. 
+Relations are **always defined between a pair of tables**. All other relations are built up from this simple idea: the relations of three or more tables are always a property of the relations between each pair.
 
 Sometimes both elements of a pair can be the same table! This is needed if, for example, you have a table of people, and each person has a reference to their parents.
 
 To work with relational data you **need verbs that work with pairs of tables**.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Three important families of verbs
 
 There are three families of verbs designed to work with relational data:
 
 -   [**Mutating joins**](https://r4ds.had.co.nz/relational-data.html#mutating-joins): A mutating join allows you to **combine variables from two tables**. It first matches observations by their keys, then copies across variables from one table to the other on the right side of the table (similar to `mutate()`). We will discuss a few of these below.
-    - See @sec-mutjoins for Table of mutating joins.
--   [**Filtering joins**](https://r4ds.had.co.nz/relational-data.html#filtering-joins): Filtering joins **match observations** in the same way as mutating joins, **but affect the observations, not the variables** (i.e. filter observations from one data frame based on whether or not they match an observation in the other). 
-    - Two types: `semi_join(x, y)` and `anti_join(x, y)`.
--   [**Set operations**](https://r4ds.had.co.nz/relational-data.html#set-operations): Treat **observations as if they were set elements**. Typically used less frequently, but occasionally useful when you want to break a single complex filter into simpler pieces. All these operations work with a complete row, comparing the values of every variable. These expect the x and y inputs to have the same variables, and treat the observations like sets: 
-    - Examples of set operations: `intersect(x, y)`, `union(x, y)`, and `setdiff(x, y)`.
-
+    -   See @sec-mutjoins for Table of mutating joins.
+-   [**Filtering joins**](https://r4ds.had.co.nz/relational-data.html#filtering-joins): Filtering joins **match observations** in the same way as mutating joins, **but affect the observations, not the variables** (i.e. filter observations from one data frame based on whether or not they match an observation in the other).
+    -   Two types: `semi_join(x, y)` and `anti_join(x, y)`.
+-   [**Set operations**](https://r4ds.had.co.nz/relational-data.html#set-operations): Treat **observations as if they were set elements**. Typically used less frequently, but occasionally useful when you want to break a single complex filter into simpler pieces. All these operations work with a complete row, comparing the values of every variable. These expect the x and y inputs to have the same variables, and treat the observations like sets:
+    -   Examples of set operations: `intersect(x, y)`, `union(x, y)`, and `setdiff(x, y)`.
 :::
 
 ## Keys
 
 The **variables used to connect each pair of tables** are called **keys**. A key is a variable (or set of variables) that uniquely identifies an observation. In simple cases, a single variable is sufficient to identify an observation.
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 There are two types of keys:
 
 -   A **primary key** uniquely identifies an observation in its own table.
 -   A **foreign key** uniquely identifies an observation in another table.
-
 :::
 
-Let's consider an example to help us understand the difference between a **primary key** and **foreign key**. 
+Let's consider an example to help us understand the difference between a **primary key** and **foreign key**.
 
-## Example of keys 
+## Example of keys
 
-Imagine you are conduct a study and **collecting data on subjects and a health outcome**. 
+Imagine you are conduct a study and **collecting data on subjects and a health outcome**.
 
 Often, subjects will **make multiple visits** (a so-called longitudinal study) and so we will record the outcome for each visit. Similarly, we may record other information about them, such as the kind of housing they live in.
 
@@ -129,26 +124,23 @@ subjects <- tibble(
 print(subjects)
 ```
 
-:::{.callout-note}
-
+::: callout-note
 ### Question
 
-What is the **primary key** and **foreign key**? 
+What is the **primary key** and **foreign key**?
 
-- The `outcomes$id` is a **primary key** because it uniquely identifies each subject in the `outcomes` table.
-- The `subjects$id` is a **foreign key** because it appears in the `subjects` table where it matches each subject to a unique `id`. 
-
+-   The `outcomes$id` is a **primary key** because it uniquely identifies each subject in the `outcomes` table.
+-   The `subjects$id` is a **foreign key** because it appears in the `subjects` table where it matches each subject to a unique `id`.
 :::
-
 
 # Mutating joins {#sec-mutjoins}
 
-The `dplyr` package provides a set of **functions for joining two data frames** into a single data frame based on a set of key columns. 
+The `dplyr` package provides a set of **functions for joining two data frames** into a single data frame based on a set of key columns.
 
-There are several functions in the `*_join()` family. 
+There are several functions in the `*_join()` family.
 
-- These functions all merge together two data frames
-- They differ in how they handle observations that exist in one but not both data frames. 
+-   These functions all merge together two data frames
+-   They differ in how they handle observations that exist in one but not both data frames.
 
 Here, are the **four functions from this family** that you will likely use the most often:
 
@@ -170,11 +162,11 @@ knitr::kable(join_funcs, col.names = c("Function", "What it includes in merged d
 
 ![](https://d33wubrfki0l68.cloudfront.net/aeab386461820b029b7e7606ccff1286f623bae1/ef0d4/diagrams/join-venn.png)
 
-[[Source from R for Data Science](https://r4ds.had.co.nz/relational-data#relational-data)]
+\[[Source from R for Data Science](https://r4ds.had.co.nz/relational-data#relational-data)\]
 
 ## Left Join
 
-Recall the `outcomes` and `subjects` datasets above. 
+Recall the `outcomes` and `subjects` datasets above.
 
 ```{r}
 outcomes
@@ -185,17 +177,14 @@ Suppose we want to create a table that combines the information about houses (`s
 
 We can use the `left_join()` function to merge the `outcomes` and `subjects` tables and produce the output above.
 
-
 ```{r leftjoin}
 left_join(x = outcomes, y = subjects, by = "id")
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 The `by` argument indicates the column (or columns) that the two tables have in common.
-
 :::
 
 ### Left Join with Incomplete Data
@@ -218,18 +207,15 @@ When we left joint the tables now we get:
 left_join(outcomes, subjects, by = c("id", "visit"))
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-Two things to point out here: 
+Two things to point out here:
 
-1. If we do not have information about a subject's housing in a given visit, the `left_join()` function automatically inserts an `NA` value to indicate that it is missing.
+1.  If we do not have information about a subject's housing in a given visit, the `left_join()` function automatically inserts an `NA` value to indicate that it is missing.
 
-2. We can "join" on multiple variable (e.g. here we joined on the `id` and the `visit` columns).
-
+2.  We can "join" on multiple variable (e.g. here we joined on the `id` and the `visit` columns).
 :::
-
 
 We may even have a situation where we are missing housing data for a subject completely. The following table has no information about subject `a`.
 
@@ -249,14 +235,12 @@ But we can still join the tables together and the `house` values for subject `a`
 left_join(x = outcomes, y = subjects, by = c("id", "visit"))
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Important
 
-The bottom line for `left_join()` is that it **always retains the values in the "left" argument** (in this case the `outcomes` table). 
+The bottom line for `left_join()` is that it **always retains the values in the "left" argument** (in this case the `outcomes` table).
 
-- If there are no corresponding values in the "right" argument, `NA` values will be filled in.
-
+-   If there are no corresponding values in the "right" argument, `NA` values will be filled in.
 :::
 
 ## Inner Join
@@ -290,7 +274,6 @@ right_join(x = outcomes, y = subjects, by = c("id", "visit"))
 Here are some post-lecture questions to help you think about the material discussed.
 
 ::: callout-note
-
 ### Questions
 
 1.  If you had three data frames to combine with a shared key, how would you join them using the verbs you now know?
@@ -316,4 +299,3 @@ df2 <- data.frame(ID = 2:4,
 -   <https://r4ds.had.co.nz/relational-data>
 -   <https://rafalab.github.io/dsbook/joining-tables>
 :::
-
