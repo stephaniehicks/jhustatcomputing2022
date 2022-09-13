@@ -444,11 +444,11 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(dat, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 1
-      x
-  &lt;dbl&gt;
-1 0.282
-2 1.43 
-3 1.18 </code></pre>
+       x
+   &lt;dbl&gt;
+1  0.598
+2  0.450
+3 -0.524</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a new column that indicates whether the value of 'x' is positive or negative</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
@@ -460,16 +460,16 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <pre><code># A tibble: 100 × 2
          x is_positive
      &lt;dbl&gt; &lt;chr&gt;      
- 1  0.282  Yes        
- 2  1.43   Yes        
- 3  1.18   Yes        
- 4  0.337  Yes        
- 5 -0.668  No         
- 6  0.0339 Yes        
- 7 -0.468  No         
- 8 -0.816  No         
- 9  0.874  Yes        
-10 -0.627  No         
+ 1  0.598  Yes        
+ 2  0.450  Yes        
+ 3 -0.524  No         
+ 4  0.900  Yes        
+ 5 -1.83   No         
+ 6 -1.04   No         
+ 7  0.199  Yes        
+ 8  1.03   Yes        
+ 9 -0.354  No         
+10  0.0216 Yes        
 # … with 90 more rows</code></pre>
 </div>
 </div>
@@ -512,16 +512,16 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <p>It should look something like this:</p>
 <pre><code>review_date     feature   mean_score
 &lt;dbl&gt;           &lt;chr&gt;     &lt;dbl&gt;
-2006    beans   1.000000000     
-2006    sugar   1.000000000     
-2006    cocoa_butter    0.925000000     
-2006    vanilla 0.700000000     
-2006    letchin 0.725000000     
+2006    beans   0.967741935     
+2006    sugar   0.967741935     
+2006    cocoa_butter    0.903225806     
+2006    vanilla 0.693548387     
+2006    letchin 0.693548387     
 2006    salt    0.000000000     
-2006    char_cocoa  0.175000000     
-2006    char_sweet  0.175000000     
-2006    char_nutty  0.050000000     
-2006    char_creamy 0.375000000 </code></pre>
+2006    char_cocoa  0.209677419     
+2006    char_sweet  0.161290323     
+2006    char_nutty  0.032258065     
+2006    char_creamy 0.241935484 </code></pre>
 </section>
 <section id="notes" class="level3">
 <h3 class="anchored" data-anchor-id="notes">Notes</h3>
