@@ -7,7 +7,6 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "An overview of the ggplot2 plotting system in R with ggplot()"
 date: 2022-09-15
-draft: true
 categories: [module 1, week 3, R, programming, ggplot2, data viz]
 ---
 
@@ -22,8 +21,8 @@ categories: [module 1, week 3, R, programming, ggplot2, data viz]
 
 **Before class, you can prepare by reading the following materials:**
 
-1. <https://r4ds.had.co.nz/data-visualisation>
-2. <http://vita.had.co.nz/papers/layered-grammar.pdf>
+1.  <https://r4ds.had.co.nz/data-visualisation>
+2.  <http://vita.had.co.nz/papers/layered-grammar.pdf>
 :::
 
 ### Acknowledgements
@@ -35,33 +34,30 @@ Material for this lecture was borrowed and adopted from
 # Learning objectives
 
 ::: callout-note
-
 # Learning objectives
 
 **At the end of this lesson you will:**
 
 -   Be able to build up layers of graphics using `ggplot()`
 -   Be able to modify properties of a `ggplot()` including layers and labels
-
 :::
 
 # The ggplot2 Plotting System
 
 In this lesson, we will get into a little more of the nitty gritty of **how `ggplot2` builds plots** and how you can customize various aspects of any plot.
 
-Previously, we used the `qplot()` function to quickly put points on a page. 
+Previously, we used the `qplot()` function to quickly put points on a page.
 
-- The `qplot()` function's syntax is very similar to that of the `plot()` function in base graphics so for those switching over, it makes for an easy transition. 
+-   The `qplot()` function's syntax is very similar to that of the `plot()` function in base graphics so for those switching over, it makes for an easy transition.
 
 But it is worth knowing the underlying details of how `ggplot2` works so that you can really exploit its power.
 
 ## Basic components of a ggplot2 plot
 
 ::: callout-tip
-
 ### Key components
 
-A **`ggplot2` plot** consists of a number of **key components**. 
+A **`ggplot2` plot** consists of a number of **key components**.
 
 -   A **data frame**: stores all of the data that will be displayed on the plot
 
@@ -76,17 +72,15 @@ A **`ggplot2` plot** consists of a number of **key components**.
 -   **scales**: what scale an aesthetic map uses (example: left-handed = red, right-handed = blue)
 
 -   **coordinate system**: describes the system in which the locations of the geoms will be drawn
-
 :::
 
 It is **essential to organize your data into a data frame** before you start with `ggplot2` (and all the **appropriate metadata** so that your data frame is self-describing and your plots will be self-documenting).
 
-When **building plots in `ggplot2`** (rather than using `qplot()`), the **"artist's palette" model may be the closest analogy**. 
+When **building plots in `ggplot2`** (rather than using `qplot()`), the **"artist's palette" model may be the closest analogy**.
 
-Essentially, you start with some raw data, and then you **gradually add bits and pieces to it to create a plot**. 
+Essentially, you start with some raw data, and then you **gradually add bits and pieces to it to create a plot**.
 
 ::: callout-tip
-
 ### Note
 
 Plots are built up in layers, with the typically ordering being
@@ -94,7 +88,6 @@ Plots are built up in layers, with the typically ordering being
 1.  Plot the data
 2.  Overlay a summary
 3.  Add metadata and annotation
-
 :::
 
 For quick exploratory plots you may not get past step 1.
@@ -105,24 +98,21 @@ To demonstrate the various pieces of `ggplot2` we will use a running example fro
 
 > "Are overweight individuals, as measured by body mass index (BMI), more susceptible than normal weight individuals to the harmful effects of PM2.5 on asthma symptoms?"
 
-There is a suggestion that overweight individuals may be more susceptible to the negative effects of inhaling PM2.5. 
+There is a suggestion that overweight individuals may be more susceptible to the negative effects of inhaling PM2.5.
 
-This would suggest that increases in PM2.5 exposure in the home of an overweight child would be more deleterious to his/her asthma symptoms than they would be in the home of a normal weight child. 
+This would suggest that increases in PM2.5 exposure in the home of an overweight child would be more deleterious to his/her asthma symptoms than they would be in the home of a normal weight child.
 
 We want to see if we can see that difference in the data from MAACS.
 
 ::: callout-tip
-
 ### Note
 
-Because the individual-level data for this study are protected by various U.S. privacy laws, we cannot make those data available. 
+Because the individual-level data for this study are protected by various U.S. privacy laws, we cannot make those data available.
 
 For the purposes of this lesson, we have **simulated data** that share many of the same features of the original data, but do not contain any of the actual measurements or values contained in the original dataset.
-
 :::
 
 ::: callout-tip
-
 ### Example
 
 We can look at the data quickly by reading it in as a tibble with `read_csv()` in the `tidyverse` package.
@@ -135,7 +125,6 @@ maacs <- read_csv(here("data", "bmi_pm25_no2_sim.csv"),
                   col_types = "nnci")
 maacs
 ```
-
 :::
 
 The outcome we will look at here (`NocturnalSymp`) is the number of days in the past 2 weeks where the child experienced asthma symptoms (e.g. coughing, wheezing) while sleeping.
@@ -150,11 +139,11 @@ The other key variables are:
 
 # Building up in layers
 
-First, we can **create a `ggplot` object** that stores the dataset and the basic aesthetics for mapping the x- and y-coordinates for the plot. 
+First, we can **create a `ggplot` object** that stores the dataset and the basic aesthetics for mapping the x- and y-coordinates for the plot.
 
 ::: callout-tip
+### Example
 
-### Example 
 Here, we will eventually be plotting the log of PM2.5 and `NocturnalSymp` variable.
 
 ```{r}
@@ -163,7 +152,6 @@ g <- ggplot(maacs, aes(x = logpm25,
 summary(g)
 class(g)
 ```
-
 :::
 
 You can see above that the object `g` contains the dataset `maacs` and the mappings.
@@ -179,7 +167,7 @@ print(g)
 
 ## First plot with point layer
 
-To make a scatter plot, we need add at least one **geom**, such as points. 
+To make a scatter plot, we need add at least one **geom**, such as points.
 
 Here, we add the `geom_point()` function to create a traditional scatter plot.
 
@@ -219,10 +207,10 @@ g +
 Here, we can see there appears to be a slight increasing trend, suggesting that higher levels of PM2.5 are associated with increased days with nocturnal symptoms.
 
 ::: callout-note
-
 ### Question
 
 Let's use the `ggplot()` function with our `palmerpenguins` dataset example and make a scatter plot with `flipper_length_mm` on the x-axis, `bill_length_mm` on the y-axis, colored by `species`, and a smoother by adding a linear regression.
+
 ```{r}
 # try it yourself
 
@@ -230,18 +218,16 @@ library(palmerpenguins)
 penguins 
 
 ```
-
 :::
 
 ### facets
 
-Because our primary question involves comparing overweight individuals to normal weight individuals, we can **stratify the scatter plot** of PM2.5 and nocturnal symptoms by the BMI category (`bmicat`) variable, which indicates whether an individual is overweight or now. 
+Because our primary question involves comparing overweight individuals to normal weight individuals, we can **stratify the scatter plot** of PM2.5 and nocturnal symptoms by the BMI category (`bmicat`) variable, which indicates whether an individual is overweight or now.
 
-To visualize this we can **add a `facet_grid()`**, which takes a formula argument. 
+To visualize this we can **add a `facet_grid()`**, which takes a formula argument.
 
 ::: callout-tip
-
-### Example 
+### Example
 
 We want one row and two columns, one column for each weight category. So we specify `bmicat` on the right hand side of the forumla passed to `facet_grid()`.
 
@@ -254,23 +240,19 @@ g +
   geom_smooth(method = "lm") +
   facet_grid(. ~ bmicat) 
 ```
-
 :::
 
-Now it seems clear that the relationship between PM2.5 and nocturnal symptoms is relatively flat among normal weight individuals, while the relationship is increasing among overweight individuals. 
+Now it seems clear that the relationship between PM2.5 and nocturnal symptoms is relatively flat among normal weight individuals, while the relationship is increasing among overweight individuals.
 
 This plot suggests that overweight individuals may be more susceptible to the effects of PM2.5.
 
-
 # Modifying geom properties
 
-You can **modify properties of geoms** by specifying options to their respective `geom_*()` functions. 
-
+You can **modify properties of geoms** by specifying options to their respective `geom_*()` functions.
 
 ### map aesthetics to constants
 
 ::: callout-tip
-
 ### Example
 
 For example, here we modify the points in the scatterplot to make the color "steelblue", the size larger, and the alpha transparency greater.
@@ -279,14 +261,13 @@ For example, here we modify the points in the scatterplot to make the color "ste
 #| fig-cap: "Modifying point color with a constant"
 g + geom_point(color = "steelblue", size = 4, alpha = 1/2)
 ```
-
 :::
 
 ### map aesthetics to variables
 
-In addition to setting specific geom attributes to constant values, we can **map aesthetics to variables** in our dataset. 
+In addition to setting specific geom attributes to constant values, we can **map aesthetics to variables** in our dataset.
 
-For example, we can map the aesthetic `color` to the variable `bmicat`, so the points will be colored according to the levels of `bmicat`. 
+For example, we can map the aesthetic `color` to the variable `bmicat`, so the points will be colored according to the levels of `bmicat`.
 
 We use the `aes()` function to indicate this difference from the plot above.
 
@@ -297,9 +278,9 @@ g + geom_point(aes(color = bmicat), size = 4, alpha = 1/2)
 
 ## Customizing the smooth
 
-We can also **customize aspects of the geoms**. 
+We can also **customize aspects of the geoms**.
 
-For example, we can customize the smoother that we overlay on the points with `geom_smooth()`. 
+For example, we can customize the smoother that we overlay on the points with `geom_smooth()`.
 
 Here we change the line type and increase the size from the default. We also remove the shaded standard error from the line.
 
@@ -316,26 +297,23 @@ g +
               se = FALSE)
 ```
 
-
 # Other important stuff
 
 ## Changing the theme
 
-The **default theme for `ggplot2` uses the gray background** with white grid lines. 
+The **default theme for `ggplot2` uses the gray background** with white grid lines.
 
 If you don't find this suitable, you can use the black and white theme by using the `theme_bw()` function.
 
 The `theme_bw()` function also allows you to set the typeface for the plot, in case you don't want the default Helvetica. Here we change the typeface to Times.
 
-:::{.callout-tip}
-
-### Note 
+::: callout-tip
+### Note
 
 For things that only make sense globally, use `theme()`, i.e. `theme(legend.position = "none")`. Two standard appearance themes are included
 
 -   `theme_gray()`: The default theme (gray background)
 -   `theme_bw()`: More stark/plain
-
 :::
 
 ```{r}
@@ -346,10 +324,10 @@ g +
 ```
 
 ::: callout-note
-
-### Question 
+### Question
 
 Let's take our `palmerpenguins` scatterplot from above and change out the theme to use `theme_dark()`.
+
 ```{r}
 # try it yourself
 
@@ -357,24 +335,20 @@ library(palmerpenguins)
 penguins 
 
 ```
-
 :::
-
 
 ## Modifying labels
 
 ::: callout-tip
-
 ### Note
 
-There are a variety of **annotations** you can add to a plot, including **different kinds of labels**. 
+There are a variety of **annotations** you can add to a plot, including **different kinds of labels**.
 
-- `xlab()` for x-axis labels
-- `ylab()` for y-axis labels
-- `ggtitle()` for specifying plot titles
+-   `xlab()` for x-axis labels
+-   `ylab()` for y-axis labels
+-   `ggtitle()` for specifying plot titles
 
 `labs()` function is generic and can be used to modify multiple types of labels at once
-
 :::
 
 Here is an example of modifying the title and the `x` and `y` labels to make the plot a bit more informative.
@@ -388,13 +362,11 @@ g +
        y = "Nocturnal Symptoms")
 ```
 
-
-
 ## A quick aside about axis limits
 
-One quick **quirk about `ggplot2`** that caught me up when I first started using the package can be displayed in the following example. 
+One quick **quirk about `ggplot2`** that caught me up when I first started using the package can be displayed in the following example.
 
-If you make a lot of time series plots, you often **want to restrict the range of the y-axis** while still plotting all the data. 
+If you make a lot of time series plots, you often **want to restrict the range of the y-axis** while still plotting all the data.
 
 In the base graphics system you can do that as follows.
 
@@ -412,7 +384,6 @@ plot(testdat$x,
 Here, we have restricted the y-axis range to be between -3 and 3, even though there is a clear outlier in the data.
 
 ::: callout-tip
-
 ### Example
 
 With `ggplot2` the default settings will give you this.
@@ -431,7 +402,6 @@ g +
   geom_line() + 
   ylim(-3, 3)
 ```
-
 :::
 
 Effectively, what this does is subset the data so that only observations between -3 and 3 are included, then plot the data.
@@ -455,12 +425,13 @@ And now you know!
 -   The *R Graphics Cookbook* by Winston Chang (examples in base plots and in `ggplot2`)
 -   [tidyverse web site](http://ggplot2.tidyverse.org)
 
-
 ### More complex example with `ggplot2`
 
 Now you get the sense that plots in the `ggplot2` system are constructed by successively adding components to the plot, starting with the base dataset and maybe a scatterplot. In this section bleow, you can see a slightly more complicated example with an additional variable.
 
-<details> <summary> Click here for a slightly more complicated example with `ggplot()`.</summary>
+<details>
+
+<summary>Click here for a slightly more complicated example with `ggplot()`.</summary>
 
 Now, we will ask the question
 
@@ -506,8 +477,6 @@ g + geom_point(alpha = 1/3) +
 
 </details>
 
-
-
 ### Final Questions
 
 Here are some post-lecture questions to help you think about the material discussed.
@@ -515,20 +484,18 @@ Here are some post-lecture questions to help you think about the material discus
 ::: callout-note
 ### Questions
 
-1. What happens if you facet on a continuous variable?
+1.  What happens if you facet on a continuous variable?
 
-2. Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments?
+2.  Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn't `facet_grid()` have `nrow` and `ncol` arguments?
 
-3. What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+3.  What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
 
-4. What does `geom_col()` do? How is it different to `geom_bar()`?
-
+4.  What does `geom_col()` do? How is it different to `geom_bar()`?
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-- <https://r4ds.had.co.nz/data-visualisation>
-- <https://rdpeng.github.io/Biostat776/lecture-the-ggplot2-plotting-system-part-2>
+-   <https://r4ds.had.co.nz/data-visualisation>
+-   <https://rdpeng.github.io/Biostat776/lecture-the-ggplot2-plotting-system-part-2>
 :::
-

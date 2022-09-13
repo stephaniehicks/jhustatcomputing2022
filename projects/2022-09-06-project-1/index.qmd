@@ -16,7 +16,6 @@ categories: [project 1, projects]
 
 ### To submit your project
 
-
 Please write up your project using R Markdown and `knitr`. Compile your document as an **HTML file** and submit your HTML file to the dropbox on Courseplus. Please **show all your code** for each of the answers to each part.
 
 To get started, [watch this video on setting up your R Markdown document](https://www.stephaniehicks.com/jhustatcomputing2021/posts/2021-09-02-literate-programming/#create-and-knit-your-first-r-markdown-document).
@@ -216,16 +215,17 @@ It should look something like this:
 
     review_date     feature   mean_score
     <dbl>           <chr>     <dbl>
-    2006    beans   1.000000000     
-    2006    sugar   1.000000000     
-    2006    cocoa_butter    0.925000000     
-    2006    vanilla 0.700000000     
-    2006    letchin 0.725000000     
-    2006    salt    0.000000000     
-    2006    char_cocoa  0.175000000     
-    2006    char_sweet  0.175000000     
-    2006    char_nutty  0.050000000     
-    2006    char_creamy 0.375000000 
+    2006	beans	0.967741935		
+    2006	sugar	0.967741935		
+    2006	cocoa_butter	0.903225806		
+    2006	vanilla	0.693548387		
+    2006	letchin	0.693548387		
+    2006	salt	0.000000000		
+    2006	char_cocoa	0.209677419		
+    2006	char_sweet	0.161290323		
+    2006	char_nutty	0.032258065		
+    2006	char_creamy	0.241935484	
+
 
 ### Notes
 
@@ -237,6 +237,7 @@ It should look something like this:
 # Add your solution here
 
 ```
+
 
 # Part 4: Data visualization
 
