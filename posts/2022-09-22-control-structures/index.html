@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Stephanie Hicks">
-<meta name="dcterms.date" content="2022-08-30">
-<meta name="description" content="Add title">
+<meta name="dcterms.date" content="2022-09-22">
+<meta name="description" content="Introduction to control the flow of execution of a series of R expressions">
 
-<title>Statistical Computing (BSPH 140.776) - Add title</title>
+<title>Statistical Computing (BSPH 140.776) - Control Structures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,6 +23,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,14 +203,17 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Add title</h1>
+      <h1 class="title">Control Structures</h1>
                   <div>
         <div class="description">
-          Add title
+          Introduction to control the flow of execution of a series of R expressions
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">add here</div>
+                <div class="quarto-category">module 4</div>
+                <div class="quarto-category">week 4</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">programming</div>
               </div>
                   </div>
   </div>
@@ -172,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 30, 2022</p>
+        <p class="date">September 22, 2022</p>
       </div>
     </div>
       
@@ -192,12 +258,20 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
-  <li><a href="#add-lecture-here" id="toc-add-lecture-here" class="nav-link" data-scroll-target="#add-lecture-here">Add lecture here</a></li>
+  <li><a href="#control-structures" id="toc-control-structures" class="nav-link" data-scroll-target="#control-structures">Control Structures</a>
+  <ul class="collapse">
+  <li><a href="#if-else" id="toc-if-else" class="nav-link" data-scroll-target="#if-else"><code>if</code>-<code>else</code></a></li>
+  <li><a href="#for-loops" id="toc-for-loops" class="nav-link" data-scroll-target="#for-loops"><code>for</code> Loops</a></li>
+  <li><a href="#nested-for-loops" id="toc-nested-for-loops" class="nav-link" data-scroll-target="#nested-for-loops">Nested <code>for</code> loops</a></li>
+  <li><a href="#while-loops" id="toc-while-loops" class="nav-link" data-scroll-target="#while-loops"><code>while</code> Loops</a></li>
+  <li><a href="#repeat-loops" id="toc-repeat-loops" class="nav-link" data-scroll-target="#repeat-loops"><code>repeat</code> Loops</a></li>
+  <li><a href="#next-break" id="toc-next-break" class="nav-link" data-scroll-target="#next-break"><code>next</code>, <code>break</code></a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
   <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -228,8 +302,8 @@ Read ahead
 <div class="callout-body-container callout-body">
 <p><strong>Before class, you can prepare by reading the following materials:</strong></p>
 <ol type="1">
-<li>Add here.</li>
-<li>Add here.</li>
+<li><a href="https://rafalab.github.io/dsbook/programming-basics" class="uri">https://rafalab.github.io/dsbook/programming-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
 </ol>
 </div>
 </div>
@@ -238,7 +312,8 @@ Read ahead
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li>Add here.</li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-control-structures" class="uri">https://rdpeng.github.io/Biostat776/lecture-control-structures</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
 </ul>
 </section>
 </section>
@@ -256,13 +331,260 @@ Learning objectives
 <div class="callout-body-container callout-body">
 <p><strong>At the end of this lesson you will:</strong></p>
 <ul>
-<li>Add here.</li>
+<li>Be able to use commonly used control structures including <code>if</code>, <code>while</code>, <code>repeat</code>, and <code>for</code></li>
+<li>Be able to skip an iteration of a loop using <code>next</code></li>
+<li>Be able to exit a loop immediately using <code>break</code></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="add-lecture-here" class="level1">
-<h1>Add lecture here</h1>
+<section id="control-structures" class="level1">
+<h1>Control Structures</h1>
+<p>Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.</p>
+<p>Commonly used control structures are</p>
+<ul>
+<li><p><code>if</code> and <code>else</code>: testing a condition and acting on it</p></li>
+<li><p><code>for</code>: execute a loop a fixed number of times</p></li>
+<li><p><code>while</code>: execute a loop <em>while</em> a condition is true</p></li>
+<li><p><code>repeat</code>: execute an infinite loop (must <code>break</code> out of it to stop)</p></li>
+<li><p><code>break</code>: break the execution of a loop</p></li>
+<li><p><code>next</code>: skip an interation of a loop</p></li>
+</ul>
+<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons. However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+<section id="if-else" class="level2">
+<h2 class="anchored" data-anchor-id="if-else"><code>if</code>-<code>else</code></h2>
+<p>The <code>if</code>-<code>else</code> combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false.</p>
+<p>For starters, you can just use the <code>if</code> statement.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">&lt;</span>condition<span class="sc">&gt;</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="do">## do something</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Continue with rest of code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The above code does nothing if the condition is false. If you have an action you want to execute when the condition is false, then you need an <code>else</code> clause.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">&lt;</span>condition<span class="sc">&gt;</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="do">## do something</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="do">## do something else</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can have a series of tests by following the initial <code>if</code> with any number of <code>else if</code>s.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">&lt;</span>condition1<span class="sc">&gt;</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="do">## do something</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span>(<span class="sc">&lt;</span>condition2<span class="sc">&gt;</span>)  {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="do">## do something different</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="do">## do something different</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here is an example of a valid if/else structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate a uniform random number</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">10</span>)  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">3</span>) {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The value of <code>y</code> is set depending on whether <code>x &gt; 3</code> or not. This expression can also be written a different, but equivalent, way in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">3</span>) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="dv">10</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Neither way of writing this expression is more correct than the other. Which one you use will depend on your preference and perhaps those of the team you may be working with.</p>
+<p>Of course, the <code>else</code> clause is not necessary. You could have a series of if clauses that always get executed if their respective conditions are true.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">&lt;</span>condition1<span class="sc">&gt;</span>) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">&lt;</span>condition2<span class="sc">&gt;</span>) {</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="for-loops"><code>for</code> Loops</h2>
+<p>For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient.</p>
+<p>In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(i)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10</code></pre>
+</div>
+</div>
+<p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, …, 10, executes the code within the curly braces, and then the loop exits.</p>
+<p>The following three loops all have the same behavior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="do">## Print out each element of 'x'</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(x[i])  </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>The <code>seq_along()</code> function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object <code>x</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate a sequence based on length of 'x'</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {   </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(x[i])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>It is not necessary to use an index-type variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(letter <span class="cf">in</span> x) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(letter)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>For one line loops, the curly braces are not strictly necessary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="fu">print</span>(x[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won’t be burned because you forgot to add curly braces (and you <em>will</em> be burned by this).</p>
+</section>
+<section id="nested-for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="nested-for-loops">Nested <code>for</code> loops</h2>
+<p><code>for</code> loops can be nested inside of each other.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(x))) {</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(j <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(x))) {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(x[i, j])</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        }   </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g.&nbsp;matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).</p>
+</section>
+<section id="while-loops" class="level2">
+<h2 class="anchored" data-anchor-id="while-loops"><code>while</code> Loops</h2>
+<p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(count <span class="sc">&lt;</span> <span class="dv">10</span>) {</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(count)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9</code></pre>
+</div>
+</div>
+<p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
+<p>Sometimes there will be more than one condition in the test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(z <span class="sc">&gt;=</span> <span class="dv">3</span> <span class="sc">&amp;&amp;</span> z <span class="sc">&lt;=</span> <span class="dv">10</span>) {</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        coin <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(coin <span class="sc">==</span> <span class="dv">1</span>) {  <span class="do">## random walk</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                z <span class="ot">&lt;-</span> z <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>                z <span class="ot">&lt;-</span> z <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Conditions are always evaluated from left to right. For example, in the above code, if <code>z</code> were less than 3, the second test would not have been evaluated.</p>
+</section>
+<section id="repeat-loops" class="level2">
+<h2 class="anchored" data-anchor-id="repeat-loops"><code>repeat</code> Loops</h2>
+<p><code>repeat</code> initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
+<p>One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>tol <span class="ot">&lt;-</span> <span class="fl">1e-8</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        x1 <span class="ot">&lt;-</span> <span class="fu">computeEstimate</span>()</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">abs</span>(x1 <span class="sc">-</span> x0) <span class="sc">&lt;</span> tol) {  <span class="do">## Close enough?</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                x0 <span class="ot">&lt;-</span> x1</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the above code will not run if the <code>computeEstimate()</code> function is not defined (I just made it up for the purposes of this demonstration).</p>
+<p>The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of <code>x0</code> and <code>x1</code> oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a <code>for</code> loop and then report whether convergence was achieved or not.</p>
+</section>
+<section id="next-break" class="level2">
+<h2 class="anchored" data-anchor-id="next-break"><code>next</code>, <code>break</code></h2>
+<p><code>next</code> is used to skip an iteration of a loop.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">&lt;=</span> <span class="dv">20</span>) {</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                <span class="do">## Skip the first 20 iterations</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                <span class="cf">next</span>                 </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="do">## Do something here</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>break</code> is used to exit a loop immediately, regardless of what iteration the loop may be on.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(i)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(i <span class="sc">&gt;</span> <span class="dv">20</span>) {</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>              <span class="do">## Stop loop after 20 iterations</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>              <span class="cf">break</span>  </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      }     </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li>Control structures like <code>if</code>, <code>while</code>, and <code>for</code> allow you to control the flow of an R program</li>
+<li>Infinite loops should generally be avoided, even if (you believe) they are theoretically correct.</li>
+<li>Control structures mentioned here are primarily useful for writing programs; for command-line interactive work, the “apply” functions are more useful.</li>
+</ul>
 </section>
 <section id="post-lecture-materials" class="level1">
 <h1>Post-lecture materials</h1>
@@ -280,7 +602,9 @@ Questions
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Add here.</li>
+<li><p>Write for loops to compute the mean of every column in <code>mtcars</code>.</p></li>
+<li><p>Imagine you have a directory full of CSV files that you want to read in. You have their paths in a vector, <code>files &lt;- dir("data/", pattern = "\\.csv$", full.names = TRUE)</code>, and now want to read each one with <code>read_csv()</code>. Write the for loop that will load them into a single data frame.</p></li>
+<li><p>What happens if you use <code>for (nm in names(x))</code> and <code>x</code> has no names? What if only some of the elements are named? What if the names are not unique?</p></li>
 </ol>
 </div>
 </div>
@@ -298,17 +622,12 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Add here.</li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-control-structures" class="uri">https://rdpeng.github.io/Biostat776/lecture-control-structures</a></li>
+<li><a href="https://rafalab.github.io/dsbook/programming-basics" class="uri">https://rafalab.github.io/dsbook/programming-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
 </ul>
 </div>
 </div>
-</section>
-<section id="rtistry" class="level2">
-<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
-<div class="cell fig-cap-location-top">
-
-</div>
-<p>[Add here.]</p>
 
 
 </section>
