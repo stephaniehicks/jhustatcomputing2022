@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "An overview of the ggplot2 plotting system in R with ggplot()"
 date: 2022-09-15
-categories: [module 1, week 3, R, programming, ggplot2, data viz]
+categories: [module 3, week 3, R, programming, ggplot2, data viz]
 ---
 
 <!-- Add interesting quote -->

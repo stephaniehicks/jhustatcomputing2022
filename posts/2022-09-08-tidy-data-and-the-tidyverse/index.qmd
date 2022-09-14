@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to tidy data and how to convert between wide and long data with the tidyr R package"
 date: 2022-09-08
-categories: [module 1, week 2, R, programming, tidyr, here, tidyverse]
+categories: [module 2, week 2, R, programming, tidyr, here, tidyverse]
 ---
 
 <!-- Add interesting quote -->

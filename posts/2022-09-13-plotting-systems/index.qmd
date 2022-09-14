@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Overview of three plotting systems in R"
 date: 2022-09-13
-categories: [module 1, week 3, R, programming, ggplot2, data viz]
+categories: [module 3, week 3, R, programming, ggplot2, data viz]
 ---
 
 > The data may not contain the answer. And, if you torture the data long enough, it will tell you anything. ---*John W. Tukey*

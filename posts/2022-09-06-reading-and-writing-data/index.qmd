@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "How to get data in and out of R using relative paths"
 date: 2022-09-06
-categories: [module 1, week 2, R, programming, readr, here, tidyverse]
+categories: [module 2, week 2, R, programming, readr, here, tidyverse]
 ---
 
 ```{r}

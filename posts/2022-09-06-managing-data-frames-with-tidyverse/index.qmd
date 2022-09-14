@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: " An introduction to data frames in R and the managing them with the dplyr R package"
 date: 2022-09-06
-categories: [module 1, week 2, R, programming, dplyr, here, tibble, tidyverse]
+categories: [module 2, week 2, R, programming, dplyr, here, tibble, tidyverse]
 ---
 
 <!-- Add interesting quote -->
@@ -617,7 +617,7 @@ first(x) %>% second %>% third
 ::: callout-tip
 ### Example
 
-Take the example that we just did in the last section. 
+Take the example that we just did in the last section.
 
 That can be done with the following sequence in a single R expression.
 
@@ -669,7 +669,6 @@ The number of rows to show is specified by the `n` argument.
 slice_sample(chicago, n = 10)
 ```
 :::
-
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the `n` argument.
 

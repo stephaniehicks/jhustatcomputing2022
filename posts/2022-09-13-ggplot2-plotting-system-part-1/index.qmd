@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "An overview of the ggplot2 plotting system in R with qplot()"
 date: 2022-09-13
-categories: [module 1, week 3, R, programming, ggplot2, data viz]
+categories: [module 3, week 3, R, programming, ggplot2, data viz]
 ---
 
 > "The greatest value of a picture is when it forces us to notice what we never expected to see." ---John Tukey
@@ -137,7 +137,6 @@ It works much like the `plot()` function in base graphics system. It **looks for
 In general, it is good to get used to putting your data in a data frame and then passing it to `qplot()`.
 
 ::: callout-tip
-
 ### Pro tip
 
 The `qplot()` function is **somewhat discouraged** in `ggplot2` now and new users are encouraged to use the more general `ggplot()` function (more details in the next lesson).
@@ -156,7 +155,7 @@ The `qplot()` hides much of what goes on underneath, which is okay for most oper
 
 ## Before you start: label your data
 
-One thing that is always true, but is particularly useful when using `ggplot2`, is that you should always **use informative and descriptive labels on your data**. 
+One thing that is always true, but is particularly useful when using `ggplot2`, is that you should always **use informative and descriptive labels on your data**.
 
 More generally, your data should have appropriate **metadata** so that you can quickly look at a dataset and know
 
@@ -164,18 +163,16 @@ More generally, your data should have appropriate **metadata** so that you can q
 -   what do the values of each variable mean?
 
 ::: callout-tip
-
 ### Pro tip
 
-- **Each column** of a data frame should **have a meaningful (but concise) variable name** that accurately reflects the data stored in that column 
-- Non-numeric or **categorical variables should be coded as factor variables** and have meaningful labels for each level of the factor. 
-  - Might be common to code a binary variable as a "0" or a "1", but the problem is that from quickly looking at the data, it's impossible to know whether which level of that variable is represented by a "0" or a "1". 
-  - Much better to simply label each observation as what they are. 
-  - If a variable represents temperature categories, it might be better to use "cold", "mild", and "hot" rather than "1", "2", and "3".
-  
+-   **Each column** of a data frame should **have a meaningful (but concise) variable name** that accurately reflects the data stored in that column
+-   Non-numeric or **categorical variables should be coded as factor variables** and have meaningful labels for each level of the factor.
+    -   Might be common to code a binary variable as a "0" or a "1", but the problem is that from quickly looking at the data, it's impossible to know whether which level of that variable is represented by a "0" or a "1".
+    -   Much better to simply label each observation as what they are.
+    -   If a variable represents temperature categories, it might be better to use "cold", "mild", and "hot" rather than "1", "2", and "3".
 :::
 
-While it is sometimes a pain to make sure all of your data are properly labeled, this **investment in time can pay dividends down the road** when you're trying to figure out what you were plotting. 
+While it is sometimes a pain to make sure all of your data are properly labeled, this **investment in time can pay dividends down the road** when you're trying to figure out what you were plotting.
 
 In other words, including the proper metadata can make your exploratory plots essentially self-documenting.
 
@@ -190,14 +187,13 @@ library(tidyverse) # this loads the ggplot2 R package
 glimpse(mpg)
 ```
 
-You can see from the `glimpse()` (part of the `dplyr` package) output that all of the categorical variables (like "manufacturer" or "class") are **appropriately coded with meaningful label*s**. 
+You can see from the `glimpse()` (part of the `dplyr` package) output that all of the categorical variables (like "manufacturer" or "class") are \*\*appropriately coded with meaningful label\*s\*\*.
 
-This will come in handy when `qplot()` has to label different aspects of a plot. 
+This will come in handy when `qplot()` has to label different aspects of a plot.
 
 Also note that all of the **columns/variables have meaningful names** (if sometimes abbreviated), rather than names like "X1", and "X2", etc.
 
 ::: callout-tip
-
 ### Example
 
 We can **make a quick scatterplot** using `qplot()` of the engine displacement (`displ`) and the highway miles per gallon (`hwy`).
@@ -206,19 +202,16 @@ We can **make a quick scatterplot** using `qplot()` of the engine displacement (
 #| fig-cap: "Plot of engine displacement and highway mileage using the mtcars dataset"
 qplot(x = displ, y = hwy, data = mpg)
 ```
-
 :::
 
 It has a *very* similar feeling to `plot()` in base R.
 
 ::: callout-tip
-
 ### Note
 
 In the call to `qplot()` you **must specify the `data` argument** so that `qplot()` knows where to look up the variables.
 
 You must also specify `x` and `y`, but hopefully that part is obvious.
-
 :::
 
 ## Modifying aesthetics
@@ -231,9 +224,7 @@ Color (or colour) is one type of **aesthetic** and using the `ggplot2` language:
 
 This sounds technical, but let's give an example.
 
-
 ::: callout-tip
-
 ### Example
 
 We map the `color` argument to the `drv` variable, which indicates whether a car is front wheel drive, rear wheel drive, or 4-wheel drive.
@@ -242,24 +233,19 @@ We map the `color` argument to the `drv` variable, which indicates whether a car
 #| fig-cap: "Engine displacement and highway mileage by drive class"
 qplot(displ, hwy, data = mpg, color = drv)
 ```
-
 :::
 
-Now we can see that the front wheel drive cars tend to have lower displacement relative to the 4-wheel or rear wheel drive cars. 
+Now we can see that the front wheel drive cars tend to have lower displacement relative to the 4-wheel or rear wheel drive cars.
 
 Also, it's clear that the 4-wheel drive cars have the lowest highway gas mileage.
 
 ::: callout-tip
-
 ### Note
 
-The `x` argument and `y` argument are aesthetics too, and they got mapped to the `displ` and `hwy` variables, respectively. 
-
+The `x` argument and `y` argument are aesthetics too, and they got mapped to the `displ` and `hwy` variables, respectively.
 :::
 
-
 ::: callout-note
-
 ### Question
 
 In the above plot, I did not specify the `x` and `y` variable. What happens when you run these two code chunks. What's the difference?
@@ -281,10 +267,7 @@ qplot(y = hwy, x = displ, data = mpg, color = drv)
 ```
 :::
 
-
-
 ::: callout-tip
-
 ### Example
 
 Let's try mapping colors in another dataset, namely the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) dataset. These data contain observations for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.
@@ -303,7 +286,6 @@ knitr::include_graphics("https://allisonhorst.github.io/palmerpenguins/reference
 library(palmerpenguins)
 ```
 
-
 ```{r}
 glimpse(penguins)
 ```
@@ -314,13 +296,11 @@ If we wanted to count the number of penguins for each of the three species, we c
 penguins %>% 
   count(species)
 ```
-
 :::
 
-For example, we see there are a total of 152 Adelie penguins in the `palmerpenguins` dataset. 
+For example, we see there are a total of 152 Adelie penguins in the `palmerpenguins` dataset.
 
 ::: callout-note
-
 ### Question
 
 If we wanted to use `qplot()` to map `flipper_length_mm` and `bill_length_mm` to the x and y coordinates, what would we do?
@@ -340,33 +320,29 @@ Now try mapping color to the `species` variable on top of the code you just wrot
 
 ## Adding a geom
 
-Sometimes it is nice to **add a smoother** to a scatterplot to highlight any trends. 
+Sometimes it is nice to **add a smoother** to a scatterplot to highlight any trends.
 
-Trends can be difficult to see if the data are very noisy or there are many data points obscuring the view. 
+Trends can be difficult to see if the data are very noisy or there are many data points obscuring the view.
 
 A smoother is a **type of "geom"** that you can add along with your data points.
 
 ::: callout-tip
-
 ### Example
 
 ```{r}
 #| fig-cap: "Engine displacement and highway mileage w/smoother"
 qplot(displ, hwy, data = mpg, geom = c("point", "smooth"))
 ```
-
 :::
 
 Here it seems that engine displacement and highway mileage have a nonlinear U-shaped relationship, but from the previous plot we know that this is largely due to confounding by the drive class of the car.
 
 ::: callout-tip
-
 ### Note
 
-Previously, we did not have to specify `geom = "point"` because that was done automatically. 
+Previously, we did not have to specify `geom = "point"` because that was done automatically.
 
 But if you want the smoother overlaid with the points, then you need to specify both explicitly.
-
 :::
 
 Look at what happens if we *do not* include the `point` geom.
@@ -379,10 +355,9 @@ qplot(displ, hwy, data = mpg, geom = c("smooth"))
 Sometimes that is the plot you want to show, but in this case it might make more sense to show the data along with the smoother.
 
 ::: callout-note
+### Question
 
-### Question 
-
-Let's **add a smoother** to our `palmerpenguins` dataset example. 
+Let's **add a smoother** to our `palmerpenguins` dataset example.
 
 Using the code we previously wrote mapping variables to points and color, add a "point" and "smooth" geom:
 
@@ -394,12 +369,11 @@ Using the code we previously wrote mapping variables to points and color, add a 
 
 ## Histograms and boxplots
 
-The `qplot()` function can be used to be used to plot 1-dimensional data too. 
+The `qplot()` function can be used to be used to plot 1-dimensional data too.
 
 By **specifying a single variable**, `qplot()` will by default make a **histogram**.
 
 ::: callout-tip
-
 ### Example
 
 We can make a histogram of the highway mileage data and stratify on the drive class. So technically this is three histograms on top of each other.
@@ -408,11 +382,9 @@ We can make a histogram of the highway mileage data and stratify on the drive cl
 #| fig-cap: "Histogram of highway mileage by drive class"
 qplot(hwy, data = mpg, fill = drv, binwidth = 2)
 ```
-
 :::
 
 ::: callout-note
-
 ### Question
 
 Notice, I used `fill` here to map color to the `drv` variable. Why is this? What happens when you use `color` instead?
@@ -423,7 +395,7 @@ Notice, I used `fill` here to map color to the `drv` variable. Why is this? What
 ```
 :::
 
-Having the different colors for each drive class is nice, but the three histograms can be a bit difficult to separate out. 
+Having the different colors for each drive class is nice, but the three histograms can be a bit difficult to separate out.
 
 **Side-by-side boxplots** are one solution to this problem.
 
@@ -441,19 +413,15 @@ Another solution is to plot the histograms in separate panels using facets.
 Here, we want to see a histogram of the highway mileages and the categorical variable is the drive class variable. We can do that using the `facets` argument to `qplot()`.
 
 ::: callout-tip
-
 ### Note
 
-The `facets` argument **expects a formula type of input**, with a `~` separating the left hand side variable and the right hand side variable. 
+The `facets` argument **expects a formula type of input**, with a `~` separating the left hand side variable and the right hand side variable.
 
-- The **left hand side** variable indicates how the rows of the panels should be divided
-- The **right hand side** variable indicates how the columns of the panels should be divided
-
+-   The **left hand side** variable indicates how the rows of the panels should be divided
+-   The **right hand side** variable indicates how the columns of the panels should be divided
 :::
 
-
 ::: callout-tip
-
 ### Example
 
 Here, we just want three rows of histograms (and just one column), one for each drive class, so we specify `drv` on the left hand side and `.` on the right hand side indicating that there's no variable there (it's empty).
@@ -463,10 +431,9 @@ Here, we just want three rows of histograms (and just one column), one for each 
 #| fig-cap: "Histogram of highway mileage by drive class"
 qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
 ```
-
 :::
 
-We could also look at **more data using facets**, so instead of histograms we could look at scatter plots of engine displacement and highway mileage by drive class. 
+We could also look at **more data using facets**, so instead of histograms we could look at scatter plots of engine displacement and highway mileage by drive class.
 
 Here, we put the `drv` variable on the right hand side to indicate that we want a column for each drive class (as opposed to splitting by rows like we did above).
 
@@ -487,17 +454,14 @@ qplot(displ, hwy, data = mpg, facets = . ~ drv) +
 ```
 
 ::: callout-tip
-
 ### Note
 
-We used a different type of smoother above. 
+We used a different type of smoother above.
 
 Here, we add a **linear regression line** (a type of smoother) to each group to see if there's any difference.
-
 :::
 
 ::: callout-note
-
 ### Question
 
 Let's facet our `palmerpenguins` dataset example and explore different types of plots.
