@@ -9,7 +9,7 @@
 <link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.1.189</generator>
+<generator>quarto-1.1.245</generator>
 <lastBuildDate>Thu, 15 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>The ggplot2 plotting system: ggplot()</title>
@@ -128,7 +128,7 @@ Note
 </section>
 <section id="example-bmi-pm2.5-asthma" class="level2">
 <h2 class="anchored" data-anchor-id="example-bmi-pm2.5-asthma">Example: BMI, PM2.5, Asthma</h2>
-<p>To demonstrate the various pieces of <code>ggplot2</code> we will use a running example from the <strong>Mouse Allergen and Asthma Cohort Study (MAACS)</strong>, which was used as a case study in the previous lesson. Here, the question we are interested in is</p>
+<p>To demonstrate the various pieces of <code>ggplot2</code> we will use a running example from the <strong>Mouse Allergen and Asthma Cohort Study (MAACS)</strong>. Here, the question we are interested in is</p>
 <blockquote class="blockquote">
 <p>“Are overweight individuals, as measured by body mass index (BMI), more susceptible than normal weight individuals to the harmful effects of PM2.5 on asthma symptoms?”</p>
 </blockquote>
