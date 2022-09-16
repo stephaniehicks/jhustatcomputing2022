@@ -10,7 +10,1010 @@
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
 <generator>quarto-1.1.245</generator>
-<lastBuildDate>Thu, 15 Sep 2022 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 20 Sep 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>R Nuts and Bolts</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-r-nuts-and-bolts/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<!-- Add interesting quote -->
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://rafalab.github.io/dsbook/r-basics" class="uri">https://rafalab.github.io/dsbook/r-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/vectors.html?q=typeof#vectors" class="uri">https://r4ds.had.co.nz/vectors.html?q=typeof#vectors</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-r-nuts-and-bolts" class="uri">https://rdpeng.github.io/Biostat776/lecture-r-nuts-and-bolts</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Know the 5 basic built-in data types (or classes) of objects in R</li>
+<li>Know the types of attributes (or metadata) R objects can have</li>
+<li>Be able to create a vector, matrix, data frame, factor, and list in R</li>
+<li>Recognize missing values in R</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="r-nuts-and-bolts" class="level1">
+<h1>R Nuts and Bolts</h1>
+<section id="entering-input" class="level2">
+<h2 class="anchored" data-anchor-id="entering-input">Entering Input</h2>
+<p>At the R prompt we type expressions. The <code>&lt;-</code> symbol is the assignment operator.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;">print</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">msg <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="st" style="color: #20794D;">"hello"</span></span></code></pre></div>
+</div>
+<p>The grammar of the language determines <strong>whether an expression is complete or not</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1">x <span class="ot" style="color: #003B4F;">&lt;-</span>  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Incomplete expression</span></span></code></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: &lt;text&gt;:2:0: unexpected end of input
+1: x &lt;-  ## Incomplete expression
+   ^</code></pre>
+</div>
+</div>
+<p>The <code>#</code> character indicates a <strong>comment</strong>.</p>
+<p>Anything to the right of the <code>#</code> (including the <code>#</code> itself) is ignored. <strong>This is the only comment character in R</strong>.</p>
+<p>Unlike some other languages, R does not support multi-line comments or comment blocks.</p>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
+<p>When a complete expression is entered at the prompt, <strong>it is evaluated and the result of the evaluated expression is returned</strong>.</p>
+<p>The result may be <strong>auto-printed</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span>  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## nothing printed</span></span>
+<span id="cb8-2">x       <span class="do" style="color: #5E5E5E;
+font-style: italic;">## auto-printing occurs</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;">print</span>(x)  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## explicit printing</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>The <code>[1]</code> shown in the output indicates that <code>x</code> is a vector and <code>5</code> is its first element.</p>
+<p>Typically with <strong>interactive work</strong>, we <strong>do not explicitly print objects</strong> with the <code>print()</code> function; it is much easier to just auto-print them by typing the name of the object and hitting return/enter.</p>
+<p>However, when <strong>writing scripts, functions, or longer programs</strong>, there is sometimes a <strong>need to explicitly print objects</strong> because auto-printing does not work in those settings.</p>
+<p>When an R vector is printed you will notice that an index for the vector is printed in square brackets <code>[]</code> on the side. For example, see this integer sequence of length 20.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">11</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">30</span></span>
+<span id="cb12-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 11 12 13 14 15 16 17 18 19 20 21 22
+[13] 23 24 25 26 27 28 29 30</code></pre>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<p>The numbers in the square brackets are not part of the vector itself, they are merely part of the <strong>printed output</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With R, it’s important that one understand that <strong>there is a difference between the actual R object and the manner in which that R object is printed to the console</strong>.</p>
+<p>Often, the printed output may have additional bells and whistles to make the output more friendly to the users. However, these bells and whistles are not inherently part of the object.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>:</code> operator is used to create integer sequences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="dv" style="color: #AD0000;">5</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">0</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 4 3 2 1 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><span class="sc" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">15</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">15</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] -15 -14 -13 -12 -11 -10  -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3
+[20]   4   5   6   7   8   9  10  11  12  13  14  15</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="r-objects" class="level2">
+<h2 class="anchored" data-anchor-id="r-objects">R Objects</h2>
+<p>The most basic type of R object is a <strong>vector</strong>.</p>
+<section id="vectors" class="level3">
+<h3 class="anchored" data-anchor-id="vectors">Vectors</h3>
+<p>There is really only one rule about vectors in R, which is that</p>
+<blockquote class="blockquote">
+<p><strong>A vector can only contain objects of the same class</strong></p>
+</blockquote>
+<p>To understand what we mean here, we need to dig a little deeper. We will come back this in just a minute.</p>
+<section id="types-of-vectors" class="level4">
+<h4 class="anchored" data-anchor-id="types-of-vectors">Types of vectors</h4>
+<p>There are <a href="https://r4ds.had.co.nz/vectors.html?q=typeof#vector-basics">two types of <strong>vectors</strong></a> in R:</p>
+<ol type="1">
+<li><p><strong>Atomic vectors</strong>:</p>
+<ul>
+<li><strong>logical</strong>: <code>FALSE</code>, <code>TRUE</code>, and <code>NA</code></li>
+<li><strong>integer</strong> (and <strong>doubles</strong>): these are known collectively as <strong>numeric</strong> vectors (or real numbers)</li>
+<li><strong>complex</strong>: complex numbers</li>
+<li><strong>character</strong>: the most complex type of atomic vector, because each element of a character vector is a string, and a string can contain an arbitrary amount of data</li>
+<li><strong>raw</strong>: used to store fixed-length sequences of bytes. These are not commonly used directly in data analysis and I won’t cover them here.</li>
+</ul></li>
+<li><p><strong>Lists</strong>, which are sometimes called <strong>recursive vectors</strong> because lists can contain other lists.</p></li>
+</ol>
+<p><img src="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-r-nuts-and-bolts/https:/d33wubrfki0l68.cloudfront.net/1d1b4e1cf0dc5f6e80f621b0225354b0addb9578/6ee1c/diagrams/data-structures-overview.png" class="preview-image img-fluid"></p>
+<p>[<strong>Source</strong>: <a href="https://r4ds.had.co.nz/vectors.html?q=typeof#vector-basics">R 4 Data Science</a>]</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There’s one other related object: NULL.</p>
+<ul>
+<li>NULL is often used to represent the absence of a vector (as opposed to <code>NA</code> which is used to represent the absence of a value in a vector).</li>
+<li>NULL typically behaves like a vector of length 0.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="create-an-empty-vector" class="level4">
+<h4 class="anchored" data-anchor-id="create-an-empty-vector">Create an empty vector</h4>
+<p>Empty vectors can be created with the <code>vector()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="fu" style="color: #4758AB;">vector</span>(<span class="at" style="color: #657422;">mode =</span> <span class="st" style="color: #20794D;">"numeric"</span>, <span class="at" style="color: #657422;">length =</span> <span class="dv" style="color: #AD0000;">4</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="fu" style="color: #4758AB;">vector</span>(<span class="at" style="color: #657422;">mode =</span> <span class="st" style="color: #20794D;">"logical"</span>, <span class="at" style="color: #657422;">length =</span> <span class="dv" style="color: #AD0000;">4</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="fu" style="color: #4758AB;">vector</span>(<span class="at" style="color: #657422;">mode =</span> <span class="st" style="color: #20794D;">"character"</span>, <span class="at" style="color: #657422;">length =</span> <span class="dv" style="color: #AD0000;">4</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "" "" "" ""</code></pre>
+</div>
+</div>
+</section>
+<section id="creating-a-non-empty-vector" class="level4">
+<h4 class="anchored" data-anchor-id="creating-a-non-empty-vector">Creating a non-empty vector</h4>
+<p>The <code>c()</code> function can be used to <strong>create vectors of objects</strong> by <strong>concatenating</strong> things together.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="fl" style="color: #AD0000;">0.5</span>, <span class="fl" style="color: #AD0000;">0.6</span>)       <span class="do" style="color: #5E5E5E;
+font-style: italic;">## numeric</span></span>
+<span id="cb24-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="cn" style="color: #8f5902;">TRUE</span>, <span class="cn" style="color: #8f5902;">FALSE</span>)    <span class="do" style="color: #5E5E5E;
+font-style: italic;">## logical</span></span>
+<span id="cb24-3">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(T, F)           <span class="do" style="color: #5E5E5E;
+font-style: italic;">## logical</span></span>
+<span id="cb24-4">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>)  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## character</span></span>
+<span id="cb24-5">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">9</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">29</span>              <span class="do" style="color: #5E5E5E;
+font-style: italic;">## integer</span></span>
+<span id="cb24-6">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">+</span>0i, <span class="dv" style="color: #AD0000;">2</span><span class="sc" style="color: #5E5E5E;">+</span>4i)     <span class="do" style="color: #5E5E5E;
+font-style: italic;">## complex</span></span></code></pre></div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the above example, <code>T</code> and <code>F</code> are short-hand ways to specify <code>TRUE</code> and <code>FALSE</code>.</p>
+<p>However, in general, one should try to use the explicit <code>TRUE</code> and <code>FALSE</code> values when indicating logical values.</p>
+<p>The <code>T</code> and <code>F</code> values are primarily there for when you’re feeling lazy.</p>
+</div>
+</div>
+</section>
+<section id="lists" class="level4">
+<h4 class="anchored" data-anchor-id="lists">Lists</h4>
+<p>So, I know I said there is one rule about vectors:</p>
+<blockquote class="blockquote">
+<p><strong>A vector can only contain objects of the same class</strong></p>
+</blockquote>
+<p>But of course, like any good rule, there is an exception, which is a <strong>list</strong> (which we will get to in greater details a bit later).</p>
+<p>For now, just know a <strong>list</strong> is <strong>represented as a vector</strong> but can <strong>contain objects of different classes</strong>. Indeed, that’s usually why we use them.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The main difference between <strong>atomic vectors</strong> and <strong>lists</strong> is that atomic vectors are <strong>homogeneous</strong>, while lists can be <strong>heterogeneous</strong>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="numerics" class="level3">
+<h3 class="anchored" data-anchor-id="numerics">Numerics</h3>
+<p><strong>Integer</strong> and <strong>double</strong> vectors are known collectively as <strong>numeric vectors</strong>.</p>
+<p>In R, numbers are doubles by default.</p>
+<p>To make an integer, place an <code>L</code> after the number:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><span class="fu" style="color: #4758AB;">typeof</span>(<span class="dv" style="color: #AD0000;">4</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "double"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;">typeof</span>(4L)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The distinction between integers and doubles is not usually important, but there are two important differences that you should be aware of:</p>
+<ul>
+<li><strong>Doubles</strong> are approximations!</li>
+<li><strong>Doubles</strong> represent floating point numbers that can not always be precisely represented with a fixed amount of memory. This means that you should consider all doubles to be approximations.</li>
+</ul>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s explore this. What is square of the square root of two? i.e.&nbsp;<img src="https://latex.codecogs.com/png.latex?(%5Csqrt%7B2%7D)%5E2"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">sqrt</span>(<span class="dv" style="color: #AD0000;">2</span>) <span class="sc" style="color: #5E5E5E;">^</span> <span class="dv" style="color: #AD0000;">2</span></span>
+<span id="cb29-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Try subtracting 2 from <code>x</code>? What happened?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## try it here</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="numbers" class="level3">
+<h3 class="anchored" data-anchor-id="numbers">Numbers</h3>
+<p>Numbers in R are generally treated as <strong>numeric objects</strong> (i.e.&nbsp;double precision real numbers).</p>
+<p>This means that even if you see a number like “1” or “2” in R, which you might think of as integers, they are likely represented behind the scenes as numeric objects (so something like “1.00” or “2.00”).</p>
+<p>This isn’t important most of the time…except when it is!</p>
+<p>If you <strong>explicitly want an integer</strong>, you need to specify the <code>L</code> suffix. So entering <code>1</code> in R gives you a numeric object; entering <code>1L</code> explicitly gives you an integer object.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is also a <strong>special number <code>Inf</code> which represents infinity</strong>. This allows us to represent entities like <code>1 / 0</code>. This way, <code>Inf</code> can be used in ordinary calculations; e.g.&nbsp;<code>1 / Inf</code> is 0.</p>
+<p>The value <strong><code>NaN</code> represents an undefined value</strong> (“not a number”); e.g.&nbsp;0 / 0; <code>NaN</code> can also be thought of as a missing value (more on that later)</p>
+</div>
+</div>
+</section>
+<section id="attributes" class="level3">
+<h3 class="anchored" data-anchor-id="attributes">Attributes</h3>
+<p>R objects can have <strong>attributes</strong>, which are like <strong>metadata for the object</strong>.</p>
+<p>These metadata can be very useful in that they <strong>help to describe the object</strong>.</p>
+<p>For example, <strong>column names</strong> on a data frame help to tell us what data are contained in each of the columns. Some examples of R object attributes are</p>
+<ul>
+<li>names, dimnames</li>
+<li>dimensions (e.g.&nbsp;matrices, arrays)</li>
+<li>class (e.g.&nbsp;integer, numeric)</li>
+<li>length</li>
+<li>other user-defined attributes/metadata</li>
+</ul>
+<p>Attributes of an object (if any) can be accessed using the <code>attributes()</code> function. Not all R objects contain attributes, in which case the <code>attributes()</code> function returns <code>NULL</code>.</p>
+<p>However, every <strong>vector</strong> has two key properties:</p>
+<ol type="1">
+<li>Its <strong>type</strong>, which you can determine with <code>typeof()</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1">letters</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+[20] "t" "u" "v" "w" "x" "y" "z"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><span class="fu" style="color: #4758AB;">typeof</span>(letters)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><span class="fu" style="color: #4758AB;">typeof</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Its <strong>length</strong>, which you can determine with <code>length()</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>)</span>
+<span id="cb40-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "a"
+
+[[2]]
+[1] "b"
+
+[[3]]
+ [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><span class="fu" style="color: #4758AB;">length</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><span class="fu" style="color: #4758AB;">typeof</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="mixing-objects" class="level2">
+<h2 class="anchored" data-anchor-id="mixing-objects">Mixing Objects</h2>
+<p>There are occasions when <strong>different classes of R objects get mixed together</strong>.</p>
+<p>Sometimes this happens by accident but it can also happen on purpose.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What happens with the following code?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="fl" style="color: #AD0000;">1.7</span>, <span class="st" style="color: #20794D;">"a"</span>)</span>
+<span id="cb46-2">y</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1.7" "a"  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><span class="fu" style="color: #4758AB;">typeof</span>(y)           <span class="do" style="color: #5E5E5E;
+font-style: italic;">## character</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="cn" style="color: #8f5902;">TRUE</span>, <span class="dv" style="color: #AD0000;">2</span>)    </span>
+<span id="cb50-2">y</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><span class="fu" style="color: #4758AB;">typeof</span>(y)           <span class="do" style="color: #5E5E5E;
+font-style: italic;">## numeric</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "double"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="cn" style="color: #8f5902;">TRUE</span>)</span>
+<span id="cb54-2">y</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"    "TRUE"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><span class="fu" style="color: #4758AB;">typeof</span>(y)           <span class="do" style="color: #5E5E5E;
+font-style: italic;">## character</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>In each case above, we are <strong>mixing objects of two different classes</strong> in a vector.</p>
+<p>But remember that the only rule about vectors says this is not allowed?</p>
+<p>When different objects are mixed in a vector, <strong>coercion</strong> occurs so that <strong>every element in the vector is of the same class</strong>.</p>
+<p>In the example above, we see the effect of <strong>implicit coercion</strong>.</p>
+<p>What R tries to do is find a way to represent all of the objects in the vector in a reasonable fashion. Sometimes this does exactly what you want and…sometimes not.</p>
+<p>For example, combining a numeric object with a character object will create a character vector, because numbers can usually be easily represented as strings.</p>
+</section>
+<section id="explicit-coercion" class="level2">
+<h2 class="anchored" data-anchor-id="explicit-coercion">Explicit Coercion</h2>
+<p>Objects can be explicitly coerced from one class to another using the <code>as.*()</code> functions, if available.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span></span>
+<span id="cb58-2"><span class="fu" style="color: #4758AB;">class</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><span class="fu" style="color: #4758AB;">as.numeric</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 1 2 3 4 5 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><span class="fu" style="color: #4758AB;">as.logical</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><span class="fu" style="color: #4758AB;">as.character</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0" "1" "2" "3" "4" "5" "6"</code></pre>
+</div>
+</div>
+<p>Sometimes, <strong>R can’t figure out how to coerce an object</strong> and this can result in <code>NA</code>s being produced.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>)</span>
+<span id="cb66-2"><span class="fu" style="color: #4758AB;">as.numeric</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA NA NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><span class="fu" style="color: #4758AB;">as.logical</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA NA NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><span class="fu" style="color: #4758AB;">as.complex</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA NA NA</code></pre>
+</div>
+</div>
+<p>When nonsensical coercion takes place, you will usually get a warning from R.</p>
+</section>
+<section id="matrices" class="level2">
+<h2 class="anchored" data-anchor-id="matrices">Matrices</h2>
+<p><strong>Matrices</strong> are <strong>vectors with a dimension attribute</strong>.</p>
+<ul>
+<li>The <strong>dimension attribute</strong> is <strong>itself an integer vector</strong> of length 2 (number of rows, number of columns)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
+<span id="cb74-2">m</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]   NA   NA   NA
+[2,]   NA   NA   NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><span class="fu" style="color: #4758AB;">dim</span>(m)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><span class="fu" style="color: #4758AB;">attributes</span>(m)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$dim
+[1] 2 3</code></pre>
+</div>
+</div>
+<p>Matrices are <strong>constructed column-wise</strong>, so entries can be thought of starting in the “upper left” corner and running down the columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
+<span id="cb80-2">m</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6</code></pre>
+</div>
+</div>
+<p>Matrices can also be created directly from vectors by adding a dimension attribute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span> </span>
+<span id="cb82-2">m</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><span class="fu" style="color: #4758AB;">dim</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">5</span>)</span>
+<span id="cb84-2">m</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8   10</code></pre>
+</div>
+</div>
+<p>Matrices can be created by <strong>column-binding</strong> or <strong>row-binding</strong> with the <code>cbind()</code> and <code>rbind()</code> functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span></span>
+<span id="cb86-2">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">12</span></span>
+<span id="cb86-3"><span class="fu" style="color: #4758AB;">cbind</span>(x, y)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     x  y
+[1,] 1 10
+[2,] 2 11
+[3,] 3 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb88" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><span class="fu" style="color: #4758AB;">rbind</span>(x, y) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [,1] [,2] [,3]
+x    1    2    3
+y   10   11   12</code></pre>
+</div>
+</div>
+</section>
+<section id="lists-1" class="level2">
+<h2 class="anchored" data-anchor-id="lists-1">Lists</h2>
+<p>Lists are a special type of <strong>vector</strong> that <strong>can contain elements of different classes</strong>. Lists are a very important data type in R and you should get to know them well.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Lists, in combination with the various “apply” functions discussed later, make for a powerful combination.</p>
+</div>
+</div>
+<p>Lists can be explicitly created using the <code>list()</code> function, which takes an arbitrary number of arguments.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="st" style="color: #20794D;">"a"</span>, <span class="cn" style="color: #8f5902;">TRUE</span>, <span class="dv" style="color: #AD0000;">1</span> <span class="sc" style="color: #5E5E5E;">+</span> 4i) </span>
+<span id="cb90-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] "a"
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] 1+4i</code></pre>
+</div>
+</div>
+<p>We can also create an empty list of a prespecified length with the <code>vector()</code> function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">vector</span>(<span class="st" style="color: #20794D;">"list"</span>, <span class="at" style="color: #657422;">length =</span> <span class="dv" style="color: #AD0000;">5</span>)</span>
+<span id="cb92-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+NULL
+
+[[2]]
+NULL
+
+[[3]]
+NULL
+
+[[4]]
+NULL
+
+[[5]]
+NULL</code></pre>
+</div>
+</div>
+</section>
+<section id="factors" class="level2">
+<h2 class="anchored" data-anchor-id="factors">Factors</h2>
+<p><strong>Factors</strong> are used to represent <strong>categorical data</strong> and can be unordered or ordered. One can think of a factor as an integer vector where each integer has a <strong>label</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Factors are important in statistical modeling and are treated specially by modelling functions like <code>lm()</code> and <code>glm()</code>.</p>
+</div>
+</div>
+<p>Using factors with labels is <strong>better</strong> than using integers because factors are self-describing.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Having a variable that has values “Yes” and “No” or “Smoker” and “Non-Smoker” is better than a variable that has values 1 and 2.</p>
+</div>
+</div>
+<p>Factor objects can be created with the <code>factor()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>)) </span>
+<span id="cb94-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] yes yes no  yes no 
+Levels: no yes</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb96" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><span class="fu" style="color: #4758AB;">table</span>(x) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x
+ no yes 
+  2   3 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb98" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## See the underlying representation of factor</span></span>
+<span id="cb98-2"><span class="fu" style="color: #4758AB;">unclass</span>(x)  </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2 1 2 1
+attr(,"levels")
+[1] "no"  "yes"</code></pre>
+</div>
+</div>
+<p>Often factors will be automatically created for you when you read in a dataset using a function like <code>read.table()</code>.</p>
+<ul>
+<li>Those functions often <strong>default to creating factors when they encounter data that look like characters or strings</strong>.</li>
+</ul>
+<p>The order of the levels of a factor can be set using the <code>levels</code> argument to <code>factor()</code>. This can be important in linear modeling because the first level is used as the baseline level.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>))</span>
+<span id="cb100-2">x  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Levels are put in alphabetical order</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] yes yes no  yes no 
+Levels: no yes</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>),</span>
+<span id="cb102-2">            <span class="at" style="color: #657422;">levels =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>))</span>
+<span id="cb102-3">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] yes yes no  yes no 
+Levels: yes no</code></pre>
+</div>
+</div>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing Values</h2>
+<p><strong>Missing values</strong> are denoted by <code>NA</code> or <code>NaN</code> for undefined mathematical operations.</p>
+<ul>
+<li><p><code>is.na()</code> is used to test objects if they are <code>NA</code></p></li>
+<li><p><code>is.nan()</code> is used to test for <code>NaN</code></p></li>
+<li><p><code>NA</code> values have a class also, so there are integer <code>NA</code>, character <code>NA</code>, etc.</p></li>
+<li><p>A <code>NaN</code> value is also <code>NA</code> but the converse is not true</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Create a vector with NAs in it</span></span>
+<span id="cb104-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="cn" style="color: #8f5902;">NA</span>, <span class="dv" style="color: #AD0000;">10</span>, <span class="dv" style="color: #AD0000;">3</span>)  </span>
+<span id="cb104-3"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Return a logical vector indicating which elements are NA</span></span>
+<span id="cb104-4"><span class="fu" style="color: #4758AB;">is.na</span>(x)    </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb106" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Return a logical vector indicating which elements are NaN</span></span>
+<span id="cb106-2"><span class="fu" style="color: #4758AB;">is.nan</span>(x)   </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Now create a vector with both NA and NaN values</span></span>
+<span id="cb108-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="cn" style="color: #8f5902;">NaN</span>, <span class="cn" style="color: #8f5902;">NA</span>, <span class="dv" style="color: #AD0000;">4</span>)</span>
+<span id="cb108-3"><span class="fu" style="color: #4758AB;">is.na</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE  TRUE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb110" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><span class="fu" style="color: #4758AB;">is.nan</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="data-frames">Data Frames</h2>
+<p><strong>Data frames</strong> are used to store <strong>tabular data</strong> in R. They are an important type of object in R and are used in a variety of statistical modeling applications. Hadley Wickham’s package <a href="https://github.com/hadley/dplyr">dplyr</a> has an optimized set of functions designed to work efficiently with data frames.</p>
+<p>Data frames are <strong>represented as a special type of list</strong> where <strong>every element of the list has to have the same length</strong>.</p>
+<ul>
+<li>Each element of the list can be thought of as a column</li>
+<li>The length of each element of the list is the number of rows</li>
+</ul>
+<p>Unlike matrices, <strong>data frames can store different classes of objects in each column</strong>. Matrices must have every element be the same class (e.g.&nbsp;all integers or all numeric).</p>
+<p>In addition to column names, indicating the names of the variables or predictors, data frames have a special attribute called <code>row.names</code> which indicate information about each row of the data frame.</p>
+<p>Data frames are usually created by reading in a dataset using the <code>read.table()</code> or <code>read.csv()</code>. However, data frames can also be created explicitly with the <code>data.frame()</code> function or they can be coerced from other types of objects like lists.</p>
+<p>Data frames can be converted to a matrix by calling <code>data.matrix()</code>. While it might seem that the <code>as.matrix()</code> function should be used to coerce a data frame to a matrix, almost always, what you want is the result of <code>data.matrix()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">data.frame</span>(<span class="at" style="color: #657422;">foo =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">bar =</span> <span class="fu" style="color: #4758AB;">c</span>(T, T, F, F)) </span>
+<span id="cb112-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  foo   bar
+1   1  TRUE
+2   2  TRUE
+3   3 FALSE
+4   4 FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><span class="fu" style="color: #4758AB;">nrow</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><span class="fu" style="color: #4758AB;">ncol</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><span class="fu" style="color: #4758AB;">data.matrix</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     foo bar
+[1,]   1   1
+[2,]   2   1
+[3,]   3   0
+[4,]   4   0</code></pre>
+</div>
+</div>
+</section>
+<section id="names" class="level2">
+<h2 class="anchored" data-anchor-id="names">Names</h2>
+<p>R objects can have <strong>names</strong>, which is very useful for writing readable code and self-describing objects.</p>
+<p>Here is an example of assigning names to an integer vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span></span>
+<span id="cb120-2"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb122" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><span class="fu" style="color: #4758AB;">names</span>(x) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"New York"</span>, <span class="st" style="color: #20794D;">"Seattle"</span>, <span class="st" style="color: #20794D;">"Los Angeles"</span>) </span>
+<span id="cb122-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   New York     Seattle Los Angeles 
+          1           2           3 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb124" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "New York"    "Seattle"     "Los Angeles"</code></pre>
+</div>
+</div>
+<p><strong>Lists can also have names</strong>, which is often very useful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="st" style="color: #20794D;">"Los Angeles"</span> <span class="ot" style="color: #003B4F;">=</span> <span class="dv" style="color: #AD0000;">1</span>, <span class="at" style="color: #657422;">Boston =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">London =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
+<span id="cb126-2">x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code><?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Statistical Computing (BSPH 140.776)</title>
+<link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
+<atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
+<description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
+<generator>quarto-1.1.245</generator>
+<lastBuildDate>Tue, 20 Sep 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>R Nuts and Bolts</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-r-nuts-and-bolts/index.html</link>
+  Los Angeles`
+[1] 1
+
+$Boston
+[1] 2
+
+$London
+[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Los Angeles" "Boston"      "London"     </code></pre>
+</div>
+</div>
+<p><strong>Matrices can have both column and row names</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">2</span>)</span>
+<span id="cb130-2"><span class="fu" style="color: #4758AB;">dimnames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>), <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)) </span>
+<span id="cb130-3">m</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  c d
+a 1 3
+b 2 4</code></pre>
+</div>
+</div>
+<p>Column names and row names can be set separately using the <code>colnames()</code> and <code>rownames()</code> functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><span class="fu" style="color: #4758AB;">colnames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"h"</span>, <span class="st" style="color: #20794D;">"f"</span>)</span>
+<span id="cb132-2"><span class="fu" style="color: #4758AB;">rownames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"x"</span>, <span class="st" style="color: #20794D;">"z"</span>)</span>
+<span id="cb132-3">m</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  h f
+x 1 3
+z 2 4</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For data frames, there is a separate function for setting the row names, the <code>row.names()</code> function.</p>
+<p>Also, data frames do not have column names, they just have names (like lists).</p>
+<p>So to set the column names of a data frame just use the <code>names()</code> function. Yes, I know its confusing.</p>
+<p>Here’s a quick summary:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Object</th>
+<th>Set column names</th>
+<th>Set row names</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data frame</td>
+<td><code>names()</code></td>
+<td><code>row.names()</code></td>
+</tr>
+<tr class="even">
+<td>matrix</td>
+<td><code>colnames()</code></td>
+<td><code>rownames()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>There are a variety of different builtin-data types in R. In this chapter we have reviewed the following</p>
+<ul>
+<li>atomic classes: numeric, logical, character, integer, complex</li>
+<li>vectors, lists</li>
+<li>factors</li>
+<li>missing values</li>
+<li>data frames and matrices</li>
+</ul>
+<p>All R objects can have attributes that help to describe what is in the object. Perhaps the most useful attribute is names, such as column and row names in a data frame, or simply names in a vector or list. Attributes like dimensions are also important as they can modify the behavior of objects, like turning a vector into a matrix.</p>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Describe the difference between is.finite(x) and !is.infinite(x).</p></li>
+<li><p>A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use google to do some research.</p></li>
+<li><p>What functions from the readr package allow you to turn a string into logical, integer, and double vector?</p></li>
+<li><p>Try and make a tibble that has columns with different lengths. What happens?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-r-nuts-and-bolts" class="uri">https://rdpeng.github.io/Biostat776/lecture-r-nuts-and-bolts</a></li>
+<li><a href="https://rafalab.github.io/dsbook/r-basics" class="uri">https://rafalab.github.io/dsbook/r-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/vectors.html?q=typeof#vectors" class="uri">https://r4ds.had.co.nz/vectors.html?q=typeof#vectors</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 4</category>
+  <category>week 4</category>
+  <category>R</category>
+  <category>programming</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-r-nuts-and-bolts/index.html</guid>
+  <pubDate>Tue, 20 Sep 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://d33wubrfki0l68.cloudfront.net/1d1b4e1cf0dc5f6e80f621b0225354b0addb9578/6ee1c/diagrams/data-structures-overview.png" medium="image" type="image/png"/>
+</item>
 <item>
   <title>The ggplot2 plotting system: ggplot()</title>
   <dc:creator>Stephanie Hicks</dc:creator>

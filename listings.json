@@ -10,6 +10,7 @@
   {
     "listing": "/lectures.html",
     "items": [
+      "/posts/2022-09-20-r-nuts-and-bolts/index.html",
       "/posts/2022-09-15-ggplot2-plotting-system-part-2/index.html",
       "/posts/2022-09-13-ggplot2-plotting-system-part-1/index.html",
       "/posts/2022-09-13-plotting-systems/index.html",
