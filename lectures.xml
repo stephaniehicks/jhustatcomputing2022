@@ -12,6 +12,386 @@
 <generator>quarto-1.1.245</generator>
 <lastBuildDate>Tue, 20 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
+  <title>Control Structures</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-control-structures/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<!-- Add interesting quote -->
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://rafalab.github.io/dsbook/programming-basics" class="uri">https://rafalab.github.io/dsbook/programming-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-control-structures" class="uri">https://rdpeng.github.io/Biostat776/lecture-control-structures</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Be able to use commonly used control structures including <code>if</code>, <code>while</code>, <code>repeat</code>, and <code>for</code></li>
+<li>Be able to skip an iteration of a loop using <code>next</code></li>
+<li>Be able to exit a loop immediately using <code>break</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="control-structures" class="level1">
+<h1>Control Structures</h1>
+<p>Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.</p>
+<p>Commonly used control structures are</p>
+<ul>
+<li><p><code>if</code> and <code>else</code>: testing a condition and acting on it</p></li>
+<li><p><code>for</code>: execute a loop a fixed number of times</p></li>
+<li><p><code>while</code>: execute a loop <em>while</em> a condition is true</p></li>
+<li><p><code>repeat</code>: execute an infinite loop (must <code>break</code> out of it to stop)</p></li>
+<li><p><code>break</code>: break the execution of a loop</p></li>
+<li><p><code>next</code>: skip an interation of a loop</p></li>
+</ul>
+<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons. However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+<section id="if-else" class="level2">
+<h2 class="anchored" data-anchor-id="if-else"><code>if</code>-<code>else</code></h2>
+<p>The <code>if</code>-<code>else</code> combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false.</p>
+<p>For starters, you can just use the <code>if</code> statement.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb1-2">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something</span></span>
+<span id="cb1-3">} </span>
+<span id="cb1-4"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Continue with rest of code</span></span></code></pre></div>
+<p>The above code does nothing if the condition is false. If you have an action you want to execute when the condition is false, then you need an <code>else</code> clause.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb2-2">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something</span></span>
+<span id="cb2-3">} </span>
+<span id="cb2-4"><span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb2-5">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something else</span></span>
+<span id="cb2-6">}</span></code></pre></div>
+<p>You can have a series of tests by following the initial <code>if</code> with any number of <code>else if</code>s.</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition1<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb3-2">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something</span></span>
+<span id="cb3-3">} <span class="cf" style="color: #003B4F;">else</span> <span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition2<span class="sc" style="color: #5E5E5E;">&gt;</span>)  {</span>
+<span id="cb3-4">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something different</span></span>
+<span id="cb3-5">} <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb3-6">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something different</span></span>
+<span id="cb3-7">}</span></code></pre></div>
+<p>Here is an example of a valid if/else structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Generate a uniform random number</span></span>
+<span id="cb4-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">runif</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">10</span>)  </span>
+<span id="cb4-3"><span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
+<span id="cb4-4">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span></span>
+<span id="cb4-5">} <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb4-6">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb4-7">}</span></code></pre></div>
+</div>
+<p>The value of <code>y</code> is set depending on whether <code>x &gt; 3</code> or not. This expression can also be written a different, but equivalent, way in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
+<span id="cb5-2">        <span class="dv" style="color: #AD0000;">10</span></span>
+<span id="cb5-3">} <span class="cf" style="color: #003B4F;">else</span> { </span>
+<span id="cb5-4">        <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb5-5">}</span></code></pre></div>
+</div>
+<p>Neither way of writing this expression is more correct than the other. Which one you use will depend on your preference and perhaps those of the team you may be working with.</p>
+<p>Of course, the <code>else</code> clause is not necessary. You could have a series of if clauses that always get executed if their respective conditions are true.</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition1<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb6-2"></span>
+<span id="cb6-3">}</span>
+<span id="cb6-4"></span>
+<span id="cb6-5"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition2<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb6-6"></span>
+<span id="cb6-7">}</span></code></pre></div>
+</section>
+<section id="for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="for-loops"><code>for</code> Loops</h2>
+<p>For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient.</p>
+<p>In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb7-2">        <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb7-3">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10</code></pre>
+</div>
+</div>
+<p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, …, 10, executes the code within the curly braces, and then the loop exits.</p>
+<p>The following three loops all have the same behavior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)</span>
+<span id="cb9-2"></span>
+<span id="cb9-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) {</span>
+<span id="cb9-4">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Print out each element of 'x'</span></span>
+<span id="cb9-5">        <span class="fu" style="color: #4758AB;">print</span>(x[i])  </span>
+<span id="cb9-6">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>The <code>seq_along()</code> function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object <code>x</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
+<span id="cb11-2"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_along</span>(x)) {   </span>
+<span id="cb11-3">        <span class="fu" style="color: #4758AB;">print</span>(x[i])</span>
+<span id="cb11-4">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>It is not necessary to use an index-type variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="cf" style="color: #003B4F;">for</span>(letter <span class="cf" style="color: #003B4F;">in</span> x) {</span>
+<span id="cb13-2">        <span class="fu" style="color: #4758AB;">print</span>(letter)</span>
+<span id="cb13-3">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>For one line loops, the curly braces are not strictly necessary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) <span class="fu" style="color: #4758AB;">print</span>(x[i])</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won’t be burned because you forgot to add curly braces (and you <em>will</em> be burned by this).</p>
+</section>
+<section id="nested-for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="nested-for-loops">Nested <code>for</code> loops</h2>
+<p><code>for</code> loops can be nested inside of each other.</p>
+<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">3</span>)</span>
+<span id="cb17-2"></span>
+<span id="cb17-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">nrow</span>(x))) {</span>
+<span id="cb17-4">        <span class="cf" style="color: #003B4F;">for</span>(j <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">ncol</span>(x))) {</span>
+<span id="cb17-5">                <span class="fu" style="color: #4758AB;">print</span>(x[i, j])</span>
+<span id="cb17-6">        }   </span>
+<span id="cb17-7">}</span></code></pre></div>
+<p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g.&nbsp;matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).</p>
+</section>
+<section id="while-loops" class="level2">
+<h2 class="anchored" data-anchor-id="while-loops"><code>while</code> Loops</h2>
+<p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1">count <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb18-2"><span class="cf" style="color: #003B4F;">while</span>(count <span class="sc" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb18-3">        <span class="fu" style="color: #4758AB;">print</span>(count)</span>
+<span id="cb18-4">        count <span class="ot" style="color: #003B4F;">&lt;-</span> count <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb18-5">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9</code></pre>
+</div>
+</div>
+<p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
+<p>Sometimes there will be more than one condition in the test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">z <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span></span>
+<span id="cb20-2"><span class="fu" style="color: #4758AB;">set.seed</span>(<span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb20-3"></span>
+<span id="cb20-4"><span class="cf" style="color: #003B4F;">while</span>(z <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">3</span> <span class="sc" style="color: #5E5E5E;">&amp;&amp;</span> z <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb20-5">        coin <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rbinom</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb20-6">        </span>
+<span id="cb20-7">        <span class="cf" style="color: #003B4F;">if</span>(coin <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>) {  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## random walk</span></span>
+<span id="cb20-8">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb20-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb20-10">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb20-11">        } </span>
+<span id="cb20-12">}</span>
+<span id="cb20-13"><span class="fu" style="color: #4758AB;">print</span>(z)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Conditions are always evaluated from left to right. For example, in the above code, if <code>z</code> were less than 3, the second test would not have been evaluated.</p>
+</section>
+<section id="repeat-loops" class="level2">
+<h2 class="anchored" data-anchor-id="repeat-loops"><code>repeat</code> Loops</h2>
+<p><code>repeat</code> initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
+<p>One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">x0 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb22-2">tol <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fl" style="color: #AD0000;">1e-8</span></span>
+<span id="cb22-3"></span>
+<span id="cb22-4"><span class="cf" style="color: #003B4F;">repeat</span> {</span>
+<span id="cb22-5">        x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">computeEstimate</span>()</span>
+<span id="cb22-6">        </span>
+<span id="cb22-7">        <span class="cf" style="color: #003B4F;">if</span>(<span class="fu" style="color: #4758AB;">abs</span>(x1 <span class="sc" style="color: #5E5E5E;">-</span> x0) <span class="sc" style="color: #5E5E5E;">&lt;</span> tol) {  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Close enough?</span></span>
+<span id="cb22-8">                <span class="cf" style="color: #003B4F;">break</span></span>
+<span id="cb22-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb22-10">                x0 <span class="ot" style="color: #003B4F;">&lt;-</span> x1</span>
+<span id="cb22-11">        } </span>
+<span id="cb22-12">}</span></code></pre></div>
+</div>
+<p>Note that the above code will not run if the <code>computeEstimate()</code> function is not defined (I just made it up for the purposes of this demonstration).</p>
+<p>The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of <code>x0</code> and <code>x1</code> oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a <code>for</code> loop and then report whether convergence was achieved or not.</p>
+</section>
+<section id="next-break" class="level2">
+<h2 class="anchored" data-anchor-id="next-break"><code>next</code>, <code>break</code></h2>
+<p><code>next</code> is used to skip an iteration of a loop.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb23-2">        <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb23-3">                <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Skip the first 20 iterations</span></span>
+<span id="cb23-4">                <span class="cf" style="color: #003B4F;">next</span>                 </span>
+<span id="cb23-5">        }</span>
+<span id="cb23-6">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Do something here</span></span>
+<span id="cb23-7">}</span></code></pre></div>
+</div>
+<p><code>break</code> is used to exit a loop immediately, regardless of what iteration the loop may be on.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb24-2">      <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb24-3"></span>
+<span id="cb24-4">      <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb24-5">              <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Stop loop after 20 iterations</span></span>
+<span id="cb24-6">              <span class="cf" style="color: #003B4F;">break</span>  </span>
+<span id="cb24-7">      }     </span>
+<span id="cb24-8">}</span></code></pre></div>
+</div>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li>Control structures like <code>if</code>, <code>while</code>, and <code>for</code> allow you to control the flow of an R program</li>
+<li>Infinite loops should generally be avoided, even if (you believe) they are theoretically correct.</li>
+<li>Control structures mentioned here are primarily useful for writing programs; for command-line interactive work, the “apply” functions are more useful.</li>
+</ul>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Write for loops to compute the mean of every column in <code>mtcars</code>.</p></li>
+<li><p>Imagine you have a directory full of CSV files that you want to read in. You have their paths in a vector, <code>files &lt;- dir("data/", pattern = "\\.csv$", full.names = TRUE)</code>, and now want to read each one with <code>read_csv()</code>. Write the for loop that will load them into a single data frame.</p></li>
+<li><p>What happens if you use <code>for (nm in names(x))</code> and <code>x</code> has no names? What if only some of the elements are named? What if the names are not unique?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-control-structures" class="uri">https://rdpeng.github.io/Biostat776/lecture-control-structures</a></li>
+<li><a href="https://rafalab.github.io/dsbook/programming-basics" class="uri">https://rafalab.github.io/dsbook/programming-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 4</category>
+  <category>week 4</category>
+  <category>R</category>
+  <category>programming</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-control-structures/index.html</guid>
+  <pubDate>Tue, 20 Sep 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>R Nuts and Bolts</title>
   <dc:creator>Stephanie Hicks</dc:creator>
   <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-r-nuts-and-bolts/index.html</link>
@@ -866,6 +1246,386 @@ font-style: italic;">## Now create a vector with both NA and NaN values</span></
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
 <generator>quarto-1.1.245</generator>
 <lastBuildDate>Tue, 20 Sep 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Control Structures</title>
+  <dc:creator>Stephanie Hicks</dc:creator>
+  <link>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-control-structures/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<!-- Add interesting quote -->
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="read-ahead" class="level3">
+<h3 class="anchored" data-anchor-id="read-ahead">Read ahead</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Read ahead
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before class, you can prepare by reading the following materials:</strong></p>
+<ol type="1">
+<li><a href="https://rafalab.github.io/dsbook/programming-basics" class="uri">https://rafalab.github.io/dsbook/programming-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-control-structures" class="uri">https://rdpeng.github.io/Biostat776/lecture-control-structures</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<ul>
+<li>Be able to use commonly used control structures including <code>if</code>, <code>while</code>, <code>repeat</code>, and <code>for</code></li>
+<li>Be able to skip an iteration of a loop using <code>next</code></li>
+<li>Be able to exit a loop immediately using <code>break</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="control-structures" class="level1">
+<h1>Control Structures</h1>
+<p>Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.</p>
+<p>Commonly used control structures are</p>
+<ul>
+<li><p><code>if</code> and <code>else</code>: testing a condition and acting on it</p></li>
+<li><p><code>for</code>: execute a loop a fixed number of times</p></li>
+<li><p><code>while</code>: execute a loop <em>while</em> a condition is true</p></li>
+<li><p><code>repeat</code>: execute an infinite loop (must <code>break</code> out of it to stop)</p></li>
+<li><p><code>break</code>: break the execution of a loop</p></li>
+<li><p><code>next</code>: skip an interation of a loop</p></li>
+</ul>
+<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons. However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+<section id="if-else" class="level2">
+<h2 class="anchored" data-anchor-id="if-else"><code>if</code>-<code>else</code></h2>
+<p>The <code>if</code>-<code>else</code> combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false.</p>
+<p>For starters, you can just use the <code>if</code> statement.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb1-2">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something</span></span>
+<span id="cb1-3">} </span>
+<span id="cb1-4"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Continue with rest of code</span></span></code></pre></div>
+<p>The above code does nothing if the condition is false. If you have an action you want to execute when the condition is false, then you need an <code>else</code> clause.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb2-2">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something</span></span>
+<span id="cb2-3">} </span>
+<span id="cb2-4"><span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb2-5">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something else</span></span>
+<span id="cb2-6">}</span></code></pre></div>
+<p>You can have a series of tests by following the initial <code>if</code> with any number of <code>else if</code>s.</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition1<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb3-2">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something</span></span>
+<span id="cb3-3">} <span class="cf" style="color: #003B4F;">else</span> <span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition2<span class="sc" style="color: #5E5E5E;">&gt;</span>)  {</span>
+<span id="cb3-4">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something different</span></span>
+<span id="cb3-5">} <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb3-6">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## do something different</span></span>
+<span id="cb3-7">}</span></code></pre></div>
+<p>Here is an example of a valid if/else structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Generate a uniform random number</span></span>
+<span id="cb4-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">runif</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">10</span>)  </span>
+<span id="cb4-3"><span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
+<span id="cb4-4">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span></span>
+<span id="cb4-5">} <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb4-6">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb4-7">}</span></code></pre></div>
+</div>
+<p>The value of <code>y</code> is set depending on whether <code>x &gt; 3</code> or not. This expression can also be written a different, but equivalent, way in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
+<span id="cb5-2">        <span class="dv" style="color: #AD0000;">10</span></span>
+<span id="cb5-3">} <span class="cf" style="color: #003B4F;">else</span> { </span>
+<span id="cb5-4">        <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb5-5">}</span></code></pre></div>
+</div>
+<p>Neither way of writing this expression is more correct than the other. Which one you use will depend on your preference and perhaps those of the team you may be working with.</p>
+<p>Of course, the <code>else</code> clause is not necessary. You could have a series of if clauses that always get executed if their respective conditions are true.</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition1<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb6-2"></span>
+<span id="cb6-3">}</span>
+<span id="cb6-4"></span>
+<span id="cb6-5"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition2<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
+<span id="cb6-6"></span>
+<span id="cb6-7">}</span></code></pre></div>
+</section>
+<section id="for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="for-loops"><code>for</code> Loops</h2>
+<p>For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient.</p>
+<p>In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb7-2">        <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb7-3">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10</code></pre>
+</div>
+</div>
+<p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, …, 10, executes the code within the curly braces, and then the loop exits.</p>
+<p>The following three loops all have the same behavior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)</span>
+<span id="cb9-2"></span>
+<span id="cb9-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) {</span>
+<span id="cb9-4">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Print out each element of 'x'</span></span>
+<span id="cb9-5">        <span class="fu" style="color: #4758AB;">print</span>(x[i])  </span>
+<span id="cb9-6">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>The <code>seq_along()</code> function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object <code>x</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
+<span id="cb11-2"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_along</span>(x)) {   </span>
+<span id="cb11-3">        <span class="fu" style="color: #4758AB;">print</span>(x[i])</span>
+<span id="cb11-4">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>It is not necessary to use an index-type variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="cf" style="color: #003B4F;">for</span>(letter <span class="cf" style="color: #003B4F;">in</span> x) {</span>
+<span id="cb13-2">        <span class="fu" style="color: #4758AB;">print</span>(letter)</span>
+<span id="cb13-3">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>For one line loops, the curly braces are not strictly necessary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) <span class="fu" style="color: #4758AB;">print</span>(x[i])</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"</code></pre>
+</div>
+</div>
+<p>However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won’t be burned because you forgot to add curly braces (and you <em>will</em> be burned by this).</p>
+</section>
+<section id="nested-for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="nested-for-loops">Nested <code>for</code> loops</h2>
+<p><code>for</code> loops can be nested inside of each other.</p>
+<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">3</span>)</span>
+<span id="cb17-2"></span>
+<span id="cb17-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">nrow</span>(x))) {</span>
+<span id="cb17-4">        <span class="cf" style="color: #003B4F;">for</span>(j <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">ncol</span>(x))) {</span>
+<span id="cb17-5">                <span class="fu" style="color: #4758AB;">print</span>(x[i, j])</span>
+<span id="cb17-6">        }   </span>
+<span id="cb17-7">}</span></code></pre></div>
+<p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g.&nbsp;matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).</p>
+</section>
+<section id="while-loops" class="level2">
+<h2 class="anchored" data-anchor-id="while-loops"><code>while</code> Loops</h2>
+<p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1">count <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb18-2"><span class="cf" style="color: #003B4F;">while</span>(count <span class="sc" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb18-3">        <span class="fu" style="color: #4758AB;">print</span>(count)</span>
+<span id="cb18-4">        count <span class="ot" style="color: #003B4F;">&lt;-</span> count <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb18-5">}</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9</code></pre>
+</div>
+</div>
+<p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
+<p>Sometimes there will be more than one condition in the test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">z <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span></span>
+<span id="cb20-2"><span class="fu" style="color: #4758AB;">set.seed</span>(<span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb20-3"></span>
+<span id="cb20-4"><span class="cf" style="color: #003B4F;">while</span>(z <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">3</span> <span class="sc" style="color: #5E5E5E;">&amp;&amp;</span> z <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb20-5">        coin <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rbinom</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb20-6">        </span>
+<span id="cb20-7">        <span class="cf" style="color: #003B4F;">if</span>(coin <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>) {  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## random walk</span></span>
+<span id="cb20-8">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb20-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb20-10">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb20-11">        } </span>
+<span id="cb20-12">}</span>
+<span id="cb20-13"><span class="fu" style="color: #4758AB;">print</span>(z)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Conditions are always evaluated from left to right. For example, in the above code, if <code>z</code> were less than 3, the second test would not have been evaluated.</p>
+</section>
+<section id="repeat-loops" class="level2">
+<h2 class="anchored" data-anchor-id="repeat-loops"><code>repeat</code> Loops</h2>
+<p><code>repeat</code> initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
+<p>One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">x0 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb22-2">tol <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fl" style="color: #AD0000;">1e-8</span></span>
+<span id="cb22-3"></span>
+<span id="cb22-4"><span class="cf" style="color: #003B4F;">repeat</span> {</span>
+<span id="cb22-5">        x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">computeEstimate</span>()</span>
+<span id="cb22-6">        </span>
+<span id="cb22-7">        <span class="cf" style="color: #003B4F;">if</span>(<span class="fu" style="color: #4758AB;">abs</span>(x1 <span class="sc" style="color: #5E5E5E;">-</span> x0) <span class="sc" style="color: #5E5E5E;">&lt;</span> tol) {  <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Close enough?</span></span>
+<span id="cb22-8">                <span class="cf" style="color: #003B4F;">break</span></span>
+<span id="cb22-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb22-10">                x0 <span class="ot" style="color: #003B4F;">&lt;-</span> x1</span>
+<span id="cb22-11">        } </span>
+<span id="cb22-12">}</span></code></pre></div>
+</div>
+<p>Note that the above code will not run if the <code>computeEstimate()</code> function is not defined (I just made it up for the purposes of this demonstration).</p>
+<p>The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of <code>x0</code> and <code>x1</code> oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a <code>for</code> loop and then report whether convergence was achieved or not.</p>
+</section>
+<section id="next-break" class="level2">
+<h2 class="anchored" data-anchor-id="next-break"><code>next</code>, <code>break</code></h2>
+<p><code>next</code> is used to skip an iteration of a loop.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb23-2">        <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb23-3">                <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Skip the first 20 iterations</span></span>
+<span id="cb23-4">                <span class="cf" style="color: #003B4F;">next</span>                 </span>
+<span id="cb23-5">        }</span>
+<span id="cb23-6">        <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Do something here</span></span>
+<span id="cb23-7">}</span></code></pre></div>
+</div>
+<p><code>break</code> is used to exit a loop immediately, regardless of what iteration the loop may be on.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb24-2">      <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb24-3"></span>
+<span id="cb24-4">      <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb24-5">              <span class="do" style="color: #5E5E5E;
+font-style: italic;">## Stop loop after 20 iterations</span></span>
+<span id="cb24-6">              <span class="cf" style="color: #003B4F;">break</span>  </span>
+<span id="cb24-7">      }     </span>
+<span id="cb24-8">}</span></code></pre></div>
+</div>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li>Control structures like <code>if</code>, <code>while</code>, and <code>for</code> allow you to control the flow of an R program</li>
+<li>Infinite loops should generally be avoided, even if (you believe) they are theoretically correct.</li>
+<li>Control structures mentioned here are primarily useful for writing programs; for command-line interactive work, the “apply” functions are more useful.</li>
+</ul>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
+<section id="final-questions" class="level3">
+<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
+<p>Here are some post-lecture questions to help you think about the material discussed.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Write for loops to compute the mean of every column in <code>mtcars</code>.</p></li>
+<li><p>Imagine you have a directory full of CSV files that you want to read in. You have their paths in a vector, <code>files &lt;- dir("data/", pattern = "\\.csv$", full.names = TRUE)</code>, and now want to read each one with <code>read_csv()</code>. Write the for loop that will load them into a single data frame.</p></li>
+<li><p>What happens if you use <code>for (nm in names(x))</code> and <code>x</code> has no names? What if only some of the elements are named? What if the names are not unique?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-control-structures" class="uri">https://rdpeng.github.io/Biostat776/lecture-control-structures</a></li>
+<li><a href="https://rafalab.github.io/dsbook/programming-basics" class="uri">https://rafalab.github.io/dsbook/programming-basics</a></li>
+<li><a href="https://r4ds.had.co.nz/iteration" class="uri">https://r4ds.had.co.nz/iteration</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>module 4</category>
+  <category>week 4</category>
+  <category>R</category>
+  <category>programming</category>
+  <guid>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-control-structures/index.html</guid>
+  <pubDate>Tue, 20 Sep 2022 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>R Nuts and Bolts</title>
   <dc:creator>Stephanie Hicks</dc:creator>
