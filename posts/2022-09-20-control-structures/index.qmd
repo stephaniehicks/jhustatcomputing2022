@@ -7,11 +7,11 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to control the flow of execution of a series of R expressions"
 date: 2022-09-20
-draft: true
 categories: [module 4, week 4, R, programming]
 ---
 
 <!-- Add interesting quote -->
+
 
 # Pre-lecture materials
 
