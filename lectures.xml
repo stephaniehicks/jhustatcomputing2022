@@ -9,7 +9,7 @@
 <link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.1.245</generator>
+<generator>quarto-1.1.251</generator>
 <lastBuildDate>Tue, 20 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Control Structures</title>
@@ -1244,7 +1244,7 @@ font-style: italic;">## Now create a vector with both NA and NaN values</span></
 <link>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</link>
 <atom:link href="https://www.stephaniehicks.com/jhustatcomputing2022/lectures.xml" rel="self" type="application/rss+xml"/>
 <description>Course website for Statistical Computing (BSPH 140.776) in Fall 2022</description>
-<generator>quarto-1.1.245</generator>
+<generator>quarto-1.1.251</generator>
 <lastBuildDate>Tue, 20 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Control Structures</title>
