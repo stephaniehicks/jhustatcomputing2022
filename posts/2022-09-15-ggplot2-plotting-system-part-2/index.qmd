@@ -52,7 +52,6 @@ Previously, we used the `qplot()` function to quickly put points on a page.
 
 But it is worth knowing the underlying details of how `ggplot2` works so that you can really exploit its power.
 
-
 ## Basic components of a ggplot2 plot
 
 ::: callout-tip

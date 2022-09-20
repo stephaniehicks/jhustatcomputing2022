@@ -47,7 +47,11 @@ Material for this lecture was borrowed and adopted from
 
 # Control Structures
 
-Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some "logic" into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.
+**Control structures** in R allow you to **control the flow of execution of a series of R expressions**. 
+
+Basically, control structures allow you to put some "logic" into your R code, rather than just always executing the same R code every time. 
+
+Control structures **allow you to respond to inputs or to features of the data** and execute different R expressions accordingly.
 
 Commonly used control structures are
 
@@ -63,7 +67,16 @@ Commonly used control structures are
 
 -   `next`: skip an interation of a loop
 
-Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons. However, these constructs do not have to be used in functions and it's a good idea to become familiar with them before we delve into functions.
+
+:::{.callout-tip}
+
+### Pro-tip
+
+Most control structures are not used in interactive sessions, but rather when writing functions or longer expressions.
+
+However, these constructs do not have to be used in functions and it's a good idea to become familiar with them before we delve into functions.
+
+:::
 
 ## `if`-`else`
 
@@ -103,9 +116,10 @@ if(<condition1>) {
 
 Here is an example of a valid if/else structure.
 
-```{r,prompt=FALSE}
+```{r}
 ## Generate a uniform random number
 x <- runif(1, 0, 10)  
+
 if(x > 3) {
         y <- 10
 } else {
@@ -115,7 +129,7 @@ if(x > 3) {
 
 The value of `y` is set depending on whether `x > 3` or not. This expression can also be written a different, but equivalent, way in R.
 
-```{r,prompt=FALSE}
+```{r}
 y <- if(x > 3) {
         10
 } else { 
@@ -137,11 +151,38 @@ if(<condition2>) {
 }
 ```
 
+
+:::{.callout-note}
+
+### Question
+
+Let's use the `palmerpenguins` dataset and write a if-else statement that
+
+1. Randomly samples a value from a standard normal distribution (**Hint**: check out the `rnorm()` function in base R).
+2. If the value is larger than 0, use `dplyr` functions to keep only the `Chinstrap` penguins. 
+3. Otherwise, keep only the `Gentoo` penguins. 
+4. Re-run the code 10 times and look at output. 
+
+```{r}
+#| message: false
+# try it yourself
+
+library(tidyverse)
+library(palmerpenguins)
+penguins 
+
+```
+
+:::
+
+
 ## `for` Loops
 
-For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I've found very few situations where a for loop wasn't sufficient.
+**For loops** are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I've found very few situations where a for loop was not sufficient.
 
-In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)
+In R, for loops take an iterator variable and assign it successive values from a sequence or vector. 
+
+For loops are most commonly used for **iterating over the elements of an object** (list, vector, etc.)
 
 ```{r}
 for(i in 1:10) {

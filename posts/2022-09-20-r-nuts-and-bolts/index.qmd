@@ -334,6 +334,7 @@ x <- list("a", "b", 1:10)
 x
 length(x)
 typeof(x)
+attributes(x)
 ```
 
 
@@ -347,27 +348,22 @@ Sometimes this happens by accident but it can also happen on purpose.
 
 ### Question
 
-What happens with the following code?
+Let's use `typeof()` to ask what happens when we mix different classes of R objects together. 
 
 ```{r}
 y <- c(1.7, "a")
-y
-typeof(y)           ## character
-```
-
-```{r}
-y <- c(TRUE, 2)    
-y
-typeof(y)           ## numeric
-```
-
-```{r}
+y <- c(TRUE, 2)
 y <- c("a", TRUE)
-y
-typeof(y)           ## character
+```
+
+```{r}
+## try it here
+
 ```
 
 :::
+
+Why is this happening? 
 
 In each case above, we are **mixing objects of two different classes** in a vector. 
 
@@ -399,8 +395,21 @@ Sometimes, **R can't figure out how to coerce an object** and this can result in
 x <- c("a", "b", "c")
 as.numeric(x)
 as.logical(x)
-as.complex(x)
 ```
+
+:::{.callout-note}
+
+### Question 
+
+Let's try to convert the `x` vector above to integers. 
+
+```{r}
+## try it here 
+
+```
+
+:::
+
 
 When nonsensical coercion takes place, you will usually get a warning from R.
 
@@ -425,6 +434,20 @@ m <- matrix(1:6, nrow = 2, ncol = 3)
 m
 ```
 
+:::{.callout-note}
+
+### Question 
+
+Let's try to use `attributes()` function to look at the attributes of the `m` object
+
+```{r}
+## try it here 
+
+```
+
+:::
+
+
 Matrices can also be created directly from vectors by adding a dimension attribute.
 
 ```{r}
@@ -440,8 +463,20 @@ Matrices can be created by **column-binding** or **row-binding** with the `cbind
 x <- 1:3
 y <- 10:12
 cbind(x, y)
-rbind(x, y) 
 ```
+
+:::{.callout-note}
+
+### Question 
+
+Let's try to use `rbind()` to row bind `x` and `y` above. 
+
+```{r}
+## try it here 
+
+```
+
+:::
 
 ## Lists
 
@@ -501,6 +536,21 @@ table(x)
 unclass(x)  
 ```
 
+
+:::{.callout-note}
+
+### Question 
+
+Let's try to use `attributes()` function to look at the attributes of the `x` object
+
+```{r}
+## try it here 
+
+```
+
+:::
+
+
 Often factors will be automatically created for you when you read in a dataset using a function like `read.table()`. 
 
 - Those functions often **default to creating factors when they encounter data that look like characters or strings**.
@@ -558,18 +608,47 @@ In addition to column names, indicating the names of the variables or predictors
 
 Data frames are usually created by reading in a dataset using the `read.table()` or `read.csv()`. However, data frames can also be created explicitly with the `data.frame()` function or they can be coerced from other types of objects like lists.
 
-Data frames can be converted to a matrix by calling `data.matrix()`. While it might seem that the `as.matrix()` function should be used to coerce a data frame to a matrix, almost always, what you want is the result of `data.matrix()`.
-
 ```{r}
 x <- data.frame(foo = 1:4, bar = c(T, T, F, F)) 
 x
 nrow(x)
 ncol(x)
+attributes(x)
 ```
+
+
+Data frames can be converted to a matrix by calling `data.matrix()`. While it might seem that the `as.matrix()` function should be used to coerce a data frame to a matrix, almost always, what you want is the result of `data.matrix()`.
+
 
 ```{r}
 data.matrix(x)
+attributes(data.matrix(x))
 ```
+
+
+:::{.callout-note}
+
+### Question
+
+Let's use the `palmerpenguins` dataset. 
+
+1. What attributes does `penguins` have? 
+2. Try using `typeof()` with `penguins`. 
+3. What are the levels in the `species` column in the `penguins` dataset? 
+4. Create a logical vector for all the penguins measured from 2008. 
+5. Create a matrix with just the columns `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g` 
+
+```{r}
+#| message: false
+# try it yourself
+
+library(tidyverse)
+library(palmerpenguins)
+penguins 
+
+```
+
+:::
 
 
 ## Names
@@ -584,6 +663,7 @@ names(x)
 names(x) <- c("New York", "Seattle", "Los Angeles") 
 x
 names(x)
+attributes(x)
 ```
 
 **Lists can also have names**, which is often very useful.
