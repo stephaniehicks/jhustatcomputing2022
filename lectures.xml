@@ -75,7 +75,9 @@ Learning objectives
 </section>
 <section id="control-structures" class="level1">
 <h1>Control Structures</h1>
-<p>Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.</p>
+<p><strong>Control structures</strong> in R allow you to <strong>control the flow of execution of a series of R expressions</strong>.</p>
+<p>Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time.</p>
+<p>Control structures <strong>allow you to respond to inputs or to features of the data</strong> and execute different R expressions accordingly.</p>
 <p>Commonly used control structures are</p>
 <ul>
 <li><p><code>if</code> and <code>else</code>: testing a condition and acting on it</p></li>
@@ -85,7 +87,20 @@ Learning objectives
 <li><p><code>break</code>: break the execution of a loop</p></li>
 <li><p><code>next</code>: skip an interation of a loop</p></li>
 </ul>
-<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons. However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expressions.</p>
+<p>However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+</div>
+</div>
 <section id="if-else" class="level2">
 <h2 class="anchored" data-anchor-id="if-else"><code>if</code>-<code>else</code></h2>
 <p>The <code>if</code>-<code>else</code> combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false.</p>
@@ -121,11 +136,12 @@ font-style: italic;">## do something different</span></span>
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Generate a uniform random number</span></span>
 <span id="cb4-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">runif</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">10</span>)  </span>
-<span id="cb4-3"><span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
-<span id="cb4-4">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span></span>
-<span id="cb4-5">} <span class="cf" style="color: #003B4F;">else</span> {</span>
-<span id="cb4-6">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
-<span id="cb4-7">}</span></code></pre></div>
+<span id="cb4-3"></span>
+<span id="cb4-4"><span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
+<span id="cb4-5">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span></span>
+<span id="cb4-6">} <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb4-7">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb4-8">}</span></code></pre></div>
 </div>
 <p>The value of <code>y</code> is set depending on whether <code>x &gt; 3</code> or not. This expression can also be written a different, but equivalent, way in R.</p>
 <div class="cell">
@@ -144,15 +160,59 @@ font-style: italic;">## Generate a uniform random number</span></span>
 <span id="cb6-5"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition2<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
 <span id="cb6-6"></span>
 <span id="cb6-7">}</span></code></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s use the <code>palmerpenguins</code> dataset and write a if-else statement that</p>
+<ol type="1">
+<li>Randomly samples a value from a standard normal distribution (<strong>Hint</strong>: check out the <code>rnorm()</code> function in base R).</li>
+<li>If the value is larger than 0, use <code>dplyr</code> functions to keep only the <code>Chinstrap</code> penguins.</li>
+<li>Otherwise, keep only the <code>Gentoo</code> penguins.</li>
+<li>Re-run the code 10 times and look at output.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span>
+<span id="cb7-2"></span>
+<span id="cb7-3"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb7-4"><span class="fu" style="color: #4758AB;">library</span>(palmerpenguins)</span>
+<span id="cb7-5">penguins </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
+#   ²​body_mass_g</code></pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="for-loops" class="level2">
 <h2 class="anchored" data-anchor-id="for-loops"><code>for</code> Loops</h2>
-<p>For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient.</p>
-<p>In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
+<p><strong>For loops</strong> are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop was not sufficient.</p>
+<p>In R, for loops take an iterator variable and assign it successive values from a sequence or vector.</p>
+<p>For loops are most commonly used for <strong>iterating over the elements of an object</strong> (list, vector, etc.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>) {</span>
-<span id="cb7-2">        <span class="fu" style="color: #4758AB;">print</span>(i)</span>
-<span id="cb7-3">}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb9-2">        <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb9-3">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 2
@@ -169,13 +229,13 @@ font-style: italic;">## Generate a uniform random number</span></span>
 <p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, …, 10, executes the code within the curly braces, and then the loop exits.</p>
 <p>The following three loops all have the same behavior.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)</span>
-<span id="cb9-2"></span>
-<span id="cb9-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) {</span>
-<span id="cb9-4">        <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)</span>
+<span id="cb11-2"></span>
+<span id="cb11-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) {</span>
+<span id="cb11-4">        <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Print out each element of 'x'</span></span>
-<span id="cb9-5">        <span class="fu" style="color: #4758AB;">print</span>(x[i])  </span>
-<span id="cb9-6">}</span></code></pre></div>
+<span id="cb11-5">        <span class="fu" style="color: #4758AB;">print</span>(x[i])  </span>
+<span id="cb11-6">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -185,11 +245,11 @@ font-style: italic;">## Print out each element of 'x'</span></span>
 </div>
 <p>The <code>seq_along()</code> function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object <code>x</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
-<span id="cb11-2"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_along</span>(x)) {   </span>
-<span id="cb11-3">        <span class="fu" style="color: #4758AB;">print</span>(x[i])</span>
-<span id="cb11-4">}</span></code></pre></div>
+<span id="cb13-2"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_along</span>(x)) {   </span>
+<span id="cb13-3">        <span class="fu" style="color: #4758AB;">print</span>(x[i])</span>
+<span id="cb13-4">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -199,9 +259,9 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 </div>
 <p>It is not necessary to use an index-type variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="cf" style="color: #003B4F;">for</span>(letter <span class="cf" style="color: #003B4F;">in</span> x) {</span>
-<span id="cb13-2">        <span class="fu" style="color: #4758AB;">print</span>(letter)</span>
-<span id="cb13-3">}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="cf" style="color: #003B4F;">for</span>(letter <span class="cf" style="color: #003B4F;">in</span> x) {</span>
+<span id="cb15-2">        <span class="fu" style="color: #4758AB;">print</span>(letter)</span>
+<span id="cb15-3">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -211,7 +271,7 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 </div>
 <p>For one line loops, the curly braces are not strictly necessary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) <span class="fu" style="color: #4758AB;">print</span>(x[i])</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) <span class="fu" style="color: #4758AB;">print</span>(x[i])</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -224,24 +284,24 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 <section id="nested-for-loops" class="level2">
 <h2 class="anchored" data-anchor-id="nested-for-loops">Nested <code>for</code> loops</h2>
 <p><code>for</code> loops can be nested inside of each other.</p>
-<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">3</span>)</span>
-<span id="cb17-2"></span>
-<span id="cb17-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">nrow</span>(x))) {</span>
-<span id="cb17-4">        <span class="cf" style="color: #003B4F;">for</span>(j <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">ncol</span>(x))) {</span>
-<span id="cb17-5">                <span class="fu" style="color: #4758AB;">print</span>(x[i, j])</span>
-<span id="cb17-6">        }   </span>
-<span id="cb17-7">}</span></code></pre></div>
+<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">3</span>)</span>
+<span id="cb19-2"></span>
+<span id="cb19-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">nrow</span>(x))) {</span>
+<span id="cb19-4">        <span class="cf" style="color: #003B4F;">for</span>(j <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">ncol</span>(x))) {</span>
+<span id="cb19-5">                <span class="fu" style="color: #4758AB;">print</span>(x[i, j])</span>
+<span id="cb19-6">        }   </span>
+<span id="cb19-7">}</span></code></pre></div>
 <p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g.&nbsp;matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).</p>
 </section>
 <section id="while-loops" class="level2">
 <h2 class="anchored" data-anchor-id="while-loops"><code>while</code> Loops</h2>
 <p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1">count <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
-<span id="cb18-2"><span class="cf" style="color: #003B4F;">while</span>(count <span class="sc" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
-<span id="cb18-3">        <span class="fu" style="color: #4758AB;">print</span>(count)</span>
-<span id="cb18-4">        count <span class="ot" style="color: #003B4F;">&lt;-</span> count <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb18-5">}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">count <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb20-2"><span class="cf" style="color: #003B4F;">while</span>(count <span class="sc" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb20-3">        <span class="fu" style="color: #4758AB;">print</span>(count)</span>
+<span id="cb20-4">        count <span class="ot" style="color: #003B4F;">&lt;-</span> count <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb20-5">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 1
@@ -258,20 +318,20 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 <p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
 <p>Sometimes there will be more than one condition in the test.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">z <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span></span>
-<span id="cb20-2"><span class="fu" style="color: #4758AB;">set.seed</span>(<span class="dv" style="color: #AD0000;">1</span>)</span>
-<span id="cb20-3"></span>
-<span id="cb20-4"><span class="cf" style="color: #003B4F;">while</span>(z <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">3</span> <span class="sc" style="color: #5E5E5E;">&amp;&amp;</span> z <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
-<span id="cb20-5">        coin <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rbinom</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.5</span>)</span>
-<span id="cb20-6">        </span>
-<span id="cb20-7">        <span class="cf" style="color: #003B4F;">if</span>(coin <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>) {  <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">z <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span></span>
+<span id="cb22-2"><span class="fu" style="color: #4758AB;">set.seed</span>(<span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb22-3"></span>
+<span id="cb22-4"><span class="cf" style="color: #003B4F;">while</span>(z <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">3</span> <span class="sc" style="color: #5E5E5E;">&amp;&amp;</span> z <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb22-5">        coin <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rbinom</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb22-6">        </span>
+<span id="cb22-7">        <span class="cf" style="color: #003B4F;">if</span>(coin <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>) {  <span class="do" style="color: #5E5E5E;
 font-style: italic;">## random walk</span></span>
-<span id="cb20-8">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb20-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
-<span id="cb20-10">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb20-11">        } </span>
-<span id="cb20-12">}</span>
-<span id="cb20-13"><span class="fu" style="color: #4758AB;">print</span>(z)</span></code></pre></div>
+<span id="cb22-8">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb22-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb22-10">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb22-11">        } </span>
+<span id="cb22-12">}</span>
+<span id="cb22-13"><span class="fu" style="color: #4758AB;">print</span>(z)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -283,19 +343,19 @@ font-style: italic;">## random walk</span></span>
 <p><code>repeat</code> initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
 <p>One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">x0 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb22-2">tol <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fl" style="color: #AD0000;">1e-8</span></span>
-<span id="cb22-3"></span>
-<span id="cb22-4"><span class="cf" style="color: #003B4F;">repeat</span> {</span>
-<span id="cb22-5">        x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">computeEstimate</span>()</span>
-<span id="cb22-6">        </span>
-<span id="cb22-7">        <span class="cf" style="color: #003B4F;">if</span>(<span class="fu" style="color: #4758AB;">abs</span>(x1 <span class="sc" style="color: #5E5E5E;">-</span> x0) <span class="sc" style="color: #5E5E5E;">&lt;</span> tol) {  <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1">x0 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb24-2">tol <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fl" style="color: #AD0000;">1e-8</span></span>
+<span id="cb24-3"></span>
+<span id="cb24-4"><span class="cf" style="color: #003B4F;">repeat</span> {</span>
+<span id="cb24-5">        x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">computeEstimate</span>()</span>
+<span id="cb24-6">        </span>
+<span id="cb24-7">        <span class="cf" style="color: #003B4F;">if</span>(<span class="fu" style="color: #4758AB;">abs</span>(x1 <span class="sc" style="color: #5E5E5E;">-</span> x0) <span class="sc" style="color: #5E5E5E;">&lt;</span> tol) {  <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Close enough?</span></span>
-<span id="cb22-8">                <span class="cf" style="color: #003B4F;">break</span></span>
-<span id="cb22-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
-<span id="cb22-10">                x0 <span class="ot" style="color: #003B4F;">&lt;-</span> x1</span>
-<span id="cb22-11">        } </span>
-<span id="cb22-12">}</span></code></pre></div>
+<span id="cb24-8">                <span class="cf" style="color: #003B4F;">break</span></span>
+<span id="cb24-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb24-10">                x0 <span class="ot" style="color: #003B4F;">&lt;-</span> x1</span>
+<span id="cb24-11">        } </span>
+<span id="cb24-12">}</span></code></pre></div>
 </div>
 <p>Note that the above code will not run if the <code>computeEstimate()</code> function is not defined (I just made it up for the purposes of this demonstration).</p>
 <p>The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of <code>x0</code> and <code>x1</code> oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a <code>for</code> loop and then report whether convergence was achieved or not.</p>
@@ -304,27 +364,27 @@ font-style: italic;">## Close enough?</span></span>
 <h2 class="anchored" data-anchor-id="next-break"><code>next</code>, <code>break</code></h2>
 <p><code>next</code> is used to skip an iteration of a loop.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
-<span id="cb23-2">        <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
-<span id="cb23-3">                <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb25-2">        <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb25-3">                <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Skip the first 20 iterations</span></span>
-<span id="cb23-4">                <span class="cf" style="color: #003B4F;">next</span>                 </span>
-<span id="cb23-5">        }</span>
-<span id="cb23-6">        <span class="do" style="color: #5E5E5E;
+<span id="cb25-4">                <span class="cf" style="color: #003B4F;">next</span>                 </span>
+<span id="cb25-5">        }</span>
+<span id="cb25-6">        <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Do something here</span></span>
-<span id="cb23-7">}</span></code></pre></div>
+<span id="cb25-7">}</span></code></pre></div>
 </div>
 <p><code>break</code> is used to exit a loop immediately, regardless of what iteration the loop may be on.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
-<span id="cb24-2">      <span class="fu" style="color: #4758AB;">print</span>(i)</span>
-<span id="cb24-3"></span>
-<span id="cb24-4">      <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
-<span id="cb24-5">              <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb26-2">      <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb26-3"></span>
+<span id="cb26-4">      <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb26-5">              <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Stop loop after 20 iterations</span></span>
-<span id="cb24-6">              <span class="cf" style="color: #003B4F;">break</span>  </span>
-<span id="cb24-7">      }     </span>
-<span id="cb24-8">}</span></code></pre></div>
+<span id="cb26-6">              <span class="cf" style="color: #003B4F;">break</span>  </span>
+<span id="cb26-7">      }     </span>
+<span id="cb26-8">}</span></code></pre></div>
 </div>
 </section>
 </section>
@@ -817,6 +877,10 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "list"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><span class="fu" style="color: #4758AB;">attributes</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -834,45 +898,19 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>What happens with the following code?</p>
+<p>Let’s use <code>typeof()</code> to ask what happens when we mix different classes of R objects together.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="fl" style="color: #AD0000;">1.7</span>, <span class="st" style="color: #20794D;">"a"</span>)</span>
-<span id="cb46-2">y</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "1.7" "a"  </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><span class="fu" style="color: #4758AB;">typeof</span>(y)           <span class="do" style="color: #5E5E5E;
-font-style: italic;">## character</span></span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="fl" style="color: #AD0000;">1.7</span>, <span class="st" style="color: #20794D;">"a"</span>)</span>
+<span id="cb48-2">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="cn" style="color: #8f5902;">TRUE</span>, <span class="dv" style="color: #AD0000;">2</span>)</span>
+<span id="cb48-3">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="cn" style="color: #8f5902;">TRUE</span>)</span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="cn" style="color: #8f5902;">TRUE</span>, <span class="dv" style="color: #AD0000;">2</span>)    </span>
-<span id="cb50-2">y</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><span class="fu" style="color: #4758AB;">typeof</span>(y)           <span class="do" style="color: #5E5E5E;
-font-style: italic;">## numeric</span></span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "double"</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="cn" style="color: #8f5902;">TRUE</span>)</span>
-<span id="cb54-2">y</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "a"    "TRUE"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><span class="fu" style="color: #4758AB;">typeof</span>(y)           <span class="do" style="color: #5E5E5E;
-font-style: italic;">## character</span></span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
+<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## try it here</span></span></code></pre></div>
 </div>
 </div>
 </div>
-</div>
+<p>Why is this happening?</p>
 <p>In each case above, we are <strong>mixing objects of two different classes</strong> in a vector.</p>
 <p>But remember that the only rule about vectors says this is not allowed?</p>
 <p>When different objects are mixed in a vector, <strong>coercion</strong> occurs so that <strong>every element in the vector is of the same class</strong>.</p>
@@ -884,44 +922,54 @@ font-style: italic;">## character</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="explicit-coercion">Explicit Coercion</h2>
 <p>Objects can be explicitly coerced from one class to another using the <code>as.*()</code> functions, if available.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span></span>
-<span id="cb58-2"><span class="fu" style="color: #4758AB;">class</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span></span>
+<span id="cb50-2"><span class="fu" style="color: #4758AB;">class</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><span class="fu" style="color: #4758AB;">as.numeric</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><span class="fu" style="color: #4758AB;">as.numeric</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 1 2 3 4 5 6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><span class="fu" style="color: #4758AB;">as.logical</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><span class="fu" style="color: #4758AB;">as.logical</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><span class="fu" style="color: #4758AB;">as.character</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><span class="fu" style="color: #4758AB;">as.character</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "0" "1" "2" "3" "4" "5" "6"</code></pre>
 </div>
 </div>
 <p>Sometimes, <strong>R can’t figure out how to coerce an object</strong> and this can result in <code>NA</code>s being produced.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>)</span>
-<span id="cb66-2"><span class="fu" style="color: #4758AB;">as.numeric</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb58" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>)</span>
+<span id="cb58-2"><span class="fu" style="color: #4758AB;">as.numeric</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: NAs introduced by coercion</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA NA NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><span class="fu" style="color: #4758AB;">as.logical</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb61" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><span class="fu" style="color: #4758AB;">as.logical</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA NA NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><span class="fu" style="color: #4758AB;">as.complex</span>(x)</span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA NA NA</code></pre>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try to convert the <code>x</code> vector above to integers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## try it here </span></span></code></pre></div>
+</div>
 </div>
 </div>
 <p>When nonsensical coercion takes place, you will usually get a warning from R.</p>
@@ -933,18 +981,18 @@ font-style: italic;">## character</span></span></code></pre></div>
 <li>The <strong>dimension attribute</strong> is <strong>itself an integer vector</strong> of length 2 (number of rows, number of columns)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
-<span id="cb74-2">m</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb64" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
+<span id="cb64-2">m</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]   NA   NA   NA
 [2,]   NA   NA   NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb76" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><span class="fu" style="color: #4758AB;">dim</span>(m)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb66" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><span class="fu" style="color: #4758AB;">dim</span>(m)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb78" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><span class="fu" style="color: #4758AB;">attributes</span>(m)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb68" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><span class="fu" style="color: #4758AB;">attributes</span>(m)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$dim
 [1] 2 3</code></pre>
@@ -952,23 +1000,40 @@ font-style: italic;">## character</span></span></code></pre></div>
 </div>
 <p>Matrices are <strong>constructed column-wise</strong>, so entries can be thought of starting in the “upper left” corner and running down the columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
-<span id="cb80-2">m</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb70" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
+<span id="cb70-2">m</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6</code></pre>
 </div>
 </div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try to use <code>attributes()</code> function to look at the attributes of the <code>m</code> object</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## try it here </span></span></code></pre></div>
+</div>
+</div>
+</div>
 <p>Matrices can also be created directly from vectors by adding a dimension attribute.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span> </span>
-<span id="cb82-2">m</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb73" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span> </span>
+<span id="cb73-2">m</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb84" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><span class="fu" style="color: #4758AB;">dim</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">5</span>)</span>
-<span id="cb84-2">m</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb75" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><span class="fu" style="color: #4758AB;">dim</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">5</span>)</span>
+<span id="cb75-2">m</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    1    3    5    7    9
@@ -977,20 +1042,31 @@ font-style: italic;">## character</span></span></code></pre></div>
 </div>
 <p>Matrices can be created by <strong>column-binding</strong> or <strong>row-binding</strong> with the <code>cbind()</code> and <code>rbind()</code> functions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span></span>
-<span id="cb86-2">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">12</span></span>
-<span id="cb86-3"><span class="fu" style="color: #4758AB;">cbind</span>(x, y)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb77" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span></span>
+<span id="cb77-2">y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">12</span></span>
+<span id="cb77-3"><span class="fu" style="color: #4758AB;">cbind</span>(x, y)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     x  y
 [1,] 1 10
 [2,] 2 11
 [3,] 3 12</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb88" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><span class="fu" style="color: #4758AB;">rbind</span>(x, y) </span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  [,1] [,2] [,3]
-x    1    2    3
-y   10   11   12</code></pre>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try to use <code>rbind()</code> to row bind <code>x</code> and <code>y</code> above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## try it here </span></span></code></pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -1012,8 +1088,8 @@ Pro-tip
 </div>
 <p>Lists can be explicitly created using the <code>list()</code> function, which takes an arbitrary number of arguments.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="st" style="color: #20794D;">"a"</span>, <span class="cn" style="color: #8f5902;">TRUE</span>, <span class="dv" style="color: #AD0000;">1</span> <span class="sc" style="color: #5E5E5E;">+</span> 4i) </span>
-<span id="cb90-2">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb80" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="st" style="color: #20794D;">"a"</span>, <span class="cn" style="color: #8f5902;">TRUE</span>, <span class="dv" style="color: #AD0000;">1</span> <span class="sc" style="color: #5E5E5E;">+</span> 4i) </span>
+<span id="cb80-2">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 1
@@ -1030,8 +1106,8 @@ Pro-tip
 </div>
 <p>We can also create an empty list of a prespecified length with the <code>vector()</code> function</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">vector</span>(<span class="st" style="color: #20794D;">"list"</span>, <span class="at" style="color: #657422;">length =</span> <span class="dv" style="color: #AD0000;">5</span>)</span>
-<span id="cb92-2">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb82" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">vector</span>(<span class="st" style="color: #20794D;">"list"</span>, <span class="at" style="color: #657422;">length =</span> <span class="dv" style="color: #AD0000;">5</span>)</span>
+<span id="cb82-2">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 NULL
@@ -1082,25 +1158,42 @@ Pro-tip
 </div>
 <p>Factor objects can be created with the <code>factor()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>)) </span>
-<span id="cb94-2">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb84" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>)) </span>
+<span id="cb84-2">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] yes yes no  yes no 
 Levels: no yes</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb96" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><span class="fu" style="color: #4758AB;">table</span>(x) </span></code></pre></div>
+<div class="sourceCode cell-code" id="cb86" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><span class="fu" style="color: #4758AB;">table</span>(x) </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>x
  no yes 
   2   3 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb98" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb88" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## See the underlying representation of factor</span></span>
-<span id="cb98-2"><span class="fu" style="color: #4758AB;">unclass</span>(x)  </span></code></pre></div>
+<span id="cb88-2"><span class="fu" style="color: #4758AB;">unclass</span>(x)  </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 2 1 2 1
 attr(,"levels")
 [1] "no"  "yes"</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try to use <code>attributes()</code> function to look at the attributes of the <code>x</code> object</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><span class="do" style="color: #5E5E5E;
+font-style: italic;">## try it here </span></span></code></pre></div>
+</div>
 </div>
 </div>
 <p>Often factors will be automatically created for you when you read in a dataset using a function like <code>read.table()</code>.</p>
@@ -1109,16 +1202,16 @@ attr(,"levels")
 </ul>
 <p>The order of the levels of a factor can be set using the <code>levels</code> argument to <code>factor()</code>. This can be important in linear modeling because the first level is used as the baseline level.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>))</span>
-<span id="cb100-2">x  <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb91" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>))</span>
+<span id="cb91-2">x  <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Levels are put in alphabetical order</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] yes yes no  yes no 
 Levels: no yes</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb102" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>),</span>
-<span id="cb102-2">            <span class="at" style="color: #657422;">levels =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>))</span>
-<span id="cb102-3">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb93" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">factor</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>, <span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>),</span>
+<span id="cb93-2">            <span class="at" style="color: #657422;">levels =</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"yes"</span>, <span class="st" style="color: #20794D;">"no"</span>))</span>
+<span id="cb93-3">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] yes yes no  yes no 
 Levels: yes no</code></pre>
@@ -1135,31 +1228,31 @@ Levels: yes no</code></pre>
 <li><p>A <code>NaN</code> value is also <code>NA</code> but the converse is not true</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb95" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Create a vector with NAs in it</span></span>
-<span id="cb104-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="cn" style="color: #8f5902;">NA</span>, <span class="dv" style="color: #AD0000;">10</span>, <span class="dv" style="color: #AD0000;">3</span>)  </span>
-<span id="cb104-3"><span class="do" style="color: #5E5E5E;
+<span id="cb95-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="cn" style="color: #8f5902;">NA</span>, <span class="dv" style="color: #AD0000;">10</span>, <span class="dv" style="color: #AD0000;">3</span>)  </span>
+<span id="cb95-3"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Return a logical vector indicating which elements are NA</span></span>
-<span id="cb104-4"><span class="fu" style="color: #4758AB;">is.na</span>(x)    </span></code></pre></div>
+<span id="cb95-4"><span class="fu" style="color: #4758AB;">is.na</span>(x)    </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb106" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb97" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Return a logical vector indicating which elements are NaN</span></span>
-<span id="cb106-2"><span class="fu" style="color: #4758AB;">is.nan</span>(x)   </span></code></pre></div>
+<span id="cb97-2"><span class="fu" style="color: #4758AB;">is.nan</span>(x)   </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE FALSE FALSE FALSE</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb99" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Now create a vector with both NA and NaN values</span></span>
-<span id="cb108-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="cn" style="color: #8f5902;">NaN</span>, <span class="cn" style="color: #8f5902;">NA</span>, <span class="dv" style="color: #AD0000;">4</span>)</span>
-<span id="cb108-3"><span class="fu" style="color: #4758AB;">is.na</span>(x)</span></code></pre></div>
+<span id="cb99-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="cn" style="color: #8f5902;">NaN</span>, <span class="cn" style="color: #8f5902;">NA</span>, <span class="dv" style="color: #AD0000;">4</span>)</span>
+<span id="cb99-3"><span class="fu" style="color: #4758AB;">is.na</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE  TRUE FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb110" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><span class="fu" style="color: #4758AB;">is.nan</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb101" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><span class="fu" style="color: #4758AB;">is.nan</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
 </div>
@@ -1176,10 +1269,9 @@ font-style: italic;">## Now create a vector with both NA and NaN values</span></
 <p>Unlike matrices, <strong>data frames can store different classes of objects in each column</strong>. Matrices must have every element be the same class (e.g.&nbsp;all integers or all numeric).</p>
 <p>In addition to column names, indicating the names of the variables or predictors, data frames have a special attribute called <code>row.names</code> which indicate information about each row of the data frame.</p>
 <p>Data frames are usually created by reading in a dataset using the <code>read.table()</code> or <code>read.csv()</code>. However, data frames can also be created explicitly with the <code>data.frame()</code> function or they can be coerced from other types of objects like lists.</p>
-<p>Data frames can be converted to a matrix by calling <code>data.matrix()</code>. While it might seem that the <code>as.matrix()</code> function should be used to coerce a data frame to a matrix, almost always, what you want is the result of <code>data.matrix()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb112" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">data.frame</span>(<span class="at" style="color: #657422;">foo =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">bar =</span> <span class="fu" style="color: #4758AB;">c</span>(T, T, F, F)) </span>
-<span id="cb112-2">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb103" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">data.frame</span>(<span class="at" style="color: #657422;">foo =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">bar =</span> <span class="fu" style="color: #4758AB;">c</span>(T, T, F, F)) </span>
+<span id="cb103-2">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  foo   bar
 1   1  TRUE
@@ -1187,23 +1279,91 @@ font-style: italic;">## Now create a vector with both NA and NaN values</span></
 3   3 FALSE
 4   4 FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb114" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><span class="fu" style="color: #4758AB;">nrow</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb105" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><span class="fu" style="color: #4758AB;">nrow</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb116" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><span class="fu" style="color: #4758AB;">ncol</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb107" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><span class="fu" style="color: #4758AB;">ncol</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb109" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><span class="fu" style="color: #4758AB;">attributes</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$names
+[1] "foo" "bar"
+
+$class
+[1] "data.frame"
+
+$row.names
+[1] 1 2 3 4</code></pre>
 </div>
+</div>
+<p>Data frames can be converted to a matrix by calling <code>data.matrix()</code>. While it might seem that the <code>as.matrix()</code> function should be used to coerce a data frame to a matrix, almost always, what you want is the result of <code>data.matrix()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><span class="fu" style="color: #4758AB;">data.matrix</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb111" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><span class="fu" style="color: #4758AB;">data.matrix</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     foo bar
 [1,]   1   1
 [2,]   2   1
 [3,]   3   0
 [4,]   4   0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb113" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><span class="fu" style="color: #4758AB;">attributes</span>(<span class="fu" style="color: #4758AB;">data.matrix</span>(x))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$dim
+[1] 4 2
+
+$dimnames
+$dimnames[[1]]
+NULL
+
+$dimnames[[2]]
+[1] "foo" "bar"</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s use the <code>palmerpenguins</code> dataset.</p>
+<ol type="1">
+<li>What attributes does <code>penguins</code> have?</li>
+<li>Try using <code>typeof()</code> with <code>penguins</code>.</li>
+<li>What are the levels in the <code>species</code> column in the <code>penguins</code> dataset?</li>
+<li>Create a logical vector for all the penguins measured from 2008.</li>
+<li>Create a matrix with just the columns <code>bill_length_mm</code>, <code>bill_depth_mm</code>, <code>flipper_length_mm</code>, and <code>body_mass_g</code></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span>
+<span id="cb115-2"></span>
+<span id="cb115-3"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb115-4"><span class="fu" style="color: #4758AB;">library</span>(palmerpenguins)</span>
+<span id="cb115-5">penguins </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
+#   ²​body_mass_g</code></pre>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -1212,26 +1372,31 @@ font-style: italic;">## Now create a vector with both NA and NaN values</span></
 <p>R objects can have <strong>names</strong>, which is very useful for writing readable code and self-describing objects.</p>
 <p>Here is an example of assigning names to an integer vector.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb120" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span></span>
-<span id="cb120-2"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb117" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">3</span></span>
+<span id="cb117-2"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb122" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><span class="fu" style="color: #4758AB;">names</span>(x) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"New York"</span>, <span class="st" style="color: #20794D;">"Seattle"</span>, <span class="st" style="color: #20794D;">"Los Angeles"</span>) </span>
-<span id="cb122-2">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb119" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><span class="fu" style="color: #4758AB;">names</span>(x) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"New York"</span>, <span class="st" style="color: #20794D;">"Seattle"</span>, <span class="st" style="color: #20794D;">"Los Angeles"</span>) </span>
+<span id="cb119-2">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   New York     Seattle Los Angeles 
           1           2           3 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb124" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb121" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "New York"    "Seattle"     "Los Angeles"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb123" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><span class="fu" style="color: #4758AB;">attributes</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$names
+[1] "New York"    "Seattle"     "Los Angeles"</code></pre>
 </div>
 </div>
 <p><strong>Lists can also have names</strong>, which is often very useful.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb126" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="st" style="color: #20794D;">"Los Angeles"</span> <span class="ot" style="color: #003B4F;">=</span> <span class="dv" style="color: #AD0000;">1</span>, <span class="at" style="color: #657422;">Boston =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">London =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
-<span id="cb126-2">x</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb125" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="st" style="color: #20794D;">"Los Angeles"</span> <span class="ot" style="color: #003B4F;">=</span> <span class="dv" style="color: #AD0000;">1</span>, <span class="at" style="color: #657422;">Boston =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">London =</span> <span class="dv" style="color: #AD0000;">3</span>) </span>
+<span id="cb125-2">x</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code><?xml version="1.0" encoding="UTF-8"?>
 <rss  xmlns:atom="http://www.w3.org/2005/Atom" 
@@ -1310,7 +1475,9 @@ Learning objectives
 </section>
 <section id="control-structures" class="level1">
 <h1>Control Structures</h1>
-<p>Control structures in R allow you to control the flow of execution of a series of R expressions. Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time. Control structures allow you to respond to inputs or to features of the data and execute different R expressions accordingly.</p>
+<p><strong>Control structures</strong> in R allow you to <strong>control the flow of execution of a series of R expressions</strong>.</p>
+<p>Basically, control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time.</p>
+<p>Control structures <strong>allow you to respond to inputs or to features of the data</strong> and execute different R expressions accordingly.</p>
 <p>Commonly used control structures are</p>
 <ul>
 <li><p><code>if</code> and <code>else</code>: testing a condition and acting on it</p></li>
@@ -1320,7 +1487,20 @@ Learning objectives
 <li><p><code>break</code>: break the execution of a loop</p></li>
 <li><p><code>next</code>: skip an interation of a loop</p></li>
 </ul>
-<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons. However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expressions.</p>
+<p>However, these constructs do not have to be used in functions and it’s a good idea to become familiar with them before we delve into functions.</p>
+</div>
+</div>
 <section id="if-else" class="level2">
 <h2 class="anchored" data-anchor-id="if-else"><code>if</code>-<code>else</code></h2>
 <p>The <code>if</code>-<code>else</code> combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false.</p>
@@ -1356,11 +1536,12 @@ font-style: italic;">## do something different</span></span>
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Generate a uniform random number</span></span>
 <span id="cb4-2">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">runif</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">10</span>)  </span>
-<span id="cb4-3"><span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
-<span id="cb4-4">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span></span>
-<span id="cb4-5">} <span class="cf" style="color: #003B4F;">else</span> {</span>
-<span id="cb4-6">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
-<span id="cb4-7">}</span></code></pre></div>
+<span id="cb4-3"></span>
+<span id="cb4-4"><span class="cf" style="color: #003B4F;">if</span>(x <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">3</span>) {</span>
+<span id="cb4-5">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">10</span></span>
+<span id="cb4-6">} <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb4-7">        y <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb4-8">}</span></code></pre></div>
 </div>
 <p>The value of <code>y</code> is set depending on whether <code>x &gt; 3</code> or not. This expression can also be written a different, but equivalent, way in R.</p>
 <div class="cell">
@@ -1379,15 +1560,59 @@ font-style: italic;">## Generate a uniform random number</span></span>
 <span id="cb6-5"><span class="cf" style="color: #003B4F;">if</span>(<span class="sc" style="color: #5E5E5E;">&lt;</span>condition2<span class="sc" style="color: #5E5E5E;">&gt;</span>) {</span>
 <span id="cb6-6"></span>
 <span id="cb6-7">}</span></code></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s use the <code>palmerpenguins</code> dataset and write a if-else statement that</p>
+<ol type="1">
+<li>Randomly samples a value from a standard normal distribution (<strong>Hint</strong>: check out the <code>rnorm()</code> function in base R).</li>
+<li>If the value is larger than 0, use <code>dplyr</code> functions to keep only the <code>Chinstrap</code> penguins.</li>
+<li>Otherwise, keep only the <code>Gentoo</code> penguins.</li>
+<li>Re-run the code 10 times and look at output.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="co" style="color: #5E5E5E;"># try it yourself</span></span>
+<span id="cb7-2"></span>
+<span id="cb7-3"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb7-4"><span class="fu" style="color: #4758AB;">library</span>(palmerpenguins)</span>
+<span id="cb7-5">penguins </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
+#   ²​body_mass_g</code></pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="for-loops" class="level2">
 <h2 class="anchored" data-anchor-id="for-loops"><code>for</code> Loops</h2>
-<p>For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient.</p>
-<p>In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
+<p><strong>For loops</strong> are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop was not sufficient.</p>
+<p>In R, for loops take an iterator variable and assign it successive values from a sequence or vector.</p>
+<p>For loops are most commonly used for <strong>iterating over the elements of an object</strong> (list, vector, etc.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>) {</span>
-<span id="cb7-2">        <span class="fu" style="color: #4758AB;">print</span>(i)</span>
-<span id="cb7-3">}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb9-2">        <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb9-3">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 2
@@ -1404,13 +1629,13 @@ font-style: italic;">## Generate a uniform random number</span></span>
 <p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, …, 10, executes the code within the curly braces, and then the loop exits.</p>
 <p>The following three loops all have the same behavior.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)</span>
-<span id="cb9-2"></span>
-<span id="cb9-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) {</span>
-<span id="cb9-4">        <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>, <span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)</span>
+<span id="cb11-2"></span>
+<span id="cb11-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) {</span>
+<span id="cb11-4">        <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Print out each element of 'x'</span></span>
-<span id="cb9-5">        <span class="fu" style="color: #4758AB;">print</span>(x[i])  </span>
-<span id="cb9-6">}</span></code></pre></div>
+<span id="cb11-5">        <span class="fu" style="color: #4758AB;">print</span>(x[i])  </span>
+<span id="cb11-6">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -1420,11 +1645,11 @@ font-style: italic;">## Print out each element of 'x'</span></span>
 </div>
 <p>The <code>seq_along()</code> function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object <code>x</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="do" style="color: #5E5E5E;
 font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
-<span id="cb11-2"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_along</span>(x)) {   </span>
-<span id="cb11-3">        <span class="fu" style="color: #4758AB;">print</span>(x[i])</span>
-<span id="cb11-4">}</span></code></pre></div>
+<span id="cb13-2"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_along</span>(x)) {   </span>
+<span id="cb13-3">        <span class="fu" style="color: #4758AB;">print</span>(x[i])</span>
+<span id="cb13-4">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -1434,9 +1659,9 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 </div>
 <p>It is not necessary to use an index-type variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="cf" style="color: #003B4F;">for</span>(letter <span class="cf" style="color: #003B4F;">in</span> x) {</span>
-<span id="cb13-2">        <span class="fu" style="color: #4758AB;">print</span>(letter)</span>
-<span id="cb13-3">}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="cf" style="color: #003B4F;">for</span>(letter <span class="cf" style="color: #003B4F;">in</span> x) {</span>
+<span id="cb15-2">        <span class="fu" style="color: #4758AB;">print</span>(letter)</span>
+<span id="cb15-3">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -1446,7 +1671,7 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 </div>
 <p>For one line loops, the curly braces are not strictly necessary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) <span class="fu" style="color: #4758AB;">print</span>(x[i])</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>) <span class="fu" style="color: #4758AB;">print</span>(x[i])</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"
 [1] "b"
@@ -1459,24 +1684,24 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 <section id="nested-for-loops" class="level2">
 <h2 class="anchored" data-anchor-id="nested-for-loops">Nested <code>for</code> loops</h2>
 <p><code>for</code> loops can be nested inside of each other.</p>
-<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">3</span>)</span>
-<span id="cb17-2"></span>
-<span id="cb17-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">nrow</span>(x))) {</span>
-<span id="cb17-4">        <span class="cf" style="color: #003B4F;">for</span>(j <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">ncol</span>(x))) {</span>
-<span id="cb17-5">                <span class="fu" style="color: #4758AB;">print</span>(x[i, j])</span>
-<span id="cb17-6">        }   </span>
-<span id="cb17-7">}</span></code></pre></div>
+<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1">x <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">6</span>, <span class="dv" style="color: #AD0000;">2</span>, <span class="dv" style="color: #AD0000;">3</span>)</span>
+<span id="cb19-2"></span>
+<span id="cb19-3"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">nrow</span>(x))) {</span>
+<span id="cb19-4">        <span class="cf" style="color: #003B4F;">for</span>(j <span class="cf" style="color: #003B4F;">in</span> <span class="fu" style="color: #4758AB;">seq_len</span>(<span class="fu" style="color: #4758AB;">ncol</span>(x))) {</span>
+<span id="cb19-5">                <span class="fu" style="color: #4758AB;">print</span>(x[i, j])</span>
+<span id="cb19-6">        }   </span>
+<span id="cb19-7">}</span></code></pre></div>
 <p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g.&nbsp;matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).</p>
 </section>
 <section id="while-loops" class="level2">
 <h2 class="anchored" data-anchor-id="while-loops"><code>while</code> Loops</h2>
 <p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1">count <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
-<span id="cb18-2"><span class="cf" style="color: #003B4F;">while</span>(count <span class="sc" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
-<span id="cb18-3">        <span class="fu" style="color: #4758AB;">print</span>(count)</span>
-<span id="cb18-4">        count <span class="ot" style="color: #003B4F;">&lt;-</span> count <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb18-5">}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">count <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb20-2"><span class="cf" style="color: #003B4F;">while</span>(count <span class="sc" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb20-3">        <span class="fu" style="color: #4758AB;">print</span>(count)</span>
+<span id="cb20-4">        count <span class="ot" style="color: #003B4F;">&lt;-</span> count <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb20-5">}</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 1
@@ -1493,20 +1718,20 @@ font-style: italic;">## Generate a sequence based on length of 'x'</span></span>
 <p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
 <p>Sometimes there will be more than one condition in the test.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">z <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span></span>
-<span id="cb20-2"><span class="fu" style="color: #4758AB;">set.seed</span>(<span class="dv" style="color: #AD0000;">1</span>)</span>
-<span id="cb20-3"></span>
-<span id="cb20-4"><span class="cf" style="color: #003B4F;">while</span>(z <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">3</span> <span class="sc" style="color: #5E5E5E;">&amp;&amp;</span> z <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
-<span id="cb20-5">        coin <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rbinom</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.5</span>)</span>
-<span id="cb20-6">        </span>
-<span id="cb20-7">        <span class="cf" style="color: #003B4F;">if</span>(coin <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>) {  <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">z <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">5</span></span>
+<span id="cb22-2"><span class="fu" style="color: #4758AB;">set.seed</span>(<span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb22-3"></span>
+<span id="cb22-4"><span class="cf" style="color: #003B4F;">while</span>(z <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">3</span> <span class="sc" style="color: #5E5E5E;">&amp;&amp;</span> z <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">10</span>) {</span>
+<span id="cb22-5">        coin <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">rbinom</span>(<span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>, <span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb22-6">        </span>
+<span id="cb22-7">        <span class="cf" style="color: #003B4F;">if</span>(coin <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>) {  <span class="do" style="color: #5E5E5E;
 font-style: italic;">## random walk</span></span>
-<span id="cb20-8">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb20-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
-<span id="cb20-10">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb20-11">        } </span>
-<span id="cb20-12">}</span>
-<span id="cb20-13"><span class="fu" style="color: #4758AB;">print</span>(z)</span></code></pre></div>
+<span id="cb22-8">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb22-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb22-10">                z <span class="ot" style="color: #003B4F;">&lt;-</span> z <span class="sc" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb22-11">        } </span>
+<span id="cb22-12">}</span>
+<span id="cb22-13"><span class="fu" style="color: #4758AB;">print</span>(z)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -1518,19 +1743,19 @@ font-style: italic;">## random walk</span></span>
 <p><code>repeat</code> initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
 <p>One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">x0 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb22-2">tol <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fl" style="color: #AD0000;">1e-8</span></span>
-<span id="cb22-3"></span>
-<span id="cb22-4"><span class="cf" style="color: #003B4F;">repeat</span> {</span>
-<span id="cb22-5">        x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">computeEstimate</span>()</span>
-<span id="cb22-6">        </span>
-<span id="cb22-7">        <span class="cf" style="color: #003B4F;">if</span>(<span class="fu" style="color: #4758AB;">abs</span>(x1 <span class="sc" style="color: #5E5E5E;">-</span> x0) <span class="sc" style="color: #5E5E5E;">&lt;</span> tol) {  <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1">x0 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb24-2">tol <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fl" style="color: #AD0000;">1e-8</span></span>
+<span id="cb24-3"></span>
+<span id="cb24-4"><span class="cf" style="color: #003B4F;">repeat</span> {</span>
+<span id="cb24-5">        x1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">computeEstimate</span>()</span>
+<span id="cb24-6">        </span>
+<span id="cb24-7">        <span class="cf" style="color: #003B4F;">if</span>(<span class="fu" style="color: #4758AB;">abs</span>(x1 <span class="sc" style="color: #5E5E5E;">-</span> x0) <span class="sc" style="color: #5E5E5E;">&lt;</span> tol) {  <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Close enough?</span></span>
-<span id="cb22-8">                <span class="cf" style="color: #003B4F;">break</span></span>
-<span id="cb22-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
-<span id="cb22-10">                x0 <span class="ot" style="color: #003B4F;">&lt;-</span> x1</span>
-<span id="cb22-11">        } </span>
-<span id="cb22-12">}</span></code></pre></div>
+<span id="cb24-8">                <span class="cf" style="color: #003B4F;">break</span></span>
+<span id="cb24-9">        } <span class="cf" style="color: #003B4F;">else</span> {</span>
+<span id="cb24-10">                x0 <span class="ot" style="color: #003B4F;">&lt;-</span> x1</span>
+<span id="cb24-11">        } </span>
+<span id="cb24-12">}</span></code></pre></div>
 </div>
 <p>Note that the above code will not run if the <code>computeEstimate()</code> function is not defined (I just made it up for the purposes of this demonstration).</p>
 <p>The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of <code>x0</code> and <code>x1</code> oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a <code>for</code> loop and then report whether convergence was achieved or not.</p>
@@ -1539,27 +1764,27 @@ font-style: italic;">## Close enough?</span></span>
 <h2 class="anchored" data-anchor-id="next-break"><code>next</code>, <code>break</code></h2>
 <p><code>next</code> is used to skip an iteration of a loop.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
-<span id="cb23-2">        <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
-<span id="cb23-3">                <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb25-2">        <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb25-3">                <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Skip the first 20 iterations</span></span>
-<span id="cb23-4">                <span class="cf" style="color: #003B4F;">next</span>                 </span>
-<span id="cb23-5">        }</span>
-<span id="cb23-6">        <span class="do" style="color: #5E5E5E;
+<span id="cb25-4">                <span class="cf" style="color: #003B4F;">next</span>                 </span>
+<span id="cb25-5">        }</span>
+<span id="cb25-6">        <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Do something here</span></span>
-<span id="cb23-7">}</span></code></pre></div>
+<span id="cb25-7">}</span></code></pre></div>
 </div>
 <p><code>break</code> is used to exit a loop immediately, regardless of what iteration the loop may be on.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
-<span id="cb24-2">      <span class="fu" style="color: #4758AB;">print</span>(i)</span>
-<span id="cb24-3"></span>
-<span id="cb24-4">      <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
-<span id="cb24-5">              <span class="do" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><span class="cf" style="color: #003B4F;">for</span>(i <span class="cf" style="color: #003B4F;">in</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">100</span>) {</span>
+<span id="cb26-2">      <span class="fu" style="color: #4758AB;">print</span>(i)</span>
+<span id="cb26-3"></span>
+<span id="cb26-4">      <span class="cf" style="color: #003B4F;">if</span>(i <span class="sc" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">20</span>) {</span>
+<span id="cb26-5">              <span class="do" style="color: #5E5E5E;
 font-style: italic;">## Stop loop after 20 iterations</span></span>
-<span id="cb24-6">              <span class="cf" style="color: #003B4F;">break</span>  </span>
-<span id="cb24-7">      }     </span>
-<span id="cb24-8">}</span></code></pre></div>
+<span id="cb26-6">              <span class="cf" style="color: #003B4F;">break</span>  </span>
+<span id="cb26-7">      }     </span>
+<span id="cb26-8">}</span></code></pre></div>
 </div>
 </section>
 </section>
@@ -1639,16 +1864,16 @@ $Boston
 $London
 [1] 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb128" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb127" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><span class="fu" style="color: #4758AB;">names</span>(x)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Los Angeles" "Boston"      "London"     </code></pre>
 </div>
 </div>
 <p><strong>Matrices can have both column and row names</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb130" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">2</span>)</span>
-<span id="cb130-2"><span class="fu" style="color: #4758AB;">dimnames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>), <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)) </span>
-<span id="cb130-3">m</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb129" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1">m <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">matrix</span>(<span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span><span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">nrow =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">ncol =</span> <span class="dv" style="color: #AD0000;">2</span>)</span>
+<span id="cb129-2"><span class="fu" style="color: #4758AB;">dimnames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">list</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"a"</span>, <span class="st" style="color: #20794D;">"b"</span>), <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"c"</span>, <span class="st" style="color: #20794D;">"d"</span>)) </span>
+<span id="cb129-3">m</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  c d
 a 1 3
@@ -1657,9 +1882,9 @@ b 2 4</code></pre>
 </div>
 <p>Column names and row names can be set separately using the <code>colnames()</code> and <code>rownames()</code> functions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb132" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><span class="fu" style="color: #4758AB;">colnames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"h"</span>, <span class="st" style="color: #20794D;">"f"</span>)</span>
-<span id="cb132-2"><span class="fu" style="color: #4758AB;">rownames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"x"</span>, <span class="st" style="color: #20794D;">"z"</span>)</span>
-<span id="cb132-3">m</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb131" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><span class="fu" style="color: #4758AB;">colnames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"h"</span>, <span class="st" style="color: #20794D;">"f"</span>)</span>
+<span id="cb131-2"><span class="fu" style="color: #4758AB;">rownames</span>(m) <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">c</span>(<span class="st" style="color: #20794D;">"x"</span>, <span class="st" style="color: #20794D;">"z"</span>)</span>
+<span id="cb131-3">m</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  h f
 x 1 3
