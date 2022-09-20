@@ -226,13 +226,31 @@ For one line loops, the curly braces are not strictly necessary.
 for(i in 1:4) print(x[i])
 ```
 
-However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won't be burned because you forgot to add curly braces (and you *will* be burned by this).
+However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won't be burned because you forgot to add curly braces (and you **will** be burned by this).
 
-## Nested `for` loops
 
-`for` loops can be nested inside of each other.
 
-``` r
+:::{.callout-note}
+
+### Question
+
+Let's use the `palmerpenguins` dataset and write a for loop that computes the column mean of the values if the values in the column are a numeric. Othewise, return a `NA`.
+
+
+```{r}
+# try it yourself
+
+```
+
+:::
+
+
+
+### Nested `for` loops
+
+`for` loops can be **nested** inside of each other.
+
+```{r, eval=FALSE}
 x <- matrix(1:6, 2, 3)
 
 for(i in seq_len(nrow(x))) {
@@ -242,11 +260,15 @@ for(i in seq_len(nrow(x))) {
 }
 ```
 
-Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g. matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).
+Nested loops are commonly needed for **multidimensional or hierarchical data structures** (e.g. matrices, lists). Be careful with nesting though. 
+
+Nesting beyond 2 to 3 levels often makes it **difficult to read/understand the code**. 
+
+If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).
 
 ## `while` Loops
 
-While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.
+**While loops** begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.
 
 ```{r}
 count <- 0
@@ -299,9 +321,21 @@ repeat {
 }
 ```
 
-Note that the above code will not run if the `computeEstimate()` function is not defined (I just made it up for the purposes of this demonstration).
+:::{.callout-tip}
+
+### Note
+
+The above code will not run if the `computeEstimate()` function is not defined (I just made it up for the purposes of this demonstration).
+
+:::
+
+:::{.callout-tip}
+
+### Pro-tip
 
 The loop above is a bit dangerous because there's no guarantee it will stop. You could get in a situation where the values of `x0` and `x1` oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a `for` loop and then report whether convergence was achieved or not.
+
+:::
 
 ## `next`, `break`
 

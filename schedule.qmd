@@ -44,8 +44,8 @@ For Qmd files (markdown document with [Quarto](https://quarto.org/docs/authoring
 | Week 4       | Sept 20 |  `r emojifont::emoji('nut_and_bolt')` R Nuts and Bolts \[[html](posts/2022-09-20-r-nuts-and-bolts/index.qmd)\] \[[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-20-r-nuts-and-bolts/index.qmd)\]  | |     |
 |              |         | `r emojifont::emoji('nut_and_bolt')` Control structures in R \[[html](posts/2022-09-20-control-structures/index.qmd)\] \[[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-20-control-structures/index.qmd)\]  | | |
 |              |         | | |     |
-|              | Sept 22 | `r emojifont::emoji('nut_and_bolt')` Functions in R | |     |
-|              |         | `r emojifont::emoji('nut_and_bolt')` Loop functions | |     |
+|              | Sept 22 | `r emojifont::emoji('nut_and_bolt')` Functions in R \[[html](posts/2022-09-22-functions/index.qmd)\] \[[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-22-functions/index.qmd)\] | |     |
+|              |         | `r emojifont::emoji('nut_and_bolt')` Loop functions \[[html](posts/2022-09-22-loop-functions/index.qmd)\] \[[Qmd](https://github.com/stephaniehicks/jhustatcomputing2022/blob/main/posts/2022-09-22-loop-functions/index.qmd)\] | |     |
 |              |         | | | |
 | Week 5       | Sept 27 | `r emojifont::emoji('bug')` Debugging code in R  | |     |
 |              |         | `r emojifont::emoji('bug')` Error handling code in R | |     |
