@@ -276,7 +276,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#lists-1" id="toc-lists-1" class="nav-link" data-scroll-target="#lists-1">Lists</a></li>
   <li><a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors">Factors</a></li>
   <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing Values</a></li>
-  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">Data Frames</a></li>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">Data Frames</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  </ul></li>
   <li><a href="#names" id="toc-names" class="nav-link" data-scroll-target="#names">Names</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
@@ -1137,6 +1140,8 @@ $dimnames[[2]]
 [1] "foo" "bar"</code></pre>
 </div>
 </div>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1150,7 +1155,7 @@ Question
 <p>Let’s use the <code>palmerpenguins</code> dataset.</p>
 <ol type="1">
 <li>What attributes does <code>penguins</code> have?</li>
-<li>Try using <code>typeof()</code> with <code>penguins</code>.</li>
+<li>What class is the <code>penguins</code> R object?</li>
 <li>What are the levels in the <code>species</code> column in the <code>penguins</code> dataset?</li>
 <li>Create a logical vector for all the penguins measured from 2008.</li>
 <li>Create a matrix with just the columns <code>bill_length_mm</code>, <code>bill_depth_mm</code>, <code>flipper_length_mm</code>, and <code>body_mass_g</code></li>
@@ -1181,6 +1186,7 @@ Question
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="names" class="level2">
 <h2 class="anchored" data-anchor-id="names">Names</h2>
