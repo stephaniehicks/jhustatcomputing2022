@@ -6,7 +6,7 @@ author:
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to control the flow of execution of a series of R expressions"
-date: 2022-09-20
+date: 2022-09-22
 categories: [module 4, week 4, R, programming]
 ---
 
@@ -47,9 +47,9 @@ Material for this lecture was borrowed and adopted from
 
 # Control Structures
 
-**Control structures** in R allow you to **control the flow of execution of a series of R expressions**. 
+**Control structures** in R allow you to **control the flow of execution of a series of R expressions**.
 
-Basically, control structures allow you to put some "logic" into your R code, rather than just always executing the same R code every time. 
+Basically, control structures allow you to put some "logic" into your R code, rather than just always executing the same R code every time.
 
 Control structures **allow you to respond to inputs or to features of the data** and execute different R expressions accordingly.
 
@@ -67,15 +67,12 @@ Commonly used control structures are
 
 -   `next`: skip an interation of a loop
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
 Most control structures are not used in interactive sessions, but rather when writing functions or longer expressions.
 
 However, these constructs do not have to be used in functions and it's a good idea to become familiar with them before we delve into functions.
-
 :::
 
 ## `if`-`else`
@@ -116,28 +113,54 @@ if(<condition1>) {
 
 Here is an example of a valid if/else structure.
 
-```{r}
-## Generate a uniform random number
-x <- runif(1, 0, 10)  
+Let's use the `runif(n, min=0, max=1)` function which draws a random value between a min and max value with the default being between 0 and 1.
 
-if(x > 3) {
-        y <- 10
-} else {
-        y <- 0
-}
+```{r}
+x <- runif(n=1, min=0, max=10)  
+x
 ```
 
-The value of `y` is set depending on whether `x > 3` or not. This expression can also be written a different, but equivalent, way in R.
+Then, we can write and `if`-`else` statement that tests whethere `x` is greater than 3 or not.
+
+```{r}
+x > 3
+```
+
+If `x` is greater than 3, then the first condition occurs. If `x` is not greater than 3, then the second condition occurs.
+
+```{r}
+if(x > 3) {
+    y <- 10
+  } else {
+    y <- 0
+  }
+```
+
+Finally, we can auto print `y` to see what the value is.
+
+```{r}
+y
+```
+
+This expression can also be written a different (but equivalent!) way in R.
 
 ```{r}
 y <- if(x > 3) {
-        10
-} else { 
-        0
-}
+    10
+  } else { 
+    0
+  }
+
+y
 ```
 
-Neither way of writing this expression is more correct than the other. Which one you use will depend on your preference and perhaps those of the team you may be working with.
+::: callout-tip
+### Note
+
+Neither way of writing this expression is more correct than the other.
+
+Which one you use will **depend on your preference** and perhaps those of the team you may be working with.
+:::
 
 Of course, the `else` clause is not necessary. You could have a series of if clauses that always get executed if their respective conditions are true.
 
@@ -151,17 +174,15 @@ if(<condition2>) {
 }
 ```
 
-
-:::{.callout-note}
-
+::: callout-note
 ### Question
 
 Let's use the `palmerpenguins` dataset and write a if-else statement that
 
-1. Randomly samples a value from a standard normal distribution (**Hint**: check out the `rnorm()` function in base R).
-2. If the value is larger than 0, use `dplyr` functions to keep only the `Chinstrap` penguins. 
-3. Otherwise, keep only the `Gentoo` penguins. 
-4. Re-run the code 10 times and look at output. 
+1.  Randomly samples a value from a standard normal distribution (**Hint**: check out the `rnorm(n, mean = 0, sd = 1)` function in base R).
+2.  If the value is larger than 0, use `dplyr` functions to keep only the `Chinstrap` penguins.
+3.  Otherwise, keep only the `Gentoo` penguins.
+4.  Re-run the code 10 times and look at output.
 
 ```{r}
 #| message: false
@@ -172,15 +193,13 @@ library(palmerpenguins)
 penguins 
 
 ```
-
 :::
-
 
 ## `for` Loops
 
 **For loops** are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I've found very few situations where a for loop was not sufficient.
 
-In R, for loops take an iterator variable and assign it successive values from a sequence or vector. 
+In R, for loops take an iterator variable and assign it successive values from a sequence or vector.
 
 For loops are most commonly used for **iterating over the elements of an object** (list, vector, etc.)
 
@@ -190,20 +209,46 @@ for(i in 1:10) {
 }
 ```
 
-This loop takes the `i` variable and in each iteration of the loop gives it values 1, 2, 3, ..., 10, executes the code within the curly braces, and then the loop exits.
+This **loop takes the `i` variable** and in **each iteration of the loop** gives it values 1, 2, 3, ..., 10, then **executes the code** within the curly braces, and then the loop exits.
 
 The following three loops all have the same behavior.
 
 ```{r}
+## define the loop to iterate over
 x <- c("a", "b", "c", "d")
 
+## create for loop
 for(i in 1:4) {
         ## Print out each element of 'x'
         print(x[i])  
 }
 ```
 
-The `seq_along()` function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object `x`).
+We can also print just the iteration value (`i`) itself
+
+```{r}
+## define the loop to iterate over
+x <- c("a", "b", "c", "d")
+
+## create for loop
+for(i in 1:4) {
+        ## Print out just 'i'
+        print(i)
+}
+```
+
+### `seq_along()`
+
+The `seq_along()` function is **commonly used in conjunction with `for` loops** in order to generate an integer sequence based on the length of an object (or `ncol()` of an R object) (in this case, the object `x`).
+
+```{r}
+x
+seq_along(x)
+```
+
+The `seq_along()` function takes in a vector and then **returns a sequence of integers** that is the same length as the input vector. It doesn't matter what class the vector is.
+
+Let's put `seq_along()` and `for` loops together.
 
 ```{r}
 ## Generate a sequence based on length of 'x'
@@ -212,11 +257,31 @@ for(i in seq_along(x)) {
 }
 ```
 
-It is not necessary to use an index-type variable.
+It is not necessary to use an index-type variable (i.e. `i`).
 
 ```{r}
-for(letter in x) {
-        print(letter)
+for(babyshark in x) {
+        print(babyshark)
+}
+```
+
+```{r}
+for(candyisgreat in x) {
+        print(candyisgreat)
+}
+```
+
+```{r}
+for(RememberToVote in x) {
+        print(RememberToVote)
+}
+```
+
+You can use any character index you want (but not with symbols or numbers).
+
+```{r,error=TRUE}
+for(1999 in x) {
+        print(1999)
 }
 ```
 
@@ -228,31 +293,34 @@ for(i in 1:4) print(x[i])
 
 However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won't be burned because you forgot to add curly braces (and you **will** be burned by this).
 
-
-
-:::{.callout-note}
-
+::: callout-note
 ### Question
 
-Let's use the `palmerpenguins` dataset and write a for loop that computes the column mean of the values if the values in the column are a numeric. Othewise, return a `NA`.
+Let's use the `palmerpenguins` dataset. Here are the tasks:
 
+1.  Start a `for` loop
+2.  Iterate over the columns of `penguins`
+3.  For each column, extract the values of that column (**Hint**: check out the `pull()` function in `dplyr`).
+4.  Using a `if`-`else` statement, test whether or not the values in the column are numeric or not (**Hint**: remember the `is.numeric()` function to test if a value is numeric).
+5.  If they are numeric, compute the column mean. Otherwise, report a `NA`.
 
 ```{r}
 # try it yourself
 
+
 ```
-
 :::
-
-
 
 ### Nested `for` loops
 
 `for` loops can be **nested** inside of each other.
 
-```{r, eval=FALSE}
-x <- matrix(1:6, 2, 3)
+```{r}
+x <- matrix(1:6, nrow = 2, ncol = 3)
+x
+```
 
+```{r}
 for(i in seq_len(nrow(x))) {
         for(j in seq_len(ncol(x))) {
                 print(x[i, j])
@@ -260,15 +328,25 @@ for(i in seq_len(nrow(x))) {
 }
 ```
 
-Nested loops are commonly needed for **multidimensional or hierarchical data structures** (e.g. matrices, lists). Be careful with nesting though. 
+::: callout-tip
+### Note
 
-Nesting beyond 2 to 3 levels often makes it **difficult to read/understand the code**. 
+The `j` index goes across the columns. That's why we values 1, 3, etc.
+:::
 
-If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).
+Nested loops are commonly needed for **multidimensional or hierarchical data structures** (e.g. matrices, lists). Be careful with nesting though.
+
+Nesting beyond 2 to 3 levels often makes it **difficult to read/understand the code**.
+
+If you find yourself in need of a large number of nested loops, you may want to **break up the loops by using functions** (discussed later).
 
 ## `while` Loops
 
-**While loops** begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.
+**`while` loops** begin by **testing a condition**.
+
+If it is true, then they execute the loop body.
+
+Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.
 
 ```{r}
 count <- 0
@@ -278,7 +356,7 @@ while(count < 10) {
 }
 ```
 
-While loops can potentially result in infinite loops if not written properly. Use with care!
+`while` loops can potentially result in infinite loops if not written properly. **Use with care!**
 
 Sometimes there will be more than one condition in the test.
 
@@ -298,15 +376,42 @@ while(z >= 3 && z <= 10) {
 print(z)
 ```
 
-Conditions are always evaluated from left to right. For example, in the above code, if `z` were less than 3, the second test would not have been evaluated.
+::: callout-tip
+### Pro-tip
+
+What's the difference between using one `&` or two `&&` ?
+
+If you use only one `&`, these are vectorized operations, meaning they can **return a vector**, like this:
+
+```{r}
+-2:2
+((-2:2) >= 0) & ((-2:2) <= 0)
+```
+
+If you use two `&&` (as above), then these **conditions are evaluated left to right**. For example, in the above code, if `z` were less than 3, the second test would not have been evaluated.
+
+```{r}
+(2 >= 0) && (-2 <= 0)
+(-2 >= 0) && (-2 <= 0)
+```
+:::
 
 ## `repeat` Loops
 
-`repeat` initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a `repeat` loop is to call `break`.
+**`repeat` initiates an infinite loop** right from the start. These are **not commonly used** in statistical or data analysis applications, but they do have their uses.
 
-One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you don't want to stop until you're close enough to the solution. In this kind of situation, you often don't know in advance how many iterations it's going to take to get "close enough" to the solution.
+::: callout-tip
+### IMPORTANT (READ THIS AND DON'T FORGET... I'M SERIOUS... YOU WANT TO REMEMBER THIS.. FOR REALZ PLZ REMEMBER THIS)
 
-```{r,eval=FALSE,prompt=FALSE}
+The only way to exit a `repeat` loop is to call `break`.
+:::
+
+One possible paradigm might be in an iterative algorithm where you may be searching for a solution and you do not want to stop until you are close enough to the solution.
+
+In this kind of situation, you often don't know in advance how many iterations it's going to take to get "close enough" to the solution.
+
+```{r}
+#| eval: false
 x0 <- 1
 tol <- 1e-8
 
@@ -321,20 +426,20 @@ repeat {
 }
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 The above code will not run if the `computeEstimate()` function is not defined (I just made it up for the purposes of this demonstration).
-
 :::
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
-The loop above is a bit dangerous because there's no guarantee it will stop. You could get in a situation where the values of `x0` and `x1` oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a `for` loop and then report whether convergence was achieved or not.
+The loop above is a bit **dangerous** because there is no guarantee it will stop.
 
+You could get in a situation where the values of `x0` and `x1` oscillate back and forth and never converge.
+
+Better to set a hard limit on the number of iterations by using a `for` loop and then report whether convergence was achieved or not.
 :::
 
 ## `next`, `break`

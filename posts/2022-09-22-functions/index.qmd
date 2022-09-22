@@ -21,21 +21,19 @@ categories: [module 4, week 4, R, programming, functions]
 
 **Before class, you can prepare by reading the following materials:**
 
-1. <https://r4ds.had.co.nz/functions>
-2. <https://adv-r.hadley.nz/functions.html?#functions>
-3. <https://swcarpentry.github.io/r-novice-inflammation/02-func-R>
-
+1.  <https://r4ds.had.co.nz/functions>
+2.  <https://adv-r.hadley.nz/functions.html?#functions>
+3.  <https://swcarpentry.github.io/r-novice-inflammation/02-func-R>
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
-- <https://rdpeng.github.io/Biostat776/lecture-functions>
-- <https://rdpeng.github.io/Biostat776/lecture-scoping-rules-of-r>
-- <https://r4ds.had.co.nz/functions>
-- <https://r4ds.had.co.nz/functions.html#environment>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-functions>
+-   <https://rdpeng.github.io/Biostat776/lecture-scoping-rules-of-r>
+-   <https://r4ds.had.co.nz/functions>
+-   <https://r4ds.had.co.nz/functions.html#environment>
 
 # Learning objectives
 
@@ -44,53 +42,49 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Know how to create a function using `function()` in R
-- Know how to define named arguments inside a function with default values
-- Be able to use named matching or positional matching in the argument list
-- Understand what is lazy evaluation
-- Understand the the special `...` argument in a function definition
-
+-   Know how to create a **function** using `function()` in R
+-   Know how to define **named arguments** inside a function with default values
+-   Be able to use named matching or **positional matching** in the argument list
+-   Understand what is **lazy evaluation**
+-   Understand the the special `...` argument in a function definition
 :::
 
 # Introduction
 
-Writing functions is a **core activity** of an R programmer. It represents
-the key step of the transition from a mere "user" to a developer who
-creates new functionality for R. Functions are often used to
-encapsulate a sequence of expressions that need to be executed
-numerous times, perhaps under slightly different conditions. Functions
-are also often written when code must be shared with others or the
-public. 
+Writing functions is a **core activity** of an R programmer. It represents the key step of the transition from a mere "user" to a developer who creates new functionality for R.
 
-The writing of a function allows a developer to create an interface to
-the code, that is explicitly specified with a set of **arguments** 
-(or parameters). This
-interface provides an abstraction of the code to potential users. This
-abstraction simplifies the users' lives because it relieves them from
-having to know every detail of how the code operates. In addition, the
-creation of an interface allows the developer to communicate to the
-user the aspects of the code that are important or are most relevant.
+**Functions** are often used to **encapsulate a sequence of expressions that need to be executed numerous times**, perhaps under slightly different conditions.
 
+Also, functions are also often written **when code must be shared with others or the public**.
+
+The writing of a function allows a developer to create an interface to the code, that is explicitly specified with a set of **arguments** (or parameters).
+
+This interface provides an **abstraction of the code** to potential users. This abstraction simplifies the users' lives because it relieves them from having to know every detail of how the code operates.
+
+In addition, the creation of an interface allows the developer to **communicate to the user the aspects of the code that are important** or are most relevant.
 
 ## Functions in R
 
-Functions in R are "first class objects", which means that they can be
-treated much like any other R object. 
+Functions in R are "first class objects", which means that they can be treated much like any other R object.
 
-**Important facts about R functions**:
+::: callout-tip
+### Important facts about R functions
 
-- Functions can be passed as arguments to other functions. This is very handy for the various apply functions, like `lapply()` and `sapply()`.
-
-- Functions can be nested, so that you can define a function inside of
-  another function
+-   Functions can be passed as arguments to other functions.
+    -   This is very handy for the various apply functions, like `lapply()` and `sapply()`.
+-   Functions can be nested, so that you can define a function inside of another function.
+:::
 
 If you are familiar with common language like C, these features might appear a bit strange. However, they are really important in R and can be useful for data analysis.
 
 ## Your First Function
 
-Functions are defined using the `function()` directive and are stored
-as R objects just like anything else. In particular, they are R
-objects of class "function".
+Functions are defined using the `function()` directive and are **stored as R objects** just like anything else.
+
+::: callout-tip
+### Important
+
+In particular, functions are R objects of class `function`.
 
 Here's a simple function that takes no arguments and does nothing.
 
@@ -103,43 +97,65 @@ class(f)
 ## Execute this function
 f()       
 ```
+:::
 
-Not very interesting, but it is a start. The next thing we can do is
-create a function that actually has a non-trivial **function body**.
+Not very interesting, but it is a start!
+
+The next thing we can do is **create a function** that actually has a non-trivial **function body**.
 
 ```{r}
 f <- function() {
         # this is the function body
-        cat("Hello, world!\n") 
+        hello <- "Hello, world!\n"
+        cat(hello) 
 }
 f()
 ```
 
-The last aspect of a basic function is the **function arguments**. These
-are the options that you can specify to the user that the user may
-explicitly set. For this basic function, we can add an argument that
-determines how many times "Hello, world!" is printed to the console.
+::: callout-tip
+### Pro-tip
+
+`cat()` is useful and preferable to `print()` in several settings. One reason is that it doesn't output new lines (i.e. `\n`).
+
+```{r}
+hello <- "Hello, world!\n"
+
+print(hello)
+cat(hello)
+```
+:::
+
+The last aspect of a basic function is the **function arguments**.
+
+These are **the options that you can specify to the user** that the user may explicitly set.
+
+For this basic function, we can add an argument that determines how many times "Hello, world!" is printed to the console.
 
 ```{r}
 f <- function(num) {
         for(i in seq_len(num)) {
-                cat("Hello, world!\n")
+                hello <- "Hello, world!\n"
+                cat(hello) 
         }
 }
 f(3)
 ```
 
-Obviously, we could have just cut-and-pasted the `cat("Hello, world!\n")` code three times to achieve the same effect, but then we wouldn't be programming, would we? Also, it would be un-neighborly of you to give your code to someone else and force them to cut-and-paste the code however many times the need to see "Hello, world!".
+Obviously, we **could have just cut-and-pasted** the `cat("Hello, world!\n")` code three times to achieve the same effect, but then we wouldn't be programming, would we?
 
-:::{.callout-tip}
+Also, it would be un-neighborly of you to give your code to someone else and force them to cut-and-paste the code however many times the need to see "Hello, world!".
 
+::: callout-tip
 ### Pro-tip
 
 If you find yourself doing a lot of cutting and pasting, that's usually a good sign that you might need to write a function.
-
 :::
 
-Finally, the function above doesn't **return** anything. It just prints "Hello, world!" to the console `num` number of times and then exits. But often it is useful if a function returns something that perhaps can be fed into another section of code.
+Finally, the function above doesn't **return** anything.
+
+It just prints "Hello, world!" to the console `num` number of times and then exits.
+
+But often it is useful **if a function returns something** that perhaps can be fed into another section of code.
 
 This next function returns the total number of characters printed to the console.
 
@@ -147,7 +163,7 @@ This next function returns the total number of characters printed to the console
 f <- function(num) {
         hello <- "Hello, world!\n"
         for(i in seq_len(num)) {
-                cat(hello)
+                 cat(hello)
         }
         chars <- nchar(hello) * num
         chars
@@ -156,9 +172,17 @@ meaningoflife <- f(3)
 print(meaningoflife)
 ```
 
-In the above function, we did not have to indicate anything special in order for the function to return the number of characters. In R, the return value of a function is always the very last expression that is evaluated. Because the `chars` variable is the last expression that is evaluated in this function, that becomes the return value of the function.
+In the above function, we did not have to indicate anything special in order for the function to return the number of characters.
 
-Note that there is a `return()` function that can be used to return an explicitly value from a function, but it is rarely used in R (we will discuss it a bit later in this lesson).
+In R, the **return value of a function** is always the very **last expression that is evaluated**.
+
+Because the `chars` variable is the last expression that is evaluated in this function, that becomes the return value of the function.
+
+::: callout-tip
+### Note
+
+There is a `return()` function that can be used to return an explicitly value from a function, but it is rarely used in R (we will discuss it a bit later in this lesson).
+:::
 
 Finally, in the above function, the user must specify the value of the argument `num`. If it is not specified by the user, R will throw an error.
 
@@ -167,7 +191,11 @@ Finally, in the above function, the user must specify the value of the argument 
 f()
 ```
 
-We can modify this behavior by setting a *default value* for the argument `num`. Any function argument can have a default value, if you wish to specify it. Sometimes, argument values are rarely modified (except in special cases) and it makes sense to set a default value for that argument. This relieves the user from having to specify the value of that argument every single time the function is called. 
+We can modify this behavior by setting a **default value** for the argument `num`.
+
+**Any function argument can have a default value**, if you wish to specify it.
+
+Sometimes, argument values are rarely modified (except in special cases) and it makes sense to set a default value for that argument. This relieves the user from having to specify the value of that argument every single time the function is called.
 
 Here, for example, we could set the default value for `num` to be 1, so that if the function is called without the `num` argument being explicitly specified, then it will print "Hello, world!" to the console once.
 
@@ -180,53 +208,59 @@ f <- function(num = 1) {
         chars <- nchar(hello) * num
         chars
 }
+
+
 f()    ## Use default value for 'num'
 f(2)   ## Use user-specified value
 ```
 
 Remember that the function still returns the number of characters printed to the console.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
-The `formals()` function returns a list of all the formal arguments of a function 
+The `formals()` function returns a list of all the formal arguments of a function
 
 ```{r}
 formals(f)
 ```
-
 :::
-
 
 ## Summary
 
-We have written a function that 
+We have written a function that
 
-* has one *formal argument* named `num` with a *default value* of 1. The _formal arguments_ are the arguments included in the function definition. 
+-   has one *formal argument* named `num` with a *default value* of 1. The *formal arguments* are the arguments included in the function definition.
 
-* prints the message "Hello, world!" to the console a number of times indicated by the argument `num`
+-   prints the message "Hello, world!" to the console a number of times indicated by the argument `num`
 
-* *returns* the number of characters printed to the console
-
-
+-   *returns* the number of characters printed to the console
 
 # Arguments
 
 ## Named arguments
 
-Functions have **named arguments**, which can optionally have default values. Because all function arguments have names, they can be specified using their name.
+Above, we have learned that functions have **named arguments**, which can optionally have default values.
+
+Because all function arguments have names, they can be specified using their name.
 
 ```{r}
 f(num = 2)
 ```
 
-Specifying an argument by its name is sometimes useful if a function has many arguments and it may not always be clear which argument is being specified. Here, our function only has one argument so there's no confusion.
+Specifying an argument by its name is sometimes useful **if a function has many arguments** and it may not always be clear which argument is being specified.
 
+Here, our function only has one argument so there's no confusion.
 
 ## Argument matching
 
-Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it's really handy when doing interactive work at the command line. R functions arguments can be matched *positionally* or by name. Positional matching just means that R assigns the first value to the first argument, the second value to second argument, etc. So in the following call to `rnorm()`
+Calling an **R function with multiple arguments** can be done in a variety of ways.
+
+This may be confusing at first, but it's really handy when doing interactive work at the command line. R functions arguments can be matched **positionally** or **by name**.
+
+-   **Positional matching** just means that R assigns the first value to the first argument, the second value to second argument, etc.
+
+So, in the following call to `rnorm()`
 
 ```{r}
 str(rnorm)
@@ -235,7 +269,15 @@ mydata <- rnorm(100, 2, 1)              ## Generate some data
 
 100 is assigned to the `n` argument, 2 is assigned to the `mean` argument, and 1 is assigned to the `sd` argument, all by positional matching.
 
-The following calls to the `sd()` function (which computes the empirical standard deviation of a vector of numbers) are all equivalent. Note that `sd()` has two arguments: `x` indicates the vector of numbers and `na.rm` is a logical indicating whether missing values should be removed or not.
+The following calls to the `sd()` function (which computes the empirical standard deviation of a vector of numbers) are all equivalent.
+
+::: callout-tip
+### Note
+
+`sd()` has two arguments:
+
+-   `x` indicates the vector of numbers
+-   `na.rm` is a logical indicating whether missing values should be removed or not
 
 ```{r}
 ## Positional match first argument, default for 'na.rm'
@@ -243,17 +285,22 @@ sd(mydata)
 ## Specify 'x' argument by name, default for 'na.rm'
 sd(x = mydata)                 
 ## Specify both arguments by name
-sd(x = mydata, na.rm = FALSE)  
+sd(x = mydata, na.rm = FALSE) 
 ```
+:::
 
-When specifying the function arguments by name, it doesn't matter in what order you specify them. In the example below, we specify the `na.rm` argument first, followed by `x`, even though `x` is the first argument defined in the function definition.
+When **specifying the function arguments by name**, it **doesn't matter in what order** you specify them.
+
+In the example below, we specify the `na.rm` argument first, followed by `x`, even though `x` is the first argument defined in the function definition.
 
 ```{r}
 ## Specify both arguments by name
 sd(na.rm = FALSE, x = mydata)     
 ```
 
-You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.
+You **can mix positional matching with matching by name**.
+
+When an argument is matched by name, **it is "taken out" of the argument list** and the remaining unnamed arguments are matched in the order that they are listed in the function definition.
 
 ```{r}
 sd(na.rm = FALSE, mydata)
@@ -261,9 +308,7 @@ sd(na.rm = FALSE, mydata)
 
 Here, the `mydata` object is assigned to the `x` argument, because it's the only argument not yet specified.
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
 The `args()` function displays the argument names and corresponding default values of a function
@@ -271,9 +316,7 @@ The `args()` function displays the argument names and corresponding default valu
 ```{r}
 args(f)
 ```
-
 :::
-
 
 Below is the argument list for the `lm()` function, which fits linear models to a dataset.
 
@@ -283,28 +326,35 @@ args(lm)
 
 The following two calls are equivalent.
 
-```r
+``` r
 lm(data = mydata, y ~ x, model = FALSE, 1:100)
 lm(y ~ x, mydata, 1:100, model = FALSE)
 ```
 
+::: callout-tip
+### Pro-tip
 
-Even though it’s legal, I don’t recommend messing around with the order of the arguments too much, since it can lead to some confusion.
+Even though it's legal, I don't recommend messing around with the order of the arguments too much, since it can lead to some confusion.
+:::
 
-Most of the time, named arguments are useful on the command line when you have a long argument list and you want to use the defaults for everything except for an argument near the end of the list. Named arguments also help if you can remember the name of the argument and not its position on the argument list. For example, plotting functions often have a lot of options to allow for customization, but this makes it difficult to remember exactly the position of every argument on the argument list.
+Most of the time, named arguments are helpful
 
-Function arguments can also be _partially_ matched, which is useful for interactive work. The order of operations when given an argument is
+-   On the command line when you have a long argument list and you want to use the defaults for everything except for an argument near the end of the list
+-   If you can remember the name of the argument and not its position on the argument list
 
-1. Check for exact match for a named argument
-2. Check for a partial match
-3. Check for a positional match
+For example, plotting functions often have a lot of options to allow for customization, but this makes it difficult to remember exactly the position of every argument on the argument list.
 
-Partial matching should be avoided when writing longer code or programs, because it may lead to confusion if someone is reading the code. However, partial matching is very useful when calling functions interactively that have very long argument names.
+Function arguments can also be **partially matched**, which is useful for interactive work. The order of operations when given an argument is
 
+1.  Check for exact match for a named argument
+2.  Check for a partial match
+3.  Check for a positional match
+
+**Partial matching should be avoided when writing longer code or programs**, because it may lead to confusion if someone is reading the code. However, partial matching is very useful when calling functions interactively that have very long argument names.
 
 ## Lazy Evaluation
 
-Arguments to functions are evaluated _lazily_, so they are evaluated only as needed in the body of the function.
+Arguments to functions are **evaluated lazily**, so they are evaluated only as needed in the body of the function.
 
 In this example, the function `f()` has two arguments: `a` and `b`.
 
@@ -315,7 +365,9 @@ f <- function(a, b) {
 f(2)
 ```
 
-This function never actually uses the argument `b`, so calling `f(2)` will not produce an error because the 2 gets positionally matched to `a`. This behavior can be good or bad. It's common to write a function that doesn't use an argument and not notice it simply because R never throws an error.
+This **function never actually uses the argument `b`**, so calling `f(2)` will not produce an error because the 2 gets positionally matched to `a`.
+
+This behavior can be good or bad. It's common to write a function that doesn't use an argument and not notice it simply because R never throws an error.
 
 This example also shows lazy evaluation at work, but does eventually result in an error.
 
@@ -328,16 +380,19 @@ f <- function(a, b) {
 f(45)
 ```
 
-Notice that "45" got printed first before the error was triggered. This is because `b` did not have to be evaluated until after `print(a)`. Once the function tried to evaluate `print(b)` the function had to throw an error.
+Notice that "45" got printed first before the error was triggered! This is because `b` did not have to be evaluated until after `print(a)`.
 
+Once the function tried to evaluate `print(b)` the function had to throw an error.
 
 ## The `...` Argument
 
-There is a special argument in R known as the `...` argument, which indicates a variable number of arguments that are usually passed on to other functions. The `...` argument is often used when extending another function and you don’t want to copy the entire argument list of the original function
+There is a **special argument in R known as the `...` argument**, which indicates **a variable number of arguments** that are usually passed on to other functions.
+
+The `...` argument is **often used when extending another function** and you do not want to copy the entire argument list of the original function
 
 For example, a custom plotting function may want to make use of the default `plot()` function along with its entire argument list. The function below changes the default for the `type` argument to the value `type = "l"` (the original default was `type = "p"`).
 
-```r
+``` r
 myplot <- function(x, y, type = "l", ...) {
         plot(x, y, type = type, ...)         ## Pass '...' to 'plot' function
 }
@@ -349,20 +404,25 @@ Generic functions use `...` so that extra arguments can be passed to methods.
 mean
 ```
 
-
-
 The `...` argument is necessary when the number of arguments passed to the function cannot be known in advance. This is clear in functions like `paste()` and `cat()`.
+
+```{r}
+paste("one", "two", "three")
+paste("one", "two", "three", "four", "five", sep="_")
+```
 
 ```{r}
 args(paste)
 args(cat)
 ```
 
-Because both `paste()` and `cat()` print out text to the console by combining multiple character vectors together, it is impossible for those functions to know in advance how many character vectors will be passed to the function by the user. So the first argument to either function is `...`.
+Because both `paste()` and `cat()` print out text to the console by combining multiple character vectors together, it is impossible for those functions to know in advance how many character vectors will be passed to the function by the user.
+
+So the first argument to either function is `...`.
 
 ## Arguments Coming After the `...` Argument
 
-One catch with `...` is that any arguments that appear _after_ `...` on the argument list must be named explicitly and cannot be partially matched or matched positionally.
+One catch with `...` is that any **arguments that appear after** `...` on the argument list must be named explicitly and cannot be partially matched or matched positionally.
 
 Take a look at the arguments to the `paste()` function.
 
@@ -372,7 +432,7 @@ args(paste)
 
 With the `paste()` function, the arguments `sep` and `collapse` must be named explicitly and in full if the default values are not going to be used.
 
-Here I specify that I want "a" and "b" to be pasted together and separated by a colon.
+Here, I specify that I want "a" and "b" to be pasted together and separated by a colon.
 
 ```{r}
 paste("a", "b", sep = ":")
@@ -380,21 +440,26 @@ paste("a", "b", sep = ":")
 
 If I don't specify the `sep` argument in full and attempt to rely on partial matching, I don't get the expected result.
 
-
 ```{r}
 paste("a", "b", se = ":")
 ```
 
-
 # Functions are for humans and computers
 
-As you start to write your own functions, it's important to keep in mind that functions are not just for the computer, but are also for humans. Technically, R does not care what your function is called, or what comments it contains, but these are important for **human readers**. This section discusses some things that you should bear in mind when writing functions that humans can understand.
+As you start to write your own functions, it's important to keep in mind that functions are not just for the computer, but are also for humans. Technically, R does not care what your function is called, or what comments it contains, but these are important for **human readers**.
 
-**The name of a function is important**. In an ideal world, you want the name of your function to be short but clearly describe what the function does. This is not always easy, but here are some tips. 
+This section discusses some things that you should bear in mind when writing functions that humans can understand.
 
-The **function names** should be **verbs**, and **arguments** should be **nouns**. 
+## The name of a function is important
 
-There are some exceptions: nouns are ok if the function computes a very well known noun (i.e. `mean()` is better than `compute_mean()`). A good sign that a noun might be a better choice is if you are using a very broad verb like "get", "compute", "calculate", or "determine". Use your best judgement and do not be afraid to rename a function if you figure out a better name later.
+In an ideal world, you want the name of your function to be short but clearly describe what the function does. This is not always easy, but here are some tips.
+
+The **function names** should be **verbs**, and **arguments** should be **nouns**.
+
+There are some exceptions:
+
+-   nouns are ok if the function computes a very well known noun (i.e. `mean()` is better than `compute_mean()`).
+-   A good sign that a noun might be a better choice is if you are using a very broad verb like "get", "compute", "calculate", or "determine". Use your best judgement and do not be afraid to rename a function if you figure out a better name later.
 
 ```{r}
 #| eval: false
@@ -409,7 +474,13 @@ impute_missing()
 collapse_years()
 ```
 
-If your function name is composed of multiple words, use "snake_case", where each lowercase word is separated by an underscore. "camelCase" is a popular alternative. It does not really matter which one you pick, the important thing is to be consistent: pick one or the other and stick with it. R itself is not very consistent, but there is nothing you can do about that. Make sure you do not fall into the same trap by making your code as consistent as possible.
+## snake_case vs camelCase
+
+If your function name is composed of multiple words, **use "snake_case"**, where each lowercase word is separated by an underscore.
+
+"camelCase" is a popular alternative. It does not really matter which one you pick, the important thing is to be consistent: **pick one or the other and stick with it**.
+
+R itself is not very consistent, but there is nothing you can do about that. Make sure you do not fall into the same trap by making your code as consistent as possible.
 
 ```{r}
 # Never do this!
@@ -417,7 +488,11 @@ col_mins <- function(x, y) {}
 rowMaxes <- function(y, x) {}
 ```
 
-If you have a family of functions that do similar things, make sure they have consistent names and arguments. Use a common prefix to indicate that they are connected. That is better than a common suffix because autocomplete allows you to type the prefix and see all the members of the family.
+## Use a common prefix
+
+If you have a family of functions that do similar things, make sure they have consistent names and arguments.
+
+It's a good idea to indicate that they are connected. That is better than a common suffix because autocomplete allows you to type the prefix and see all the members of the family.
 
 ```{r}
 #| eval: false
@@ -432,7 +507,11 @@ checkbox_input()
 text_input()
 ```
 
-Where possible, avoid overriding existing functions and variables. It is impossible to do in general because so many good names are already taken by other packages, but avoiding the most common names from base R will avoid confusion.
+## Avoid overriding exisiting functions
+
+Where possible, avoid overriding existing functions and variables.
+
+It is impossible to do in general because so many good names are already taken by other packages, but avoiding the most common names from base R will avoid confusion.
 
 ```{r}
 #| eval: false
@@ -442,16 +521,29 @@ c <- 10
 mean <- function(x) sum(x)
 ```
 
-Use comments, lines starting with #, to explain the "why" of your code. You generally should avoid comments that explain the "what" or the "how". If you can’t understand what the code does from reading it, you should think about how to rewrite it to be more clear. 
+## Use comments
 
-Do you need to add some intermediate variables with useful names? Do you need to break out a subcomponent of a large function so you can name it? However, your code can never capture the reasoning behind your decisions: why did you choose this approach instead of an alternative? What else did you try that didn’t work? It’s a great idea to capture that sort of thinking in a comment.
+Use **comments** are lines starting with #. They can explain the "why" of your code.
 
+You generally should avoid comments that explain the "what" or the "how". If you can't understand what the code does from reading it, you should think about how to rewrite it to be more clear.
+
+-   Do you need to add some intermediate variables with useful names?
+-   Do you need to break out a subcomponent of a large function so you can name it?
+
+However, your code can never capture the reasoning behind your decisions:
+
+-   Why did you choose this approach instead of an alternative?
+-   What else did you try that didn't work?
+
+It's a great idea to capture that sort of thinking in a comment.
 
 # Environment
 
-The last component of a function is its **environment**. This is not something you need to understand deeply when you first start writing functions. However, it's important to know a little bit about environments because they are crucial to how functions work. 
+The last component of a function is its **environment**.
 
-The **environment of a function** controls how R finds the value associated with a name. 
+This is not something you need to understand deeply when you first start writing functions. However, it's important to know a little bit about environments because they are crucial to how functions work.
+
+The **environment of a function** controls how R finds the value associated with a name.
 
 For example, take this function:
 
@@ -461,7 +553,11 @@ f <- function(x) {
 } 
 ```
 
-In many programming languages, this would be an error, because 1y1 is not defined inside the function. In R, this is valid code because R uses rules called **lexical scoping** to find the value associated with a name. Since `y` is not defined inside the function, R will look in the environment where the function was defined:
+In many programming languages, this would be an error, because `y` is not defined inside the function.
+
+In R, this is valid code because R uses rules called **lexical scoping** to find the value associated with a name.
+
+Since `y` is not defined inside the function, R will look in the environment where the function was defined:
 
 ```{r}
 y <- 100
@@ -473,7 +569,11 @@ f(10)
 
 This behavior seems like a recipe for bugs, and indeed you should avoid creating functions like this deliberately, but by and large it does not cause too many problems (especially if you regularly restart R to get to a clean slate).
 
-The advantage of this behavior is that from a language standpoint it allows R to be very consistent. Every name is looked up using the same set of rules. For `f()` that includes the behavior of two things that you might not expect: `{` and `+`. This allows you to do devious things like:
+The **advantage of this behavior** is that from a language standpoint **it allows R to be very consistent**.
+
+-   Every name is looked up using the same set of rules.
+
+For `f()` that includes the behavior of two things that you might not expect: `{` and `+`. This allows you to do devious things like:
 
 ```{r}
 `+` <- function(x, y) {
@@ -490,35 +590,28 @@ table(replicate(1000, 1 + 2))
 rm(`+`)
 ```
 
-This is a common phenomenon in R. R places few limits on your power. You can do many things that you can't do in other programming languages. You can do many things that 99% of the time are extremely ill-advised (like overriding how addition works!). But this power and flexibility is what makes tools like `ggplot2` and `dplyr` possible. 
+This is a common phenomenon in R. R places few limits on your power. You can do many things that you can't do in other programming languages. You can do many things that 99% of the time are extremely ill-advised (like overriding how addition works!). But this power and flexibility is what makes tools like `ggplot2` and `dplyr` possible.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### More resources
 
 If you are interested in learning more about scoping, check out
 
-- https://adv-r.hadley.nz/functions.html?#lexical-scoping
-- https://rdpeng.github.io/Biostat776/lecture-scoping-rules-of-r.html
-
+-   <https://adv-r.hadley.nz/functions.html?#lexical-scoping>
+-   <https://rdpeng.github.io/Biostat776/lecture-scoping-rules-of-r>
 :::
-
-
 
 # Summary
 
-- Functions can be defined using the `function()` directive and are assigned to R objects just like any other R object
+-   Functions can be defined using the `function()` directive and are assigned to R objects just like any other R object
 
-- Functions have can be defined with named arguments; these function arguments can have default values
+-   Functions have can be defined with named arguments; these function arguments can have default values
 
-- Functions arguments can be specified by name or by position in the argument list
+-   Functions arguments can be specified by name or by position in the argument list
 
-- Functions always return the last expression evaluated in the function body
+-   Functions always return the last expression evaluated in the function body
 
-- A variable number of arguments can be specified using the special `...` argument in a function definition.
-
-
-
+-   A variable number of arguments can be specified using the special `...` argument in a function definition.
 
 # Post-lecture materials
 
@@ -529,7 +622,7 @@ Here are some post-lecture questions to help you think about the material discus
 ::: callout-note
 ### Questions
 
-1. Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
+1.  Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
 
 ```{r}
 #| eval: false
@@ -538,25 +631,20 @@ mean(is.na(x))
 x / sum(x, na.rm = TRUE)
 ```
 
-2. Read the [complete lyrics](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) to "Little Bunny Foo Foo". There is a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
+2.  Read the [complete lyrics](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) to "Little Bunny Foo Foo". There is a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
-3. Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.
+3.  Take a function that you've written recently and spend 5 minutes brainstorming a better name for it and its arguments.
 
-4. What does the `trim` argument to `mean()` do? When might you use it?
+4.  What does the `trim` argument to `mean()` do? When might you use it?
 
-5. The default value for the method argument to `cor()` is `c("pearson", "kendall", "spearman")`. What does that mean? What value is used by default?
-
-
+5.  The default value for the method argument to `cor()` is `c("pearson", "kendall", "spearman")`. What does that mean? What value is used by default?
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-
-- <https://rdpeng.github.io/Biostat776/lecture-functions>
-- <https://rdpeng.github.io/Biostat776/lecture-scoping-rules-of-r>
-- <https://r4ds.had.co.nz/functions>
-- <https://r4ds.had.co.nz/functions.html#environment>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-functions>
+-   <https://rdpeng.github.io/Biostat776/lecture-scoping-rules-of-r>
+-   <https://r4ds.had.co.nz/functions>
+-   <https://r4ds.had.co.nz/functions.html#environment>
 :::
-

@@ -64,15 +64,15 @@ The grammar of the language determines **whether an expression is complete or no
 x <-  ## Incomplete expression
 ```
 
-The `#` character indicates a **comment**. 
+The `#` character indicates a **comment**.
 
-Anything to the right of the `#` (including the `#` itself) is ignored. **This is the only comment character in R**. 
+Anything to the right of the `#` (including the `#` itself) is ignored. **This is the only comment character in R**.
 
 Unlike some other languages, R does not support multi-line comments or comment blocks.
 
 ## Evaluation
 
-When a complete expression is entered at the prompt, **it is evaluated and the result of the evaluated expression is returned**. 
+When a complete expression is entered at the prompt, **it is evaluated and the result of the evaluated expression is returned**.
 
 The result may be **auto-printed**.
 
@@ -84,7 +84,7 @@ print(x)  ## explicit printing
 
 The `[1]` shown in the output indicates that `x` is a vector and `5` is its first element.
 
-Typically with **interactive work**, we **do not explicitly print objects** with the `print()` function; it is much easier to just auto-print them by typing the name of the object and hitting return/enter. 
+Typically with **interactive work**, we **do not explicitly print objects** with the `print()` function; it is much easier to just auto-print them by typing the name of the object and hitting return/enter.
 
 However, when **writing scripts, functions, or longer programs**, there is sometimes a **need to explicitly print objects** because auto-printing does not work in those settings.
 
@@ -107,19 +107,15 @@ options(old)
 
 The numbers in the square brackets are not part of the vector itself, they are merely part of the **printed output**.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 With R, it's important that one understand that **there is a difference between the actual R object and the manner in which that R object is printed to the console**.
 
 Often, the printed output may have additional bells and whistles to make the output more friendly to the users. However, these bells and whistles are not inherently part of the object.
-
 :::
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
 The `:` operator is used to create integer sequences.
@@ -128,27 +124,25 @@ The `:` operator is used to create integer sequences.
 5:0
 -15:15
 ```
-
-
 :::
 
 ## R Objects
 
-The most basic type of R object is a **vector**. 
+The most basic type of R object is a **vector**.
 
-### Vectors 
+### Vectors
 
-There is really only one rule about vectors in R, which is that 
+There is really only one rule about vectors in R, which is that
 
 > **A vector can only contain objects of the same class**
 
-To understand what we mean here, we need to dig a little deeper. We will come back this in just a minute. 
+To understand what we mean here, we need to dig a little deeper. We will come back this in just a minute.
 
 #### Types of vectors
 
 There are [two types of **vectors**](https://r4ds.had.co.nz/vectors.html?q=typeof#vector-basics) in R:
 
-1. **Atomic vectors**:
+1.  **Atomic vectors**:
 
     -   **logical**: `FALSE`, `TRUE`, and `NA`
     -   **integer** (and **doubles**): these are known collectively as **numeric** vectors (or real numbers)
@@ -156,28 +150,24 @@ There are [two types of **vectors**](https://r4ds.had.co.nz/vectors.html?q=typeo
     -   **character**: the most complex type of atomic vector, because each element of a character vector is a string, and a string can contain an arbitrary amount of data
     -   **raw**: used to store fixed-length sequences of bytes. These are not commonly used directly in data analysis and I won't cover them here.
 
-2. **Lists**, which are sometimes called **recursive vectors** because lists can contain other lists.
+2.  **Lists**, which are sometimes called **recursive vectors** because lists can contain other lists.
 
 ![](https://d33wubrfki0l68.cloudfront.net/1d1b4e1cf0dc5f6e80f621b0225354b0addb9578/6ee1c/diagrams/data-structures-overview.png){.preview-image}
 
 \[**Source**: [R 4 Data Science](https://r4ds.had.co.nz/vectors.html?q=typeof#vector-basics)\]
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-There's one other related object: NULL. 
+There's one other related object: NULL.
 
-- NULL is often used to represent the absence of a vector (as opposed to `NA` which is used to represent the absence of a value in a vector).
-- NULL typically behaves like a vector of length 0.
-
+-   NULL is often used to represent the absence of a vector (as opposed to `NA` which is used to represent the absence of a value in a vector).
+-   NULL typically behaves like a vector of length 0.
 :::
 
+#### Create an empty vector
 
-#### Create an empty vector 
-
-Empty vectors can be created with the `vector()` function. 
+Empty vectors can be created with the `vector()` function.
 
 ```{r}
 vector(mode = "numeric", length = 4)
@@ -198,23 +188,19 @@ x <- 9:29              ## integer
 x <- c(1+0i, 2+4i)     ## complex
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 In the above example, `T` and `F` are short-hand ways to specify `TRUE` and `FALSE`.
 
-However, in general, one should try to use the explicit `TRUE` and `FALSE` values when indicating logical values. 
+However, in general, one should try to use the explicit `TRUE` and `FALSE` values when indicating logical values.
 
 The `T` and `F` values are primarily there for when you're feeling lazy.
-
 :::
-
-
 
 #### Lists
 
-So, I know I said there is one rule about vectors: 
+So, I know I said there is one rule about vectors:
 
 > **A vector can only contain objects of the same class**
 
@@ -222,19 +208,15 @@ But of course, like any good rule, there is an exception, which is a **list** (w
 
 For now, just know a **list** is **represented as a vector** but can **contain objects of different classes**. Indeed, that's usually why we use them.
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-The main difference between **atomic vectors** and **lists** is that atomic vectors are **homogeneous**, while lists can be **heterogeneous**. 
-
+The main difference between **atomic vectors** and **lists** is that atomic vectors are **homogeneous**, while lists can be **heterogeneous**.
 :::
-
 
 ### Numerics
 
-**Integer** and **double** vectors are known collectively as **numeric vectors**. 
+**Integer** and **double** vectors are known collectively as **numeric vectors**.
 
 In R, numbers are doubles by default.
 
@@ -247,19 +229,15 @@ typeof(4L)
 ```
 
 ::: callout-tip
-
 ### Note
 
 The distinction between integers and doubles is not usually important, but there are two important differences that you should be aware of:
 
 -   **Doubles** are approximations!
 -   **Doubles** represent floating point numbers that can not always be precisely represented with a fixed amount of memory. This means that you should consider all doubles to be approximations.
-
 :::
 
-
 ::: callout-note
-
 ### Question
 
 Let's explore this. What is square of the square root of two? i.e. $(\sqrt{2})^2$
@@ -269,41 +247,37 @@ x <- sqrt(2) ^ 2
 x
 ```
 
-Try subtracting 2 from `x`? What happened? 
+Try subtracting 2 from `x`? What happened?
+
 ```{r}
 ## try it here
 
 ```
-
 :::
-
-
 
 ### Numbers
 
-Numbers in R are generally treated as **numeric objects** (i.e. double precision real numbers). 
+Numbers in R are generally treated as **numeric objects** (i.e. double precision real numbers).
 
-This means that even if you see a number like "1" or "2" in R, which you might think of as integers, they are likely represented behind the scenes as numeric objects (so something like "1.00" or "2.00"). 
+This means that even if you see a number like "1" or "2" in R, which you might think of as integers, they are likely represented behind the scenes as numeric objects (so something like "1.00" or "2.00").
 
-This isn't important most of the time...except when it is! 
+This isn't important most of the time...except when it is!
 
 If you **explicitly want an integer**, you need to specify the `L` suffix. So entering `1` in R gives you a numeric object; entering `1L` explicitly gives you an integer object.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 There is also a **special number `Inf` which represents infinity**. This allows us to represent entities like `1 / 0`. This way, `Inf` can be used in ordinary calculations; e.g. `1 / Inf` is 0.
 
 The value **`NaN` represents an undefined value** ("not a number"); e.g. 0 / 0; `NaN` can also be thought of as a missing value (more on that later)
-
 :::
 
 ### Attributes
 
-R objects can have **attributes**, which are like **metadata for the object**. 
+R objects can have **attributes**, which are like **metadata for the object**.
 
-These metadata can be very useful in that they **help to describe the object**. 
+These metadata can be very useful in that they **help to describe the object**.
 
 For example, **column names** on a data frame help to tell us what data are contained in each of the columns. Some examples of R object attributes are
 
@@ -337,18 +311,16 @@ typeof(x)
 attributes(x)
 ```
 
-
 ## Mixing Objects
 
 There are occasions when **different classes of R objects get mixed together**.
 
-Sometimes this happens by accident but it can also happen on purpose. 
+Sometimes this happens by accident but it can also happen on purpose.
 
-:::{.callout-note}
-
+::: callout-note
 ### Question
 
-Let's use `typeof()` to ask what happens when we mix different classes of R objects together. 
+Let's use `typeof()` to ask what happens when we mix different classes of R objects together.
 
 ```{r}
 y <- c(1.7, "a")
@@ -360,20 +332,19 @@ y <- c("a", TRUE)
 ## try it here
 
 ```
-
 :::
 
-Why is this happening? 
+Why is this happening?
 
-In each case above, we are **mixing objects of two different classes** in a vector. 
+In each case above, we are **mixing objects of two different classes** in a vector.
 
 But remember that the only rule about vectors says this is not allowed?
 
 When different objects are mixed in a vector, **coercion** occurs so that **every element in the vector is of the same class**.
 
-In the example above, we see the effect of **implicit coercion**. 
+In the example above, we see the effect of **implicit coercion**.
 
-What R tries to do is find a way to represent all of the objects in the vector in a reasonable fashion. Sometimes this does exactly what you want and...sometimes not. 
+What R tries to do is find a way to represent all of the objects in the vector in a reasonable fashion. Sometimes this does exactly what you want and...sometimes not.
 
 For example, combining a numeric object with a character object will create a character vector, because numbers can usually be easily represented as strings.
 
@@ -397,28 +368,24 @@ as.numeric(x)
 as.logical(x)
 ```
 
-:::{.callout-note}
+::: callout-note
+### Question
 
-### Question 
-
-Let's try to convert the `x` vector above to integers. 
+Let's try to convert the `x` vector above to integers.
 
 ```{r}
 ## try it here 
 
 ```
-
 :::
-
 
 When nonsensical coercion takes place, you will usually get a warning from R.
 
-
 ## Matrices
 
-**Matrices** are **vectors with a dimension attribute**. 
+**Matrices** are **vectors with a dimension attribute**.
 
-- The **dimension attribute** is **itself an integer vector** of length 2 (number of rows, number of columns)
+-   The **dimension attribute** is **itself an integer vector** of length 2 (number of rows, number of columns)
 
 ```{r}
 m <- matrix(nrow = 2, ncol = 3) 
@@ -434,9 +401,8 @@ m <- matrix(1:6, nrow = 2, ncol = 3)
 m
 ```
 
-:::{.callout-note}
-
-### Question 
+::: callout-note
+### Question
 
 Let's try to use `attributes()` function to look at the attributes of the `m` object
 
@@ -444,9 +410,7 @@ Let's try to use `attributes()` function to look at the attributes of the `m` ob
 ## try it here 
 
 ```
-
 :::
-
 
 Matrices can also be created directly from vectors by adding a dimension attribute.
 
@@ -465,29 +429,25 @@ y <- 10:12
 cbind(x, y)
 ```
 
-:::{.callout-note}
+::: callout-note
+### Question
 
-### Question 
-
-Let's try to use `rbind()` to row bind `x` and `y` above. 
+Let's try to use `rbind()` to row bind `x` and `y` above.
 
 ```{r}
 ## try it here 
 
 ```
-
 :::
 
 ## Lists
 
-Lists are a special type of **vector** that **can contain elements of different classes**. Lists are a very important data type in R and you should get to know them well. 
+Lists are a special type of **vector** that **can contain elements of different classes**. Lists are a very important data type in R and you should get to know them well.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
 Lists, in combination with the various "apply" functions discussed later, make for a powerful combination.
-
 :::
 
 Lists can be explicitly created using the `list()` function, which takes an arbitrary number of arguments.
@@ -508,22 +468,18 @@ x
 
 **Factors** are used to represent **categorical data** and can be unordered or ordered. One can think of a factor as an integer vector where each integer has a **label**.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
 Factors are important in statistical modeling and are treated specially by modelling functions like `lm()` and `glm()`.
-
 :::
 
-Using factors with labels is **better** than using integers because factors are self-describing. 
+Using factors with labels is **better** than using integers because factors are self-describing.
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
 Having a variable that has values "Yes" and "No" or "Smoker" and "Non-Smoker" is better than a variable that has values 1 and 2.
-
 :::
 
 Factor objects can be created with the `factor()` function.
@@ -536,10 +492,8 @@ table(x)
 unclass(x)  
 ```
 
-
-:::{.callout-note}
-
-### Question 
+::: callout-note
+### Question
 
 Let's try to use `attributes()` function to look at the attributes of the `x` object
 
@@ -547,13 +501,11 @@ Let's try to use `attributes()` function to look at the attributes of the `x` ob
 ## try it here 
 
 ```
-
 :::
 
+Often factors will be automatically created for you when you read in a dataset using a function like `read.table()`.
 
-Often factors will be automatically created for you when you read in a dataset using a function like `read.table()`. 
-
-- Those functions often **default to creating factors when they encounter data that look like characters or strings**.
+-   Those functions often **default to creating factors when they encounter data that look like characters or strings**.
 
 The order of the levels of a factor can be set using the `levels` argument to `factor()`. This can be important in linear modeling because the first level is used as the baseline level.
 
@@ -597,10 +549,10 @@ is.nan(x)
 
 **Data frames** are used to store **tabular data** in R. They are an important type of object in R and are used in a variety of statistical modeling applications. Hadley Wickham's package [dplyr](https://github.com/hadley/dplyr) has an optimized set of functions designed to work efficiently with data frames.
 
-Data frames are **represented as a special type of list** where **every element of the list has to have the same length**. 
+Data frames are **represented as a special type of list** where **every element of the list has to have the same length**.
 
-- Each element of the list can be thought of as a column
-- The length of each element of the list is the number of rows
+-   Each element of the list can be thought of as a column
+-   The length of each element of the list is the number of rows
 
 Unlike matrices, **data frames can store different classes of objects in each column**. Matrices must have every element be the same class (e.g. all integers or all numeric).
 
@@ -616,9 +568,7 @@ ncol(x)
 attributes(x)
 ```
 
-
 Data frames can be converted to a matrix by calling `data.matrix()`. While it might seem that the `as.matrix()` function should be used to coerce a data frame to a matrix, almost always, what you want is the result of `data.matrix()`.
-
 
 ```{r}
 data.matrix(x)
@@ -626,17 +576,18 @@ attributes(data.matrix(x))
 ```
 
 
-:::{.callout-note}
+### Example 
 
+::: callout-note
 ### Question
 
-Let's use the `palmerpenguins` dataset. 
+Let's use the `palmerpenguins` dataset.
 
-1. What attributes does `penguins` have? 
-2. Try using `typeof()` with `penguins`. 
-3. What are the levels in the `species` column in the `penguins` dataset? 
-4. Create a logical vector for all the penguins measured from 2008. 
-5. Create a matrix with just the columns `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g` 
+1.  What attributes does `penguins` have?
+2.  What class is the `penguins` R object?
+3.  What are the levels in the `species` column in the `penguins` dataset?
+4.  Create a logical vector for all the penguins measured from 2008.
+5.  Create a matrix with just the columns `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`
 
 ```{r}
 #| message: false
@@ -647,13 +598,11 @@ library(palmerpenguins)
 penguins 
 
 ```
-
 :::
-
 
 ## Names
 
-R objects can have **names**, which is very useful for writing readable code and self-describing objects. 
+R objects can have **names**, which is very useful for writing readable code and self-describing objects.
 
 Here is an example of assigning names to an integer vector.
 
@@ -690,15 +639,14 @@ rownames(m) <- c("x", "z")
 m
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
-For data frames, there is a separate function for setting the row names, the `row.names()` function. 
+For data frames, there is a separate function for setting the row names, the `row.names()` function.
 
-Also, data frames do not have column names, they just have names (like lists). 
+Also, data frames do not have column names, they just have names (like lists).
 
-So to set the column names of a data frame just use the `names()` function. Yes, I know its confusing. 
+So to set the column names of a data frame just use the `names()` function. Yes, I know its confusing.
 
 Here's a quick summary:
 
@@ -706,7 +654,6 @@ Here's a quick summary:
 |------------|------------------|---------------|
 | data frame | `names()`        | `row.names()` |
 | matrix     | `colnames()`     | `rownames()`  |
-
 :::
 
 # Summary

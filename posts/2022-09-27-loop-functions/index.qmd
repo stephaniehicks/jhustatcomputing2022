@@ -6,11 +6,12 @@ author:
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to vectorization and loop functionals"
-date: 2022-09-22
-categories: [module 4, week 4, R, programming, functions]
+date: 2022-09-27
+categories: [module 4, week 5, R, programming, functions]
 ---
 
 <!-- Add interesting quote -->
+
 
 # Pre-lecture materials
 
@@ -21,17 +22,15 @@ categories: [module 4, week 4, R, programming, functions]
 
 **Before class, you can prepare by reading the following materials:**
 
-1. <https://rafalab.github.io/dsbook/programming-basics.html#vectorization>
-
+1.  <https://rafalab.github.io/dsbook/programming-basics.html#vectorization>
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
-- <https://rdpeng.github.io/Biostat776/lecture-loop-functions>
-- <https://rafalab.github.io/dsbook/programming-basics.html#vectorization>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-loop-functions>
+-   <https://rafalab.github.io/dsbook/programming-basics.html#vectorization>
 
 # Learning objectives
 
@@ -40,16 +39,15 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Understand how to perform vector arithmetics in R
-- Implement the 5 functional loops in R (vs e.g. for loops) in R
-
+-   Understand how to perform vector arithmetics in R
+-   Implement the 5 functional loops in R (vs e.g. for loops) in R
 :::
 
-# Vectorization 
+# Vectorization
 
 Writing `for` and `while` loops are useful and easy to understand, but in R we rarely use them.
-As you learn more R, you will realize that **vectorization** is preferred over for-loops since it results in shorter and clearer code.
 
+As you learn more R, you will realize that **vectorization** is preferred over for-loops since it results in shorter and clearer code.
 
 ## Vector arithmetics
 
@@ -61,13 +59,17 @@ In R, arithmetic operations on **vectors occur element-wise**. For a quick examp
 inches <- c(69, 62, 66, 70, 70, 73, 67, 73, 67, 70)
 ```
 
-and want to convert to centimeters. Notice what happens when we multiply inches by 2.54:
+and want to convert to centimeters.
+
+Notice what happens when we multiply inches by 2.54:
 
 ```{r}
 inches * 2.54
 ```
 
-In the line above, we multiplied each element by 2.54. Similarly, if for each entry we want to compute how many inches taller or shorter than 69 inches (the average height for males), we can subtract it from every entry like this:
+In the line above, we **multiplied each element** by 2.54.
+
+Similarly, if for each entry we want to compute how many inches taller or shorter than 69 inches (the average height for males), we can subtract it from every entry like this:
 
 ```{r}
 inches - 69
@@ -75,7 +77,7 @@ inches - 69
 
 ### Two vectors
 
-If we have two vectors of the same length, and we sum them in R, they will be added entry by entry as follows:
+If we have **two vectors of the same length**, and we sum them in R, they will be **added entry by entry** as follows:
 
 ```{r}
 x <- 1:10
@@ -84,7 +86,6 @@ x + y
 ```
 
 The same holds for other mathematical operations, such as `-`, `*` and `/`.
-
 
 ```{r}
 x <- 1:10
@@ -96,33 +97,31 @@ y <- 1:10
 x*y
 ```
 
-
 # Functional loops
 
-While `for` loops are perfectly valid, when you use vectorization in an element-wise fashion, there is no need for `for` loops because we can apply what are called functional loops.  
+While `for` loops are perfectly valid, when you use vectorization in an element-wise fashion, there is no need for `for` loops because we can apply what are called functional loops.
 
-**Functional loops** are functions that help us apply the same function to each entry in a vector, matrix, data frame, or list. Here are a list of them: 
+**Functional loops** are functions that help us apply the same function to each entry in a vector, matrix, data frame, or list. Here are a list of them:
 
-- `lapply()`: Loop over a list and evaluate a function on each element 
+-   `lapply()`: Loop over a list and evaluate a function on each element
 
-- `sapply()`: Same as `lapply` but try to simplify the result
+-   `sapply()`: Same as `lapply` but try to simplify the result
 
-- `apply()`: Apply a function over the margins of an array
+-   `apply()`: Apply a function over the margins of an array
 
-- `tapply()`: Apply a function over subsets of a vector
+-   `tapply()`: Apply a function over subsets of a vector
 
-- `mapply()`: Multivariate version of `lapply`
+-   `mapply()`: Multivariate version of `lapply`
 
 An auxiliary function `split()` is also useful, particularly in conjunction with `lapply()`.
-
 
 ## `lapply()`
 
 The `lapply()` function does the following simple series of operations:
 
-1. it loops over a list, iterating over each element in that list
-2. it applies a *function* to each element of the list (a function that you specify)
-3. and returns a list (the `l` in `lapply()` is for "list"). 
+1.  it loops over a list, iterating over each element in that list
+2.  it applies a *function* to each element of the list (a function that you specify)
+3.  and returns a list (the `l` in `lapply()` is for "list").
 
 This function takes three arguments: (1) a list `X`; (2) a function (or the name of a function) `FUN`; (3) other arguments via its `...` argument. If `X` is not a list, it will be coerced to a list using `as.list()`.
 
@@ -132,18 +131,15 @@ The body of the `lapply()` function can be seen here.
 lapply
 ```
 
-:::{.callout-tip}
+::: callout-tip
+### Note
 
-### Note 
-
-The actual looping is done internally in C code for efficiency reasons. 
-
+The actual looping is done internally in C code for efficiency reasons.
 :::
 
 It is important to remember that `lapply()` always returns a list, regardless of the class of the input.
 
 Here's an example of applying the `mean()` function to all elements of a list. If the original list has names, the the names will be preserved in the output.
-
 
 ```{r}
 x <- list(a = 1:5, b = rnorm(10))
@@ -181,7 +177,7 @@ lapply(x, runif, min = 0, max = 10)
 
 So now, instead of the random numbers being between 0 and 1 (the default), the are all between 0 and 10.
 
-The `lapply()` function (and its friends) makes heavy use of _anonymous_ functions. Anonymous functions are like members of [Project Mayhem](http://en.wikipedia.org/wiki/Fight_Club)---they have no names. These functions are generated "on the fly" as you are using `lapply()`. Once the call to `lapply()` is finished, the function disappears and does not appear in the workspace.
+The `lapply()` function (and its friends) makes heavy use of *anonymous* functions. Anonymous functions are like members of [Project Mayhem](http://en.wikipedia.org/wiki/Fight_Club)---they have no names. These functions are generated "on the fly" as you are using `lapply()`. Once the call to `lapply()` is finished, the function disappears and does not appear in the workspace.
 
 Here I am creating a list that contains two matrices.
 
@@ -190,14 +186,13 @@ x <- list(a = matrix(1:4, 2, 2), b = matrix(1:6, 3, 2))
 x
 ```
 
-Suppose I wanted to extract the first column of each matrix in the list. I could write
-an anonymous function for extracting the first column of each matrix.
+Suppose I wanted to extract the first column of each matrix in the list. I could write an anonymous function for extracting the first column of each matrix.
 
 ```{r}
 lapply(x, function(elt) { elt[,1] })
 ```
 
-Notice that I put the `function()` definition right in the call to `lapply()`. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside `lapply()`, but if it's going to be more complicated, it's probably a better idea to define the function separately. 
+Notice that I put the `function()` definition right in the call to `lapply()`. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside `lapply()`, but if it's going to be more complicated, it's probably a better idea to define the function separately.
 
 For example, I could have done the following.
 
@@ -210,16 +205,15 @@ lapply(x, f)
 
 Now the function is no longer anonymous; its name is `f`. Whether you use an anonymous function or you define a function first depends on your context. If you think the function `f` is something you are going to need a lot in other parts of your code, you might want to define it separately. But if you are just going to use it for this call to `lapply()`, then it is probably simpler to use an anonymous function.
 
-
 ## `sapply()`
 
 The `sapply()` function behaves similarly to `lapply()`; the only real difference is in the return value. `sapply()` will try to simplify the result of `lapply()` if possible. Essentially, `sapply()` calls `lapply()` on its input and then applies the following algorithm:
 
-- If the result is a list where every element is length 1, then a vector is returned
+-   If the result is a list where every element is length 1, then a vector is returned
 
-- If the result is a list where every element is a vector of the same length (> 1), a matrix is returned.
+-   If the result is a list where every element is a vector of the same length (\> 1), a matrix is returned.
 
-- If it can't figure things out, a list is returned
+-   If it can't figure things out, a list is returned
 
 Here's the result of calling `lapply()`.
 
@@ -250,9 +244,9 @@ str(split)
 
 where
 
-- `x` is a vector (or list) or data frame
-- `f` is a factor (or coerced to one) or a list of factors
-- `drop` indicates whether empty factors levels should be dropped
+-   `x` is a vector (or list) or data frame
+-   `f` is a factor (or coerced to one) or a list of factors
+-   `drop` indicates whether empty factors levels should be dropped
 
 The combination of `split()` and a function like `lapply()` or `sapply()` is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying that function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as "map-reduce" in other contexts.
 
@@ -276,7 +270,6 @@ lapply(split(x, f), mean)
 library(datasets)
 head(airquality)
 ```
-
 
 We can split the `airquality` data frame by the `Month` variable so that we have separate sub-data frames for each month.
 
@@ -334,7 +327,6 @@ Notice that there are 4 categories with no data. But we can drop empty levels wh
 str(split(x, list(f1, f2), drop = TRUE))
 ```
 
-
 ## tapply
 
 `tapply()` is used to apply a function over subsets of a vector. It can be thought of as a combination of `split()` and `sapply()` for vectors only. I've been told that the "t" in `tapply()` refers to "table", but that is unconfirmed.
@@ -345,11 +337,11 @@ str(tapply)
 
 The arguments to `tapply()` are as follows:
 
-- `X` is a vector
-- `INDEX` is a factor or a list of factors (or else they are coerced to factors) 
-- `FUN` is a function to be applied
-- ... contains other arguments to be passed `FUN`
-- `simplify`, should we simplify the result?
+-   `X` is a vector
+-   `INDEX` is a factor or a list of factors (or else they are coerced to factors)
+-   `FUN` is a function to be applied
+-   ... contains other arguments to be passed `FUN`
+-   `simplify`, should we simplify the result?
 
 Given a vector of numbers, one simple operation is to take group means.
 
@@ -368,18 +360,15 @@ We can also take the group means without simplifying the result, which will give
 tapply(x, f, mean, simplify = FALSE)
 ```
 
-
 We can also apply functions that return more than a single value. In this case, `tapply()` will not simplify the result and will return a list. Here's an example of finding the range of each sub-group.
 
 ```{r}
 tapply(x, f, range)
 ```
 
-
 ## `apply()`
 
 The `apply()` function is used to a evaluate a function (often an anonymous one) over the margins of an array. It is most often used to apply a function to the rows or columns of a matrix (which is just a 2-dimensional array). However, it can be used with general arrays, for example, to take the average of an array of matrices. Using `apply()` is not really faster than writing a loop, but it works in one line and is highly compact.
-
 
 ```{r}
 str(apply)
@@ -387,11 +376,10 @@ str(apply)
 
 The arguments to `apply()` are
 
-- `X` is an array
-- `MARGIN` is an integer vector indicating which margins should be “retained”. 
-- `FUN` is a function to be applied
-- `...` is for other arguments to be passed to `FUN`
-
+-   `X` is an array
+-   `MARGIN` is an integer vector indicating which margins should be "retained".
+-   `FUN` is a function to be applied
+-   `...` is for other arguments to be passed to `FUN`
 
 Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.
 
@@ -426,17 +414,16 @@ apply(x, 1, mean)
 
 because I want to collapse the columns (the second dimension) and preserve the number of rows (the first dimension).
 
-
 ### Col/Row Sums and Means
 
 For the special case of column/row sums and column/row means of matrices, we have some useful shortcuts.
 
-- `rowSums` = `apply(x, 1, sum)`
-- `rowMeans` = `apply(x, 1, mean)`
-- `colSums` = `apply(x, 2, sum)`
-- `colMeans` = `apply(x, 2, mean)`
+-   `rowSums` = `apply(x, 1, sum)`
+-   `rowMeans` = `apply(x, 1, mean)`
+-   `colSums` = `apply(x, 2, sum)`
+-   `colMeans` = `apply(x, 2, mean)`
 
-The shortcut functions are heavily optimized and hence are _much_ faster, but you probably won’t notice unless you’re using a large matrix. Another nice aspect of these functions is that they are a bit more descriptive. It's arguably more clear to write `colMeans(x)` in your code than `apply(x, 2, mean)`.
+The shortcut functions are heavily optimized and hence are *much* faster, but you probably won't notice unless you're using a large matrix. Another nice aspect of these functions is that they are a bit more descriptive. It's arguably more clear to write `colMeans(x)` in your code than `apply(x, 2, mean)`.
 
 ### Other Ways to Apply
 
@@ -467,7 +454,6 @@ rowMeans(a, dims = 2)    ## Faster
 
 In this situation, I might argue that the use of `rowMeans()` is less readable, but it is substantially faster with large arrays.
 
-
 ## `mapply()`
 
 The `mapply()` function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that `lapply()` and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what `mapply()` is for.
@@ -478,10 +464,10 @@ str(mapply)
 
 The arguments to `mapply()` are
 
-- `FUN` is a function to apply
-- `...` contains R objects to apply over
-- `MoreArgs` is a list of other arguments to `FUN`.
-- `SIMPLIFY` indicates whether the result should be simplified
+-   `FUN` is a function to apply
+-   `...` contains R objects to apply over
+-   `MoreArgs` is a list of other arguments to `FUN`.
+-   `SIMPLIFY` indicates whether the result should be simplified
 
 The `mapply()` function has a different argument order from `lapply()` because the function to apply comes first rather than the object to iterate over. The R objects over which we apply the function are given in the `...` argument because we can apply over an arbitrary number of R objects.
 
@@ -497,7 +483,6 @@ With `mapply()`, instead we can do
 
 This passes the sequence `1:4` to the first argument of `rep()` and the sequence `4:1` to the second argument.
 
-
 Here's another example for simulating random Normal variables.
 
 ```{r}
@@ -512,7 +497,6 @@ noise(1:5, 1:5, 2)
 ```
 
 Here we can use `mapply()` to pass the sequence `1:5` separately to the `noise()` function so that we can get 5 sets of random numbers, each with a different length and mean.
-
 
 ```{r}
 mapply(noise, 1:5, 1:5, 2)
@@ -547,10 +531,9 @@ x <- rnorm(100)       ## Generate some data
 sumsq(1:10, 1:10, x)  ## This is not what we want
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
- 
+
 The call to `sumsq()` only produced one value instead of 10 values.
 
 However, we can do what we want to do by using `mapply()`.
@@ -558,7 +541,6 @@ However, we can do what we want to do by using `mapply()`.
 ```{r}
 mapply(sumsq, 1:10, 1:10, MoreArgs = list(x = x))
 ```
-
 :::
 
 There's even a function in R called `Vectorize()` that automatically can create a vectorized version of your function. So we could create a `vsumsq()` function that is fully vectorized as follows.
@@ -570,20 +552,15 @@ vsumsq(1:10, 1:10, x)
 
 Pretty cool, right?
 
-
 # Summary
 
-* The loop functions in R are very powerful because they allow you to conduct a series of operations on data using a compact form
+-   The loop functions in R are very powerful because they allow you to conduct a series of operations on data using a compact form
 
-* The operation of a loop function involves iterating over an R object (e.g. a list or vector or matrix), applying a function to each element of the object, and the collating the results and returning the collated results.
+-   The operation of a loop function involves iterating over an R object (e.g. a list or vector or matrix), applying a function to each element of the object, and the collating the results and returning the collated results.
 
-* Loop functions make heavy use of anonymous functions, which exist for the life of the loop function but are not stored anywhere
+-   Loop functions make heavy use of anonymous functions, which exist for the life of the loop function but are not stored anywhere
 
-* The `split()` function can be used to divide an R object in to subsets determined by another variable which can subsequently be looped over using loop functions.
-
-
-
-
+-   The `split()` function can be used to divide an R object in to subsets determined by another variable which can subsequently be looped over using loop functions.
 
 # Post-lecture materials
 
@@ -594,27 +571,24 @@ Here are some post-lecture questions to help you think about the material discus
 ::: callout-note
 ### Questions
 
-1. Write a function `compute_s_n()` that for any given `n` computes the sum  
+1.  Write a function `compute_s_n()` that for any given `n` computes the sum
 
 $$
 S_n = 1^2 + 2^2 + 3^2 + \ldots + n^2
 $$
 
-Report the value of the sum when $n$ = 10. 
+Report the value of the sum when $n$ = 10.
 
-2. Define an empty numerical vector `s_n` of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \ldots, S_n$ using a for-loop.
+2.  Define an empty numerical vector `s_n` of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \ldots, S_n$ using a for-loop.
 
-3. Repeat Q3, but this time use `sapply()`.
+3.  Repeat Q3, but this time use `sapply()`.
 
-4. Plot `s_n` versus `n`. Use points defined by $n= 1, \ldots, 25$
-
+4.  Plot `s_n` versus `n`. Use points defined by $n= 1, \ldots, 25$
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-
-- <https://rdpeng.github.io/Biostat776/lecture-loop-functions>
-- <https://rafalab.github.io/dsbook/programming-basics.html#vectorization>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-loop-functions>
+-   <https://rafalab.github.io/dsbook/programming-basics.html#vectorization>
 :::
