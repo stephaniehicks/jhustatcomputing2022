@@ -282,7 +282,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#colrow-sums-and-means" id="toc-colrow-sums-and-means" class="nav-link" data-scroll-target="#colrow-sums-and-means">Col/Row Sums and Means</a></li>
   <li><a href="#other-ways-to-apply" id="toc-other-ways-to-apply" class="nav-link" data-scroll-target="#other-ways-to-apply">Other Ways to Apply</a></li>
   </ul></li>
-  <li><a href="#mapply" id="toc-mapply" class="nav-link" data-scroll-target="#mapply"><code>mapply()</code></a></li>
   <li><a href="#vectorizing-a-function" id="toc-vectorizing-a-function" class="nav-link" data-scroll-target="#vectorizing-a-function">Vectorizing a Function</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
@@ -422,7 +421,7 @@ Learning objectives
 <li><p><code>sapply()</code>: Same as <code>lapply</code> but try to simplify the result</p></li>
 <li><p><code>apply()</code>: Apply a function over the margins of an array</p></li>
 <li><p><code>tapply()</code>: Apply a function over subsets of a vector</p></li>
-<li><p><code>mapply()</code>: Multivariate version of <code>lapply</code></p></li>
+<li><p><code>mapply()</code>: Multivariate version of <code>lapply</code> (won’t cover)</p></li>
 </ul>
 <p>An auxiliary function <code>split()</code> is also useful, particularly in conjunction with <code>lapply()</code>.</p>
 <section id="lapply" class="level2">
@@ -445,7 +444,7 @@ Learning objectives
         X &lt;- as.list(X)
     .Internal(lapply(X, FUN))
 }
-&lt;bytecode: 0x15592f928&gt;
+&lt;bytecode: 0x14f92f928&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 </div>
 </div>
@@ -463,82 +462,157 @@ Note
 </div>
 </div>
 <p>It is important to remember that <code>lapply()</code> always returns a list, regardless of the class of the input.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here’s an example of applying the <code>mean()</code> function to all elements of a list. If the original list has names, the the names will be preserved in the output.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$a
+[1] 1 2 3 4 5
+
+$b
+ [1] -0.796902151 -0.704764494  2.602279644  0.342396072  0.959892466
+ [6]  0.001693647 -0.038861708  0.413760458 -0.740300144 -1.696169815</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
 [1] 3
 
 $b
-[1] 0.3310818</code></pre>
+[1] 0.0343024</code></pre>
 </div>
 </div>
-<p>Notice that here we are passing the <code>mean()</code> function as an argument to the <code>lapply()</code> function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses <code>()</code> like you do when you are <em>calling</em> a function.</p>
+<p>Notice that here we are passing the <code>mean()</code> function as an argument to the <code>lapply()</code> function.</p>
+</div>
+</div>
+<p><strong>Functions in R can be</strong> used this way and can be <strong>passed back and forth as arguments</strong> just like any other object inR.</p>
+<p>When you pass a function to another function, you do not need to include the open and closed parentheses <code>()</code> like you do when you are <strong>calling</strong> a function.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here is another example of using <code>lapply()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="at">d =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="at">d =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
 [1] 2.5
 
 $b
-[1] 0.06416199
+[1] -0.1328501
 
 $c
-[1] 0.9535158
+[1] 1.227173
 
 $d
-[1] 4.790459</code></pre>
+[1] 5.012158</code></pre>
 </div>
 </div>
-<p>You can use <code>lapply()</code> to evaluate a function multiple times each with a different argument. Below, is an example where I call the <code>runif()</code> function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.</p>
+</div>
+</div>
+<p>You can use <code>lapply()</code> to evaluate a function multiple times each with a different argument.</p>
+<p>Next is an example where I call the <code>runif()</code> function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, runif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, runif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 0.9849666
+[1] 0.3924746
 
 [[2]]
-[1] 0.9160058 0.3923951
+[1] 0.807656 0.852134
 
 [[3]]
-[1] 0.006255206 0.223885037 0.893178433
+[1] 0.9680554 0.6216622 0.4746080
 
 [[4]]
-[1] 0.4158556 0.7176046 0.5852861 0.3218384</code></pre>
+[1] 0.09363509 0.80682941 0.44572025 0.55164581</code></pre>
 </div>
 </div>
-<p>When you pass a function to <code>lapply()</code>, <code>lapply()</code> takes elements of the list and passes them as the <em>first argument</em> of the function you are applying. In the above example, the first argument of <code>runif()</code> is <code>n</code>, and so the elements of the sequence <code>1:4</code> all got passed to the <code>n</code> argument of <code>runif()</code>.</p>
-<p>Functions that you pass to <code>lapply()</code> may have other arguments. For example, the <code>runif()</code> function has a <code>min</code> and <code>max</code> argument too. In the example above I used the default values for <code>min</code> and <code>max</code>. How would you be able to specify different values for that in the context of <code>lapply()</code>?</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+What happened?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you pass a function to <code>lapply()</code>, <code>lapply()</code> takes elements of the list and passes them as the <em>first argument</em> of the function you are applying.</p>
+<p>In the above example, the first argument of <code>runif()</code> is <code>n</code>, and so the elements of the sequence <code>1:4</code> all got passed to the <code>n</code> argument of <code>runif()</code>.</p>
+</div>
+</div>
+<p>Functions that you pass to <code>lapply()</code> may have other arguments. For example, the <code>runif()</code> function has a <code>min</code> and <code>max</code> argument too.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the example above I used the default values for <code>min</code> and <code>max</code>.</p>
+<ul>
+<li>How would you be able to specify different values for that in the context of <code>lapply()</code>?</li>
+</ul>
+</div>
+</div>
 <p>Here is where the <code>...</code> argument to <code>lapply()</code> comes into play. Any arguments that you place in the <code>...</code> argument will get passed down to the function being applied to the elements of the list.</p>
 <p>Here, the <code>min = 0</code> and <code>max = 10</code> arguments are passed down to <code>runif()</code> every time it gets called.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, runif, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, runif, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 1.922627
+[1] 7.339994
 
 [[2]]
-[1] 8.834625 2.721526
+[1] 6.159324 4.167184
 
 [[3]]
-[1] 7.291300 4.212393 1.241605
+[1] 1.3182169 6.3869630 0.2614679
 
 [[4]]
-[1] 4.102372 8.113711 7.406474 2.214451</code></pre>
+[1] 7.640224 1.984159 9.285444 2.845784</code></pre>
 </div>
 </div>
 <p>So now, instead of the random numbers being between 0 and 1 (the default), the are all between 0 and 10.</p>
 <p>The <code>lapply()</code> function (and its friends) makes heavy use of <em>anonymous</em> functions. Anonymous functions are like members of <a href="http://en.wikipedia.org/wiki/Fight_Club">Project Mayhem</a>—they have no names. These functions are generated “on the fly” as you are using <code>lapply()</code>. Once the call to <code>lapply()</code> is finished, the function disappears and does not appear in the workspace.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here I am creating a list that contains two matrices.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="at">b =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>)) </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="at">b =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>)) </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
      [,1] [,2]
@@ -554,7 +628,7 @@ $b
 </div>
 <p>Suppose I wanted to extract the first column of each matrix in the list. I could write an anonymous function for extracting the first column of each matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, <span class="cf">function</span>(elt) { elt[,<span class="dv">1</span>] })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, <span class="cf">function</span>(elt) { elt[,<span class="dv">1</span>] })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
 [1] 1 2
@@ -563,13 +637,16 @@ $b
 [1] 1 2 3</code></pre>
 </div>
 </div>
-<p>Notice that I put the <code>function()</code> definition right in the call to <code>lapply()</code>. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside <code>lapply()</code>, but if it’s going to be more complicated, it’s probably a better idea to define the function separately.</p>
+<p>Notice that I put the <code>function()</code> definition right in the call to <code>lapply()</code>.</p>
+</div>
+</div>
+<p>This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside <code>lapply()</code>, but if it’s going to be more complicated, it’s probably a better idea to define the function separately.</p>
 <p>For example, I could have done the following.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(elt) {</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>        elt[, <span class="dv">1</span>]</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(elt) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        elt[, <span class="dv">1</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
 [1] 1 2
@@ -578,7 +655,20 @@ $b
 [1] 1 2 3</code></pre>
 </div>
 </div>
-<p>Now the function is no longer anonymous; its name is <code>f</code>. Whether you use an anonymous function or you define a function first depends on your context. If you think the function <code>f</code> is something you are going to need a lot in other parts of your code, you might want to define it separately. But if you are just going to use it for this call to <code>lapply()</code>, then it is probably simpler to use an anonymous function.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now the function is no longer anonymous; its name is <code>f</code>.</p>
+</div>
+</div>
+<p>Whether you use an anonymous function or you define a function first depends on your context. If you think the function <code>f</code> is something you are going to need a lot in other parts of your code, you might want to define it separately. But if you are just going to use it for this call to <code>lapply()</code>, then it is probably simpler to use an anonymous function.</p>
 </section>
 <section id="sapply" class="level2">
 <h2 class="anchored" data-anchor-id="sapply"><code>sapply()</code></h2>
@@ -590,29 +680,29 @@ $b
 </ul>
 <p>Here’s the result of calling <code>lapply()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="at">d =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="at">d =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(x, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
 [1] 2.5
 
 $b
-[1] -0.695442
+[1] -0.7692304
 
 $c
-[1] 0.9909257
+[1] 1.1845
 
 $d
-[1] 5.163525</code></pre>
+[1] 5.011145</code></pre>
 </div>
 </div>
 <p>Notice that <code>lapply()</code> returns a list (as usual), but that each element of the list has length 1.</p>
 <p>Here’s the result of calling <code>sapply()</code> on the same list.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(x, mean) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(x, mean) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         a          b          c          d 
- 2.5000000 -0.6954420  0.9909257  5.1635252 </code></pre>
+ 2.5000000 -0.7692304  1.1844997  5.0111453 </code></pre>
 </div>
 </div>
 <p>Because the result of <code>lapply()</code> was a list where each element had length 1, <code>sapply()</code> collapsed the output into a numeric vector, which is often more useful than a list.</p>
@@ -622,7 +712,7 @@ $d
 <p>The <code>split()</code> function takes a vector or other objects and splits it into groups determined by a factor or list of factors.</p>
 <p>The arguments to <code>split()</code> are</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, f, drop = FALSE, ...)  </code></pre>
 </div>
@@ -636,42 +726,49 @@ $d
 <p>The combination of <code>split()</code> and a function like <code>lapply()</code> or <code>sapply()</code> is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying that function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as “map-reduce” in other contexts.</p>
 <p>Here we simulate some data and split it according to a factor variable. Note that we use the <code>gl()</code> function to “generate levels” in a factor variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="fu">runif</span>(<span class="dv">10</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>) <span class="co"># generate factor levels</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">split</span>(x, f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="fu">runif</span>(<span class="dv">10</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>) <span class="co"># generate factor levels</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3
+Levels: 1 2 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">split</span>(x, f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`1`
- [1]  1.70213075 -0.92139584 -0.49522530 -0.27895263 -0.53661937  0.95733726
- [7] -0.16794922 -0.24697522 -0.90776216  0.01558159
+ [1]  0.06440437  1.78480833 -0.94373825  1.94781191 -0.16936618 -0.58442286
+ [7]  1.23801276  0.02465268 -0.35022800 -0.03086819
 
 $`2`
- [1] 0.46790262 0.64597595 0.11083848 0.01706709 0.57112815 0.66524407
- [7] 0.27703610 0.43866077 0.39036763 0.68232165
+ [1] 0.1623650 0.7931292 0.5370609 0.6692380 0.2197358 0.2657368 0.6490295
+ [8] 0.2862331 0.8169028 0.9344586
 
 $`3`
- [1]  0.5746701  0.9177511 -1.0524062  3.3363839 -0.9278606  1.2568586
- [7]  1.8859522  1.0168651  0.9937956  1.7361232</code></pre>
+ [1]  0.13424958  0.31285258  2.39555383 -0.11859862 -0.08085121 -0.17574475
+ [7] -1.08308465  0.18204113  1.13764707  0.56204495</code></pre>
 </div>
 </div>
 <p>A common idiom is <code>split</code> followed by an <code>lapply</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">split</span>(x, f), mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">split</span>(x, f), mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`1`
-[1] -0.08798301
+[1] 0.2981067
 
 $`2`
-[1] 0.4266543
+[1] 0.533389
 
 $`3`
-[1] 0.9738133</code></pre>
+[1] 0.326611</code></pre>
 </div>
 </div>
 <section id="splitting-a-data-frame" class="level3">
 <h3 class="anchored" data-anchor-id="splitting-a-data-frame">Splitting a Data Frame</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Ozone Solar.R Wind Temp Month Day
 1    41     190  7.4   67     5   1
@@ -684,8 +781,8 @@ $`3`
 </div>
 <p>We can split the <code>airquality</code> data frame by the <code>Month</code> variable so that we have separate sub-data frames for each month.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">split</span>(airquality, airquality<span class="sc">$</span>Month)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">split</span>(airquality, airquality<span class="sc">$</span>Month)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 5
  $ 5:'data.frame':  31 obs. of  6 variables:
@@ -727,9 +824,9 @@ $`3`
 </div>
 <p>Then we can take the column means for <code>Ozone</code>, <code>Solar.R</code>, and <code>Wind</code> for each sub-data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(s, <span class="cf">function</span>(x) {</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colMeans</span>(x[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>, <span class="st">"Wind"</span>)])</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(s, <span class="cf">function</span>(x) {</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colMeans</span>(x[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>, <span class="st">"Wind"</span>)])</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`5`
    Ozone  Solar.R     Wind 
@@ -754,9 +851,9 @@ $`9`
 </div>
 <p>Using <code>sapply()</code> might be better here for a more readable output.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(s, <span class="cf">function</span>(x) {</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colMeans</span>(x[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>, <span class="st">"Wind"</span>)])</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(s, <span class="cf">function</span>(x) {</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colMeans</span>(x[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>, <span class="st">"Wind"</span>)])</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               5         6          7        8        9
 Ozone         NA        NA         NA       NA       NA
@@ -766,67 +863,15 @@ Wind    11.62258  10.26667   8.941935 8.793548  10.1800</code></pre>
 </div>
 <p>Unfortunately, there are <code>NA</code>s in the data so we cannot simply take the means of those variables. However, we can tell the <code>colMeans</code> function to remove the <code>NA</code>s before computing the mean.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(s, <span class="cf">function</span>(x) {</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colMeans</span>(x[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>, <span class="st">"Wind"</span>)], </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(s, <span class="cf">function</span>(x) {</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colMeans</span>(x[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>, <span class="st">"Wind"</span>)], </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                5         6          7          8         9
 Ozone    23.61538  29.44444  59.115385  59.961538  31.44828
 Solar.R 181.29630 190.16667 216.483871 171.857143 167.43333
 Wind     11.62258  10.26667   8.941935   8.793548  10.18000</code></pre>
-</div>
-</div>
-<p>Occasionally, we may want to split an R object according to levels defined in more than one variable. We can do this by creating an interaction of the variables with the <code>interaction()</code> function.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>f1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 1 1 1 1 2 2 2 2 2
-Levels: 1 2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>f2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 1 2 2 3 3 4 4 5 5
-Levels: 1 2 3 4 5</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create interaction of two factors</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction</span>(f1, f2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 1.1 1.1 1.2 1.2 1.3 2.3 2.4 2.4 2.5 2.5
-Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5</code></pre>
-</div>
-</div>
-<p>With multiple factors and many levels, creating an interaction can result in many levels that are empty.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">split</span>(x, <span class="fu">list</span>(f1, f2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 10
- $ 1.1: num [1:2] 1.7395 -0.0377
- $ 2.1: num(0) 
- $ 1.2: num [1:2] 0.277 1.846
- $ 2.2: num(0) 
- $ 1.3: num 0.95
- $ 2.3: num 0.0139
- $ 1.4: num(0) 
- $ 2.4: num [1:2] 0.218 -1.136
- $ 1.5: num(0) 
- $ 2.5: num [1:2] 1.67 -1.3</code></pre>
-</div>
-</div>
-<p>Notice that there are 4 categories with no data. But we can drop empty levels when we call the <code>split()</code> function.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">split</span>(x, <span class="fu">list</span>(f1, f2), <span class="at">drop =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 6
- $ 1.1: num [1:2] 1.7395 -0.0377
- $ 1.2: num [1:2] 0.277 1.846
- $ 1.3: num 0.95
- $ 2.3: num 0.0139
- $ 2.4: num [1:2] 0.218 -1.136
- $ 2.5: num [1:2] 1.67 -1.3</code></pre>
 </div>
 </div>
 </section>
@@ -835,7 +880,7 @@ Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5</code></pre>
 <h2 class="anchored" data-anchor-id="tapply">tapply</h2>
 <p><code>tapply()</code> is used to apply a function over subsets of a vector. It can be thought of as a combination of <code>split()</code> and <code>sapply()</code> for vectors only. I’ve been told that the “t” in <code>tapply()</code> refers to “table”, but that is unconfirmed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tapply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tapply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (X, INDEX, FUN = NULL, ..., default = NA, simplify = TRUE)  </code></pre>
 </div>
@@ -848,49 +893,47 @@ Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5</code></pre>
 <li>… contains other arguments to be passed <code>FUN</code></li>
 <li><code>simplify</code>, should we simplify the result?</li>
 </ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Given a vector of numbers, one simple operation is to take group means.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate some data</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="fu">runif</span>(<span class="dv">10</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Define some groups with a factor variable</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)   </span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate some data</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="fu">runif</span>(<span class="dv">10</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Define some groups with a factor variable</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)   </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3
 Levels: 1 2 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(x, f, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(x, f, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3 
-0.3635790 0.3827953 0.7247958 </code></pre>
+0.2927136 0.2936399 1.0340813 </code></pre>
 </div>
 </div>
-<p>We can also take the group means without simplifying the result, which will give us a list. For functions that return a single value, usually, this is not what we want, but it can be done.</p>
+</div>
+</div>
+<p>We can also apply functions that return more than a single value. In this case, <code>tapply()</code> will not simplify the result and will return a list. Here’s an example of finding the <code>range()</code> (min and max) of each sub-group.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(x, f, mean, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(x, f, range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`1`
-[1] 0.363579
+[1] -1.217068  1.723239
 
 $`2`
-[1] 0.3827953
+[1] 0.0620568 0.8443268
 
 $`3`
-[1] 0.7247958</code></pre>
-</div>
-</div>
-<p>We can also apply functions that return more than a single value. In this case, <code>tapply()</code> will not simplify the result and will return a list. Here’s an example of finding the range of each sub-group.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(x, f, range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`1`
-[1] -1.287233  2.695148
-
-$`2`
-[1] 0.1251853 0.8462574
-
-$`3`
-[1] -0.9117784  1.6647315</code></pre>
+[1] -0.1079284  2.8115679</code></pre>
 </div>
 </div>
 </section>
@@ -898,7 +941,7 @@ $`3`
 <h2 class="anchored" data-anchor-id="apply"><code>apply()</code></h2>
 <p>The <code>apply()</code> function is used to a evaluate a function (often an anonymous one) over the margins of an array. It is most often used to apply a function to the rows or columns of a matrix (which is just a 2-dimensional array). However, it can be used with general arrays, for example, to take the average of an array of matrices. Using <code>apply()</code> is not really faster than writing a loop, but it works in one line and is highly compact.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(apply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(apply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (X, MARGIN, FUN, ..., simplify = TRUE)  </code></pre>
 </div>
@@ -910,205 +953,64 @@ $`3`
 <li><code>FUN</code> is a function to be applied</li>
 <li><code>...</code> is for other arguments to be passed to <code>FUN</code></li>
 </ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">2</span>, mean)  <span class="do">## Take the mean of each column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  0.41456876  0.01730037 -0.16158895 -0.31574979 -0.14480830  0.60326037
- [7] -0.26085088  0.24341967  0.06939546 -0.22545685</code></pre>
+<pre><code>            [,1]       [,2]        [,3]       [,4]       [,5]       [,6]
+[1,] -0.08951039  0.8826521 -0.08872757 -0.1902191  1.6645398 -0.6256195
+[2,] -1.61681249 -0.1291864 -0.33969902  0.0642613  0.3666109  0.1417229
+[3,] -0.04658801 -0.3518867 -1.19269194  0.5000525  0.7995802 -0.8268586
+[4,]  0.54126740 -0.5923315  0.59592538 -1.3801277  0.9194444  0.6511138
+[5,]  0.02298819 -1.2806856 -0.36783197 -0.8432676 -1.2392163 -0.4812132
+[6,] -0.27934449 -1.0370041  0.74642687 -2.1841962  0.3488571 -0.6985333
+            [,7]       [,8]        [,9]       [,10]
+[1,]  1.54160420 -0.5170260 -0.52851441 -0.04676887
+[2,] -1.46016301 -1.2740124  0.05790032 -1.42846117
+[3,] -0.57536442  2.0125221 -1.91502406 -1.36074140
+[4,]  0.58692626 -0.6922853  0.06218197 -0.10036921
+[5,]  0.03727834  0.1837202  0.26596992 -0.59420697
+[6,] -0.02896566  0.5216695 -0.74571287  0.29136921</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">2</span>, mean)  <span class="do">## Take the mean of each column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] -0.32908184 -0.19267585  0.04411986 -0.21452934 -0.11431928 -0.21070416
+ [7]  0.27329343 -0.21840568 -0.41166243 -0.28090778</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>I can also compute the sum of each row.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">1</span>, sum)   <span class="do">## Take the mean of each row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">1</span>, sum)   <span class="do">## Take the mean of each row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -4.5975443  0.5098168  0.7479242  3.4466988  0.9594732  4.4869916
- [7]  4.4438022  1.1577354  2.1807962  4.0860094  0.5668163 -3.0611179
-[13]  4.1541564  0.6459949 -1.5535504 -5.7728199  0.6022865  3.7587771
-[19] -8.9158898 -3.0565598</code></pre>
+<pre><code> [1]  2.0024103 -5.6178391 -2.9570003  0.5917455 -4.2964651 -3.0654338
+ [7] -1.9762763 -4.2211525 -3.3652473 -0.6591509 -1.8506994 -3.4277422
+[13] -0.9036821  0.9532504 -0.1092196  2.6233840  2.6924633 -1.8723594
+[19] -4.1938965 -3.4445502</code></pre>
 </div>
 </div>
-<p>Note that in both calls to <code>apply()</code>, the return value was a vector of numbers.</p>
-<p>You’ve probably noticed that the second argument is either a 1 or a 2, depending on whether we want row statistics or column statistics. What exactly <em>is</em> the second argument to <code>apply()</code>?</p>
-<p>The <code>MARGIN</code> argument essentially indicates to <code>apply()</code> which dimension of the array you want to preserve or retain. So when taking the mean of each column, I specify</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">2</span>, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>because I want to collapse the first dimension (the rows) by taking the mean and I want to preserve the number of columns. Similarly, when I want the row sums, I run</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">1</span>, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>because I want to collapse the columns (the second dimension) and preserve the number of rows (the first dimension).</p>
-<section id="colrow-sums-and-means" class="level3">
-<h3 class="anchored" data-anchor-id="colrow-sums-and-means">Col/Row Sums and Means</h3>
-<p>For the special case of column/row sums and column/row means of matrices, we have some useful shortcuts.</p>
-<ul>
-<li><code>rowSums</code> = <code>apply(x, 1, sum)</code></li>
-<li><code>rowMeans</code> = <code>apply(x, 1, mean)</code></li>
-<li><code>colSums</code> = <code>apply(x, 2, sum)</code></li>
-<li><code>colMeans</code> = <code>apply(x, 2, mean)</code></li>
-</ul>
-<p>The shortcut functions are heavily optimized and hence are <em>much</em> faster, but you probably won’t notice unless you’re using a large matrix. Another nice aspect of these functions is that they are a bit more descriptive. It’s arguably more clear to write <code>colMeans(x)</code> in your code than <code>apply(x, 2, mean)</code>.</p>
-</section>
-<section id="other-ways-to-apply" class="level3">
-<h3 class="anchored" data-anchor-id="other-ways-to-apply">Other Ways to Apply</h3>
-<p>You can do more than take sums and means with the <code>apply()</code> function. For example, you can compute quantiles of the rows of a matrix using the <code>quantile()</code> function.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Get row quantiles</span></span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">1</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          [,1]       [,2]       [,3]       [,4]       [,5]       [,6]
-25% -0.9196451 -1.2673953 -0.5198982 -0.4691717 -0.4550782 -0.2492219
-75%  0.2325410  0.9899974  0.6233101  0.5275141  0.4337617  0.3718186
-          [,7]       [,8]       [,9]      [,10]      [,11]      [,12]
-25% 0.07980977 -0.9380168 -1.2027105 -0.3494625 -0.6376472 -0.2140292
-75% 0.92136395  0.8189868  0.8383039  0.5604427  0.4196797  1.5144962
-         [,13]      [,14]       [,15]      [,16]      [,17]      [,18]
-25% 0.01759801 -0.7951832 -0.05286535 -0.1666697 -0.8983216 -1.0791022
-75% 1.55215785  0.5519529  0.84172239  0.7629612  1.2497896  0.5423094
-         [,19]      [,20]
-25% -1.0724434 -0.5019034
-75% -0.5682084  0.2219713</code></pre>
-</div>
-</div>
-<p>Notice that I had to pass the <code>probs = c(0.25, 0.75)</code> argument to <code>quantile()</code> via the <code>...</code> argument to <code>apply()</code>.</p>
-<p>For a higher dimensional example, I can create an array of <span class="math inline">\(2\times2\)</span> matrices and then compute the average of the matrices in the array.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">rnorm</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">10</span>))</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(a, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           [,1]        [,2]
-[1,] -0.2497705  0.09245968
-[2,]  0.2709188 -0.41840864</code></pre>
-</div>
-</div>
-<p>In the call to <code>apply()</code> here, I indicated via the <code>MARGIN</code> argument that I wanted to preserve the first and second dimensions and to collapse the third dimension by taking the mean.</p>
-<p>There is a faster way to do this specific operation via the <code>colMeans()</code> function.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rowMeans</span>(a, <span class="at">dims =</span> <span class="dv">2</span>)    <span class="do">## Faster</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           [,1]        [,2]
-[1,] -0.2497705  0.09245968
-[2,]  0.2709188 -0.41840864</code></pre>
-</div>
-</div>
-<p>In this situation, I might argue that the use of <code>rowMeans()</code> is less readable, but it is substantially faster with large arrays.</p>
-</section>
-</section>
-<section id="mapply" class="level2">
-<h2 class="anchored" data-anchor-id="mapply"><code>mapply()</code></h2>
-<p>The <code>mapply()</code> function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that <code>lapply()</code> and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what <code>mapply()</code> is for.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mapply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)  </code></pre>
-</div>
-</div>
-<p>The arguments to <code>mapply()</code> are</p>
-<ul>
-<li><code>FUN</code> is a function to apply</li>
-<li><code>...</code> contains R objects to apply over</li>
-<li><code>MoreArgs</code> is a list of other arguments to <code>FUN</code>.</li>
-<li><code>SIMPLIFY</code> indicates whether the result should be simplified</li>
-</ul>
-<p>The <code>mapply()</code> function has a different argument order from <code>lapply()</code> because the function to apply comes first rather than the object to iterate over. The R objects over which we apply the function are given in the <code>...</code> argument because we can apply over an arbitrary number of R objects.</p>
-<p>For example, the following is tedious to type</p>
-<p><code>list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))</code></p>
-<p>With <code>mapply()</code>, instead we can do</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mapply</span>(rep, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 1 1 1 1
-
-[[2]]
-[1] 2 2 2
-
-[[3]]
-[1] 3 3
-
-[[4]]
-[1] 4</code></pre>
-</div>
-</div>
-<p>This passes the sequence <code>1:4</code> to the first argument of <code>rep()</code> and the sequence <code>4:1</code> to the second argument.</p>
-<p>Here’s another example for simulating random Normal variables.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>noise <span class="ot">&lt;-</span> <span class="cf">function</span>(n, mean, sd) {</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(n, mean, sd)</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate 5 random numbers</span></span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">noise</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  3.6217261 -3.3151377  0.1596597  0.9557795 -4.2660395</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This only simulates 1 set of numbers, not 5</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">noise</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">2</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -3.8103688  0.7019632  1.8004701  3.1233337  2.4583260</code></pre>
-</div>
-</div>
-<p>Here we can use <code>mapply()</code> to pass the sequence <code>1:5</code> separately to the <code>noise()</code> function so that we can get 5 sets of random numbers, each with a different length and mean.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(noise, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 1.810489
-
-[[2]]
-[1] 0.9940617 2.4452655
-
-[[3]]
-[1] 3.4615699 3.5728362 0.9226224
-
-[[4]]
-[1] 1.243299 2.057825 6.342829 3.375441
-
-[[5]]
-[1] 7.276377 6.733254 6.401461 5.437555 6.575472</code></pre>
-</div>
-</div>
-<p>The above call to <code>mapply()</code> is the same as</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="fu">noise</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">noise</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">noise</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>), <span class="fu">noise</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">noise</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] -0.949351
-
-[[2]]
-[1] -2.606905  5.425412
-
-[[3]]
-[1]  3.6384608  5.8164368 -0.7429452
-
-[[4]]
-[1] 3.172787 1.182054 4.178217 5.073522
-
-[[5]]
-[1] 7.768911 8.043388 5.968178 6.441233 5.225788</code></pre>
-</div>
-</div>
-</section>
-<section id="vectorizing-a-function" class="level2">
-<h2 class="anchored" data-anchor-id="vectorizing-a-function">Vectorizing a Function</h2>
-<p>The <code>mapply()</code> function can be use to automatically “vectorize” a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.</p>
-<p>Here’s an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is <span class="math inline">\(\sum_{i=1}^n(x_i-\mu)^2/\sigma^2\)</span>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>sumsq <span class="ot">&lt;-</span> <span class="cf">function</span>(mu, sigma, x) {</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(((x <span class="sc">-</span> mu) <span class="sc">/</span> sigma)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This function takes a mean <code>mu</code>, a standard deviation <code>sigma</code>, and some data in a vector <code>x</code>.</p>
-<p>In many statistical applications, we want to minimize the sum of squares to find the optimal <code>mu</code> and <code>sigma</code>. Before we do that, we may want to evaluate or plot the function for many different values of <code>mu</code> or <code>sigma</code>. However, passing a vector of <code>mu</code>s or <code>sigma</code>s won’t work with this function because it’s not vectorized.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)       <span class="do">## Generate some data</span></span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sumsq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, x)  <span class="do">## This is not what we want</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 120.7717</code></pre>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -1121,24 +1023,146 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The call to <code>sumsq()</code> only produced one value instead of 10 values.</p>
-<p>However, we can do what we want to do by using <code>mapply()</code>.</p>
+<p>In both calls to <code>apply()</code>, the return value was a vector of numbers.</p>
+</div>
+</div>
+<p>You’ve probably noticed that the second argument is either a 1 or a 2, depending on whether we want row statistics or column statistics. What exactly <em>is</em> the second argument to <code>apply()</code>?</p>
+<p>The <code>MARGIN</code> argument essentially indicates to <code>apply()</code> which dimension of the array you want to preserve or retain.</p>
+<p>So when taking the mean of each column, I specify</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(sumsq, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">MoreArgs =</span> <span class="fu">list</span>(<span class="at">x =</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 215.29035 122.60301 107.28152 102.54096 100.63108  99.74719  99.30654
- [8]  99.08034  98.96622  98.91385</code></pre>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">2</span>, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-<p>There’s even a function in R called <code>Vectorize()</code> that automatically can create a vectorized version of your function. So we could create a <code>vsumsq()</code> function that is fully vectorized as follows.</p>
+<p>because I want to collapse the first dimension (the rows) by taking the mean and I want to preserve the number of columns. Similarly, when I want the row sums, I run</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>vsumsq <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(sumsq, <span class="fu">c</span>(<span class="st">"mu"</span>, <span class="st">"sigma"</span>))</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vsumsq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">1</span>, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>because I want to collapse the columns (the second dimension) and preserve the number of rows (the first dimension).</p>
+<section id="colrow-sums-and-means" class="level3">
+<h3 class="anchored" data-anchor-id="colrow-sums-and-means">Col/Row Sums and Means</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the special case of column/row sums and column/row means of matrices, we have some useful shortcuts.</p>
+<ul>
+<li><code>rowSums</code> = <code>apply(x, 1, sum)</code></li>
+<li><code>rowMeans</code> = <code>apply(x, 1, mean)</code></li>
+<li><code>colSums</code> = <code>apply(x, 2, sum)</code></li>
+<li><code>colMeans</code> = <code>apply(x, 2, mean)</code></li>
+</ul>
+</div>
+</div>
+<p>The shortcut functions are heavily optimized and hence are <strong>much</strong> faster, but you probably won’t notice unless you’re using a large matrix.</p>
+<p>Another nice aspect of these functions is that they are a bit more descriptive. It’s arguably more clear to write <code>colMeans(x)</code> in your code than <code>apply(x, 2, mean)</code>.</p>
+</section>
+<section id="other-ways-to-apply" class="level3">
+<h3 class="anchored" data-anchor-id="other-ways-to-apply">Other Ways to Apply</h3>
+<p>You can do more than take sums and means with the <code>apply()</code> function.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For example, you can compute quantiles of the rows of a matrix using the <code>quantile()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 215.29035 122.60301 107.28152 102.54096 100.63108  99.74719  99.30654
- [8]  99.08034  98.96622  98.91385</code></pre>
+<pre><code>            [,1]        [,2]         [,3]        [,4]       [,5]       [,6]
+[1,]  0.30116593 -0.22143862 -0.780484437  0.24715546  0.4620109 -0.1284762
+[2,] -1.02790308 -0.92858900  0.191527407  0.69079520 -0.2844016  0.3033426
+[3,] -0.07119538 -0.06317295 -0.987710196 -0.33902017  0.2571209  0.5702837
+[4,]  1.12855517  1.73876299 -2.037467412  0.06666361 -1.6490073 -1.0061759
+[5,]  1.00533831 -1.29756896  0.009980026  1.98505348 -0.0113328 -0.2182344
+[6,]  0.05762476 -0.28615154 -0.517267972  1.07147513  1.4076715  2.2987914
+           [,7]       [,8]       [,9]       [,10]
+[1,] -0.0770105 -0.0758423 -0.2742897 -1.06783913
+[2,] -0.4108593 -0.7534294 -1.2058456 -0.74607337
+[3,] -0.9714008  0.1451234 -1.4040156 -0.03308528
+[4,] -1.5909674 -0.7444157 -1.6793615 -0.09789561
+[5,]  0.2916761 -2.4666819 -0.9916369  0.99983123
+[6,]  0.6401452  1.1482895  1.0475003 -0.69766008</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get row quantiles</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x, <span class="dv">1</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]        [,2]       [,3]        [,4]       [,5]       [,6]
+25% -0.2610769 -0.88479910 -0.8133057 -1.63449728 -0.7982863 -0.2002075
+75%  0.1664060  0.07254515  0.1005712  0.02552381  0.8227924  1.1290859
+          [,7]       [,8]     [,9]       [,10]       [,11]      [,12]
+25% -0.3483229 -0.2178852 0.142347 -0.00305639 -0.05045378 -0.8347654
+75%  0.2779571  0.6790140 1.226393  0.95341826  0.90565824  0.7197274
+         [,13]       [,14]      [,15]      [,16]      [,17]      [,18]
+25% 0.08092159 -0.08878187 -0.8914984 -0.3260444 -0.4409576 -0.7755624
+75% 1.22063634  0.63504774 -0.1218225  0.8874655  1.3131417  1.0484453
+         [,19]      [,20]
+25% -0.1979752 -0.3811029
+75%  0.7158692  0.6466877</code></pre>
+</div>
+</div>
+<p>Notice that I had to pass the <code>probs = c(0.25, 0.75)</code> argument to <code>quantile()</code> via the <code>...</code> argument to <code>apply()</code>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="vectorizing-a-function" class="level2">
+<h2 class="anchored" data-anchor-id="vectorizing-a-function">Vectorizing a Function</h2>
+<p>Let’s talk about how we can <strong>“vectorize” a function</strong>.</p>
+<p>What this means is that we can write function that typically only takes single arguments and create a new function that can take vector arguments.</p>
+<p>This is often needed when you want to plot functions.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here’s an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is <span class="math inline">\(\sum_{i=1}^n(x_i-\mu)^2/\sigma^2\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>sumsq <span class="ot">&lt;-</span> <span class="cf">function</span>(mu, sigma, x) {</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(((x <span class="sc">-</span> mu) <span class="sc">/</span> sigma)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This function takes a mean <code>mu</code>, a standard deviation <code>sigma</code>, and some data in a vector <code>x</code>.</p>
+<p>In many statistical applications, we want to minimize the sum of squares to find the optimal <code>mu</code> and <code>sigma</code>. Before we do that, we may want to evaluate or plot the function for many different values of <code>mu</code> or <code>sigma</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)       <span class="do">## Generate some data</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sumsq</span>(<span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="dv">1</span>, x)  <span class="do">## This works (returns one value)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 203.2493</code></pre>
+</div>
+</div>
+<p>However, passing a vector of <code>mu</code>s or <code>sigma</code>s won’t work with this function because it’s not vectorized.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sumsq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, x)  <span class="do">## This is not what we want</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 105.2917</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>There’s even a function in R called <code>Vectorize()</code> that <strong>automatically can create a vectorized version of your function</strong>.</p>
+<p>So we could create a <code>vsumsq()</code> function that is fully vectorized as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>vsumsq <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(sumsq, <span class="fu">c</span>(<span class="st">"mu"</span>, <span class="st">"sigma"</span>))</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vsumsq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 203.24928 122.09428 108.16721 103.66455 101.75042 100.80246 100.28605
+ [8]  99.98663  99.80583  99.69400</code></pre>
 </div>
 </div>
 <p>Pretty cool, right?</p>

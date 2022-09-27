@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/schedule.html</loc>
+    <lastmod>2022-09-27T16:44:27.970Z</lastmod>
+  </url>
+  <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/syllabus.html</loc>
-    <lastmod>2022-09-22T02:08:29.733Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/index.html</loc>
-    <lastmod>2022-09-22T02:08:30.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/resources.html</loc>
-    <lastmod>2022-09-22T02:08:30.729Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/projects.html</loc>
-    <lastmod>2022-09-22T02:08:31.157Z</lastmod>
+    <lastmod>2022-09-27T16:44:29.278Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/projects/2022-08-30-project-0/index.html</loc>
-    <lastmod>2022-09-22T02:08:31.721Z</lastmod>
+    <lastmod>2022-09-27T16:44:30.018Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/projects/2022-09-06-project-1/index.html</loc>
-    <lastmod>2022-09-22T02:08:32.421Z</lastmod>
+    <lastmod>2022-09-27T16:44:30.899Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/projects/2022-09-15-project-2/index.html</loc>
-    <lastmod>2022-09-22T02:08:33.109Z</lastmod>
+    <lastmod>2022-09-27T16:44:31.771Z</lastmod>
   </url>
   <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index.html</loc>
-    <lastmod>2022-09-22T02:08:34.481Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-08-tidy-data-and-the-tidyverse/index.html</loc>
-    <lastmod>2022-09-22T02:08:35.505Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-08-joining-data-in-r/index.html</loc>
-    <lastmod>2022-09-22T02:08:36.569Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-15-ggplot2-plotting-system-part-2/index.html</loc>
-    <lastmod>2022-09-22T02:08:37.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</loc>
-    <lastmod>2022-09-22T02:08:38.225Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-22-functions/index.html</loc>
-    <lastmod>2022-09-22T02:08:39.157Z</lastmod>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/index.html</loc>
+    <lastmod>2022-09-27T16:44:32.119Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-20-r-nuts-and-bolts/index.html</loc>
-    <lastmod>2022-09-22T02:08:40.181Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-27-loop-functions/index.html</loc>
-    <lastmod>2022-09-22T02:08:41.213Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</loc>
-    <lastmod>2022-09-22T02:08:41.749Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index.html</loc>
-    <lastmod>2022-09-22T02:08:42.389Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</loc>
-    <lastmod>2022-09-22T02:08:43.729Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/index.html</loc>
-    <lastmod>2022-09-22T02:08:44.749Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/welcome/index.html</loc>
-    <lastmod>2022-09-22T02:08:45.861Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</loc>
-    <lastmod>2022-09-22T02:08:46.621Z</lastmod>
+    <lastmod>2022-09-27T16:44:33.435Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-22-control-structures/index.html</loc>
-    <lastmod>2022-09-22T02:08:48.089Z</lastmod>
+    <lastmod>2022-09-27T16:44:34.431Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-22-functions/index.html</loc>
+    <lastmod>2022-09-27T16:44:36.459Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-gitgithub/index.html</loc>
+    <lastmod>2022-09-27T16:44:37.003Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-plotting-systems/index.html</loc>
+    <lastmod>2022-09-27T16:44:37.835Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-27-loop-functions/index.html</loc>
+    <lastmod>2022-09-27T16:44:39.855Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/index.html</loc>
+    <lastmod>2022-09-27T16:44:41.551Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-managing-data-frames-with-tidyverse/index.html</loc>
-    <lastmod>2022-09-22T02:08:49.197Z</lastmod>
+    <lastmod>2022-09-27T16:44:42.919Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-13-ggplot2-plotting-system-part-1/index.html</loc>
+    <lastmod>2022-09-27T16:44:44.199Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reference-management/index.html</loc>
+    <lastmod>2022-09-27T16:44:45.035Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-08-joining-data-in-r/index.html</loc>
+    <lastmod>2022-09-27T16:44:46.327Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/welcome/index.html</loc>
+    <lastmod>2022-09-27T16:44:48.655Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-literate-programming/index.html</loc>
-    <lastmod>2022-09-22T02:08:50.409Z</lastmod>
+    <lastmod>2022-09-27T16:44:49.751Z</lastmod>
   </url>
   <url>
-    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/schedule.html</loc>
-    <lastmod>2022-09-22T02:08:50.853Z</lastmod>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-08-tidy-data-and-the-tidyverse/index.html</loc>
+    <lastmod>2022-09-27T16:44:51.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-15-ggplot2-plotting-system-part-2/index.html</loc>
+    <lastmod>2022-09-27T16:44:52.351Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-01-reproducible-research/index.html</loc>
+    <lastmod>2022-09-27T16:44:53.019Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-08-30-introduction-to-r-and-rstudio/index.html</loc>
+    <lastmod>2022-09-27T16:44:54.075Z</lastmod>
   </url>
   <url>
     <loc>https://www.stephaniehicks.com/jhustatcomputing2022/lectures.html</loc>
-    <lastmod>2022-09-22T02:08:51.565Z</lastmod>
+    <lastmod>2022-09-27T16:44:55.023Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/projects.html</loc>
+    <lastmod>2022-09-27T16:44:55.455Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.stephaniehicks.com/jhustatcomputing2022/resources.html</loc>
+    <lastmod>2022-09-27T16:44:55.835Z</lastmod>
   </url>
 </urlset>
