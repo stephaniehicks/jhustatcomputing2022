@@ -274,10 +274,10 @@ The following calls to the `sd()` function (which computes the empirical standar
 ::: callout-tip
 ### Note
 
-`sd()` has two arguments:
+`sd(x, na.rm = FALSE)` has two arguments:
 
 -   `x` indicates the vector of numbers
--   `na.rm` is a logical indicating whether missing values should be removed or not
+-   `na.rm` is a logical indicating whether missing values should be removed or not (default is `FALSE`)
 
 ```{r}
 ## Positional match first argument, default for 'na.rm'
@@ -337,18 +337,25 @@ lm(y ~ x, mydata, 1:100, model = FALSE)
 Even though it's legal, I don't recommend messing around with the order of the arguments too much, since it can lead to some confusion.
 :::
 
-Most of the time, named arguments are helpful
+Most of the time, **named arguments are helpful**: 
 
 -   On the command line when you have a long argument list and you want to use the defaults for everything except for an argument near the end of the list
 -   If you can remember the name of the argument and not its position on the argument list
 
-For example, plotting functions often have a lot of options to allow for customization, but this makes it difficult to remember exactly the position of every argument on the argument list.
+For example, **plotting functions** often have a lot of options to allow for customization, but this makes it difficult to remember exactly the position of every argument on the argument list.
 
-Function arguments can also be **partially matched**, which is useful for interactive work. The order of operations when given an argument is
+Function arguments can also be **partially matched**, which is useful for interactive work.
+
+::: callout-tip
+### Pro-tip
+
+The order of operations when given an argument is
 
 1.  Check for exact match for a named argument
 2.  Check for a partial match
 3.  Check for a positional match
+
+:::
 
 **Partial matching should be avoided when writing longer code or programs**, because it may lead to confusion if someone is reading the code. However, partial matching is very useful when calling functions interactively that have very long argument names.
 
@@ -394,7 +401,7 @@ For example, a custom plotting function may want to make use of the default `plo
 
 ``` r
 myplot <- function(x, y, type = "l", ...) {
-        plot(x, y, type = type, ...)         ## Pass '...' to 'plot' function
+        plot(x, y, type = type, ...)    ## Pass '...' to 'plot' function
 }
 ```
 
@@ -413,16 +420,15 @@ paste("one", "two", "three", "four", "five", sep="_")
 
 ```{r}
 args(paste)
-args(cat)
 ```
 
-Because both `paste()` and `cat()` print out text to the console by combining multiple character vectors together, it is impossible for those functions to know in advance how many character vectors will be passed to the function by the user.
+Because `paste()` prints out text to the console by combining multiple character vectors together, it is impossible for this function to know in advance how many character vectors will be passed to the function by the user.
 
-So the first argument to either function is `...`.
+So the first argument in the function is `...`.
 
 ## Arguments Coming After the `...` Argument
 
-One catch with `...` is that any **arguments that appear after** `...` on the argument list must be named explicitly and cannot be partially matched or matched positionally.
+One catch with `...` is that any **arguments that appear after** `...` on the argument list **must be named explicitly and cannot be partially matched or matched positionally**.
 
 Take a look at the arguments to the `paste()` function.
 
@@ -485,7 +491,7 @@ R itself is not very consistent, but there is nothing you can do about that. Mak
 ```{r}
 # Never do this!
 col_mins <- function(x, y) {}
-rowMaxes <- function(y, x) {}
+rowMaxes <- function(x, y) {}
 ```
 
 ## Use a common prefix

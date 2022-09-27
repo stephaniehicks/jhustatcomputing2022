@@ -12,7 +12,6 @@ categories: [module 4, week 5, R, programming, functions]
 
 <!-- Add interesting quote -->
 
-
 # Pre-lecture materials
 
 ### Read ahead
@@ -111,7 +110,7 @@ While `for` loops are perfectly valid, when you use vectorization in an element-
 
 -   `tapply()`: Apply a function over subsets of a vector
 
--   `mapply()`: Multivariate version of `lapply`
+-   `mapply()`: Multivariate version of `lapply` (won't cover)
 
 An auxiliary function `split()` is also useful, particularly in conjunction with `lapply()`.
 
@@ -139,14 +138,28 @@ The actual looping is done internally in C code for efficiency reasons.
 
 It is important to remember that `lapply()` always returns a list, regardless of the class of the input.
 
+::: callout-tip
+
+### Example
+
 Here's an example of applying the `mean()` function to all elements of a list. If the original list has names, the the names will be preserved in the output.
 
 ```{r}
 x <- list(a = 1:5, b = rnorm(10))
+x
 lapply(x, mean)
 ```
 
-Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses `()` like you do when you are *calling* a function.
+Notice that here we are passing the `mean()` function as an argument to the `lapply()` function.
+
+:::
+
+**Functions in R can be** used this way and can be **passed back and forth as arguments** just like any other object  inR. 
+
+When you pass a function to another function, you do not need to include the open and closed parentheses `()` like you do when you are **calling** a function.
+
+::: callout-tip
+### Example
 
 Here is another example of using `lapply()`.
 
@@ -155,16 +168,38 @@ x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
 lapply(x, mean)
 ```
 
-You can use `lapply()` to evaluate a function multiple times each with a different argument. Below, is an example where I call the `runif()` function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.
+:::
+
+You can use `lapply()` to evaluate a function multiple times each with a different argument. 
+
+
+Next is an example where I call the `runif()` function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.
 
 ```{r}
 x <- 1:4
 lapply(x, runif)
 ```
 
-When you pass a function to `lapply()`, `lapply()` takes elements of the list and passes them as the *first argument* of the function you are applying. In the above example, the first argument of `runif()` is `n`, and so the elements of the sequence `1:4` all got passed to the `n` argument of `runif()`.
 
-Functions that you pass to `lapply()` may have other arguments. For example, the `runif()` function has a `min` and `max` argument too. In the example above I used the default values for `min` and `max`. How would you be able to specify different values for that in the context of `lapply()`?
+::: callout-tip
+### What happened? 
+
+When you pass a function to `lapply()`, `lapply()` takes elements of the list and passes them as the *first argument* of the function you are applying. 
+
+In the above example, the first argument of `runif()` is `n`, and so the elements of the sequence `1:4` all got passed to the `n` argument of `runif()`.
+
+:::
+
+Functions that you pass to `lapply()` may have other arguments. For example, the `runif()` function has a `min` and `max` argument too. 
+
+::: callout-note
+### Question
+
+In the example above I used the default values for `min` and `max`. 
+
+- How would you be able to specify different values for that in the context of `lapply()`?
+
+:::
 
 Here is where the `...` argument to `lapply()` comes into play. Any arguments that you place in the `...` argument will get passed down to the function being applied to the elements of the list.
 
@@ -179,6 +214,11 @@ So now, instead of the random numbers being between 0 and 1 (the default), the a
 
 The `lapply()` function (and its friends) makes heavy use of *anonymous* functions. Anonymous functions are like members of [Project Mayhem](http://en.wikipedia.org/wiki/Fight_Club)---they have no names. These functions are generated "on the fly" as you are using `lapply()`. Once the call to `lapply()` is finished, the function disappears and does not appear in the workspace.
 
+
+
+::: callout-tip
+### Example
+
 Here I am creating a list that contains two matrices.
 
 ```{r}
@@ -192,7 +232,11 @@ Suppose I wanted to extract the first column of each matrix in the list. I could
 lapply(x, function(elt) { elt[,1] })
 ```
 
-Notice that I put the `function()` definition right in the call to `lapply()`. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside `lapply()`, but if it's going to be more complicated, it's probably a better idea to define the function separately.
+Notice that I put the `function()` definition right in the call to `lapply()`. 
+
+:::
+
+This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside `lapply()`, but if it's going to be more complicated, it's probably a better idea to define the function separately.
 
 For example, I could have done the following.
 
@@ -203,7 +247,14 @@ f <- function(elt) {
 lapply(x, f)
 ```
 
-Now the function is no longer anonymous; its name is `f`. Whether you use an anonymous function or you define a function first depends on your context. If you think the function `f` is something you are going to need a lot in other parts of your code, you might want to define it separately. But if you are just going to use it for this call to `lapply()`, then it is probably simpler to use an anonymous function.
+::: callout-tip
+### Note
+
+Now the function is no longer anonymous; its name is `f`. 
+
+:::
+
+Whether you use an anonymous function or you define a function first depends on your context. If you think the function `f` is something you are going to need a lot in other parts of your code, you might want to define it separately. But if you are just going to use it for this call to `lapply()`, then it is probably simpler to use an anonymous function.
 
 ## `sapply()`
 
@@ -255,6 +306,10 @@ Here we simulate some data and split it according to a factor variable. Note tha
 ```{r}
 x <- c(rnorm(10), runif(10), rnorm(10, 1))
 f <- gl(3, 10) # generate factor levels
+f
+```
+
+```{r}
 split(x, f)
 ```
 
@@ -303,29 +358,6 @@ sapply(s, function(x) {
 })
 ```
 
-Occasionally, we may want to split an R object according to levels defined in more than one variable. We can do this by creating an interaction of the variables with the `interaction()` function.
-
-```{r}
-x <- rnorm(10)
-f1 <- gl(2, 5)
-f2 <- gl(5, 2)
-f1
-f2
-## Create interaction of two factors
-interaction(f1, f2)
-```
-
-With multiple factors and many levels, creating an interaction can result in many levels that are empty.
-
-```{r}
-str(split(x, list(f1, f2)))
-```
-
-Notice that there are 4 categories with no data. But we can drop empty levels when we call the `split()` function.
-
-```{r}
-str(split(x, list(f1, f2), drop = TRUE))
-```
 
 ## tapply
 
@@ -343,6 +375,10 @@ The arguments to `tapply()` are as follows:
 -   ... contains other arguments to be passed `FUN`
 -   `simplify`, should we simplify the result?
 
+
+::: callout-tip
+### Example
+
 Given a vector of numbers, one simple operation is to take group means.
 
 ```{r}
@@ -354,13 +390,9 @@ f
 tapply(x, f, mean)
 ```
 
-We can also take the group means without simplifying the result, which will give us a list. For functions that return a single value, usually, this is not what we want, but it can be done.
+:::
 
-```{r}
-tapply(x, f, mean, simplify = FALSE)
-```
-
-We can also apply functions that return more than a single value. In this case, `tapply()` will not simplify the result and will return a list. Here's an example of finding the range of each sub-group.
+We can also apply functions that return more than a single value. In this case, `tapply()` will not simplify the result and will return a list. Here's an example of finding the `range()` (min and max) of each sub-group.
 
 ```{r}
 tapply(x, f, range)
@@ -381,12 +413,22 @@ The arguments to `apply()` are
 -   `FUN` is a function to be applied
 -   `...` is for other arguments to be passed to `FUN`
 
+::: callout-tip
+### Example
+
 Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.
 
 ```{r}
 x <- matrix(rnorm(200), 20, 10)
+head(x)
 apply(x, 2, mean)  ## Take the mean of each column
 ```
+
+:::
+
+
+::: callout-tip
+### Example
 
 I can also compute the sum of each row.
 
@@ -394,11 +436,22 @@ I can also compute the sum of each row.
 apply(x, 1, sum)   ## Take the mean of each row
 ```
 
-Note that in both calls to `apply()`, the return value was a vector of numbers.
+:::
+
+
+::: callout-tip
+### Note
+
+In both calls to `apply()`, the return value was a vector of numbers.
+
+:::
 
 You've probably noticed that the second argument is either a 1 or a 2, depending on whether we want row statistics or column statistics. What exactly *is* the second argument to `apply()`?
 
-The `MARGIN` argument essentially indicates to `apply()` which dimension of the array you want to preserve or retain. So when taking the mean of each column, I specify
+The `MARGIN` argument essentially indicates to `apply()` which dimension of the array you want to preserve or retain. 
+
+
+So when taking the mean of each column, I specify
 
 ```{r}
 #| eval: false
@@ -416,6 +469,10 @@ because I want to collapse the columns (the second dimension) and preserve the n
 
 ### Col/Row Sums and Means
 
+::: callout-tip
+### Pro-tip
+
+
 For the special case of column/row sums and column/row means of matrices, we have some useful shortcuts.
 
 -   `rowSums` = `apply(x, 1, sum)`
@@ -423,96 +480,46 @@ For the special case of column/row sums and column/row means of matrices, we hav
 -   `colSums` = `apply(x, 2, sum)`
 -   `colMeans` = `apply(x, 2, mean)`
 
-The shortcut functions are heavily optimized and hence are *much* faster, but you probably won't notice unless you're using a large matrix. Another nice aspect of these functions is that they are a bit more descriptive. It's arguably more clear to write `colMeans(x)` in your code than `apply(x, 2, mean)`.
+:::
+
+The shortcut functions are heavily optimized and hence are **much** faster, but you probably won't notice unless you're using a large matrix. 
+
+Another nice aspect of these functions is that they are a bit more descriptive. It's arguably more clear to write `colMeans(x)` in your code than `apply(x, 2, mean)`.
 
 ### Other Ways to Apply
 
-You can do more than take sums and means with the `apply()` function. For example, you can compute quantiles of the rows of a matrix using the `quantile()` function.
+You can do more than take sums and means with the `apply()` function. 
+
+::: callout-tip
+### Example
+
+For example, you can compute quantiles of the rows of a matrix using the `quantile()` function.
 
 ```{r}
 x <- matrix(rnorm(200), 20, 10)
+head(x)
+
 ## Get row quantiles
 apply(x, 1, quantile, probs = c(0.25, 0.75))    
 ```
 
 Notice that I had to pass the `probs = c(0.25, 0.75)` argument to `quantile()` via the `...` argument to `apply()`.
 
-For a higher dimensional example, I can create an array of $2\times2$ matrices and then compute the average of the matrices in the array.
+:::
 
-```{r}
-a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
-apply(a, c(1, 2), mean)
-```
-
-In the call to `apply()` here, I indicated via the `MARGIN` argument that I wanted to preserve the first and second dimensions and to collapse the third dimension by taking the mean.
-
-There is a faster way to do this specific operation via the `colMeans()` function.
-
-```{r}
-rowMeans(a, dims = 2)    ## Faster
-```
-
-In this situation, I might argue that the use of `rowMeans()` is less readable, but it is substantially faster with large arrays.
-
-## `mapply()`
-
-The `mapply()` function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that `lapply()` and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what `mapply()` is for.
-
-```{r}
-str(mapply)
-```
-
-The arguments to `mapply()` are
-
--   `FUN` is a function to apply
--   `...` contains R objects to apply over
--   `MoreArgs` is a list of other arguments to `FUN`.
--   `SIMPLIFY` indicates whether the result should be simplified
-
-The `mapply()` function has a different argument order from `lapply()` because the function to apply comes first rather than the object to iterate over. The R objects over which we apply the function are given in the `...` argument because we can apply over an arbitrary number of R objects.
-
-For example, the following is tedious to type
-
-`list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))`
-
-With `mapply()`, instead we can do
-
-```{r}
- mapply(rep, 1:4, 4:1)
-```
-
-This passes the sequence `1:4` to the first argument of `rep()` and the sequence `4:1` to the second argument.
-
-Here's another example for simulating random Normal variables.
-
-```{r}
-noise <- function(n, mean, sd) {
-      rnorm(n, mean, sd)
-}
-## Simulate 5 random numbers
-noise(5, 1, 2)        
-
-## This only simulates 1 set of numbers, not 5
-noise(1:5, 1:5, 2)    
-```
-
-Here we can use `mapply()` to pass the sequence `1:5` separately to the `noise()` function so that we can get 5 sets of random numbers, each with a different length and mean.
-
-```{r}
-mapply(noise, 1:5, 1:5, 2)
-```
-
-The above call to `mapply()` is the same as
-
-```{r}
-list(noise(1, 1, 2), noise(2, 2, 2),
-     noise(3, 3, 2), noise(4, 4, 2),
-     noise(5, 5, 2))
-```
 
 ## Vectorizing a Function
 
-The `mapply()` function can be use to automatically "vectorize" a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.
+Let's talk about how we can **"vectorize" a function**. 
+
+What this means is that we can write function that typically only takes single arguments and create a new function that can take vector arguments. 
+
+This is often needed when you want to plot functions.
+
+
+
+::: callout-tip
+### Example
 
 Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is $\sum_{i=1}^n(x_i-\mu)^2/\sigma^2$.
 
@@ -524,26 +531,24 @@ sumsq <- function(mu, sigma, x) {
 
 This function takes a mean `mu`, a standard deviation `sigma`, and some data in a vector `x`.
 
-In many statistical applications, we want to minimize the sum of squares to find the optimal `mu` and `sigma`. Before we do that, we may want to evaluate or plot the function for many different values of `mu` or `sigma`. However, passing a vector of `mu`s or `sigma`s won't work with this function because it's not vectorized.
-
+In many statistical applications, we want to minimize the sum of squares to find the optimal `mu` and `sigma`. Before we do that, we may want to evaluate or plot the function for many different values of `mu` or `sigma`.
 ```{r}
 x <- rnorm(100)       ## Generate some data
+sumsq(mu=1, sigma=1, x)  ## This works (returns one value)
+```
+
+However, passing a vector of `mu`s or `sigma`s won't work with this function because it's not vectorized.
+
+```{r}
 sumsq(1:10, 1:10, x)  ## This is not what we want
 ```
 
-::: callout-tip
-### Note
-
-The call to `sumsq()` only produced one value instead of 10 values.
-
-However, we can do what we want to do by using `mapply()`.
-
-```{r}
-mapply(sumsq, 1:10, 1:10, MoreArgs = list(x = x))
-```
 :::
 
-There's even a function in R called `Vectorize()` that automatically can create a vectorized version of your function. So we could create a `vsumsq()` function that is fully vectorized as follows.
+
+There's even a function in R called `Vectorize()` that **automatically can create a vectorized version of your function**. 
+
+So we could create a `vsumsq()` function that is fully vectorized as follows.
 
 ```{r}
 vsumsq <- Vectorize(sumsq, c("mu", "sigma"))
