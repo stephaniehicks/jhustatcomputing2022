@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Stephanie Hicks">
-<meta name="dcterms.date" content="2022-08-30">
-<meta name="description" content="Add title">
+<meta name="dcterms.date" content="2022-09-29">
+<meta name="description" content="Implement exception handling routines in R functions">
 
-<title>Statistical Computing (BSPH 140.776) - Add title</title>
+<title>Statistical Computing (BSPH 140.776) - Error Handling and Generation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,6 +23,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,14 +203,17 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Add title</h1>
+      <h1 class="title">Error Handling and Generation</h1>
                   <div>
         <div class="description">
-          Add title
+          Implement exception handling routines in R functions
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">add here</div>
+                <div class="quarto-category">module 4</div>
+                <div class="quarto-category">week 5</div>
+                <div class="quarto-category">programming</div>
+                <div class="quarto-category">debugging</div>
               </div>
                   </div>
   </div>
@@ -172,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 30, 2022</p>
+        <p class="date">September 29, 2022</p>
       </div>
     </div>
       
@@ -192,12 +258,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
-  <li><a href="#add-lecture-here" id="toc-add-lecture-here" class="nav-link" data-scroll-target="#add-lecture-here">Add lecture here</a></li>
+  <li><a href="#error-handling-and-generation" id="toc-error-handling-and-generation" class="nav-link" data-scroll-target="#error-handling-and-generation">Error Handling and Generation</a>
+  <ul class="collapse">
+  <li><a href="#what-is-an-error" id="toc-what-is-an-error" class="nav-link" data-scroll-target="#what-is-an-error">What is an error?</a></li>
+  <li><a href="#generating-errors" id="toc-generating-errors" class="nav-link" data-scroll-target="#generating-errors">Generating Errors</a></li>
+  <li><a href="#when-to-generate-errors-or-warnings" id="toc-when-to-generate-errors-or-warnings" class="nav-link" data-scroll-target="#when-to-generate-errors-or-warnings">When to generate errors or warnings</a></li>
+  <li><a href="#how-should-errors-be-handled" id="toc-how-should-errors-be-handled" class="nav-link" data-scroll-target="#how-should-errors-be-handled">How should errors be handled?</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
-  <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -211,7 +282,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<!-- Add interesting quote -->
 <section id="pre-lecture-materials" class="level1">
 <h1>Pre-lecture materials</h1>
 <section id="read-ahead" class="level3">
@@ -228,8 +298,7 @@ Read ahead
 <div class="callout-body-container callout-body">
 <p><strong>Before class, you can prepare by reading the following materials:</strong></p>
 <ol type="1">
-<li>Add here.</li>
-<li>Add here.</li>
+<li><a href="https://adv-r.hadley.nz/debugging" class="uri">https://adv-r.hadley.nz/debugging</a></li>
 </ol>
 </div>
 </div>
@@ -238,7 +307,8 @@ Read ahead
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li>Add here.</li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-error-handling-and-generation" class="uri">https://rdpeng.github.io/Biostat776/lecture-error-handling-and-generation</a></li>
+<li><a href="https://adv-r.hadley.nz/debugging" class="uri">https://adv-r.hadley.nz/debugging</a></li>
 </ul>
 </section>
 </section>
@@ -256,35 +326,274 @@ Learning objectives
 <div class="callout-body-container callout-body">
 <p><strong>At the end of this lesson you will:</strong></p>
 <ul>
-<li>Add here.</li>
+<li>Create errors, warnings, and messages in R functions using the functions <code>stop</code>, <code>stopifnot</code>, <code>warning</code>, and <code>message</code>.</li>
+<li>Understand the importance of providing useful error messaging to improve user experience with functions. However, these can also slow down code substantially.</li>
 </ul>
 </div>
 </div>
 </section>
-<section id="add-lecture-here" class="level1">
-<h1>Add lecture here</h1>
+<section id="error-handling-and-generation" class="level1">
+<h1>Error Handling and Generation</h1>
+<section id="what-is-an-error" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-an-error">What is an error?</h2>
+<p>Errors most often occur when code is used in a way that it is not intended to be used. For example adding two strings together produces the following error:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello"</span> <span class="sc">+</span> <span class="st">"world"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in "hello" + "world": non-numeric argument to binary operator</code></pre>
+</div>
+</div>
+<p>The <code>+</code> operator is essentially a function that takes two numbers as arguments and finds their sum. Since neither <code>"hello"</code> nor <code>"world"</code> are numbers, the R interpreter produces an error. Errors will stop the execution of your program, and they will (hopefully) print an error message to the R console.</p>
+<p>In R there are two other constructs which are related to errors: warnings and messages. Warnings are meant to indicate that something seems to have gone wrong in your program that should be inspected. Here’s a simple example of a warning being generated:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"seven"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  5  6 NA</code></pre>
+</div>
+</div>
+<p>The <code>as.numeric()</code> function attempts to convert each string in <code>c("5", "6", "seven")</code> into a number, however it is impossible to convert <code>"seven"</code>, so a warning is generated. Execution of the code is not halted, and an <code>NA</code> is produced for <code>"seven"</code> instead of a number.</p>
+<p>Messages simply print to the R console, though they are generated by an underlying mechanism that is similar to how errors and warning are generated. Here’s a small function that will generate a message:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"This is a message."</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is a message.</code></pre>
+</div>
+</div>
 </section>
-<section id="post-lecture-materials" class="level1">
-<h1>Post-lecture materials</h1>
-<section id="final-questions" class="level3">
-<h3 class="anchored" data-anchor-id="final-questions">Final Questions</h3>
-<p>Here are some post-lecture questions to help you think about the material discussed.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<section id="generating-errors" class="level2">
+<h2 class="anchored" data-anchor-id="generating-errors">Generating Errors</h2>
+<p>There are a few essential functions for generating errors, warnings, and messages in R. The <code>stop()</code> function will generate an error. Let’s generate an error:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stop</span>(<span class="st">"Something erroneous has occurred!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Something erroneous has occurred<span class="sc">!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If an error occurs inside of a function then the name of that function will appear in the error message:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>name_of_function <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"Something bad happened."</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">name_of_function</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in name_of_function(): Something bad happened.</code></pre>
+</div>
+</div>
+<p>The <code>stopifnot()</code> function takes a series of logical expressions as arguments and if any of them are false an error is generated specifying which expression is false. Let’s take a look at an example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>error_if_n_is_greater_than_zero <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(n <span class="sc">&lt;=</span> <span class="dv">0</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  n</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">error_if_n_is_greater_than_zero</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in error_if_n_is_greater_than_zero(5): n &lt;= 0 is not TRUE</code></pre>
+</div>
+</div>
+<p>The <code>warning()</code> function creates a warning, and the function itself is very similar to the <code>stop()</code> function. Remember that a warning does not stop the execution of a program (unlike an error.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">warning</span>(<span class="st">"Consider yourself warned!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Consider yourself warned!</code></pre>
+</div>
+</div>
+<p>Just like errors, a warning generated inside of a function will include the name of the function in which it was generated:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>make_NA <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">warning</span>(<span class="st">"Generating an NA."</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make_NA</span>(<span class="st">"Sodium"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in make_NA("Sodium"): Generating an NA.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Messages are simpler than errors or warnings; they just print strings to the R console. You can issue a message with the <code>message()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"In a bottle."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>In a bottle.</code></pre>
+</div>
+</div>
+</section>
+<section id="when-to-generate-errors-or-warnings" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-generate-errors-or-warnings">When to generate errors or warnings</h2>
+<p>Stopping the execution of your program with <code>stop()</code> should only happen in the event of a catastrophe - meaning only if it is impossible for your program to continue. If there are conditions that you can anticipate that would cause your program to create an error, then you should document those conditions so whoever uses your software is aware. An example includes:</p>
+<ul>
+<li>Providing invalid arguments to a function. You could check this at the beginning of your program using <code>stopifnot()</code> so that the user can quickly realize something has gone wrong.</li>
+</ul>
+<p>You can think of a function as kind of contract between you and the user:</p>
+<ul>
+<li>if the user provides specified arguments, your program will provide predictable results. Of course it’s impossible for you to anticipate all of the potential uses of your program. It’s appropriate to create a warning when this contract between you and the user is violated.</li>
+</ul>
+<p>A perfect example of this situation is the result of</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"seven"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  5  6 NA</code></pre>
+</div>
+</div>
+<p>The user expects a vector of numbers to be returned as the result of <code>as.numeric()</code> but <code>"seven"</code> is coerced into being NA, which is not completely intuitive.</p>
+<p>R has largely been developed according to the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix Philosophy</a>, which generally <strong>discourages</strong> printing text to the console unless something unexpected has occurred. Languages that commonly run on Unix systems like C and C++ are rarely used interactively, meaning that they usually underpin computer infrastructure (computers “talking” to other computers). Messages printed to the console are therefore not very useful since nobody will ever read them and it’s not straightforward for other programs to capture and interpret them.</p>
+<p>In contrast, R code is frequently executed by human beings in the R console, which serves as an interactive environment between the computer and person at the keyboard. If you think your program should produce a message, make sure that the output of the message is primarily meant for a human to read. You should avoid signaling a condition or the result of your program to another program by creating a message.</p>
+</section>
+<section id="how-should-errors-be-handled" class="level2">
+<h2 class="anchored" data-anchor-id="how-should-errors-be-handled">How should errors be handled?</h2>
+<p>Imagine writing a program that will take a long time to complete because of a complex calculation or because you’re handling a large amount of data. If an error occurs during this computation then you’re liable to lose all of the results that were calculated before the error, or your program may not finish a critical task that a program further down your pipeline is depending on. If you anticipate the possibility of errors occurring during the execution of your program, then you can design your program to handle them appropriately.</p>
+<p>The <code>tryCatch()</code> function is the workhorse of handling errors and warnings in R. The first argument of this function is any R expression, followed by conditions which specify how to handle an error or a warning. The last argument, <code>finally</code>, specifies a function or expression that will be executed after the expression no matter what, even in the event of an error or a warning.</p>
+<p>Let’s construct a simple function I’m going to call <a href="https://en.wikipedia.org/wiki/Yogi_Berra"><code>beera</code></a> that catches errors and warnings gracefully.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>beera <span class="ot">&lt;-</span> <span class="cf">function</span>(expr){</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>(expr,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e){</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">message</span>(<span class="st">"An error occurred:</span><span class="sc">\n</span><span class="st">"</span>, e)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>         },</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">warning =</span> <span class="cf">function</span>(w){</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">message</span>(<span class="st">"A warning occured:</span><span class="sc">\n</span><span class="st">"</span>, w)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>         },</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">finally =</span> {</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">message</span>(<span class="st">"Finally done!"</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>         })</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This function takes an expression as an argument and tries to evaluate it. If the expression can be evaluated without any errors or warnings then the result of the expression is returned and the message <code>Finally done!</code> is printed to the R console. If an error or warning is generated, then the functions that are provided to the <code>error</code> or <code>warning</code> arguments are printed. Let’s try this function out with a few examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">beera</span>({</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Finally done!</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">beera</span>({</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"two"</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>An error occurred:
+Error in "two" + 2: non-numeric argument to binary operator
+
+Finally done!</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">beera</span>({</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="st">"two"</span>, <span class="dv">3</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>A warning occured:
+simpleWarning in doTryCatch(return(expr), name, parentenv, handler): NAs introduced by coercion
+
+Finally done!</code></pre>
+</div>
+</div>
+<p>Notice that we’ve effectively transformed errors and warnings into messages.</p>
+<p>Now that you know the basics of generating and catching errors you’ll need to decide when your program should generate an error. My advice to you is to limit the number of errors your program generates as much as possible. Even if you design your program so that it’s able to catch and handle errors, the error handling process slows down your program by orders of magnitude. Imagine you wanted to write a simple function that checks if an argument is an even number. You might write the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>is_even <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even</span>(<span class="dv">768</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even</span>(<span class="st">"two"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in n%%2: non-numeric argument to binary operator</code></pre>
+</div>
+</div>
+<p>You can see that providing a string causes this function to raise an error. You could imagine though that you want to use this function across a list of different data types, and you only want to know which elements of that list are even numbers. You might think to write the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>is_even_error <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>(n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">error =</span> <span class="cf">function</span>(e){</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>             <span class="cn">FALSE</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>           })</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even_error</span>(<span class="dv">714</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even_error</span>(<span class="st">"eight"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>This appears to be working the way you intended, however when applied to more data this function will be seriously slow compared to alternatives. For example I could check that <code>n</code> is numeric before treating <code>n</code> like a number:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>is_even_check <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.numeric</span>(n) <span class="sc">&amp;&amp;</span> n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even_check</span>(<span class="dv">1876</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even_check</span>(<span class="st">"twelve"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<div class="keyideas">
+<p>Notice that by using <code>is.numeric()</code> before the “AND” operator (<code>&amp;&amp;</code>), the expression <code>n %% 2 == 0</code> is never evaluated. This is a programming language design feature called “short circuiting.” The expression can never evaluate to <code>TRUE</code> if the left hand side of <code>&amp;&amp;</code> evaluates to <code>FALSE</code>, so the right hand side is ignored.</p>
+</div>
+<p>To demonstrate the difference in the speed of the code, we will use the <code>microbenchmark</code> package to measure how long it takes for each function to be applied to the same data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="fu">sapply</span>(letters, is_even_check))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>Unit: microseconds
+                           expr    min      lq     mean  median      uq     max neval
+ sapply(letters, is_even_check) 46.224 47.7975 61.43616 48.6445 58.4755 167.091   100</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="fu">sapply</span>(letters, is_even_error))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>Unit: microseconds
+                           expr     min       lq     mean   median       uq      max neval
+ sapply(letters, is_even_error) 640.067 678.0285 906.3037 784.4315 1044.501 2308.931   100</code></pre>
+<p>The error catching approach is nearly 15 times slower!</p>
+<p>Proper error handling is an essential tool for any software developer so that you can design programs that are error tolerant. Creating clear and informative error messages is essential for building quality software.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Questions
+Pro-tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>Add here.</li>
-</ol>
+<p>One closing tip I recommend is to put documentation for your software online, including the meaning of the errors that your software can potentially throw. Often a user’s first instinct when encountering an error is to search online for that error message, which should lead them to your documentation!</p>
 </div>
 </div>
 </section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li><p>Errors, warnings, and messages can be generated within R code using the functions <code>stop</code>, <code>stopifnot</code>, <code>warning</code>, and <code>message</code>.</p></li>
+<li><p>Catching errors, and providing useful error messaging, can improve user experience with functions but can also slow down code substantially.</p></li>
+</ul>
+</section>
+<section id="post-lecture-materials" class="level1">
+<h1>Post-lecture materials</h1>
 <section id="additional-resources" class="level3">
 <h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -298,17 +607,11 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Add here.</li>
+<li><a href="https://rdpeng.github.io/Biostat776/lecture-error-handling-and-generation" class="uri">https://rdpeng.github.io/Biostat776/lecture-error-handling-and-generation</a></li>
+<li><a href="https://adv-r.hadley.nz/debugging" class="uri">https://adv-r.hadley.nz/debugging</a></li>
 </ul>
 </div>
 </div>
-</section>
-<section id="rtistry" class="level2">
-<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
-<div class="cell fig-cap-location-top">
-
-</div>
-<p>[Add here.]</p>
 
 
 </section>
