@@ -262,10 +262,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#overall-approach" id="toc-overall-approach" class="nav-link" data-scroll-target="#overall-approach">Overall approach</a>
   <ul class="collapse">
-  <li><a href="#google" id="toc-google" class="nav-link" data-scroll-target="#google">Google!</a></li>
-  <li><a href="#make-it-repeatable" id="toc-make-it-repeatable" class="nav-link" data-scroll-target="#make-it-repeatable">Make it repeatable</a></li>
-  <li><a href="#figure-out-where-it-is" id="toc-figure-out-where-it-is" class="nav-link" data-scroll-target="#figure-out-where-it-is">Figure out where it is</a></li>
-  <li><a href="#fix-it-and-test-it" id="toc-fix-it-and-test-it" class="nav-link" data-scroll-target="#fix-it-and-test-it">Fix it and test it</a></li>
+  <li><a href="#google" id="toc-google" class="nav-link" data-scroll-target="#google">1. Google!</a></li>
+  <li><a href="#make-it-repeatable" id="toc-make-it-repeatable" class="nav-link" data-scroll-target="#make-it-repeatable">2. Make it repeatable</a></li>
+  <li><a href="#figure-out-where-it-is" id="toc-figure-out-where-it-is" class="nav-link" data-scroll-target="#figure-out-where-it-is">3. Figure out where it is</a></li>
+  <li><a href="#fix-it-and-test-it" id="toc-fix-it-and-test-it" class="nav-link" data-scroll-target="#fix-it-and-test-it">4. Fix it and test it</a></li>
   </ul></li>
   <li><a href="#somethings-wrong" id="toc-somethings-wrong" class="nav-link" data-scroll-target="#somethings-wrong">Something’s Wrong!</a></li>
   </ul></li>
@@ -355,7 +355,7 @@ Learning objectives
 <p>Most bugs are subtle and hard to find because if they were obvious, you would have avoided them in the first place.</p>
 <p>A good strategy helps. Below I outline a four step process that I have found useful:</p>
 <section id="google" class="level3">
-<h3 class="anchored" data-anchor-id="google">Google!</h3>
+<h3 class="anchored" data-anchor-id="google">1. Google!</h3>
 <p>Whenever you see an error message, <strong>start by googling it</strong>.</p>
 <p>If you are lucky, you will discover that it’s a common error with a known solution.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -373,34 +373,94 @@ Pro-tip
 </div>
 </section>
 <section id="make-it-repeatable" class="level3">
-<h3 class="anchored" data-anchor-id="make-it-repeatable">Make it repeatable</h3>
+<h3 class="anchored" data-anchor-id="make-it-repeatable">2. Make it repeatable</h3>
 <p>To find the root cause of an error, you are going to need to execute the code many times as you consider and reject hypotheses.</p>
-<p><strong>To make that iteration as quick possible</strong>, it’s worth some upfront investment to** make the problem both easy and fast to reproduce**.</p>
-<p>Start by creating a <strong>rep</strong>roducible <strong>ex</strong>ample (reprex). This will help others help you, and often leads to a solution without asking others, because in the course of making the problem reproducible you often figure out the root cause. Next, make the example minimal by removing code and simplifying data. As you do this, you may discover inputs that do not trigger the error. Make note of them: they will be helpful when diagnosing the root cause.</p>
+<p><strong>To make that iteration as quick possible</strong>, it’s worth some upfront investment to <strong>make the problem both easy and fast to reproduce</strong>.</p>
+<p>Start by creating a <strong>rep</strong>roducible <strong>ex</strong>ample (reprex).</p>
+<ul>
+<li>This will help others help you, and <strong>often leads to a solution without asking others</strong>, because in the course of making the problem reproducible you often figure out the root cause.</li>
+</ul>
+<p>Make the <strong>example minimal by removing code and simplifying data</strong>.</p>
+<ul>
+<li>As you do this, you may discover inputs that do not trigger the error. - Make note of them: they will be helpful when diagnosing the root cause.</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try making a <strong>reprex</strong> <a href="https://www.tidyverse.org/help">using the <code>reprex</code> package</a> (installed with the <code>tidyverse</code>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Write a bit of code and copy it to the clipboard:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Enter <code>reprex()</code> in the R Console. In RStudio, you’ll see a preview of your rendered reprex.</p>
+<p>It is now ready and waiting on your clipboard, so you can paste it into, say, a GitHub issue.</p>
+<p>One last step. Let’s go here and open up an issue on the course website:</p>
+<ul>
+<li><a href="https://github.com/stephaniehicks/jhustatcomputing2022/issues" class="uri">https://github.com/stephaniehicks/jhustatcomputing2022/issues</a></li>
+</ul>
+<p>We will paste in the code from our reprex.</p>
+</div>
+</div>
+<p>In RStudio, you can access reprex from the addins menu, which makes it even easier to point out your code and select the output format.</p>
 </section>
 <section id="figure-out-where-it-is" class="level3">
-<h3 class="anchored" data-anchor-id="figure-out-where-it-is">Figure out where it is</h3>
-<p>It’s a great idea to adopt the scientific method here. Generate hypotheses, design experiments to test them, and record your results. This may seem like a lot of work, but a systematic approach will end up saving you time. Often a lot of time can be wasted relying on my intuition to solve a bug (“oh, it must be an off-by-one error, so I’ll just subtract 1 here”), when I would have been better off taking a systematic approach.</p>
-<p>If this fails, you might need to ask help from someone else. If you have followed the previous step, you will have a small example that is easy to share with others. That makes it much easier for other people to look at the problem, and more likely to help you find a solution.</p>
+<h3 class="anchored" data-anchor-id="figure-out-where-it-is">3. Figure out where it is</h3>
+<p>It’s a great idea to adopt the scientific method here.</p>
+<ul>
+<li>Generate hypotheses</li>
+<li>Design experiments to test them</li>
+<li>Record your results</li>
+</ul>
+<p>This may seem like a lot of work, but <strong>a systematic approach</strong> will end up saving you time.</p>
+<p>Often <strong>a lot of time can be wasted relying on my intuition to solve a bug</strong> (“oh, it must be an off-by-one error, so I’ll just subtract 1 here”), when I would have been better off taking a systematic approach.</p>
+<p>If this fails, you <strong>might need to ask help from someone else</strong>.</p>
+<p>If you have followed the previous step, you will have a small example that is easy to share with others. That makes it much easier for other people to look at the problem, and more likely to help you find a solution.</p>
 </section>
 <section id="fix-it-and-test-it" class="level3">
-<h3 class="anchored" data-anchor-id="fix-it-and-test-it">Fix it and test it</h3>
-<p>Once you have found the bug, you need to figure out how to fix it and to check that the fix actually worked. Again, it is very useful to have automated tests in place. Not only does this help to ensure that you have actually fixed the bug, it also helps to ensure you have not introduced any new bugs in the process. In the absence of automated tests, make sure to carefully record the correct output, and check against the inputs that previously failed.</p>
+<h3 class="anchored" data-anchor-id="fix-it-and-test-it">4. Fix it and test it</h3>
+<p>Once you have found the bug, you need to <strong>figure out how to fix it</strong> and to <strong>check that the fix actually worked</strong>.</p>
+<p>Again, it is very useful to have automated tests in place.</p>
+<ul>
+<li>Not only does this help to ensure that you <strong>have actually fixed the bug</strong>, it also <strong>helps to ensure you have not introduced any new bugs</strong> in the process.</li>
+<li>In the absence of automated tests, make sure to <strong>carefully record the correct output</strong>, and check against the inputs that previously failed.</li>
+</ul>
 </section>
 </section>
 <section id="somethings-wrong" class="level2">
 <h2 class="anchored" data-anchor-id="somethings-wrong">Something’s Wrong!</h2>
 <p>Once you have made the error repeatable, the next step is to figure out where it comes from.</p>
-<p>R has a number of ways to indicate to you that something is not right. There are different levels of indication that can be used, ranging from mere notification to fatal error. Executing any function in R may result in the following <strong>conditions</strong>.</p>
+<p>R has a number of <strong>ways to indicate to you that something is not right</strong>.</p>
+<p>There are <strong>different levels of indication</strong> that can be used, ranging from mere notification to fatal error. Executing any function in R may result in the following <strong>conditions</strong>.</p>
 <ul>
-<li><code>message</code>: A generic notification/diagnostic message produced by the <code>message()</code> function; execution of the function continues</li>
-<li><code>warning</code>: An indication that something is wrong but not necessarily fatal; execution of the function continues. Warnings are generated by the <code>warning()</code> function</li>
-<li><code>error</code>: An indication that a fatal problem has occurred and execution of the function stops. Errors are produced by the <code>stop()</code> function.</li>
-<li><code>condition</code>: A generic concept for indicating that something unexpected has occurred; programmers can create their own custom conditions if they want.</li>
+<li><code>message</code>: A <strong>generic notification/diagnostic message</strong> produced by the <code>message()</code> function; execution of the function continues</li>
+<li><code>warning</code>: An indication that <strong>something is wrong but not necessarily fatal</strong>; execution of the function continues. Warnings are generated by the <code>warning()</code> function</li>
+<li><code>error</code>: An indication that <strong>a fatal problem has occurred</strong> and execution of the function stops. Errors are produced by the <code>stop()</code> function.</li>
+<li><code>condition</code>: A generic concept for indicating that <strong>something unexpected has occurred</strong>; programmers can create their own custom conditions if they want.</li>
 </ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here is an example of a warning that you might receive in the course of using R.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in log(-1): NaNs produced</code></pre>
 </div>
@@ -408,50 +468,77 @@ Pro-tip
 <pre><code>[1] NaN</code></pre>
 </div>
 </div>
-<p>This warning lets you know that taking the log of a negative number results in a <code>NaN</code> value because you can’t take the log of negative numbers. Nevertheless, R doesn’t give an error, because it has a useful value that it can return, the <code>NaN</code> value. The warning is just there to let you know that something unexpected happen. Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.</p>
+<p>This warning lets you know that taking the log of a negative number results in a <code>NaN</code> value because you <strong>can’t take the log of negative numbers</strong>.</p>
+</div>
+</div>
+<p>Nevertheless, R doesn’t give an error, because it has a useful value that it can return, the <strong><code>NaN</code> value</strong>.</p>
+<p>The <strong>warning is just there</strong> to let you know that <strong>something unexpected happen</strong>.</p>
+<p>Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here is another function that is designed to print a message to the console depending on the nature of its input.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>printmessage <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is greater than zero"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is less than or equal to zero"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">invisible</span>(x)        </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>print_message <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is greater than zero"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is less than or equal to zero"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        }  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">invisible</span>(x)        </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This function is simple—it prints a message telling you whether <code>x</code> is greater than zero or less than or equal to zero. It also returns its input <strong>invisibly</strong>, which is a common practice with “print” functions. Returning an object invisibly means that the return value does not get auto-printed when the function is called.</p>
+<p>This function is simple:</p>
+<ul>
+<li>It <strong>prints a message</strong> telling you whether <code>x</code> is greater than zero or less than or equal to zero.</li>
+<li>It also returns its input <strong>invisibly</strong>, which is a common practice with “print” functions.</li>
+</ul>
+<p><strong>Returning an object invisibly</strong> means that the <strong>return value does not get auto-printed</strong> when the function is called.</p>
 <p>Take a hard look at the function above and see if you can identify any bugs or problems.</p>
 <p>We can execute the function as follows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printmessage</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "x is greater than zero"</code></pre>
 </div>
 </div>
 <p>The function seems to work fine at this point. No errors, warnings, or messages.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printmessage</span>(<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message</span>(<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in if (x &gt; 0) print("x is greater than zero") else print("x is less than or equal to zero"): missing value where TRUE/FALSE needed</code></pre>
+<pre><code>Error in if (x &gt; 0) {: missing value where TRUE/FALSE needed</code></pre>
+</div>
+</div>
 </div>
 </div>
 <p>What happened?</p>
-<p>Well, the first thing the function does is test if <code>x &gt; 0</code>. But you can’t do that test if <code>x</code> is a <code>NA</code> or <code>NaN</code> value. R doesn’t know what to do in this case so it stops with a fatal error.</p>
-<p>We can fix this problem by anticipating the possibility of <code>NA</code> values and checking to see if the input is <code>NA</code> with the <code>is.na()</code> function.</p>
+<ul>
+<li>Well, the first thing the function does is test if <code>x &gt; 0</code>.</li>
+<li>But you can’t do that test if <code>x</code> is a <code>NA</code> or <code>NaN</code> value.</li>
+<li>R <strong>doesn’t know what to do in this case</strong> so it <strong>stops with a fatal error</strong>.</li>
+</ul>
+<p>We can <strong>fix this problem</strong> by anticipating the possibility of <code>NA</code> values and checking to see if the input is <code>NA</code> with the <code>is.na()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>printmessage2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is a missing value!"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is greater than zero"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is less than or equal to zero"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">invisible</span>(x)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>print_message2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is a missing value!"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is greater than zero"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is less than or equal to zero"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">invisible</span>(x)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can run the following.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printmessage2</span>(<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message2</span>(<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "x is a missing value!"</code></pre>
 </div>
@@ -459,49 +546,71 @@ Pro-tip
 <p>And all is fine.</p>
 <p>Now what about the following situation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in log(c(-1, 2)): NaNs produced</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printmessage2</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message2</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in if (is.na(x)) print("x is a missing value!") else if (x &gt; 0) print("x is greater than zero") else print("x is less than or equal to zero"): the condition has length &gt; 1</code></pre>
 </div>
 </div>
-<p>Now what?? Why are we getting this warning? The warning says “the condition has length &gt; 1 and only the first element will be used”.</p>
-<p>The problem here is that I passed <code>printmessage2()</code> a vector <code>x</code> that was of length 2 rather then length 1. Inside the body of <code>printmessage2()</code> the expression <code>is.na(x)</code> returns a vector that is tested in the <code>if</code> statement. However, <code>if</code> cannot take vector arguments so you get a warning. The fundamental problem here is that <code>printmessage2()</code> is not <em>vectorized</em>.</p>
-<p>We can solve this problem two ways. One is by simply not allowing vector arguments. The other way is to vectorize the <code>printmessage2()</code> function to allow it to take vector arguments.</p>
-<p>For the first way, we simply need to check the length of the input.</p>
+<p>Now what?? Why are we getting this warning?</p>
+<p>The <strong>warning</strong> says “the condition has length &gt; 1 and only the first element will be used”.</p>
+<p>The <strong>problem here</strong> is that I passed <code>print_message2()</code> a vector <code>x</code> that was of length 2 rather then length 1.</p>
+<p>Inside the body of <code>print_message2()</code> the expression <code>is.na(x)</code> returns a vector that is tested in the <code>if</code> statement.</p>
+<p>However, <code>if</code> cannot take vector arguments, so you get a warning.</p>
+<p>The fundamental problem here is that <code>print_message2()</code> is not <strong>vectorized</strong>.</p>
+<p>We can <strong>solve this problem</strong> two ways.</p>
+<ol type="1">
+<li>Simply <strong>not allow vector arguments</strong>.</li>
+<li>The other way is to <strong>vectorize</strong> the <code>print_message2()</code> function to allow it to take vector arguments.</li>
+</ol>
+<p>For the <strong>first way</strong>, we simply need to check the length of the input.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>printmessage3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&gt;</span> 1L)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">stop</span>(<span class="st">"'x' has length &gt; 1"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is a missing value!"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is greater than zero"</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is less than or equal to zero"</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">invisible</span>(x)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>print_message3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&gt;</span> 1L)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">stop</span>(<span class="st">"'x' has length &gt; 1"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is a missing value!"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is greater than zero"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                <span class="fu">print</span>(<span class="st">"x is less than or equal to zero"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">invisible</span>(x)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now when we pass <code>printmessage3()</code> a vector we should get an error.</p>
+<p>Now when we pass <code>print_message3()</code> a vector, we should get an <strong>error</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in printmessage3(1:2): 'x' has length &gt; 1</code></pre>
+<pre><code>Error in print_message3(1:2): 'x' has length &gt; 1</code></pre>
 </div>
 </div>
 <p>Vectorizing the function can be accomplished easily with the <code>Vectorize()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>printmessage4 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(printmessage2)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">printmessage4</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>print_message4 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(print_message2)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">print_message4</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "x is less than or equal to zero"
 [1] "x is greater than zero"</code></pre>
 </div>
 </div>
-<p>You can see now that the correct messages are printed without any warning or error. Note that I stored the return value of <code>printmessage4()</code> in a separate R object called <code>out</code>. This is because when I use the <code>Vectorize()</code> function it no longer preserves the invisibility of the return value.</p>
+<p>You can see now that the <strong>correct messages are printed without any warning or error</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I stored the return value of <code>print_message4()</code> in a separate R object called <code>out</code>.</p>
+<p>This is because when I use the <code>Vectorize()</code> function it no longer preserves the invisibility of the return value.</p>
+</div>
+</div>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -512,7 +621,10 @@ Helpful tips
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else’s), it’s important first understand what you were expecting to occur. Then you need to idenfity what <em>did</em> occur and how did it deviate from your expectations. Some basic questions you need to ask are</p>
+<p>The <strong>primary task of debugging</strong> any R code is <strong>correctly diagnosing what the problem is</strong>.</p>
+<p>When diagnosing a problem with your code (or somebody else’s), it’s important <strong>first understand what you were expecting to occur</strong>.</p>
+<p>Then you need to <strong>idenfity what did occur</strong> and <strong>how did it deviate from your expectations</strong>.</p>
+<p>Some basic questions you need to ask are</p>
 <ul>
 <li>What was your input? How did you call the function?</li>
 <li>What were you expecting? Output, messages, other results?</li>
@@ -521,44 +633,73 @@ Helpful tips
 <li>Were your expectations correct in the first place?</li>
 <li>Can you reproduce the problem (exactly)?</li>
 </ul>
-<p>Being able to answer these questions is important not just for your own sake, but in situations where you may need to ask someone else for help with debugging the problem. Seasoned programmers will be asking you these exact questions.</p>
 </div>
 </div>
+<p>Being able to answer these questions is important not just for your own sake, but in situations where you may need to ask someone else for help with debugging the problem.</p>
+<p>Seasoned programmers will be asking you these exact questions.</p>
 </section>
 </section>
 <section id="debugging-tools-in-r" class="level1">
 <h1>Debugging Tools in R</h1>
 <p>R provides a number of tools to help you with debugging your code. The primary tools for debugging functions in R are</p>
 <ul>
-<li><code>traceback()</code>: prints out the function call stack after an error occurs; does nothing if there’s no error</li>
-<li><code>debug()</code>: flags a function for “debug” mode which allows you to step through execution of a function one line at a time</li>
-<li><code>browser()</code>: suspends the execution of a function wherever it is called and puts the function in debug mode</li>
-<li><code>trace()</code>: allows you to insert debugging code into a function at specific places</li>
-<li><code>recover()</code>: allows you to modify the error behavior so that you can browse the function call stack</li>
+<li><code>traceback()</code>: <strong>prints out the function call stack</strong> after an error occurs; does nothing if there’s no error</li>
+<li><code>debug()</code>: <strong>flags a function for “debug” mode</strong> which allows you to step through execution of a function one line at a time</li>
+<li><code>browser()</code>: <strong>suspends the execution of a function</strong> wherever it is called and puts the function in debug mode</li>
+<li><code>trace()</code>: allows you to <strong>insert debugging code into a function</strong> at specific places</li>
+<li><code>recover()</code>: allows you to <strong>modify the error behavior</strong> so that you can browse the function call stack</li>
 </ul>
 <p>These functions are interactive tools specifically designed to allow you to pick through a function. There is also the more blunt technique of inserting <code>print()</code> or <code>cat()</code> statements in the function.</p>
 <section id="using-traceback" class="level2">
 <h2 class="anchored" data-anchor-id="using-traceback">Using <code>traceback()</code></h2>
-<p>The <code>traceback()</code> function prints out the <em>function call stack</em> after an error has occurred. The function call stack is the sequence of functions that was called before the error occurred.</p>
-<p>For example, you may have a function <code>a()</code> which subsequently calls function <code>b()</code> which calls <code>c()</code> and then <code>d()</code>. If an error occurs, it may not be immediately clear in which function the error occurred. The <code>traceback()</code> function shows you how many levels deep you were when the error occurred.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(x)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean</span>(x) <span class="sc">:</span> object <span class="st">'x'</span> not found</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">mean</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here, it’s clear that the error occurred inside the <code>mean()</code> function because the object <code>x</code> does not exist.</p>
-<p>The <code>traceback()</code> function must be called immediately after an error occurs. Once another function is called, you lose the traceback.</p>
+<p>The <code>traceback()</code> function <strong>prints out the function call stack</strong> after an error has occurred.</p>
+<p>The <strong>function call stack</strong> is the <strong>sequence of functions that was called before the error occurred</strong>.</p>
+<p>For example, you may have a function <code>a()</code> which subsequently calls function <code>b()</code> which calls <code>c()</code> and then <code>d()</code>.</p>
+<p>If an error occurs, it may not be immediately clear in which function the error occurred.</p>
+<p>The <code>traceback()</code> function <strong>shows you how many levels deep</strong> you were when the error occurred.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s use the <code>mean()</code> function on a vector <code>z</code> that does not exist in our R environment</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(z)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean</span>(z) <span class="sc">:</span> object <span class="st">'z'</span> not found</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">mean</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here, it’s <strong>clear that the error occurred</strong> inside the <code>mean()</code> function because the object <code>z</code> does not exist.</p>
+</div>
+</div>
+<p>The <code>traceback()</code> function <strong>must be called immediately after an error</strong> occurs. Once another function is called, you lose the traceback.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Here is a slightly more complicated example using the <code>lm()</code> function for linear modeling.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos) <span class="sc">:</span> object ’y’ not found</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> <span class="fu">eval</span>(predvars, data, env)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> <span class="fu">model.frame.default</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> <span class="fu">model.frame</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">eval</span>(mf, <span class="fu">parent.frame</span>())</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can see now that the error did not get thrown until the 7th level of the function call stack, in which case the <code>eval()</code> function tried to evaluate the formula <code>y ~ x</code> and realized the object <code>y</code> did not exist.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos) <span class="sc">:</span> object ’y’ not found</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> <span class="fu">eval</span>(predvars, data, env)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> <span class="fu">model.frame.default</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> <span class="fu">model.frame</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">eval</span>(mf, <span class="fu">parent.frame</span>())</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can see now that the <strong>error did not get thrown until the 7th level of the function call stack</strong>, in which case the <code>eval()</code> function tried to evaluate the formula <code>y ~ x</code> and <strong>realized the object <code>y</code> did not exist</strong>.</p>
+</div>
+</div>
 <p>Looking at the traceback is useful for figuring out roughly where an error occurred but it’s not useful for more detailed debugging. For that you might turn to the <code>debug()</code> function.</p>
 </section>
 <section id="using-debug" class="level2">
@@ -569,19 +710,19 @@ Click here for how to use <code>debug()</code> with an interactive browser.
 </summary>
 <p>The <code>debug()</code> function initiates an interactive debugger (also known as the “browser” in R) for a function. With the debugger, you can step through an R function one expression at a time to pinpoint exactly where an error occurs.</p>
 <p>The <code>debug()</code> function takes a function as its first argument. Here is an example of debugging the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">debug</span>(lm)      <span class="do">## Flag the 'lm()' function for interactive debugging</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>debugging <span class="cf">in</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> {</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    ret.x <span class="ot">&lt;-</span> x</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    ret.y <span class="ot">&lt;-</span> y</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>qr)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        z<span class="sc">$</span>qr <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    z</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>} </span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">debug</span>(lm)      <span class="do">## Flag the 'lm()' function for interactive debugging</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>debugging <span class="cf">in</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> {</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    ret.x <span class="ot">&lt;-</span> x</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    ret.y <span class="ot">&lt;-</span> y</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>qr)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        z<span class="sc">$</span>qr <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    z</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now, every time you call the <code>lm()</code> function it will launch the interactive debugger. To turn this behavior off you need to call the <code>undebug()</code> function.</p>
 <p>The debugger calls the browser at the very top level of the function body. From there you can step through each expression in the body. There are a few special commands you can call in the browser:</p>
 <ul>
@@ -590,20 +731,20 @@ Click here for how to use <code>debug()</code> with an interactive browser.
 <li><code>Q</code> quits the browser</li>
 </ul>
 <p>Here’s an example of a browser session with the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n   <span class="do">## Evalute this expression and move to the next one</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.x <span class="ot">&lt;-</span> x</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.y <span class="ot">&lt;-</span> y</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> mf <span class="ot">&lt;-</span> <span class="fu">match.call</span>(<span class="at">expand.dots =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> m <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">c</span>(<span class="st">"formula"</span>, <span class="st">"data"</span>, <span class="st">"subset"</span>, <span class="st">"weights"</span>, <span class="st">"na.action"</span>,</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"offset"</span>), <span class="fu">names</span>(mf), 0L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n   <span class="do">## Evalute this expression and move to the next one</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.x <span class="ot">&lt;-</span> x</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.y <span class="ot">&lt;-</span> y</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> mf <span class="ot">&lt;-</span> <span class="fu">match.call</span>(<span class="at">expand.dots =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> m <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">c</span>(<span class="st">"formula"</span>, <span class="st">"data"</span>, <span class="st">"subset"</span>, <span class="st">"weights"</span>, <span class="st">"na.action"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"offset"</span>), <span class="fu">names</span>(mf), 0L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>While you are in the browser you can execute any other R function that might be available to you in a regular session. In particular, you can use <code>ls()</code> to see what is in your current environment (the function environment) and <code>print()</code> to print out the values of R objects in the function environment.</p>
 <p>You can turn off interactive debugging with the <code>undebug()</code> function.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">undebug</span>(lm)    <span class="do">## Unflag the 'lm()' function for debugging</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">undebug</span>(lm)    <span class="do">## Unflag the 'lm()' function for debugging</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 <section id="using-recover" class="level2">
@@ -614,20 +755,20 @@ Click here for how to use <code>recover()</code> with an interactive browser.
 </summary>
 <p>The <code>recover()</code> function can be used to modify the error behavior of R when an error occurs. Normally, when an error occurs in a function, R will print out an error message, exit out of the function, and return you to your workspace to await further commands.</p>
 <p>With <code>recover()</code> you can tell R that when an error occurs, it should halt execution at the exact point at which the error occurred. That can give you the opportunity to poke around in the environment in which the error occurred. This can be useful to see if there are any R objects or data that have been corrupted or mistakenly modified.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">options</span>(<span class="at">error =</span> recover)    <span class="do">## Change default R error behavior</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">read.csv</span>(<span class="st">"nosuchfile"</span>)      <span class="do">## This code doesn't work</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">file</span>(file, <span class="st">"rt"</span>) <span class="sc">:</span> cannot open the connection</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>In addition<span class="sc">:</span> Warning message<span class="sc">:</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>In <span class="fu">file</span>(file, <span class="st">"rt"</span>) <span class="sc">:</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  cannot open file ’nosuchfile’<span class="sc">:</span> No such file or directory</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>Enter a frame number, or <span class="dv">0</span> to exit</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">read.csv</span>(<span class="st">"nosuchfile"</span>)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">read.table</span>(<span class="at">file =</span> file, <span class="at">header =</span> header, <span class="at">sep =</span> sep, <span class="at">quote =</span> quote, <span class="at">dec =</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">file</span>(file, <span class="st">"rt"</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>Selection<span class="sc">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">options</span>(<span class="at">error =</span> recover)    <span class="do">## Change default R error behavior</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">read.csv</span>(<span class="st">"nosuchfile"</span>)      <span class="do">## This code doesn't work</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">file</span>(file, <span class="st">"rt"</span>) <span class="sc">:</span> cannot open the connection</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>In addition<span class="sc">:</span> Warning message<span class="sc">:</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>In <span class="fu">file</span>(file, <span class="st">"rt"</span>) <span class="sc">:</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  cannot open file ’nosuchfile’<span class="sc">:</span> No such file or directory</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>Enter a frame number, or <span class="dv">0</span> to exit</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">read.csv</span>(<span class="st">"nosuchfile"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">read.table</span>(<span class="at">file =</span> file, <span class="at">header =</span> header, <span class="at">sep =</span> sep, <span class="at">quote =</span> quote, <span class="at">dec =</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">file</span>(file, <span class="st">"rt"</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>Selection<span class="sc">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>recover()</code> function will first print out the function call stack when an error occurrs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with <code>debug()</code>) and will have the ability to poke around.</p>
 </details>
 </section>
@@ -660,16 +801,16 @@ Questions
 <li>Try using <code>traceback()</code> to debug this piece of code:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(a) <span class="fu">g</span>(a)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">h</span>(b)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(c) <span class="fu">i</span>(c)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(d)) {</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"`d` must be numeric"</span>, <span class="at">call. =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(a) <span class="fu">g</span>(a)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">h</span>(b)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(c) <span class="fu">i</span>(c)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(d)) {</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"`d` must be numeric"</span>, <span class="at">call. =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: `d` must be numeric</code></pre>
 </div>
