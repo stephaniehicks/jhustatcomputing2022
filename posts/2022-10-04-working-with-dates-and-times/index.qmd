@@ -1,14 +1,13 @@
 ---
-title: "Add title"
+title: "Working with dates and times"
 author: 
   - name: Stephanie Hicks
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Add title"
-date: 2022-08-30
-draft: true
-categories: [add here]
+description: "Introduction to lubridate for dates and times in R"
+date: 2022-10-04
+categories: [module 5, week 6, tidyverse, R, programming, dates and times]
 ---
 
 <!-- Add interesting quote -->
@@ -22,15 +21,17 @@ categories: [add here]
 
 **Before class, you can prepare by reading the following materials:**
 
-1.  Add here.
-2.  Add here.
+1. <https://r4ds.had.co.nz/dates-and-times>
+
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
--   Add here.
+- <https://jhu-advdatasci.github.io/2018/lectures/09-dates-times>
+- <https://r4ds.had.co.nz/dates-and-times>
+
 
 # Learning objectives
 
@@ -39,10 +40,546 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   Add here.
+- Recognize the `Date`, `POSIXct` and `POSIXlt` class types in R to represent dates and times
+- Learn how to create date and time objects in R using functions from the `lubridate` package
+- Learn how dealing with time zones can be frustrating `r emojifont::emoji("scream_cat")` but hopefully less so after today's lecture `r emojifont::emoji("smiley_cat")` 
+- Learn how to perform arithmetic operations on dates and times 
+- Learn how plotting systems in R "know" about dates and times to appropriately handle axis labels 
+
 :::
 
-# Add lecture here
+# Introduction
+
+In this lesson, we will learn how to work with dates and times in R. 
+These may seem simple as you use them all of the time in your day-to-day life, 
+but the more you work with them, the more complicated they seem to get. 
+
+Dates and times are hard because they have to reconcile two physical phenomena (the rotation of the Earth and its orbit around the sun) with a whole raft of geopolitical phenomena including months, time zones, and daylight savings time (DST). 
+
+This lesson will not teach you every last detail about dates and times, but it will give you a solid grounding of practical skills that will help you with common data analysis challenges.
+
+R has developed a special representation of dates and times
+
+- Dates are represented by the `Date` class
+
+- Times are represented by the `POSIXct` or the `POSIXlt` class
+
+- Dates are stored internally as the number of days since 1970-01-01
+
+- Times are stored internally as the number of seconds since
+  1970-01-01
+
+## The `lubridate` package
+
+Here, we will focus on the `lubridate` R package, which makes it easier to work with dates and times in R. 
+
+**check out the cheat sheet** at https://lubridate.tidyverse.org
+
+A few things to note about it: 
+
+- It largely replaces the default date/time functions in base R
+
+- It contains methods for date/time arithmetic
+
+- It handles time zones, leap year, leap seconds, etc.
+
+`lubridate` is installed when you install `tidyverse`, but it is not loaded when you load `tidyverse`.
+Alternatively, you can install it separately. 
+
+```{r}
+#| eval: false
+install.packages("lubridate") 
+```
+
+```{r}
+#| message: false
+library(tidyverse)
+library(lubridate) 
+```
+
+
+# Creating date/times
+
+There are three types of date/time data that refer to an instant in time:
+
+- A **date**. Tibbles print this as `<date>`.
+
+- A **time** within a day. Tibbles print this as `<time>`.
+
+- A **date-time** is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). Tibbles print this as `<dttm>`. Elsewhere in R these are called `POSIXct`. 
+
+In this lesson, we will focus on dates and date-times as R does not have a native class for storing times. If you need one, you can use the [`hms` package](https://cran.r-project.org/web/packages/hms/index.html).
+
+You should always use the simplest possible data type that works for your needs. That means if you can use a date instead of a date-time, you should. Date-times are substantially more complicated because of the need to handle time zones, which we’ll come back to at the end of the lesson.
+
+To get the current date or date-time you can use `today()` or `now()` from `lubridate`:
+
+```{r}
+today()
+
+now()
+```
+
+Otherwise, there are three ways you are likely to create a date/time:
+
+- From a string.
+- From individual date-time components.
+- From an existing date/time object.
+
+They work as follows.
+
+## From a string
+
+Dates are of the `Date` class. 
+
+```{r}
+x <- today()
+class(x)
+```
+
+Dates can be coerced from a character strings using some helper functions from `lubridate`. 
+They automatically work out the format once you specify the order of the component. 
+
+To use the helper functions, identify the order in which year, month, and day appear in your dates, then arrange "y", "m", and "d" in the same order. 
+
+That gives you the name of the `lubridate` function that will parse your date. For example:
+
+```{r}
+ymd("1970-01-01")
+ymd("2017-01-31")
+mdy("January 31st, 2017")
+dmy("31-Jan-2017")
+```
+
+
+:::{.callout-tip}
+
+### Pro-tip
+
+- When reading in data with `read_csv()`, you may need to read in as character first and then convert to date/time
+
+- `Date` objects have their own special `print()` methods that will always format as "YYYY-MM-DD"
+
+- These functions also take unquoted numbers. 
+
+```{r}
+ymd(20170131)
+```
+
+:::
+
+### Alternate Formulations
+
+Different locales have different ways of formatting dates
+
+```{r}
+ymd("2016-09-13")  ## International standard
+ymd("2016/09/13")  ## Just figure it out
+mdy("09-13-2016")  ## Mostly U.S.
+dmy("13-09-2016")  ## Europe
+```
+
+All of the above are valid and lead to the exact same object.
+
+Even if the individual dates are formatted differently, `ymd()` can usually figure it out.
+
+```{r}
+x <- c("2016-04-05", 
+       "2016/05/06",
+       "2016,10,4")
+ymd(x)
+```
+
+## From individual date-time components
+
+Sometimes the date components will come across multiple columns in a dataset. 
+
+```{r}
+library(nycflights13)
+
+flights %>% 
+  select(year, month, day)
+```
+
+To create a date/time from this sort of input, use `make_date()` for dates, or `make_datetime()` for date-times:
+
+```{r}
+flights %>% 
+  select(year, month, day) %>% 
+  mutate(departure = make_date(year, month, day))
+```
+
+:::{.callout-note}
+
+### Questions
+
+The `flights` also contains a `hour` and `minute` column. Use `make_datetime()` to create a date-time column called `departure`:
+
+```{r}
+# try it yourself
+
+```
+
+:::
+
+## From other types
+
+You may want to switch between a date-time and a date. That is the job of `as_datetime()` and `as_date()`:
+
+```{r}
+today()
+as_datetime(today())
+
+now()
+as_date(now())
+```
+
+# Date-Times in R
+
+## From a string
+
+`ymd()` and friends create dates. To create a `date-time` from a character string, add an underscore and one or more of "h", "m", and "s" to the name of the parsing function:
+
+Times can be coerced from a character string with `ymd_hms()`
+
+```{r}
+ymd_hms("2017-01-31 20:11:59")
+mdy_hm("01/31/2017 08:01")
+```
+
+You can also force the creation of a date-time from a date by supplying a timezone:
+
+```{r}
+ymd_hms("2016-09-13 14:00:00")
+ymd_hms("2016-09-13 14:00:00", tz = "America/New_York")
+ymd_hms("2016-09-13 14:00:00", tz = "")
+
+```
+
+## `POSIXct` or the `POSIXlt` class
+
+Let's get into some hairy details about date-times. Date-times are represented using the `POSIXct` or the `POSIXlt` class in R. What are these things? 
+
+### `POSIXct`
+
+`POSIXct` is just a very large integer under the hood. It is a useful class when you want to store times in something like a data frame. 
+
+Technically, the `POSIXct` class represents the number of **seconds** since 1 January 1970. (In case you were wondering, "POSIXct" stands for "Portable Operating System Interface", calendar time.)
+
+```{r}
+x <- ymd_hm("1970-01-01 01:00")
+class(x) 
+unclass(x)
+
+typeof(x)
+
+attributes(x)
+```
+
+
+### `POSIXlt`
+
+`POSIXlt` is a `list` underneath and it stores a bunch of other useful information like the day of the week, day of the year, month, day of the month
+
+```{r}
+y <- as.POSIXlt(x)
+
+typeof(y)
+
+attributes(y)
+```
+
+:::{.callout-tip}
+
+### Pro-tip
+
+`POSIXlt`s are **rare** inside the tidyverse. They do crop up in base R, because they are needed to extract specific components of a date, like the year or month. 
+
+Since `lubridate` provides helpers for you to do this instead, you do not really need them imho. 
+
+`POSIXct`'s are always easier to work with, so if you find you have a `POSIXlt`, you should always convert it to a regular data time `lubridate::as_datetime()`.
+
+:::
+
+# Time Zones!
+
+Time zones were created to make your data analyses more difficult as a data analyst.
+Here are a few fun things to think about: 
+
+* `ymd_hms()` function will by default use Coordinated Universal Time (UTC) as the time zone. UTC is the primary time standard by which the world regulates clocks and time.
+
+You can go to Wikipedia to find the [list of time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+
+
+* Specifying `tz = ""` in one of the `ymd()` and friends functions will use the local time zone
+
+```{r}
+x <- ymd_hm("1970-01-01 01:00", tz = "")
+x
+
+attributes(x)
+```
+
+:::{.callout-tip}
+
+### Pro-tip
+
+The `tzone` attribute is optional. It controls how the time is printed, not what absolute time it refers to.
+
+```{r}
+attr(x, "tzone") <- "US/Pacific"
+x
+
+attr(x, "tzone") <- "US/Eastern"
+x
+```
+
+:::
+
+
+A few other fun things to think about related to time zones: 
+
+* Almost always better to specify time zone when possible to avoid ambiguity
+
+* Daylight savings time (DST)
+
+* Some states are in two time zones
+
+* Southern hemisphere is opposite
+
+
+# Operations on Dates and Times
+
+## Arithmetic 
+
+You can add and subtract dates and times. You can do comparisons too (i.e. `==`, `<=`)
+
+```{r, error=TRUE}
+x <- ymd("2012-01-01", tz = "")  ## Midnight
+y <- dmy_hms("9 Jan 2011 11:34:21", tz = "")
+x - y ## this works
+x < y ## this works
+x > y ## this works
+x == y ## this works
+x + y ## what??? why does this not work? 
+```
+
+:::{.callout-tip}
+
+### Note
+
+`POSIXct` objects are a measure of seconds from an origin, usually the UNIX epoch (1st Jan 1970). 
+
+Just add the requisite number of seconds to the object:
+
+```{r}
+x + 3*60*60 # add 3 hours
+x
+```
+
+:::
+
+Same goes for days. For example, you can just keep the date portion using `date()`: 
+
+```{r}
+y <- date(y)
+y
+```
+
+And then add a number to the date (in this case 1 day)
+
+```{r}
+y + 1  
+```
+
+Cool eh? 
+
+
+## Leaps and Bounds
+
+Even keeps track of leap years, leap seconds, daylight savings, and time zones.
+
+Leap years
+
+```{r}
+x <- ymd("2012-03-01")
+y <- ymd("2012-02-28")
+x - y
+```
+
+Not a leap year 
+
+```{r}
+x <- ymd("2013-03-01")
+y <- ymd("2013-02-28")
+x - y
+```
+
+BUT beware of time zones!
+
+```{r}
+x <- ymd_hms("2012-10-25 01:00:00", tz = "")
+y <- ymd_hms("2012-10-25 05:00:00", tz = "GMT")
+y - x
+```
+
+There are also things called [**leap seconds**](https://en.wikipedia.org/wiki/Leap_second).
+
+```{r}
+.leap.seconds
+```
+
+# Extracting Elements of Dates/Times
+
+There are a set of helper functions in `lubridate` that can extract sub-elements of dates/times
+
+## Date Elements
+
+```{r}
+x <- ymd_hms(c("2012-10-25 01:13:46",
+               "2015-04-23 15:11:23"), tz = "")
+year(x)
+month(x)
+day(x)
+weekdays(x)
+```
+
+## Time Elements
+
+```{r}
+x <- ymd_hms(c("2012-10-25 01:13:46",
+               "2015-04-23 15:11:23"), tz = "")
+minute(x)
+second(x)
+hour(x)
+week(x)
+```
+
+
+
+# Visualizing Dates
+
+
+## Reading in the Data
+
+```{r}
+#| warning: false
+#| message: false
+library(here)
+library(readr)
+storm <- read_csv(here("data", "storms_2004.csv.gz"), progress = FALSE)
+storm
+```
+
+```{r}
+names(storm)
+```
+
+
+:::{.callout-note}
+
+### Questions
+
+Let's take a look at the `BEGIN_DATE_TIME`, `EVENT_TYPE`, and `DEATHS_DIRECT` variables. 
+Try to convert the `BEGIN_DATE_TIME` date/time column to a date/time R object.
+
+```{r,message=FALSE}
+library(dplyr)
+storm %>% 
+  select(BEGIN_DATE_TIME, EVENT_TYPE, DEATHS_DIRECT) %>% 
+  mutate(date = dmy_hms(BEGIN_DATE_TIME))
+
+# try it yourself
+
+```
+
+:::
+
+Next, we do some wrangling to create a `storm_sub` data frame (code chunk set to `echo=FALSE` for the purposes of the lecture, but code is in the R Markdown).
+
+```{r}
+#| echo: false
+storm_sub <- 
+  storm %>% 
+  select(BEGIN_DATE_TIME, EVENT_TYPE, DEATHS_DIRECT) %>%
+  mutate(begin = dmy_hms(BEGIN_DATE_TIME)) %>%
+  rename(type = EVENT_TYPE, deaths = DEATHS_DIRECT) %>%
+  select(begin, type, deaths)
+```
+
+```{r}
+storm_sub
+```
+
+
+## Histograms of Dates/Times
+
+
+We can make a histogram of the dates/times to get a sense of when storm events occur.
+
+```{r}
+library(ggplot2)
+storm_sub %>%
+  ggplot(aes(x = begin)) + 
+  geom_histogram(bins = 20) + 
+  theme_bw()
+```
+
+We can group by event type too.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+library(ggplot2)
+storm_sub %>%
+  ggplot(aes(x = begin)) + 
+  facet_wrap(~ type) + 
+  geom_histogram(bins = 20) + 
+  theme_bw() + 
+  theme(axis.text.x.bottom = element_text(angle = 90))
+```
+
+## Scatterplots of Dates/Times
+
+```{r}
+storm_sub %>%
+  ggplot(aes(x = begin, y = deaths)) + 
+  geom_point()
+```
+
+If we focus on a single month, the x-axis adapts.
+
+```{r}
+storm_sub %>%
+  filter(month(begin) == 6) %>%
+  ggplot(aes(begin, deaths)) + 
+  geom_point()
+```
+
+Similarly, we can focus on a single day.
+
+```{r}
+storm_sub %>%
+  filter(month(begin) == 6, day(begin) == 16) %>%
+  ggplot(aes(begin, deaths)) + 
+  geom_point()
+
+```
+
+# Summary
+
+- Dates and times have special classes in R that allow for numerical and statistical calculations
+
+- Dates use the `Date` class
+
+- Date-Times (and Times) use the `POSIXct` and `POSIXlt` class
+
+- Character strings can be coerced to Date/Time classes using the `ymd()` and `ymd_hms()` functions and friends. 
+
+- The `lubridate` package is essential for manipulating date/time data
+
+- Both `plot` and `ggplot` "know" about dates and times and will handle axis labels appropriately.
+
 
 # Post-lecture materials
 
@@ -51,24 +588,46 @@ Material for this lecture was borrowed and adopted from
 Here are some post-lecture questions to help you think about the material discussed.
 
 ::: callout-note
+
 ### Questions
 
-1.  Add here.
+1. What happens if you parse a string that contains invalid dates?
+
+```{r, eval=FALSE}
+ymd(c("2010-10-10", "bananas"))
+```
+
+2. What does the `tzone` argument to `today()` do? Why is it important?
+
+```{r}
+unclass(today())
+```
+
+
+3. Use the appropriate `lubridate` function to parse each of the following dates:
+
+```{r}
+d1 <- "January 1, 2010"
+d2 <- "2015-Mar-07"
+d3 <- "06-Jun-2017"
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+d5 <- "12/30/14" # Dec 30, 20
+```
+
+4. Using the `flights` dataset, how does the distribution of flight times within a day change over the course of the year?
+
+5. Compare `dep_time`, `sched_dep_time` and `dep_delay`. Are they consistent? Explain your findings.
+
 :::
 
 ### Additional Resources
 
 ::: callout-tip
--   Add here.
+
+- <https://lubridate.tidyverse.org>
+- `lubridate` cheat sheet: <https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf>
+- <https://jhu-advdatasci.github.io/2018/lectures/09-dates-times>
+- <https://r4ds.had.co.nz/dates-and-times>
+
 :::
 
-## rtistry
-
-```{r}
-#| label: flametree
-#| echo: false
-#| fig-cap-location: "top"
-
-```
-
-\[Add here.\]
