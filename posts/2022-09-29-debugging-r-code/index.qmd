@@ -57,7 +57,7 @@ Most bugs are subtle and hard to find because if they were obvious, you would ha
 
 A good strategy helps. Below I outline a four step process that I have found useful:
 
-### Google!
+### 1. Google!
 
 Whenever you see an error message, **start by googling it**. 
 
@@ -71,81 +71,165 @@ When googling, improve your chances of a good match by removing any variable nam
 
 :::
 
-### Make it repeatable
+### 2. Make it repeatable
 
 To find the root cause of an error, you are going to need to execute the code many times as you consider and reject hypotheses. 
 
-**To make that iteration as quick possible**, it’s worth some upfront investment to** make the problem both easy and fast to reproduce**.
+**To make that iteration as quick possible**, it’s worth some upfront investment to **make the problem both easy and fast to reproduce**.
 
-Start by creating a **rep**roducible **ex**ample (reprex). This will help others help you, and often leads to a solution without asking others, because in the course of making the problem reproducible you often figure out the root cause. Next, make the example minimal by removing code and simplifying data. As you do this, you may discover inputs that do not trigger the error. Make note of them: they will be helpful when diagnosing the root cause.
+Start by creating a **rep**roducible **ex**ample (reprex). 
 
-### Figure out where it is
+- This will help others help you, and **often leads to a solution without asking others**, because in the course of making the problem reproducible you often figure out the root cause. 
 
-It’s a great idea to adopt the scientific method here. Generate hypotheses, design experiments to test them, and record your results. This may seem like a lot of work, but a systematic approach will end up saving you time. Often a lot of time can be wasted relying on my intuition to solve a bug (“oh, it must be an off-by-one error, so I’ll just subtract 1 here”), when I would have been better off taking a systematic approach.
+Make the **example minimal by removing code and simplifying data**. 
 
-If this fails, you might need to ask help from someone else. If you have followed the previous step, you will have a small example that is easy to share with others. That makes it much easier for other people to look at the problem, and more likely to help you find a solution.
+- As you do this, you may discover inputs that do not trigger the error. - Make note of them: they will be helpful when diagnosing the root cause.
 
-### Fix it and test it
+:::{.callout-tip}
 
-Once you have found the bug, you need to figure out how to fix it and to check that the fix actually worked. Again, it is very useful to have automated tests in place. Not only does this help to ensure that you have actually fixed the bug, it also helps to ensure you have not introduced any new bugs in the process. In the absence of automated tests, make sure to carefully record the correct output, and check against the inputs that previously failed.
+### Example
+
+Let's try making a **reprex** [using the `reprex` package](https://www.tidyverse.org/help) (installed with the `tidyverse`)
+
+```{r}
+library(reprex)
+```
+
+Write a bit of code and copy it to the clipboard:
+
+```{r}
+#| eval: false
+(y <- 1:4)
+mean(y)
+```
+
+Enter `reprex()` in the R Console. In RStudio, you’ll see a preview of your rendered reprex.
+
+It is now ready and waiting on your clipboard, so you can paste it into, say, a GitHub issue.
+
+One last step. Let's go here and open up an issue on the course website: 
+
+- <https://github.com/stephaniehicks/jhustatcomputing2022/issues>
+
+We will paste in the code from our reprex.
+
+:::
+
+In RStudio, you can access reprex from the addins menu, which makes it even easier to point out your code and select the output format.
+
+
+### 3. Figure out where it is
+
+It’s a great idea to adopt the scientific method here. 
+
+- Generate hypotheses
+- Design experiments to test them
+- Record your results
+
+This may seem like a lot of work, but **a systematic approach** will end up saving you time. 
+
+Often **a lot of time can be wasted relying on my intuition to solve a bug** (“oh, it must be an off-by-one error, so I’ll just subtract 1 here”), when I would have been better off taking a systematic approach.
+
+If this fails, you **might need to ask help from someone else**. 
+
+If you have followed the previous step, you will have a small example that is easy to share with others. That makes it much easier for other people to look at the problem, and more likely to help you find a solution.
+
+### 4. Fix it and test it
+
+Once you have found the bug, you need to **figure out how to fix it** and to **check that the fix actually worked**. 
+
+Again, it is very useful to have automated tests in place. 
+
+- Not only does this help to ensure that you **have actually fixed the bug**, it also **helps to ensure you have not introduced any new bugs** in the process. 
+- In the absence of automated tests, make sure to **carefully record the correct output**, and check against the inputs that previously failed.
 
 
 ## Something’s Wrong!
 
 Once you have made the error repeatable, the next step is to figure out where it comes from.
 
-R has a number of ways to indicate to you that something is not right. There are different levels of indication that can be used, ranging from mere notification to fatal error. Executing any function in R may result in the following **conditions**.
+R has a number of **ways to indicate to you that something is not right**. 
 
-- `message`: A generic notification/diagnostic message produced by the `message()` function; execution of the function continues
-- `warning`: An indication that something is wrong but not necessarily fatal; execution of the function continues. Warnings are generated by the `warning()` function
-- `error`: An indication that a fatal problem has occurred and execution of the function stops. Errors are produced by the `stop()` function.
-- `condition`: A generic concept for indicating that something unexpected has occurred; programmers can create their own custom conditions if they want.
+There are **different levels of indication** that can be used, ranging from mere notification to fatal error. Executing any function in R may result in the following **conditions**.
+
+- `message`: A **generic notification/diagnostic message** produced by the `message()` function; execution of the function continues
+- `warning`: An indication that **something is wrong but not necessarily fatal**; execution of the function continues. Warnings are generated by the `warning()` function
+- `error`: An indication that **a fatal problem has occurred** and execution of the function stops. Errors are produced by the `stop()` function.
+- `condition`: A generic concept for indicating that **something unexpected has occurred**; programmers can create their own custom conditions if they want.
+
+:::{.callout-tip}
+
+### Example
 
 Here is an example of a warning that you might receive in the course of using R.
 
-```{r, warning=TRUE}
+```{r}
+#| warning: true
 log(-1)
 ```
 
-This warning lets you know that taking the log of a negative number results in a `NaN` value because you can't take the log of negative numbers. Nevertheless, R doesn't give an error, because it has a useful value that it can return, the `NaN` value. The warning is just there to let you know that something unexpected happen. Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.
+This warning lets you know that taking the log of a negative number results in a `NaN` value because you **can't take the log of negative numbers**. 
+
+:::
+
+Nevertheless, R doesn't give an error, because it has a useful value that it can return, the **`NaN` value**. 
+
+The **warning is just there** to let you know that **something unexpected happen**. 
+
+Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.
+
+:::{.callout-tip}
+
+### Example
 
 Here is another function that is designed to print a message to the console depending on the nature of its input.
 
-
 ```{r}
-printmessage <- function(x) {
-        if(x > 0)
+print_message <- function(x) {
+        if(x > 0) {
                 print("x is greater than zero")
-        else
+        } else {
                 print("x is less than or equal to zero")
+        }  
         invisible(x)        
 }
 ```
 
-This function is simple---it prints a message telling you whether `x` is greater than zero or less than or equal to zero. It also returns its input **invisibly**, which is a common practice with "print" functions. Returning an object invisibly means that the return value does not get auto-printed when the function is called.
+This function is simple: 
+
+- It **prints a message** telling you whether `x` is greater than zero or less than or equal to zero.
+- It also returns its input **invisibly**, which is a common practice with "print" functions. 
+
+**Returning an object invisibly** means that the **return value does not get auto-printed** when the function is called.
 
 Take a hard look at the function above and see if you can identify any bugs or problems.
 
 We can execute the function as follows.
 
-```{r, error=TRUE}
-printmessage(1)
+```{r}
+#| error: true
+print_message(1)
 ```
 
 The function seems to work fine at this point. No errors, warnings, or messages.
 
-```{r, error=TRUE}
-printmessage(NA)
+```{r}
+#| error: true
+print_message(NA)
 ```
+
+:::
 
 What happened?
 
-Well, the first thing the function does is test if `x > 0`. But you can't do that test if `x` is a `NA` or `NaN` value. R doesn't know what to do in this case so it stops with a fatal error.
+- Well, the first thing the function does is test if `x > 0`. 
+- But you can't do that test if `x` is a `NA` or `NaN` value. 
+- R **doesn't know what to do in this case** so it **stops with a fatal error**.
 
-We can fix this problem by anticipating the possibility of `NA` values and checking to see if the input is `NA` with the `is.na()` function.
+We can **fix this problem** by anticipating the possibility of `NA` values and checking to see if the input is `NA` with the `is.na()` function.
 
 ```{r}
-printmessage2 <- function(x) {
+print_message2 <- function(x) {
         if(is.na(x))
                 print("x is a missing value!")
         else if(x > 0)
@@ -159,28 +243,40 @@ printmessage2 <- function(x) {
 Now we can run the following.
 
 ```{r}
-printmessage2(NA)
+print_message2(NA)
 ```
 
 And all is fine.
 
 Now what about the following situation.
 
-```{r, error=TRUE}
+```{r}
+#| error: true
 x <- log(c(-1, 2))
-printmessage2(x)
+print_message2(x)
 ```
 
-Now what?? Why are we getting this warning? The warning says "the condition has length > 1 and only the first element will be used". 
+Now what?? Why are we getting this warning? 
 
-The problem here is that I passed `printmessage2()` a vector `x` that was of length 2 rather then length 1. Inside the body of `printmessage2()` the expression `is.na(x)` returns a vector that is tested in the `if` statement. However, `if` cannot take vector arguments so you get a warning. The fundamental problem here is that `printmessage2()` is not *vectorized*.
+The **warning** says "the condition has length > 1 and only the first element will be used". 
 
-We can solve this problem two ways. One is by simply not allowing vector arguments. The other way is to vectorize the `printmessage2()` function to allow it to take vector arguments.
+The **problem here** is that I passed `print_message2()` a vector `x` that was of length 2 rather then length 1. 
 
-For the first way, we simply need to check the length of the input.
+Inside the body of `print_message2()` the expression `is.na(x)` returns a vector that is tested in the `if` statement. 
+
+However, `if` cannot take vector arguments, so you get a warning. 
+
+The fundamental problem here is that `print_message2()` is not **vectorized**.
+
+We can **solve this problem** two ways. 
+
+1. Simply **not allow vector arguments**. 
+2. The other way is to **vectorize** the `print_message2()` function to allow it to take vector arguments.
+
+For the **first way**, we simply need to check the length of the input.
 
 ```{r}
-printmessage3 <- function(x) {
+print_message3 <- function(x) {
         if(length(x) > 1L)
                 stop("'x' has length > 1")
         if(is.na(x))
@@ -193,27 +289,43 @@ printmessage3 <- function(x) {
 }
 ```
 
-Now when we pass `printmessage3()` a vector we should get an error.
+Now when we pass `print_message3()` a vector, we should get an **error**.
 
-```{r, error=TRUE}
-printmessage3(1:2)
+```{r}
+#| error: true
+print_message3(1:2)
 ```
 
 Vectorizing the function can be accomplished easily with the `Vectorize()` function.
 
-
 ```{r}
-printmessage4 <- Vectorize(printmessage2)
-out <- printmessage4(c(-1, 2))
+print_message4 <- Vectorize(print_message2)
+out <- print_message4(c(-1, 2))
 ```
 
-You can see now that the correct messages are printed without any warning or error. Note that I stored the return value of `printmessage4()` in a separate R object called `out`. This is because when I use the `Vectorize()` function it no longer preserves the invisibility of the return value.
+You can see now that the **correct messages are printed without any warning or error**. 
+
+:::{.callout-tip}
+
+### Note
+
+I stored the return value of `print_message4()` in a separate R object called `out`. 
+
+This is because when I use the `Vectorize()` function it no longer preserves the invisibility of the return value.
+
+:::
 
 :::{.callout-tip}
 
 ### Helpful tips
 
-The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else's), it's important first understand what you were expecting to occur. Then you need to idenfity what *did* occur and how did it deviate from your expectations. Some basic questions you need to ask are
+The **primary task of debugging** any R code is **correctly diagnosing what the problem is**. 
+
+When diagnosing a problem with your code (or somebody else's), it's important **first understand what you were expecting to occur**. 
+
+Then you need to **idenfity what did occur** and **how did it deviate from your expectations**. 
+
+Some basic questions you need to ask are
 
 - What was your input? How did you call the function?
 - What were you expecting? Output, messages, other results? 
@@ -222,38 +334,61 @@ The primary task of debugging any R code is correctly diagnosing what the proble
 - Were your expectations correct in the first place?
 - Can you reproduce the problem (exactly)?
 
-Being able to answer these questions is important not just for your own sake, but in situations where you may need to ask someone else for help with debugging the problem. Seasoned programmers will be asking you these exact questions.
-
 :::
+
+Being able to answer these questions is important not just for your own sake, but in situations where you may need to ask someone else for help with debugging the problem. 
+
+Seasoned programmers will be asking you these exact questions.
+
+
 
 # Debugging Tools in R
 
 R provides a number of tools to help you with debugging your code. The primary tools for debugging functions in R are
 
-- `traceback()`: prints out the function call stack after an error occurs; does nothing if there’s no error
-- `debug()`: flags a function for “debug” mode which allows you to step through execution of a function one line at a time
-- `browser()`: suspends the execution of a function wherever it is called and puts the function in debug mode
-- `trace()`: allows you to insert debugging code into a function at specific places 
-- `recover()`: allows you to modify the error behavior so that you can browse the function call stack
+- `traceback()`: **prints out the function call stack** after an error occurs; does nothing if there’s no error
+- `debug()`: **flags a function for “debug” mode** which allows you to step through execution of a function one line at a time
+- `browser()`: **suspends the execution of a function** wherever it is called and puts the function in debug mode
+- `trace()`: allows you to **insert debugging code into a function** at specific places 
+- `recover()`: allows you to **modify the error behavior** so that you can browse the function call stack
 
 These functions are interactive tools specifically designed to allow you to pick through a function. There is also the more blunt technique of inserting `print()` or `cat()` statements in the function.
 
 ## Using `traceback()`
 
-The `traceback()` function prints out the *function call stack* after an error has occurred. The function call stack is the sequence of functions that was called before the error occurred. 
+The `traceback()` function **prints out the function call stack** after an error has occurred. 
 
-For example, you may have a function `a()` which subsequently calls function `b()` which calls `c()` and then `d()`. If an error occurs, it may not be immediately clear in which function the error occurred. The `traceback()` function shows you how many levels deep you were when the error occurred.
+The **function call stack** is the **sequence of functions that was called before the error occurred**. 
+
+For example, you may have a function `a()` which subsequently calls function `b()` which calls `c()` and then `d()`. 
+
+If an error occurs, it may not be immediately clear in which function the error occurred.
+
+The `traceback()` function **shows you how many levels deep** you were when the error occurred.
+
+:::{.callout-tip}
+
+### Example
+
+Let's use the `mean()` function on a vector `z` that does not exist in our R environment
 
 ```r
-> mean(x)
-Error in mean(x) : object 'x' not found
+> mean(z)
+Error in mean(z) : object 'z' not found
 > traceback()
-1: mean(x)
+1: mean(z)
 ```
-Here, it's clear that the error occurred inside the `mean()` function because the object `x` does not exist. 
 
-The `traceback()` function must be called immediately after an error occurs. Once another function is called, you lose the traceback.
+Here, it's **clear that the error occurred** inside the `mean()` function because the object `z` does not exist. 
 
+:::
+
+The `traceback()` function **must be called immediately after an error** occurs. Once another function is called, you lose the traceback.
+
+
+:::{.callout-tip}
+
+### Example
 
 Here is a slightly more complicated example using the `lm()` function for linear modeling.
 
@@ -270,7 +405,9 @@ Error in eval(expr, envir, enclos) : object ’y’ not found
 1: lm(y ~ x)
 ```
 
-You can see now that the error did not get thrown until the 7th level of the function call stack, in which case the `eval()` function tried to evaluate the formula `y ~ x` and realized the object `y` did not exist.
+You can see now that the **error did not get thrown until the 7th level of the function call stack**, in which case the `eval()` function tried to evaluate the formula `y ~ x` and **realized the object `y` did not exist**.
+
+:::
 
 Looking at the traceback is useful for figuring out roughly where an error occurred but it's not useful for more detailed debugging. For that you might turn to the `debug()` function.
 
