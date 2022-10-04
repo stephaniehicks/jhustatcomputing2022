@@ -527,7 +527,7 @@ Let's take a look at the `BEGIN_DATE_TIME`, `EVENT_TYPE`, and `DEATHS_DIRECT` va
 Tasks: 
 
 1. Create a subset of the `storm` dataset with only the four columns above.
-2. Convert the `BEGIN_DATE_TIME` date/time column to a date/time R object.
+2. Create a new column called `begin` that contains the `BEGIN_DATE_TIME` that has been converted to a date/time R object.
 3. Rename the `EVENT_TYPE` column as `type`.
 4. Rename the `DEATHS_DIRECT` column as `deaths`.
 
