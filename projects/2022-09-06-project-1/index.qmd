@@ -10,6 +10,7 @@ date: 2022-09-06
 categories: [project 1, projects]
 ---
 
+
 # Background
 
 **Due date: Sept 16 at 11:59pm**
@@ -215,17 +216,16 @@ It should look something like this:
 
     review_date     feature   mean_score
     <dbl>           <chr>     <dbl>
-    2006	beans	0.967741935		
-    2006	sugar	0.967741935		
-    2006	cocoa_butter	0.903225806		
-    2006	vanilla	0.693548387		
-    2006	letchin	0.693548387		
-    2006	salt	0.000000000		
-    2006	char_cocoa	0.209677419		
-    2006	char_sweet	0.161290323		
-    2006	char_nutty	0.032258065		
-    2006	char_creamy	0.241935484	
-
+    2006    beans   0.967741935     
+    2006    sugar   0.967741935     
+    2006    cocoa_butter    0.903225806     
+    2006    vanilla 0.693548387     
+    2006    letchin 0.693548387     
+    2006    salt    0.000000000     
+    2006    char_cocoa  0.209677419     
+    2006    char_sweet  0.161290323     
+    2006    char_nutty  0.032258065     
+    2006    char_creamy 0.241935484 
 
 ### Notes
 
@@ -237,7 +237,6 @@ It should look something like this:
 # Add your solution here
 
 ```
-
 
 # Part 4: Data visualization
 
