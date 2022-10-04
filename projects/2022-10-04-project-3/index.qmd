@@ -5,7 +5,7 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Exploring temperature and rainfall in Australia"
+description: "Exploring album sales and sentiment of lyrics from Beyoncé and Taylor Swift"
 date: 2022-10-04
 categories: [project 3, projects]
 ---
@@ -27,6 +27,8 @@ The datasets for this part of the assignment comes from [TidyTuesday](https://ww
 Data dictionary avaialble here: 
 
 - <https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-09-29>
+
+![Beyoncé (left) and Taylor Swift (right)](https://akns-images.eonline.com/eol_images/Entire_Site/2019721/rs_1024x759-190821125112-1024.taylor-swift-beyonce-2009-mtv-vmas.ct.082119.jpg){preview=TRUE}
 
 ```{r tidy-data, echo = FALSE, fig.cap = "Beyoncé (left) and Taylor Swift (right)", out.width = '80%', fig.align='center', preview = TRUE}
 knitr::include_graphics("https://akns-images.eonline.com/eol_images/Entire_Site/2019721/rs_1024x759-190821125112-1024.taylor-swift-beyonce-2009-mtv-vmas.ct.082119.jpg")
