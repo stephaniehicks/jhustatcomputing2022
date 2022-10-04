@@ -307,11 +307,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this part, we are going to practice creating functions.</p>
 <section id="part-1a-exponential-transformation" class="level3">
 <h3 class="anchored" data-anchor-id="part-1a-exponential-transformation">Part 1A: Exponential transformation</h3>
-<p>The exponential of a number can be written as an infinite series expansion of the form</p>
-<p><span class="math display">\[
-\exp(x) = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots
-\]</span></p>
-<p>Of course, we cannot compute an infinite series by the end of this term and so we must truncate it at a certain point in the series. The truncated sum of terms represents an approximation to the true exponential, but the approximation may be usable.</p>
+<p>The exponential of a number can be written as an infinite series expansion of the form $$ (x) = 1 + x + + + </p>
+<p>$$ Of course, we cannot compute an infinite series by the end of this term and so we must truncate it at a certain point in the series. The truncated sum of terms represents an approximation to the true exponential, but the approximation may be usable.</p>
 <p>Write a function that computes the exponential of a number using the truncated series expansion. The function should take two arguments:</p>
 <ul>
 <li><p><code>x</code>: the number to be exponentiated</p></li>
@@ -346,13 +343,11 @@ Note
 <section id="part-1b-sample-mean-and-sample-standard-deviation" class="level3">
 <h3 class="anchored" data-anchor-id="part-1b-sample-mean-and-sample-standard-deviation">Part 1B: Sample mean and sample standard deviation</h3>
 <p>Next, write two functions called <code>sample_mean()</code> and <code>sample_sd()</code> that takes as input a vector of data of length <span class="math inline">\(N\)</span> and calculates the sample average and sample standard deviation for the set of <span class="math inline">\(N\)</span> observations.</p>
-<p><span class="math display">\[
-\bar{x} = \frac{1}{N} \sum_{i=1}^n x_i
-\]</span></p>
-<p><span class="math display">\[
-s = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
-\]</span></p>
-<p>Include at least one example of output using your functions.</p>
+<p>$$</p>
+<p>{x} = _{i=1}^n x_i</p>
+<p><span class="math display">\[ \]</span></p>
+<p>s = </p>
+<p>$$ Include at least one example of output using your functions.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -386,9 +381,9 @@ Note
 <li><p>There should be two inputs to the <code>calculate_CI()</code>. First, it should take as input a vector of data of length <span class="math inline">\(N\)</span>. Second, the function should also have a <code>conf</code> (<span class="math inline">\(=1-\alpha\)</span>) argument that allows the confidence interval to be adapted for different <span class="math inline">\(\alpha\)</span>.</p></li>
 <li><p>Calculates a confidence interval (CI) (e.g.&nbsp;a 95% CI) for the estimate of the mean in the population. If you are not familiar with confidence intervals, it is an interval that contains the population parameter with probability <span class="math inline">\(1-\alpha\)</span> taking on this form</p></li>
 </ol>
-<p><span class="math display">\[
-\bar{x} \pm t_{\alpha/2, N-1} s_{\bar{x}}
-\]</span></p>
+<p>$$</p>
+<p>{x} t_{/2, N-1} s_{{x}}</p>
+<p>$$</p>
 <p>where <span class="math inline">\(t_{\alpha/2, N-1}\)</span> is the value needed to generate an area of <span class="math inline">\(\alpha / 2\)</span> in each tail of the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(N-1\)</span> degrees of freedom and <span class="math inline">\(s_{\bar{x}} = \frac{s}{\sqrt{N}}\)</span> is the standard error of the mean. For example, if we pick a 95% confidence interval and <span class="math inline">\(N\)</span>=50, then you can calculate <span class="math inline">\(t_{\alpha/2, N-1}\)</span> as</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span></span>
