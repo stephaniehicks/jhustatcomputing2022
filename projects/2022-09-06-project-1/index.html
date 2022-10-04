@@ -446,9 +446,9 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <pre><code># A tibble: 3 × 1
        x
    &lt;dbl&gt;
-1  0.598
-2  0.450
-3 -0.524</code></pre>
+1  0.691
+2  0.285
+3 -0.892</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a new column that indicates whether the value of 'x' is positive or negative</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
@@ -458,18 +458,18 @@ $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.2
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 100 × 2
-         x is_positive
-     &lt;dbl&gt; &lt;chr&gt;      
- 1  0.598  Yes        
- 2  0.450  Yes        
- 3 -0.524  No         
- 4  0.900  Yes        
- 5 -1.83   No         
- 6 -1.04   No         
- 7  0.199  Yes        
- 8  1.03   Yes        
- 9 -0.354  No         
-10  0.0216 Yes        
+        x is_positive
+    &lt;dbl&gt; &lt;chr&gt;      
+ 1  0.691 Yes        
+ 2  0.285 Yes        
+ 3 -0.892 No         
+ 4 -0.722 No         
+ 5 -1.73  No         
+ 6  0.767 Yes        
+ 7  2.18  Yes        
+ 8  0.756 Yes        
+ 9  2.02  Yes        
+10 -1.11  No         
 # … with 90 more rows</code></pre>
 </div>
 </div>
