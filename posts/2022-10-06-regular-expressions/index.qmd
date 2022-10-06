@@ -22,16 +22,15 @@ categories: [module 5, week 6, tidyverse, R, programming, strings and regex]
 
 **Before class, you can prepare by reading the following materials:**
 
-1. <https://r4ds.had.co.nz/strings>
+1.  <https://r4ds.had.co.nz/strings>
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
-- <https://rdpeng.github.io/Biostat776/lecture-regular-expressions>
-- <https://r4ds.had.co.nz/strings>
-
+-   <https://rdpeng.github.io/Biostat776/lecture-regular-expressions>
+-   <https://r4ds.had.co.nz/strings>
 
 # Learning objectives
 
@@ -40,57 +39,62 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Understand what is a regular expression and how to create one
-- Learn the basics of searching for patterns in character strings in base R and the `stringr` R package in the `tidyverse`
-- Use the built in character sets to search for patterns in strings including `"\n"`, `"\t"`, `"\w"`, `"\d"`, and `"\s"`
-
+-   Understand what is a 'regular expression' and how to create one
+-   Learn the basics of searching for patterns in character strings in base R and the `stringr` R package in the `tidyverse`
+-   Use the built in character sets to search for patterns in strings including `"\n"`, `"\t"`, `"\w"`, `"\d"`, and `"\s"`
 :::
 
 # Introduction
 
-
 ## regex basics
 
-Now that we have covered the basics of string manipulation in R, let's discuss
-the more advanced topic of regular expressions. 
-
 A **regular expression** (also known as a "regex" or "regexp") is a concise language for describing patterns in character strings. 
-For example, a regex are patterns that could be contained within another string. 
-A  regular expression can be used for e.g. 
 
-- searching for a pattern or string within another string (e.g searching for the string "a" in the string "Maryland")
-- replacing one part of a string with another string (e.g replacing the string "t" with "p" in the string "hot" where you are changing the string "hot" to "hop")
+Regex could be **patterns that could be contained within another string**. 
 
-If you have never worked with regular expressions, it can seem like maybe a baby hit the keys on your keyboard (complete gibberish), but it will slowly make sense once you learn the syntax. Soon you will be able create incredibly powerful regular expressions in your day-to-day work. 
+:::{.callout-tip}
 
-## string basics 
+### Example
 
-In R, you can create (character) strings with either single quotes (`'hello!'`) or double quotes (`"hello!"`) -- no difference (not true for other languages). 
+For example, if we wanted to search for the pattern "ai" in the character string "The rain in Spain", we see it appears twice! 
 
-I recommend using the double quotes, unless you want to create a string with multiple `"`. 
+"The r**ai**n in Sp**ai**n"
+
+:::
+
+Generally, a regular expression can be used for e.g.
+
+-   **searching for a pattern or string** within another string (e.g searching for the string "a" in the string "Maryland")
+-   **replacing one part of a string** with another string (e.g replacing the string "t" with "p" in the string "hot" where you are changing the string "hot" to "hop")
+
+If you have never worked with regular expressions, it can seem like maybe a baby hit the keys on your keyboard (complete gibberish), but it will slowly make sense once you learn the syntax. 
+
+Soon you will **be able create incredibly powerful regular expressions** in your day-to-day work.
+
+## string basics
+
+In R, you can **create (character) strings** with either single quotes (`'hello!'`) or double quotes (`"hello!"`) -- no difference (not true for other languages!).
+
+I **recommend using the double quotes**, unless you want to create a string with multiple `"`.
 
 ```{r}
 string1 <- "This is a string"
 string2 <- 'If I want to include a "quote" inside a string, I use single quotes'
 ```
 
-:::{.callout-tip}
-
+::: callout-tip
 ### Pro-tip
 
-strings can be tricky when executing them. 
-If you forget to close a quote, you'll see `+`
+Strings can be tricky when executing them. If you forget to close a quote, you'll see `+`
 
-```{r}
-#| eval: false
+```r
 > "This is a string without a closing quote
 + 
 + 
 + HELP I'M STUCK
 ```
 
-If this happen to you, press Escape and try again
-
+If this happen to you, take a deep breath, press `Escape` and try again.
 :::
 
 Multiple strings are often stored in a character vector, which you can create with `c()`:
@@ -99,15 +103,16 @@ Multiple strings are often stored in a character vector, which you can create wi
 c("one", "two", "three")
 ```
 
-# `grepl()` 
+# `grepl()`
 
-One of the most basic functions in R that uses regular expressions is the
-`grepl(pattern, x)` function, which takes two arguments: a regular expression (`pattern`) and a string to be searched (`x`). 
+One of the **most basic functions in R that uses regular expressions** is the `grepl(pattern, x)` function, which takes **two arguments** and **returns a logical**: 
 
-It literally translates to "grep logical". 
+1. A regular expression (`pattern`)
+2. A string to be searched (`x`)
 
-If the string (`x`) contains the specified regular expression (`pattern`),
-then `grepl()` will return `TRUE`, otherwise it will return `FALSE`. 
+In case you are curious, "grepl" literally translates to "grep logical".
+
+If the string (`x`) contains the specified regular expression (`pattern`), then `grepl()` will return `TRUE`, otherwise it will return `FALSE`.
 
 Let's take a look at one example:
 
@@ -115,28 +120,22 @@ Let's take a look at one example:
 regular_expression <- "a"
 string_to_search <- "Maryland"
 
-grepl(regular_expression, string_to_search)
+grepl(pattern = regular_expression, x = string_to_search)
 ```
 
+In the example above, we specify the regular expression `"a"` and store it in a variable called `regular_expression`.
 
-In the example above, we specify the regular expression `"a"` and store it in a
-variable called `regular_expression`. 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Note
 
 **Remember** that regular expressions are just strings!
-
 :::
 
-We also store the string `"Maryland"` in a variable called 
-`string_to_search`. The regular expression `"a"` represents a single occurrence
-of the character `"a"`. Since `"a"` is contained within `"Maryland"`, `grepl()`
-returns the value `TRUE`. 
+We also store the string `"Maryland"` in a variable called `string_to_search`. 
 
-:::{.callout-tip}
+The regular expression `"a"` represents a single occurrence of the character `"a"`. Since `"a"` is contained within `"Maryland"`, `grepl()` returns the value `TRUE`.
 
+::: callout-tip
 ### Example
 
 Let's try another simple example:
@@ -145,17 +144,13 @@ Let's try another simple example:
 regular_expression <- "u"
 string_to_search <- "Maryland"
 
-grepl(regular_expression, string_to_search)
+grepl(pattern = regular_expression, x = string_to_search)
 ```
 
-The regular expression `"u"` represents a single occurrence of the character
-`"u"`, which is not a sub-string of `"Maryland"`, therefore `grepl()` returns
-the value `FALSE`.
-
+The regular expression `"u"` represents a single occurrence of the character `"u"`, which is not a sub-string of `"Maryland"`, therefore `grepl()` returns the value `FALSE`.
 :::
 
-Regular expressions can be much longer than single characters. 
-You could for example search for smaller strings inside of a larger string:
+Regular expressions can be much longer than single characters. You could for example search for smaller strings inside of a larger string:
 
 ```{r}
 grepl("land", "Maryland")
@@ -164,12 +159,12 @@ grepl("Marly", "Maryland")
 grepl("dany", "Maryland")
 ```
 
-Since `"land"` and `"ryla"` are sub-strings of `"Maryland"`, `grepl()` returns
-`TRUE`, however when a regular expression like `"Marly"` or `"dany"` is searched
-`grepl()` returns `FALSE` because neither are sub-strings of `"Maryland"`.
+Since `"land"` and `"ryla"` are sub-strings of `"Maryland"`, `grepl()` returns `TRUE`, however when a regular expression like `"Marly"` or `"dany"` is searched `grepl()` returns `FALSE` because neither are sub-strings of `"Maryland"`.
 
-There is a dataset that comes with R called `state.name` which is a vector of
-strings, one for each state in the United States of America. 
+::: callout-tip
+### Introduce the US states dataset `state.name`
+
+There is a dataset that comes with R called `state.name` which is a vector of strings, one for each state in the United States of America.
 
 We are going to use this vector in several of the following examples.
 
@@ -177,21 +172,21 @@ We are going to use this vector in several of the following examples.
 head(state.name)
 length(state.name)
 ```
+:::
 
-Let's build a regular expression for identifying several strings in this vector,
-specifically a regular expression that will match names of states that both
-start and end with a vowel. 
+Next, we will build a **regular expression for identifying several strings in this vector** of character strings, specifically a regular expression that will match names of states that both start and end with a vowel.
 
-The state name could start and end with any vowel,
-so we will not be able to match exact sub-strings like in the previous examples.
-Thankfully we can use **metacharacters** to look for vowels and other parts of
-strings. 
+The state name could start and end with any vowel, so we will not be able to match exact sub-strings like in the previous examples. Thankfully we can use **metacharacters** to look for vowels and other parts of strings.
 
 ## metacharacters
 
-The first metacharacter that we will discuss is `"."`. 
+The first metacharacter that we will discuss is `"."`.
 
-The metacharacter that only consists of a period **represents any character other than a new line** (we will discuss new lines soon). 
+The metacharacter that only consists of a period **represents any character other than a new line** (we will discuss new lines soon).
+
+::: callout-tip
+
+### Example
 
 Let's take a look at some examples using the period regex:
 
@@ -200,32 +195,38 @@ grepl(".", "Maryland")
 grepl(".", "*&2[0+,%<@#~|}")
 grepl(".", "")
 ```
+:::
 
-As you can see the period metacharacter is very liberal. This metacharacter is
-most useful when you do not care about a set of characters in a regular
-expression. 
+As you can see the **period metacharacter is very liberal**. 
 
-For example:
+This metacharacter is **most useful when you do not care about a set of characters** in a regular expression.
+
+
+::: callout-tip
+
+### Example
+
+Here is another example
 
 ```{r}
 grepl("a.b", c("aaa", "aab", "abb", "acadb"))
 ```
 
-In the case above, `grepl()` returns `TRUE` for all strings that contain an `a`
-followed by any other character followed by a `b`.
+In the case above, `grepl()` returns `TRUE` for all strings that contain an `a` followed by any other character followed by a `b`.
 
+:::
 
-## repetition  
+## repetition
 
-You can specify a regular expression that contains a certain number of
-characters or metacharacters using the enumeration metacharacters (or sometimes 
-called **quantifiers**). 
+You can specify a regular expression that **contains a certain number of characters or metacharacters** using the **enumeration metacharacters** (or sometimes called **quantifiers**).
 
-- `+`: indicates that one or more of the preceding expression 
-should be present (or matches at least 1 time)
-- `*`: indicates that zero or more of the preceding expression is
-present (or matches at least 0 times)
-- `?`: indicates that zero or 1 of the preceding expression is not present or present at most 1 time (or matches between 0 and 1 times)
+-   `+`: indicates that **one or more of the preceding expression** should be present (or matches at least 1 time)
+-   `*`: indicates that **zero or more of the preceding expression** is present (or matches at least 0 times)
+-   `?`: indicates that **zero or 1 of the preceding expression is not present or present at most 1 time** (or matches between 0 and 1 times)
+
+::: callout-tip
+
+### Example
 
 Let's take a look at some examples using these metacharacters:
 
@@ -239,17 +240,44 @@ grepl("x+", "Maryland")
 # Does "Maryland" contain zero or more of "x" ?
 grepl("x*", "Maryland")
 ```
+:::
 
-You can also specify exact numbers of expressions using curly brackets `{}`.
+If you want to do more than one character, you need to wrap it in `()`. 
 
-- `{n}`: exactly n
-- `{n,}`: n or more
-- `{,m}`: at most m
-- `{n,m}`: between n and m
+```{r}
+# Does "Maryland" contain zero or more of "x" ?
+grepl("(xx)*", "Maryland")
+```
 
-For example `"a{5}"` specifies "a exactly five times", `"a{2,5}"` specifies
-"a between 2 and 5 times," and `"a{2,}"` specifies "a at least 2 times." Let's
-take a look at some examples:
+
+
+::: callout-note
+
+### Question
+
+Let's practice a few out together. Make the following regular expressions for the character string "spooky halloween spooky halloween spooky": 
+
+1. Does "zz" appear 1 or more times? 
+2. Does "ee" appear 1 or more times? 
+3. Does "oo" appear 0 or more times?
+4. Does "ii" appear 0 or more times?
+
+```{r}
+## try it out
+
+```
+
+:::
+
+
+You can also **specify exact numbers of expressions** using curly brackets `{}`.
+
+-   `{n}`: exactly n
+-   `{n,}`: n or more
+-   `{,m}`: at most m
+-   `{n,m}`: between n and m
+
+For example `"a{5}"` specifies "a exactly five times", `"a{2,5}"` specifies "a between 2 and 5 times," and `"a{2,}"` specifies "a at least 2 times." Let's take a look at some examples:
 
 ```{r}
 # Does "Mississippi" contain exactly 2 adjacent "s" ?
@@ -275,41 +303,53 @@ grepl("(ss){2}", "Mississippi")
 grepl("(i.{2}){3}", "Mississippi")
 ```
 
-## capture group 
 
-In the last three examples, I used parentheses `()` to create a **capturing group**.
-A capturing group allows you to use quantifiers on other regular expressions.
+::: callout-note
 
-In the last example, I first created the regex `"i.{2}"` which matches `i`
-followed by any two characters ("iss" or "ipp"). Then, I used a capture group to
-to wrap that regex, and to specify exactly three adjacent occurrences of
-that regex.
+### Question
 
-You can specify **sets of characters** (or character sets or character classes) 
-with regular expressions, some of which come built in, but you can build 
-your own character sets too. 
+Let's practice a few out together. Make the following regular expressions for the character string "spookyspookyhalloweenspookyspookyhalloween": 
+
+1. Search for "spooky" exactly 2 times. What about 3 times?
+2. Search for "spooky" exactly 2 times followed by any character of length 9 (i.e. "halloween").
+3. Same search as above, but search for that twice in a row. 
+4. Same search as above, but search for that three times in a row. 
+
+```{r}
+## try it out
+
+```
+
+:::
+
+
+## capture group
+
+In the examples above, I used parentheses `()` to create a **capturing group**. A capturing group allows you to use quantifiers on other regular expressions.
+
+In the "Mississippi" example, I first created the regex `"i.{2}"` which matches `i` followed by any two characters ("iss" or "ipp"). Then, I used a capture group to wrap that regex, and to specify exactly three adjacent occurrences of that regex.
+
+You can specify **sets of characters** (or character sets or character classes) with regular expressions, some of which come built in, but you can build your own **character sets** too.
+
+More on character sets next.
 
 ## character sets
 
-First, we will discuss the built in character sets: 
+First, we will discuss the built in character sets:
 
-- words (`"\\w"`) = Words specify any letter, digit, or a underscore. 
-- digits (`"\\d"`) = Digits specify the digits 0 through 9
-- whitespace characters (`"\\s"`) = whitespace specifies line breaks, tabs, or
-spaces
+-   words (`"\\w"`) = Words specify any letter, digit, or a underscore.
+-   digits (`"\\d"`) = Digits specify the digits 0 through 9
+-   whitespace characters (`"\\s"`) = whitespace specifies line breaks, tabs, or spaces
 
-Each of these character sets have their own compliments: 
+Each of these character sets have their own compliments:
 
-- not words (`"\\W"`)
-- not digits (`"\\D"`) 
-- not whitespace characters (`"\\S"`)
+-   not words (`"\\W"`)
+-   not digits (`"\\D"`)
+-   not whitespace characters (`"\\S"`)
 
-Each specifies all of the characters not included in their corresponding character
-sets. 
+Each specifies all of the characters not included in their corresponding character sets.
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Interesting fact
 
 Technically, you are using the a character set `"\d"` or `"\s"` (with only one black slash), but because you are using this character set in a string, you need the second `\` to escape the string. So you will type `"\\d"` or `"\\s"`.
@@ -325,12 +365,9 @@ single_quote
 ```
 
 That means if you want to include a literal backslash, you will need to double it up: `"\\"`.
-
 :::
 
-In fact, putting two backslashes before any punctuation mark that is also a metacharacter indicates that you are looking for the symbol and not the metacharacter meaning.
-For example `"\\."` indicates you are trying to match a period in a string.
-Let's take a look at a few examples:
+In fact, putting two backslashes before any punctuation mark that is also a metacharacter indicates that you are looking for the symbol and not the metacharacter meaning. For example `"\\."` indicates you are trying to match a period in a string. Let's take a look at a few examples:
 
 ```{r}
 grepl("\\+", "tragedy + time = humor")
@@ -338,9 +375,7 @@ grepl("\\+", "tragedy + time = humor")
 grepl("\\.", "https://publichealth.jhu.edu")
 ```
 
-
-:::{.callout-tip}
-
+::: callout-tip
 ### Beware
 
 The printed representation of a string is not the same as string itself, because the printed representation shows the escapes. To see the raw contents of the string, use `writeLines()`:
@@ -352,7 +387,7 @@ x
 writeLines(x)
 ```
 
-There are a handful of other special characters. The most common are "\n", newline, and "\t", tab, but you can see the complete list by requesting help on ": ?'"', or ?"'". 
+There are a handful of other special characters. The most common are "\n", newline, and "\t", tab, but you can see the complete list by requesting help on": ?'"', or ?"'".
 
 ```{r}
 #| eval: false
@@ -367,7 +402,6 @@ x
 
 writeLines(x)
 ```
-
 :::
 
 Let's take a look at a few examples of built in character sets: `"\w"`, `"\d"`, `"\s"`.
@@ -388,29 +422,23 @@ grepl("\\D", "abcdefghijklmnopqrstuvwxyz")
 grepl("\\w", "\n\t   ")
 ```
 
-## brackets 
+## brackets
 
-You can also specify specific character sets using straight brackets `[]`. For
-example a character set of just the vowels would look like: `"[aeiou]"`. 
+You can also specify specific character sets using straight brackets `[]`. For example a character set of just the vowels would look like: `"[aeiou]"`.
 
 ```{r}
 grepl("[aeiou]", "rhythms")
 ```
 
-You can find the complement to a specific character by putting a carrot `^` after the
-first bracket. For example `"[^aeiou]"` matches all characters except the
-lowercase vowels.
+You can find the complement to a specific character by putting a carrot `^` after the first bracket. For example `"[^aeiou]"` matches all characters except the lowercase vowels.
 
 ```{r}
 grepl("[^aeiou]", "rhythms")
 ```
 
-## ranges 
+## ranges
 
-You can also specify ranges of characters using a hyphen `-`
-inside of the brackets. For example `"[a-m]"` matches all of the lowercase
-characters between `a` and `m`, while `"[5-8]"` matches any digit between 5 and
-8 inclusive. Let's take a look at some examples using custom character sets:
+You can also specify ranges of characters using a hyphen `-` inside of the brackets. For example `"[a-m]"` matches all of the lowercase characters between `a` and `m`, while `"[5-8]"` matches any digit between 5 and 8 inclusive. Let's take a look at some examples using custom character sets:
 
 ```{r}
 grepl("[a-m]", "xyz")
@@ -422,8 +450,7 @@ grepl("[a-mA-M]", "ABC")
 
 ## beginning and end
 
-There are also metacharacters for matching the beginning and the end of a string
-which are `"^"` and `"$"` respectively. Let's take a look at a few examples:
+There are also metacharacters for matching the beginning and the end of a string which are `"^"` and `"$"` respectively. Let's take a look at a few examples:
 
 ```{r}
 grepl("^a", c("bab", "aab"))
@@ -435,9 +462,7 @@ grepl("^[ab]*$", c("bab", "aab", "abc"))
 
 ## OR metacharacter
 
-The last metacharacter we will discuss is the OR metacharacter (`"|"`). The OR
-metacharacter matches either the regex on the left or the regex on the right
-side of this character. A few examples:
+The last metacharacter we will discuss is the OR metacharacter (`"|"`). The OR metacharacter matches either the regex on the left or the regex on the right side of this character. A few examples:
 
 ```{r}
 grepl("a|b", c("abc", "bcd", "cde"))
@@ -445,16 +470,15 @@ grepl("a|b", c("abc", "bcd", "cde"))
 grepl("North|South", c("South Dakota", "North Carolina", "West Virginia"))
 ```
 
-Finally, we have learned enough to create a regular expression that matches all
-state names that both begin and end with a vowel: 
+Finally, we have learned enough to create a regular expression that matches all state names that both begin and end with a vowel:
 
-1. We match the beginning of a string.
-2. We create a character set of just capitalized vowels.
-3. We specify one instance of that set.
-4. Then any number of characters until:
-5. A character set of just lowercase vowels.
-6. We specify one instance of that set.
-7. We match the end of a string.
+1.  We match the beginning of a string.
+2.  We create a character set of just capitalized vowels.
+3.  We specify one instance of that set.
+4.  Then any number of characters until:
+5.  A character set of just lowercase vowels.
+6.  We specify one instance of that set.
+7.  We match the end of a string.
 
 ```{r}
 start_end_vowel <- "^[AEIOU]{1}.+[aeiou]{1}$"
@@ -490,8 +514,7 @@ kable(mc_tibl, align = "c")
 
 # Other regex in base R
 
-So far we've been using `grepl()` to see if a regex matches a string. There are
-a few other built in regex functions you should be aware of. 
+So far we've been using `grepl()` to see if a regex matches a string. There are a few other built in regex functions you should be aware of.
 
 First, we will review our workhorse of this lesson, `grepl()`, which stands for "grep logical."
 
@@ -501,26 +524,23 @@ grepl("[Ii]", c("Hawaii", "Illinois", "Kentucky"))
 
 ## `grep()`
 
-Then, there is old fashioned `grep(pattern, x)`, which returns the indices of the vector
-that match the regex:
+Then, there is old fashioned `grep(pattern, x)`, which returns the indices of the vector that match the regex:
 
 ```{r}
 grep("[Ii]", c("Hawaii", "Illinois", "Kentucky"))
 ```
 
-## `sub()` 
+## `sub()`
 
-The `sub(pattern, replacement, x)` function takes as arguments a regex, a "replacement," and a vector of strings. 
-This function will replace the first instance of that regex found in each string.
+The `sub(pattern, replacement, x)` function takes as arguments a regex, a "replacement," and a vector of strings. This function will replace the first instance of that regex found in each string.
 
 ```{r}
 sub("[Ii]", "1", c("Hawaii", "Illinois", "Kentucky"))
 ```
 
-## `gsub()` 
+## `gsub()`
 
-The `gsub(pattern, replacement, x)` function is nearly the same as `sub()`
-except it will replace every instance of the regex that is matched in each string.
+The `gsub(pattern, replacement, x)` function is nearly the same as `sub()` except it will replace every instance of the regex that is matched in each string.
 
 ```{r}
 gsub("[Ii]", "1", c("Hawaii", "Illinois", "Kentucky"))
@@ -528,9 +548,7 @@ gsub("[Ii]", "1", c("Hawaii", "Illinois", "Kentucky"))
 
 ## `strsplit()`
 
-The `strsplit(x, split)` function will split up strings (`split`) according to the provided regex (`x`) .
-If `strsplit()` is provided with a vector of strings it will return a list of
-string vectors.
+The `strsplit(x, split)` function will split up strings (`split`) according to the provided regex (`x`) . If `strsplit()` is provided with a vector of strings it will return a list of string vectors.
 
 ```{r}
 two_s <- state.name[grep("ss", state.name)]
@@ -541,13 +559,7 @@ strsplit(two_s, "ss")
 
 # The stringr package
 
-The [`stringr`](https://github.com/hadley/stringr)
-package, written by [Hadley Wickham](http://hadley.nz/), is part of
-the [Tidyverse](https://twitter.com/hadleywickham/status/751805589425000450)
-group of R packages. This package takes a "data first" approach to functions
-involving regex, so usually the string is the first argument and the regex is
-the second argument. The majority of the function names in `stringr` begin with
-`str_*()`.
+The [`stringr`](https://github.com/hadley/stringr) package, written by [Hadley Wickham](http://hadley.nz/), is part of the [Tidyverse](https://twitter.com/hadleywickham/status/751805589425000450) group of R packages. This package takes a "data first" approach to functions involving regex, so usually the string is the first argument and the regex is the second argument. The majority of the function names in `stringr` begin with `str_*()`.
 
 ```{r}
 #| echo: false
@@ -557,10 +569,9 @@ the second argument. The majority of the function names in `stringr` begin with
 knitr::include_graphics("https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/strings-cheatsheet-thumbs.png")
 ```
 
-[**Source**: https://stringr.tidyverse.org]
+\[**Source**: https://stringr.tidyverse.org\]
 
-
-The `str_extract(string, pattern)` function returns the sub-string of a string (`string`) that matches the provided regular expression (`pattern`). 
+The `str_extract(string, pattern)` function returns the sub-string of a string (`string`) that matches the provided regular expression (`pattern`).
 
 ```{r}
 library(stringr)
@@ -569,8 +580,7 @@ head(state_tbl)
 str_extract(state_tbl, "[0-9]+")
 ```
 
-The `str_order(x)` function returns a numeric vector that corresponds to the
-alphabetical order of the strings in the provided vector (`x`).
+The `str_order(x)` function returns a numeric vector that corresponds to the alphabetical order of the strings in the provided vector (`x`).
 
 ```{r}
 head(state.name)
@@ -580,8 +590,7 @@ head(state.abb)
 str_order(state.abb)
 ```
 
-The `str_pad(string, width, side, pad)` function pads strings (`string`) with other characters, which is often
-useful when the string is going to be eventually printed for a person to read.
+The `str_pad(string, width, side, pad)` function pads strings (`string`) with other characters, which is often useful when the string is going to be eventually printed for a person to read.
 
 ```{r}
 str_pad("Thai", width = 8, side = "left", pad = "-")
@@ -589,8 +598,7 @@ str_pad("Thai", width = 8, side = "right", pad = "-")
 str_pad("Thai", width = 8, side = "both", pad = "-")
 ```
 
-The `str_to_title(string)` function acts just like `tolower()` and `toupper()` except
-it puts strings into Title Case.
+The `str_to_title(string)` function acts just like `tolower()` and `toupper()` except it puts strings into Title Case.
 
 ```{r}
 cases <- c("CAPS", "low", "Title")
@@ -604,8 +612,7 @@ to_trim <- c("   space", "the    ", "    final frontier  ")
 str_trim(to_trim)
 ```
 
-The `str_wrap(string)` function inserts newlines in strings so that when the string
-is printed each line's length is limited.
+The `str_wrap(string)` function inserts newlines in strings so that when the string is printed each line's length is limited.
 
 ```{r}
 pasted_states <- paste(state.name[1:20], collapse = " ")
@@ -614,8 +621,7 @@ cat(str_wrap(pasted_states, width = 80))
 cat(str_wrap(pasted_states, width = 30))
 ```
 
-The `word()` function allows you to index each word in a string as if it were
-a vector.
+The `word()` function allows you to index each word in a string as if it were a vector.
 
 ```{r}
 a_tale <- "It was the best of times it was the worst of times it was the age of wisdom it was the age of foolishness"
@@ -627,7 +633,6 @@ word(a_tale, end = 3)
 word(a_tale, start = 11, end = 15)
 ```
 
-
 # Post-lecture materials
 
 ### Final Questions
@@ -637,37 +642,32 @@ Here are some post-lecture questions to help you think about the material discus
 ::: callout-note
 ### Questions
 
-There is a corpus of common words here: 
+There is a corpus of common words here:
 
 ```{r}
 head(stringr::words)
 length(stringr::words)
 ```
 
-
 1.  Using `stringr::words`, create regular expressions that find all words that:
 
-- Start with “y”.
-- End with “x”
-- Are exactly three letters long. (Don’t cheat by using str_length()!)
-- Have seven letters or more.
+-   Start with "y".
+-   End with "x"
+-   Are exactly three letters long. (Don't cheat by using str_length()!)
+-   Have seven letters or more.
 
-2. Using the same `stringr::words`, create regular expressions to find all words that:
+2.  Using the same `stringr::words`, create regular expressions to find all words that:
 
-- Start with a vowel.
-- That only contain consonants. (Hint: thinking about matching “not”-vowels.)
-- End with `ed`, but not with `eed`.
-- End with `ing` or `ise`.
-
+-   Start with a vowel.
+-   That only contain consonants. (Hint: thinking about matching "not"-vowels.)
+-   End with `ed`, but not with `eed`.
+-   End with `ing` or `ise`.
 :::
 
 ### Additional Resources
 
 ::: callout-tip
-
-- <https://stringr.tidyverse.org>
-- <https://rdpeng.github.io/Biostat776/lecture-regular-expressions>
-- <https://r4ds.had.co.nz/strings>
-
+-   <https://stringr.tidyverse.org>
+-   <https://rdpeng.github.io/Biostat776/lecture-regular-expressions>
+-   <https://r4ds.had.co.nz/strings>
 :::
-
