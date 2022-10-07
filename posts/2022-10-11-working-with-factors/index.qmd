@@ -5,7 +5,7 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Using factors to work with categorial variables"
+description: "An introduction to working categorial variables using factors in R"
 date: 2022-10-11
 categories: [module 5, week 7, tidyverse, factors, categorial variables]
 ---
@@ -20,6 +20,8 @@ categories: [module 5, week 7, tidyverse, factors, categorial variables]
 **Before class, you can prepare by reading the following materials:**
 
 1.  [Wrangling Categorical Data in R](https://peerj.com/preprints/3163) by Amelia McNamara, Nicholas J Horton
+2. <https://swcarpentry.github.io/r-novice-inflammation/12-supp-factors>
+3. <https://forcats.tidyverse.org>
 :::
 
 ### Acknowledgements
@@ -27,7 +29,8 @@ categories: [module 5, week 7, tidyverse, factors, categorial variables]
 Material for this lecture was borrowed and adopted from
 
 - [Wrangling Categorical Data in R](https://peerj.com/preprints/3163) by Amelia McNamara, Nicholas J Horton
--   <https://r4ds.had.co.nz/factors>
+- <https://r4ds.had.co.nz/factors>
+
 
 # Learning objectives
 
@@ -45,7 +48,7 @@ Material for this lecture was borrowed and adopted from
 
 **Factors** are used for working with **categorical variables**, or variables that have a fixed and known set of possible values (income bracket, U.S. state, political affiliation).
 
-Factors are **useful when**
+Factors are **useful when**:
 
 - You want to **include categorical variables in regression models**
 - You want to **plot categorical data** (e.g. want to map categorical
@@ -59,7 +62,7 @@ variables to aesthetic attributes)
 Imagine that you have a variable that records month:
 
 ```{r}
-x1 <- c("Dec", "Apr", "Jan", "Mar")
+x <- c("Dec", "Apr", "Jan", "Mar")
 ```
 
 Using a string to record this variable has two problems:
@@ -67,13 +70,13 @@ Using a string to record this variable has two problems:
 1. There are only twelve possible months, and there's nothing saving you from typos:
 
 ```{r}
-x2 <- c("Dec", "Apr", "Jam", "Mar")
+x_typo <- c("Dec", "Apr", "Jam", "Mar")
 ```
 
 2. It doesn't sort in a useful way:
 
 ```{r}
-sort(x1)
+sort(x)
 ```
 
 :::
@@ -91,36 +94,57 @@ month_levels <- c(
 )
 ```
 
-Now you can create a factor:
+Now we can create a factor with the `factor()` function defining the `levels` argument:
 
 ```{r}
-y1 <- factor(x1, levels = month_levels)
-y1
-sort(y1)
-attributes(y1)
+y <- factor(x, levels = month_levels)
+y
 ```
 
-And any values not in the level will be silently converted to NA:
+We can see what happens if we try to **sort the factor**: 
 
 ```{r}
-y2 <- factor(x2, levels = month_levels)
-y2
+sort(y)
+```
+
+We can also check the **attributes of the factor**: 
+
+```{r}
+attributes(y)
 ```
 
 If you want to access the set of levels directly, you can do so with `levels()`:
 
 ```{r}
-levels(y2)
+levels(y)
 ```
+
+
+:::{.callout-tip}
+
+### Note
+
+Any values not in the level will be silently converted to NA:
+
+```{r}
+y_typo <- factor(x_typo, levels = month_levels)
+y_typo
+```
+
+:::
 
 
 ## Challenges working with categorical data
 
-Working with categorical data can often be challenging. For example,
+Working with categorical data can really helpful in many situations, but it also be challenging. 
 
-1. What if the original data source for where the categorical data is getting ingested changes? If a domain expert is providing spreadsheet data at regular intervals, code that worked on the initial data may not generate an error message, but could silently produce incorrect results.
-2. What if a new level of a categorical  data is added in an updated dataset? 
-3. If the categorical data coded with numerical values, it can be easy to break the relationship between category numbers and category labels without realizing it, thus losing the information encoded in a variable. 
+For example,
+
+1. What if the original data source for where the categorical data is getting ingested changes? 
+    - If a domain expert is providing spreadsheet data at regular intervals, code that worked on the initial data may not generate an error message, but could silently produce incorrect results.
+2. What if a new level of a categorical data is added in an updated dataset? 
+3. When categorical data are coded with numerical values, it can be easy to break the relationship between category numbers and category labels without realizing it, thus losing the information encoded in a variable. 
+    - Let's consider an example of this below. 
 
 :::{.callout-tip}
 
@@ -132,7 +156,7 @@ Consider a set of decades,
 #| message: false
 library(tidyverse)
 
-x1_original <- c(10, 10, 20, 20, 40)
+x1_original <- c(10, 10, 10, 50, 60, 20, 20, 40)
 x1_factor <- factor(x1_original)
 attributes(x1_factor)
 
@@ -140,12 +164,11 @@ tibble(x1_original, x1_factor) %>%
   mutate(x1_numeric = as.numeric(x1_factor))
 ```
 
-Instead of creating a new variable with a numeric version of the value of the factor variable `x1_factor`, the variable is created with a factor number (i.e., 10 is mapped to 1, 20 is mapped
-to 2, and 40 is mapped to 3). 
+Instead of creating a new variable with a numeric version of the value of the factor variable `x1_factor`, the **variable loses the original numerical categories** and **creates a factor number** (i.e., 10 is mapped to 1, 20 is mapped to 2, and 40 is mapped to 3, etc). 
 
 :::
 
-This result is unexpected because `base::as.numeric()` is intended to recover numeric information by coercing a character variable.
+This **result is unexpected** because `base::as.numeric()` is intended to recover numeric information by coercing a character variable.
 
 
 :::{.callout-tip}
@@ -160,7 +183,9 @@ as.numeric(c("hello"))
 as.numeric(factor(c("hello")))
 ```
 
-In the first example, R does not how to convert the character string to a numeric, but in the second example, it creates factor numbers and orders them according to an alphabetical order: 
+In the first example, R does not how to convert the character string to a numeric, so it returns a `NA`.
+
+In the second example, it creates factor numbers and orders them according to an alphabetical order. Here is another example of this behavior: 
 
 ```{r}
 #| warning: true
@@ -169,9 +194,9 @@ as.numeric(factor(c("hello", "goodbye")))
 
 :::
 
-This behavior of the `factor()` function feels unexpected. 
+This behavior of the `factor()` function feels unexpected at best. 
 
-Another example is how the function will silently make a missing value because the values in the data and the levels do not match.
+Another example of **unexpected behavior** is how the function will **silently make a missing value** because the values in the data and the levels do not match.
 
 ```{r}
 factor("a", levels="c")
@@ -184,8 +209,10 @@ to add `options(stringAsFactors=FALSE)` into their start up commands.)
 
 ## Factors when modeling data 
 
-Factors are still necessary for some data analytic tasks. The most salient
-case is in modeling.
+So if factors are so troublesome, what's the point of them in the first place? 
+
+Factors are **still necessary for some data analytic tasks**. The most salient
+case is in **statistical modeling**.
 
 When you pass a factor variable into `lm()` or `glm()`, R automatically creates indicator (or more colloquially ‘dummy’) variables for each of the levels and picks one as a reference group.
 
@@ -204,39 +231,45 @@ income_level <- c(rep("low",10),
 income_level
 ```
 
-Here, it might make sense to use the lowest income level (low) as the reference class so that all the other coefficients can be interpreted in comparison to it. 
+Here, it **might make sense to use the lowest income level (low) as the reference** class so that all the other coefficients can be interpreted in comparison to it. 
 
-However, R would use high as the reference by default because ‘h’ comes before ‘l’ in the alphabet.
+However, R would use **high as the reference** by default because ‘h’ comes before ‘l’ in the alphabet.
 
 ```{r}
 x <- factor(income_level)
 x
 
-y <- rnorm(30)
+y <- rnorm(30) # generate some random obs from a normal dist
 lm(y ~ x)
 ```
 :::
 
 
 
-## Factors are more memory-efficient than character strings
+## Memory req for factors and character strings
 
 Consider a large character string such as `income_level` corresponding to a categorical variable. 
 
 ```{r}
-library(pryr)
 income_level <- c(rep("low",10000), 
                   rep("medium",10000), 
                   rep("high",10000))
-
-object_size(income_level) # computes the size of the character string
-object_size(factor(income_level)) # computes the size of the factor
 ```
 
 In early versions of R, storing categorical data as a factor variable was considerably more efficient than storing the same data as strings, because factor variables only store the factor labels once. 
 
 However, R now uses a global string pool, so each unique string is only stored once, which means storage is now less of an issue. 
 
+```{r}
+format(object.size(income_level), units="Kb") # size of the character string
+format(object.size(factor(income_level)), units="Kb") # size of the factor
+```
+
+## Summary
+
+Factors can be really useful in many data analytic tasks, but the base R functions to work with factors can lead to some unexpected behavior that can catch new R users. 
+
+Let's introduce a package to make wrangling factors easier. 
 
 # `forcats`
 
@@ -251,9 +284,11 @@ It provides tools for dealing with **cat**egorical variables (and it's an anagra
 
 ## General Social Survey
 
-For the rest of this chapter, we're going to use the `forcats::gss_cat` dataset.
+For the rest of this lecture, we are going to use the `gss_cat` dataset that is installed when you load `forcats`.
+
 It's a sample of data from the [General Social Survey](https://gss.norc.org), a long-running US survey conducted by the independent research organization NORC at the University of Chicago.
-The survey has thousands of questions, so in `gss_cat`. 
+
+The **survey has thousands of questions**, so in `gss_cat`. 
 
 I have selected a handful that will illustrate some common challenges you will encounter when working with factors.
 
@@ -261,9 +296,15 @@ I have selected a handful that will illustrate some common challenges you will e
 gss_cat
 ```
 
-(Remember, since this dataset is provided by a package, you can get more information about the variables with `?gss_cat`.)
+:::{.callout-tip}
 
-When factors are stored in a tibble, you cannot see their levels so easily.
+### Pro-tip
+
+Since this dataset is provided by a package, you can get more information about the variables with `?gss_cat`.
+
+:::
+
+When factors are stored in a `tibble`, you cannot see their levels so easily.
 One way to view them is with `count()`:
 
 ```{r}
@@ -271,18 +312,30 @@ gss_cat %>%
   count(race)
 ```
 
-Or with a bar chart:
+Or with a bar chart using the `geom_bar()` geom:
 
 ```{r}
 #| fig-alt: > 
 #|   A bar chart showing the distribution of race. There are ~2000
 #|   records with race "Other", 3000 with race "Black", and other
 #|   15,000 with race "White".
-ggplot(gss_cat, aes(race)) +
-  geom_bar()
+gss_cat %>% 
+  ggplot(aes(x=race)) +
+    geom_bar()
 ```
 
-When working with factors, the two most common operations are changing the order of the levels, and changing the values of the levels.
+:::{.callout-tip}
+
+### Important 
+
+When **working with factors**, the **two most common operations** are 
+
+1. Changing the **order** of the levels
+2. Changing the **values** of the levels
+
+
+:::
+
 Those operations are described in the sections below.
 
 
@@ -290,7 +343,20 @@ Those operations are described in the sections below.
 
 It's often useful to **change the order of the factor levels** in a visualization.
 
-For example, imagine you want to explore the average number of hours spent watching TV per day across religions:
+Let's explore the `relig` (religion) factor: 
+
+```{r}
+gss_cat %>% 
+  count(relig)
+```
+We see there are 15 categories in the `gss_cat` dataset. 
+
+```{r}
+attributes(gss_cat$relig)
+```
+The first level is "No answer" followed by "Don't know", and so on. 
+
+Imagine you want to explore the average number of hours spent watching TV (`tvhours`) per day across religions (`relig`):
 
 ```{r}
 #| fig-alt: >
@@ -299,22 +365,26 @@ For example, imagine you want to explore the average number of hours spent watch
 #|   any sense of overall pattern.
 relig_summary <- gss_cat %>% 
   group_by(relig) %>% 
-  summarise(age = mean(age, na.rm = TRUE),
-            tvhours = mean(tvhours, na.rm = TRUE),
+  summarise(tvhours = mean(tvhours, na.rm = TRUE),
             n = n())
 
-ggplot(relig_summary, aes(tvhours, relig)) + 
+relig_summary %>% 
+  ggplot(aes(x = tvhours, y = relig)) + 
   geom_point()
 ```
 
-It is hard to read this plot because there's no overall pattern.
+The y-axis lists the levels of the `relig` factor in the order of the levels.
+
+However, it is **hard to read this plot** because **there's no overall pattern**.
+
+### `fct_reorder`
 
 We can improve it by **reordering the levels** of `relig` using `fct_reorder()`.
-`fct_reorder(f, x, fun)` takes three arguments:
+`fct_reorder(.f, .x, .fun)` takes three arguments:
 
--   `f`, the factor whose levels you want to modify.
--   `x`, a numeric vector that you want to use to reorder the levels.
--   Optionally, `fun`, a function that's used if there are multiple values of `x` for each value of `f`. The default value is `median`.
+-   `.f`, the factor whose levels you want to modify.
+-   `.x`, a numeric vector that you want to use to reorder the levels.
+-   Optionally, `.fun`, a function that's used if there are multiple values of `x` for each value of `f`. The default value is `median`.
 
 ```{r}
 #| fig-alt: >
@@ -322,23 +392,34 @@ We can improve it by **reordering the levels** of `relig` using `fct_reorder()`.
 #|   increasing order of tvhours. "Other eastern" has the fewest tvhours
 #|   under 2, and "Don't know" has the highest (over 5).
 relig_summary %>% 
-  ggplot(aes(tvhours, fct_reorder(relig, tvhours))) +
+  ggplot(aes(x = tvhours, 
+             y = fct_reorder(.f = relig, .x = tvhours))) +
     geom_point()
 ```
 
-Reordering religion makes it much easier to see that people in the "Don't know" category watch much more TV, and Hinduism & Other Eastern religions watch much less.
+**Reordering** religion makes it **much easier to see** that people in the "Don't know" category watch much more TV, and Hinduism & Other Eastern religions watch much less.
 
-As you start making more complicated transformations, we recommend moving them out of `aes()` and into a separate `mutate()` step.
-For example, you could rewrite the plot above as:
+As you start making more complicated transformations, I recommend moving them out of `aes()` and into a separate `mutate()` step.
+
+:::{.callout-tip}
+
+### Example
+
+You could rewrite the plot above as:
 
 ```{r}
-#| eval: false
-
 relig_summary %>% 
   mutate(relig = fct_reorder(relig, tvhours)) %>% 
-  ggplot(aes(tvhours, relig)) +
+  ggplot(aes(x = tvhours, y = relig)) +
     geom_point()
 ```
+
+:::
+
+
+:::{.callout-tip}
+
+### Another example
 
 What if we create a similar plot looking at how average age varies across reported income level?
 
@@ -352,18 +433,27 @@ rincome_summary <-
   gss_cat %>% 
   group_by(rincome) %>% 
   summarise(age = mean(age, na.rm = TRUE),
-            tvhours = mean(tvhours, na.rm = TRUE),
             n = n())
 
 rincome_summary %>% 
-  ggplot(aes(age, fct_reorder(rincome, age))) + 
+  ggplot(aes(x = age, y = fct_reorder(.f = rincome, .x = age))) + 
     geom_point()
 ```
 
 Here, arbitrarily reordering the levels isn't a good idea!
 That's because `rincome` already has a principled order that we shouldn't mess with.
 
+:::
+
+:::{.callout-tip}
+
+### Pro-tip
+
 Reserve `fct_reorder()` for factors whose levels are arbitrarily ordered.
+
+:::
+
+### `fct_relevel`
 
 However, it does make sense to pull "Not applicable" to the front with the other special levels.
 
@@ -587,6 +677,8 @@ Here are some post-lecture questions to help you think about the material discus
 
 - <https://r4ds.had.co.nz/factors>
 - [Wrangling Categorical Data in R](https://peerj.com/preprints/3163) by Amelia McNamara, Nicholas J Horton
+- <https://swcarpentry.github.io/r-novice-inflammation/12-supp-factors>
+- <https://forcats.tidyverse.org>
 
 :::
 
