@@ -280,6 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#fct_recode" id="toc-fct_recode" class="nav-link" data-scroll-target="#fct_recode"><code>fct_recode</code></a></li>
   <li><a href="#fct_collapse" id="toc-fct_collapse" class="nav-link" data-scroll-target="#fct_collapse"><code>fct_collapse</code></a></li>
+  <li><a href="#fct_lump_" id="toc-fct_lump_" class="nav-link" data-scroll-target="#fct_lump_"><code>fct_lump_*</code></a></li>
   </ul></li>
   <li><a href="#ordered-factors" id="toc-ordered-factors" class="nav-link" data-scroll-target="#ordered-factors">Ordered factors</a></li>
   </ul></li>
@@ -465,12 +466,12 @@ Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</code></pre>
 <p>Working with categorical data can really helpful in many situations, but it also be challenging.</p>
 <p>For example,</p>
 <ol type="1">
-<li>What if the original data source for where the categorical data is getting ingested changes?
+<li>What if the <strong>original data source</strong> for where the categorical data is getting ingested <strong>changes</strong>?
 <ul>
 <li>If a domain expert is providing spreadsheet data at regular intervals, code that worked on the initial data may not generate an error message, but could silently produce incorrect results.</li>
 </ul></li>
-<li>What if a new level of a categorical data is added in an updated dataset?</li>
-<li>When categorical data are coded with numerical values, it can be easy to break the relationship between category numbers and category labels without realizing it, thus losing the information encoded in a variable.
+<li>What if a <strong>new level</strong> of a categorical data is added in an updated dataset?</li>
+<li>When categorical data are coded with numerical values, it can be easy to <strong>break the relationship between category numbers and category labels</strong> without realizing it, thus losing the information encoded in a variable.
 <ul>
 <li>Let’s consider an example of this below.</li>
 </ul></li>
@@ -570,7 +571,8 @@ Levels: c</code></pre>
 <p>So if factors are so troublesome, what’s the point of them in the first place?</p>
 <p>Factors are <strong>still necessary for some data analytic tasks</strong>. The most salient case is in <strong>statistical modeling</strong>.</p>
 <p>When you pass a factor variable into <code>lm()</code> or <code>glm()</code>, R automatically creates indicator (or more colloquially ‘dummy’) variables for each of the levels and picks one as a reference group.</p>
-<p>For simple cases, this behavior can also be achieved with a character vector. However, to choose which level to use as a reference level or to order classes, factors must be used.</p>
+<p>For simple cases, this behavior can also be <strong>achieved with a character vector</strong>.</p>
+<p>However, to choose <strong>which level to use as a reference level</strong> or to order classes, factors must be used.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -614,7 +616,7 @@ lm(formula = y ~ x)
 
 Coefficients:
 (Intercept)         xlow      xmedium  
-     0.3308      -0.3126      -0.4193  </code></pre>
+     0.3642      -0.4855      -0.4795  </code></pre>
 </div>
 </div>
 </div>
@@ -878,6 +880,48 @@ Pro-tip
 <p>Reserve <code>fct_reorder()</code> for factors whose levels are arbitrarily ordered.</p>
 </div>
 </div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s practice <code>fct_reorder()</code>. Using the <code>palmerpenguins</code> dataset,</p>
+<ol type="1">
+<li>Calculate the average <code>bill_length_mm</code> for each species</li>
+<li>Create a scatter plot showing the average for each species.<br>
+</li>
+<li>Go back and reorder the factor <code>species</code> based on the average bill length from largest to smallest.</li>
+<li>Now order it from smallest to largest</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>penguins </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
+#   ²​body_mass_g</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Try it out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="fct_relevel" class="level3">
 <h3 class="anchored" data-anchor-id="fct_relevel"><code>fct_relevel</code></h3>
@@ -885,38 +929,50 @@ Pro-tip
 <p>You can use <code>fct_relevel()</code>.</p>
 <p>It takes a factor, <code>f</code>, and then any number of levels that you want to move to the front of the line.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>rincome_summary <span class="sc">%&gt;%</span> </span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, <span class="fu">fct_relevel</span>(rincome, <span class="st">"Not applicable"</span>))) <span class="sc">+</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>rincome_summary <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, <span class="fu">fct_relevel</span>(rincome, <span class="st">"Not applicable"</span>))) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" alt="The same scatterplot but now &quot;Not Applicable&quot; is displayed at the bottom of the y-axis. Generally there is a positive association between income and age, and the income band with the highest average age is &quot;Not applicable&quot;." width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" alt="The same scatterplot but now &quot;Not Applicable&quot; is displayed at the bottom of the y-axis. Generally there is a positive association between income and age, and the income band with the highest average age is &quot;Not applicable&quot;." width="672"></p>
 </div>
 </div>
-<p>Why do you think the average age for “Not applicable” is so high?</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Any levels not mentioned in <code>fct_relevel</code> will be left in their existing order.</p>
+</div>
+</div>
 <p>Another type of reordering is useful when you are coloring the lines on a plot. <code>fct_reorder2(f, x, y)</code> reorders the factor <code>f</code> by the <code>y</code> values associated with the largest <code>x</code> values.</p>
 <p>This makes the plot easier to read because the colors of the line at the far right of the plot will line up with the legend.</p>
 <div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>by_age <span class="ot">&lt;-</span> </span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age, marital) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>by_age <span class="sc">%&gt;%</span> </span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, prop, <span class="at">colour =</span> marital)) <span class="sc">+</span></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>by_age <span class="sc">%&gt;%</span> </span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, prop, <span class="at">colour =</span> <span class="fu">fct_reorder2</span>(marital, age, prop))) <span class="sc">+</span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"marital"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>by_age <span class="ot">&lt;-</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age, marital) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>by_age <span class="sc">%&gt;%</span> </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, prop, <span class="at">colour =</span> marital)) <span class="sc">+</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>by_age <span class="sc">%&gt;%</span> </span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, prop, <span class="at">colour =</span> <span class="fu">fct_reorder2</span>(marital, age, prop))) <span class="sc">+</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"marital"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" alt="A line plot with age on the x-axis and proportion on the y-axis. There is one line for each category of marital status: no answer, never married, separated, divorced, widowed, and married. It is a little hard to read the plot because the order of the legend is unrelated to the lines on the plot. " width="384"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" alt="A line plot with age on the x-axis and proportion on the y-axis. There is one line for each category of marital status: no answer, never married, separated, divorced, widowed, and married. It is a little hard to read the plot because the order of the legend is unrelated to the lines on the plot. " width="384"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-29-2.png" class="img-fluid" alt="Rearranging the legend makes the plot easier to read because the legend colours now match the order of the lines on the far right of the plot. You can see some unsuprising patterns: the proportion never marred decreases with age, married forms an upside down U shape, and widowed starts off low but increases steeply after age 60." width="384"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-30-2.png" class="img-fluid" alt="Rearranging the legend makes the plot easier to read because the legend colours now match the order of the lines on the far right of the plot. You can see some unsuprising patterns: the proportion never marred decreases with age, married forms an upside down U shape, and widowed starts off low but increases steeply after age 60." width="384"></p>
 </div>
 </div>
 </div>
@@ -926,12 +982,12 @@ Pro-tip
 <h3 class="anchored" data-anchor-id="fct_infreq"><code>fct_infreq</code></h3>
 <p>Finally, for bar plots, you can use <code>fct_infreq()</code> to order levels in decreasing frequency: this is the simplest type of reordering because it doesn’t need any extra variables. Combine it with <code>fct_rev()</code> if you want them in increasing frequency so that in the bar plot largest values are on the right, not the left.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">marital =</span> marital <span class="sc">%&gt;%</span> <span class="fu">fct_infreq</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>()) <span class="sc">%&gt;%</span>  </span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(marital)) <span class="sc">+</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">marital =</span> marital <span class="sc">%&gt;%</span> <span class="fu">fct_infreq</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>()) <span class="sc">%&gt;%</span>  </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(marital)) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" alt="A bar char of marital status ordered in from least to most common: no answer (~0), separated (~1,000), widowed (~2,000), divorced (~3,000), never married (~5,000), married (~10,000)." width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" alt="A bar char of marital status ordered in from least to most common: no answer (~0), separated (~1,000), widowed (~2,000), divorced (~3,000), never married (~5,000), married (~10,000)." width="672"></p>
 </div>
 </div>
 </section>
@@ -943,8 +999,8 @@ Pro-tip
 <h3 class="anchored" data-anchor-id="fct_recode"><code>fct_recode</code></h3>
 <p>The most general and powerful tool is <code>fct_recode()</code>. It allows you to recode, or change, the value of each level. For example, take the <code>gss_cat$partyid</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    partyid                n
@@ -961,17 +1017,23 @@ Pro-tip
 10 Strong democrat     3490</code></pre>
 </div>
 </div>
-<p>The levels are terse and inconsistent. Let’s tweak them to be longer and use a parallel construction. Like most rename and recoding functions in the tidyverse, the new values go on the left and the old values go on the right:</p>
+<p>The <strong>levels are terse and inconsistent</strong>.</p>
+<p>Let’s tweak them to be longer and use a parallel construction.</p>
+<p>Like most rename and recoding functions in the tidyverse:</p>
+<ul>
+<li>the <strong>new values go on the left</strong></li>
+<li>the <strong>old values go on the right</strong></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, strong"</span>    <span class="ot">=</span> <span class="st">"Strong republican"</span>,</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, weak"</span>      <span class="ot">=</span> <span class="st">"Not str republican"</span>,</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near rep"</span> <span class="ot">=</span> <span class="st">"Ind,near rep"</span>,</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near dem"</span> <span class="ot">=</span> <span class="st">"Ind,near dem"</span>,</span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, weak"</span>        <span class="ot">=</span> <span class="st">"Not str democrat"</span>,</span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, strong"</span>      <span class="ot">=</span> <span class="st">"Strong democrat"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, strong"</span>    <span class="ot">=</span> <span class="st">"Strong republican"</span>,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, weak"</span>      <span class="ot">=</span> <span class="st">"Not str republican"</span>,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near rep"</span> <span class="ot">=</span> <span class="st">"Ind,near rep"</span>,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near dem"</span> <span class="ot">=</span> <span class="st">"Ind,near dem"</span>,</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, weak"</span>        <span class="ot">=</span> <span class="st">"Not str democrat"</span>,</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, strong"</span>      <span class="ot">=</span> <span class="st">"Strong democrat"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    partyid                   n
@@ -988,21 +1050,33 @@ Pro-tip
 10 Democrat, strong       3490</code></pre>
 </div>
 </div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><code>fct_recode()</code> will leave the levels that aren’t explicitly mentioned as is, and will warn you if you accidentally refer to a level that doesn’t exist.</p>
+</div>
+</div>
 <p>To combine groups, you can assign multiple old levels to the same new level:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, strong"</span>    <span class="ot">=</span> <span class="st">"Strong republican"</span>,</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, weak"</span>      <span class="ot">=</span> <span class="st">"Not str republican"</span>,</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near rep"</span> <span class="ot">=</span> <span class="st">"Ind,near rep"</span>,</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near dem"</span> <span class="ot">=</span> <span class="st">"Ind,near dem"</span>,</span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, weak"</span>        <span class="ot">=</span> <span class="st">"Not str democrat"</span>,</span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, strong"</span>      <span class="ot">=</span> <span class="st">"Strong democrat"</span>,</span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"No answer"</span>,</span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"Don't know"</span>,</span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"Other party"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, strong"</span>    <span class="ot">=</span> <span class="st">"Strong republican"</span>,</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, weak"</span>      <span class="ot">=</span> <span class="st">"Not str republican"</span>,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near rep"</span> <span class="ot">=</span> <span class="st">"Ind,near rep"</span>,</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near dem"</span> <span class="ot">=</span> <span class="st">"Ind,near dem"</span>,</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, weak"</span>        <span class="ot">=</span> <span class="st">"Not str democrat"</span>,</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, strong"</span>      <span class="ot">=</span> <span class="st">"Strong democrat"</span>,</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"No answer"</span>,</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"Don't know"</span>,</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"Other party"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 2
   partyid                   n
@@ -1021,15 +1095,16 @@ Pro-tip
 </section>
 <section id="fct_collapse" class="level3">
 <h3 class="anchored" data-anchor-id="fct_collapse"><code>fct_collapse</code></h3>
-<p>If you want to collapse a lot of levels, <code>fct_collapse()</code> is a useful variant of <code>fct_recode()</code>. For each new variable, you can provide a vector of old levels:</p>
+<p>If you want to collapse a lot of levels, <code>fct_collapse()</code> is a useful variant of <code>fct_recode()</code>.</p>
+<p>For <strong>each new variable</strong>, you can <strong>provide a vector of old levels</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_collapse</span>(partyid,</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"other"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Other party"</span>),</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"rep"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Strong republican"</span>, <span class="st">"Not str republican"</span>),</span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ind"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ind,near rep"</span>, <span class="st">"Independent"</span>, <span class="st">"Ind,near dem"</span>),</span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dem"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Not str democrat"</span>, <span class="st">"Strong democrat"</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_collapse</span>(partyid,</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"other"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Other party"</span>),</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"rep"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Strong republican"</span>, <span class="st">"Not str republican"</span>),</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ind"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ind,near rep"</span>, <span class="st">"Independent"</span>, <span class="st">"Ind,near dem"</span>),</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dem"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Not str democrat"</span>, <span class="st">"Strong democrat"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   partyid     n
@@ -1040,12 +1115,16 @@ Pro-tip
 4 dem      7180</code></pre>
 </div>
 </div>
-<p>Sometimes you just want to lump together the small groups to make a plot or table simpler.</p>
-<p>That’s the job of the <code>fct_lump_*()</code> family of functions. <code>fct_lump_lowfreq()</code> is a simple starting point that progressively lumps the smallest groups categories into “Other”, always keeping “Other” as the smallest category.</p>
+</section>
+<section id="fct_lump_" class="level3">
+<h3 class="anchored" data-anchor-id="fct_lump_"><code>fct_lump_*</code></h3>
+<p>Sometimes you <strong>just want to lump together the small groups</strong> to make a plot or table simpler.</p>
+<p>That’s the <strong>job of the <code>fct_lump_*()</code> family of functions</strong>.</p>
+<p><code>fct_lump_lowfreq()</code> is a simple starting point that progressively lumps the smallest groups categories into “Other”, always keeping “Other” as the smallest category.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_lump_lowfreq</span>(relig)) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_lump_lowfreq</span>(relig)) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   relig          n
@@ -1054,12 +1133,13 @@ Pro-tip
 2 Other      10637</code></pre>
 </div>
 </div>
-<p>In this case it’s not very helpful: it is true that the majority of Americans in this survey are Protestant, but we’d probably like to see some more details! Instead, we can use the <code>fct_lump_n()</code> to specify that we want exactly 10 groups:</p>
+<p>In this case it’s not very helpful: it is true that the majority of Americans in this survey are Protestant, but we’d probably like to see some more details!</p>
+<p>Instead, we can use the <code>fct_lump_n()</code> to <strong>specify that we want exactly 10 groups</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_lump_n</span>(relig, <span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(relig, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_lump_n</span>(relig, <span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(relig, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    relig                       n
@@ -1081,12 +1161,12 @@ Pro-tip
 </section>
 <section id="ordered-factors" class="level2">
 <h2 class="anchored" data-anchor-id="ordered-factors">Ordered factors</h2>
-<p>There’s a special type of factor that needs to be mentioned briefly: ordered factors.</p>
+<p>There’s a <strong>special type of factor</strong> that needs to be mentioned briefly: ordered factors.</p>
 <p><strong>Ordered factors</strong>, created with <code>ordered()</code>, imply a strict ordering and equal distance between levels:</p>
-<p>the first level is “less than” the second level by the same amount that the second level is “less than” the third level, and so on…</p>
+<p>The <strong>first level</strong> is “less than” the <strong>second level</strong> by the same amount that the second level is “less than” the <strong>third level</strong>, and so on…</p>
 <p>You can recognize them when printing because they use <code>&lt;</code> between the factor levels:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordered</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordered</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] a b c
 Levels: a &lt; b &lt; c</code></pre>
