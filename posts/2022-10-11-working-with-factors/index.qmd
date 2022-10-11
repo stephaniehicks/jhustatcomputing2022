@@ -140,10 +140,10 @@ Working with categorical data can really helpful in many situations, but it also
 
 For example,
 
-1. What if the original data source for where the categorical data is getting ingested changes? 
+1. What if the **original data source** for where the categorical data is getting ingested **changes**? 
     - If a domain expert is providing spreadsheet data at regular intervals, code that worked on the initial data may not generate an error message, but could silently produce incorrect results.
-2. What if a new level of a categorical data is added in an updated dataset? 
-3. When categorical data are coded with numerical values, it can be easy to break the relationship between category numbers and category labels without realizing it, thus losing the information encoded in a variable. 
+2. What if a **new level** of a categorical data is added in an updated dataset? 
+3. When categorical data are coded with numerical values, it can be easy to **break the relationship between category numbers and category labels** without realizing it, thus losing the information encoded in a variable. 
     - Let's consider an example of this below. 
 
 :::{.callout-tip}
@@ -216,7 +216,9 @@ case is in **statistical modeling**.
 
 When you pass a factor variable into `lm()` or `glm()`, R automatically creates indicator (or more colloquially ‘dummy’) variables for each of the levels and picks one as a reference group.
 
-For simple cases, this behavior can also be achieved with a character vector. However, to choose which level to use as a reference level or to order classes, factors must be used. 
+For simple cases, this behavior can also be **achieved with a character vector**. 
+
+However, to choose **which level to use as a reference level** or to order classes, factors must be used. 
 
 :::{.callout-tip}
 
@@ -454,6 +456,28 @@ Reserve `fct_reorder()` for factors whose levels are arbitrarily ordered.
 :::
 
 
+:::{.callout-note}
+
+### Question
+
+Let's practice `fct_reorder()`. Using the `palmerpenguins` dataset, 
+
+1. Calculate the average `bill_length_mm` for each species
+2. Create a scatter plot showing the average for each species.   
+3. Go back and reorder the factor `species` based on the average bill length from largest to smallest. 
+4. Now order it from smallest to largest
+
+```{r}
+library(palmerpenguins)
+penguins 
+
+## Try it out
+
+```
+
+
+:::
+
 ### `fct_relevel`
 
 However, it does make sense to pull "Not applicable" to the front with the other special levels.
@@ -473,7 +497,15 @@ rincome_summary %>%
     geom_point()
 ```
 
-Why do you think the average age for "Not applicable" is so high?
+
+:::{.callout-tip}
+
+### Note 
+
+Any levels not mentioned in `fct_relevel` will be left in their existing order.
+
+:::
+
 
 Another type of reordering is useful when you are coloring the lines on a plot.
 `fct_reorder2(f, x, y)` reorders the factor `f` by the `y` values associated with the largest `x` values.
@@ -547,9 +579,14 @@ gss_cat %>%
   count(partyid)
 ```
 
-The levels are terse and inconsistent.
+The **levels are terse and inconsistent**.
+
 Let's tweak them to be longer and use a parallel construction.
-Like most rename and recoding functions in the tidyverse, the new values go on the left and the old values go on the right:
+
+Like most rename and recoding functions in the tidyverse: 
+
+- the **new values go on the left**
+- the **old values go on the right**
 
 ```{r}
 gss_cat %>% 
@@ -563,7 +600,14 @@ gss_cat %>%
   count(partyid)
 ```
 
+
+:::{.callout-tip}
+
+### Note 
+
 `fct_recode()` will leave the levels that aren't explicitly mentioned as is, and will warn you if you accidentally refer to a level that doesn't exist.
+
+:::
 
 To combine groups, you can assign multiple old levels to the same new level:
 
@@ -587,7 +631,8 @@ Use this technique with care: if you group together categories that are truly di
 ### `fct_collapse`
 
 If you want to collapse a lot of levels, `fct_collapse()` is a useful variant of `fct_recode()`.
-For each new variable, you can provide a vector of old levels:
+
+For **each new variable**, you can **provide a vector of old levels**:
 
 ```{r}
 gss_cat %>% 
@@ -599,9 +644,13 @@ gss_cat %>%
   count(partyid)
 ```
 
-Sometimes you just want to lump together the small groups to make a plot or table simpler.
 
-That's the job of the `fct_lump_*()` family of functions.
+### `fct_lump_*`
+
+Sometimes you **just want to lump together the small groups** to make a plot or table simpler.
+
+That's the **job of the `fct_lump_*()` family of functions**.
+
 `fct_lump_lowfreq()` is a simple starting point that progressively lumps the smallest groups categories into "Other", always keeping "Other" as the smallest category.
 
 ```{r}
@@ -611,7 +660,8 @@ gss_cat %>%
 ```
 
 In this case it's not very helpful: it is true that the majority of Americans in this survey are Protestant, but we'd probably like to see some more details!
-Instead, we can use the `fct_lump_n()` to specify that we want exactly 10 groups:
+
+Instead, we can use the `fct_lump_n()` to **specify that we want exactly 10 groups**:
 
 ```{r}
 gss_cat %>% 
@@ -620,15 +670,16 @@ gss_cat %>%
   print(n = Inf)
 ```
 
+
 Read the documentation to learn about `fct_lump_min()` and `fct_lump_prop()` which are useful in other cases.
 
 ## Ordered factors
 
-There's a special type of factor that needs to be mentioned briefly: ordered factors.
+There's a **special type of factor** that needs to be mentioned briefly: ordered factors.
 
 **Ordered factors**, created with `ordered()`, imply a strict ordering and equal distance between levels: 
 
-the first level is "less than" the second level by the same amount that the second level is "less than" the third level, and so on...
+The **first level** is "less than" the **second level** by the same amount that the second level is "less than" the **third level**, and so on...
 
 You can recognize them when printing because they use `<` between the factor levels:
 
