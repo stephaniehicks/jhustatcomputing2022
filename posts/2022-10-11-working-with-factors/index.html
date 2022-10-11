@@ -274,8 +274,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#fct_reorder" id="toc-fct_reorder" class="nav-link" data-scroll-target="#fct_reorder"><code>fct_reorder</code></a></li>
   <li><a href="#fct_relevel" id="toc-fct_relevel" class="nav-link" data-scroll-target="#fct_relevel"><code>fct_relevel</code></a></li>
+  <li><a href="#fct_infreq" id="toc-fct_infreq" class="nav-link" data-scroll-target="#fct_infreq"><code>fct_infreq</code></a></li>
   </ul></li>
-  <li><a href="#modifying-factor-levels" id="toc-modifying-factor-levels" class="nav-link" data-scroll-target="#modifying-factor-levels">Modifying factor levels</a></li>
+  <li><a href="#modifying-factor-levels" id="toc-modifying-factor-levels" class="nav-link" data-scroll-target="#modifying-factor-levels">Modifying factor levels</a>
+  <ul class="collapse">
+  <li><a href="#fct_recode" id="toc-fct_recode" class="nav-link" data-scroll-target="#fct_recode"><code>fct_recode</code></a></li>
+  <li><a href="#fct_collapse" id="toc-fct_collapse" class="nav-link" data-scroll-target="#fct_collapse"><code>fct_collapse</code></a></li>
+  </ul></li>
   <li><a href="#ordered-factors" id="toc-ordered-factors" class="nav-link" data-scroll-target="#ordered-factors">Ordered factors</a></li>
   </ul></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
@@ -609,7 +614,7 @@ lm(formula = y ~ x)
 
 Coefficients:
 (Intercept)         xlow      xmedium  
-    0.10975     -0.54981      0.07938  </code></pre>
+     0.3308      -0.3126      -0.4193  </code></pre>
 </div>
 </div>
 </div>
@@ -916,6 +921,9 @@ Pro-tip
 </div>
 </div>
 </div>
+</section>
+<section id="fct_infreq" class="level3">
+<h3 class="anchored" data-anchor-id="fct_infreq"><code>fct_infreq</code></h3>
 <p>Finally, for bar plots, you can use <code>fct_infreq()</code> to order levels in decreasing frequency: this is the simplest type of reordering because it doesn’t need any extra variables. Combine it with <code>fct_rev()</code> if you want them in increasing frequency so that in the bar plot largest values are on the right, not the left.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
@@ -931,6 +939,8 @@ Pro-tip
 <section id="modifying-factor-levels" class="level2">
 <h2 class="anchored" data-anchor-id="modifying-factor-levels">Modifying factor levels</h2>
 <p>More powerful than changing the orders of the levels is changing their values. This allows you to clarify labels for publication, and collapse levels for high-level displays.</p>
+<section id="fct_recode" class="level3">
+<h3 class="anchored" data-anchor-id="fct_recode"><code>fct_recode</code></h3>
 <p>The most general and powerful tool is <code>fct_recode()</code>. It allows you to recode, or change, the value of each level. For example, take the <code>gss_cat$partyid</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
@@ -1008,6 +1018,9 @@ Pro-tip
 </div>
 </div>
 <p>Use this technique with care: if you group together categories that are truly different you will end up with misleading results.</p>
+</section>
+<section id="fct_collapse" class="level3">
+<h3 class="anchored" data-anchor-id="fct_collapse"><code>fct_collapse</code></h3>
 <p>If you want to collapse a lot of levels, <code>fct_collapse()</code> is a useful variant of <code>fct_recode()</code>. For each new variable, you can provide a vector of old levels:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">%&gt;%</span> </span>
@@ -1065,9 +1078,13 @@ Pro-tip
 </div>
 <p>Read the documentation to learn about <code>fct_lump_min()</code> and <code>fct_lump_prop()</code> which are useful in other cases.</p>
 </section>
+</section>
 <section id="ordered-factors" class="level2">
 <h2 class="anchored" data-anchor-id="ordered-factors">Ordered factors</h2>
-<p>Before we go on, there’s a special type of factor that needs to be mentioned briefly: ordered factors. Ordered factors, created with <code>ordered()</code>, imply a strict ordering and equal distance between levels: the first level is “less than” the second level by the same amount that the second level is “less than” the third level, and so on.. You can recognize them when printing because they use <code>&lt;</code> between the factor levels:</p>
+<p>There’s a special type of factor that needs to be mentioned briefly: ordered factors.</p>
+<p><strong>Ordered factors</strong>, created with <code>ordered()</code>, imply a strict ordering and equal distance between levels:</p>
+<p>the first level is “less than” the second level by the same amount that the second level is “less than” the third level, and so on…</p>
+<p>You can recognize them when printing because they use <code>&lt;</code> between the factor levels:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordered</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1075,12 +1092,7 @@ Pro-tip
 Levels: a &lt; b &lt; c</code></pre>
 </div>
 </div>
-<p>In practice, <code>ordered()</code> factors behave very similarly to regular factors. There are only two places where you might notice different behavior:</p>
-<ul>
-<li>If you map an ordered factor to color or fill in ggplot2, it will default to <code>scale_color_viridis()</code>/<code>scale_fill_viridis()</code>, a color scale that implies a ranking.</li>
-<li>If you use an ordered function in a linear model, it will use “polygonal contrasts”. These are mildly useful, but you are unlikely to have heard of them unless you have a PhD in Statistics, and even then you probably don’t routinely interpret them. If you want to learn more, we recommend <code>vignette("contrasts", package = "faux")</code> by Lisa DeBruine.</li>
-</ul>
-<p>Given the arguable utility of these differences, we don’t generally recommend using ordered factors.</p>
+<p>However, in practice, <code>ordered()</code> factors <strong>behave very similarly to regular factors</strong>.</p>
 </section>
 </section>
 <section id="post-lecture-materials" class="level1">
