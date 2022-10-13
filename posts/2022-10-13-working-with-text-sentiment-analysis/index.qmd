@@ -251,6 +251,31 @@ peng_preface_df %>%
   head()
 ```
 
+:::{.callout-note}
+
+### Question
+
+Let's tokenize the first four sentences of [Amanda Gorman's *The Hill We Climb*](https://www.nytimes.com/2021/01/19/books/amanda-gorman-inauguration-hill-we-climb.html) by words. 
+
+```{r}
+gorman_hill_we_climb <- 
+  c("When day comes we ask ourselves, where can we find light in this neverending shade?",
+    "The loss we carry, a sea we must wade.", 
+    "We’ve braved the belly of the beast, we’ve learned that quiet isn’t always peace and the norms and notions of what just is, isn’t always justice.",
+    "And yet the dawn is ours before we knew it, somehow we do it, somehow we’ve weathered and witnessed a nation that isn’t broken but simply unfinished.")
+
+hill_df <- tibble(line=seq_along(gorman_hill_we_climb), 
+                  text=gorman_hill_we_climb)
+hill_df 
+
+### try it out
+
+
+```
+
+
+:::
+
 # Example: text from works of Jane Austen
 
 We will use the text from six published novels from Jane Austen, which are available in the [`janeaustenr`](https://cran.r-project.org/web/packages/janeaustenr/index.html) R package. The [authors](https://www.tidytextmining.com/tidytext.html#tidyausten) describe the format:
