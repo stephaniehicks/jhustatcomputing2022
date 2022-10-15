@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Stephanie Hicks">
-<meta name="dcterms.date" content="2022-08-30">
-<meta name="description" content="Add title">
+<meta name="dcterms.date" content="2022-10-20">
+<meta name="description" content="Introduction to using Python in R and the reticulate package">
 
-<title>Statistical Computing (BSPH 140.776) - Add title</title>
+<title>Statistical Computing (BSPH 140.776) - Python for R Users</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,6 +23,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,14 +203,18 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Add title</h1>
+      <h1 class="title">Python for R Users</h1>
                   <div>
         <div class="description">
-          Add title
+          Introduction to using Python in R and the reticulate package
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">add here</div>
+                <div class="quarto-category">week 8</div>
+                <div class="quarto-category">module 6</div>
+                <div class="quarto-category">python</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">programming</div>
               </div>
                   </div>
   </div>
@@ -172,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 30, 2022</p>
+        <p class="date">October 20, 2022</p>
       </div>
     </div>
       
@@ -192,12 +259,43 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
-  <li><a href="#add-lecture-here" id="toc-add-lecture-here" class="nav-link" data-scroll-target="#add-lecture-here">Add lecture here</a></li>
+  <li><a href="#python-for-r-users" id="toc-python-for-r-users" class="nav-link" data-scroll-target="#python-for-r-users">Python for R Users</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#install-python" id="toc-install-python" class="nav-link" data-scroll-target="#install-python">Install python</a></li>
+  <li><a href="#install-reticulate" id="toc-install-reticulate" class="nav-link" data-scroll-target="#install-reticulate">Install <code>reticulate</code></a></li>
+  <li><a href="#python-path" id="toc-python-path" class="nav-link" data-scroll-target="#python-path">python path</a></li>
+  <li><a href="#calling-python-in-r" id="toc-calling-python-in-r" class="nav-link" data-scroll-target="#calling-python-in-r">Calling Python in R</a></li>
+  </ul></li>
+  <li><a href="#python-basics" id="toc-python-basics" class="nav-link" data-scroll-target="#python-basics">Python basics</a>
+  <ul class="collapse">
+  <li><a href="#start-python" id="toc-start-python" class="nav-link" data-scroll-target="#start-python">start python</a></li>
+  <li><a href="#r-or-python-via-terminal" id="toc-r-or-python-via-terminal" class="nav-link" data-scroll-target="#r-or-python-via-terminal">R or python via terminal</a></li>
+  <li><a href="#objects-in-python" id="toc-objects-in-python" class="nav-link" data-scroll-target="#objects-in-python">objects in python</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">variables</a></li>
+  <li><a href="#operators" id="toc-operators" class="nav-link" data-scroll-target="#operators">operators</a></li>
+  <li><a href="#format-operators" id="toc-format-operators" class="nav-link" data-scroll-target="#format-operators">format operators</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">functions</a></li>
+  <li><a href="#new-functions" id="toc-new-functions" class="nav-link" data-scroll-target="#new-functions">new functions</a></li>
+  <li><a href="#iteration" id="toc-iteration" class="nav-link" data-scroll-target="#iteration">iteration</a></li>
+  <li><a href="#methods-for-each-type-of-object-dot-notation" id="toc-methods-for-each-type-of-object-dot-notation" class="nav-link" data-scroll-target="#methods-for-each-type-of-object-dot-notation">methods for each type of object (dot notation)</a></li>
+  <li><a href="#data-structures" id="toc-data-structures" class="nav-link" data-scroll-target="#data-structures">Data structures</a></li>
+  </ul></li>
+  <li><a href="#reticulate" id="toc-reticulate" class="nav-link" data-scroll-target="#reticulate"><code>reticulate</code></a>
+  <ul class="collapse">
+  <li><a href="#python-engine-within-r-markdown" id="toc-python-engine-within-r-markdown" class="nav-link" data-scroll-target="#python-engine-within-r-markdown">Python engine within R Markdown</a></li>
+  <li><a href="#from-python-to-r" id="toc-from-python-to-r" class="nav-link" data-scroll-target="#from-python-to-r">From Python to R</a>
+  <ul class="collapse">
+  <li><a href="#from-r-to-python" id="toc-from-r-to-python" class="nav-link" data-scroll-target="#from-r-to-python">From R to Python</a></li>
+  <li><a href="#use-python-to-print-r-dataframe" id="toc-use-python-to-print-r-dataframe" class="nav-link" data-scroll-target="#use-python-to-print-r-dataframe">Use Python to print R dataframe</a></li>
+  </ul></li>
+  <li><a href="#import-python-modules" id="toc-import-python-modules" class="nav-link" data-scroll-target="#import-python-modules">import python modules</a></li>
+  <li><a href="#calling-python-scripts" id="toc-calling-python-scripts" class="nav-link" data-scroll-target="#calling-python-scripts">Calling python scripts</a></li>
+  <li><a href="#calling-the-python-repl" id="toc-calling-the-python-repl" class="nav-link" data-scroll-target="#calling-the-python-repl">Calling the python repl</a></li>
+  </ul></li>
   <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
   <ul class="collapse">
   <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  <li><a href="#rtistry" id="toc-rtistry" class="nav-link" data-scroll-target="#rtistry">rtistry</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -228,8 +326,9 @@ Read ahead
 <div class="callout-body-container callout-body">
 <p><strong>Before class, you can prepare by reading the following materials:</strong></p>
 <ol type="1">
-<li>Add here.</li>
-<li>Add here.</li>
+<li><a href="https://rstudio.github.io/reticulate" class="uri">https://rstudio.github.io/reticulate</a></li>
+<li><a href="https://py-pkgs.org/02-setup" class="uri">https://py-pkgs.org/02-setup</a></li>
+<li><a href="https://docs.python.org/3/tutorial">The Python Tutorial</a></li>
 </ol>
 </div>
 </div>
@@ -238,7 +337,8 @@ Read ahead
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li>Add here.</li>
+<li><a href="https://rstudio.github.io/reticulate" class="uri">https://rstudio.github.io/reticulate</a></li>
+<li><a href="https://github.com/bcaffo/ds4ph-bme/blob/master/python.md" class="uri">https://github.com/bcaffo/ds4ph-bme/blob/master/python.md</a></li>
 </ul>
 </section>
 </section>
@@ -255,14 +355,570 @@ Learning objectives
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>At the end of this lesson you will:</strong></p>
-<ul>
-<li>Add here.</li>
-</ul>
+<ol type="1">
+<li>Install python on your local machine</li>
+<li>Learn about the <code>reticulate</code> package to work interoperability between Python and R</li>
+<li>Be able to translate between R and Python objects</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="add-lecture-here" class="level1">
-<h1>Add lecture here</h1>
+<section id="python-for-r-users" class="level1">
+<h1>Python for R Users</h1>
+<p>As the number of computational and statistical methods for the analysis data continue to increase, you will find many will be implemented in other languages. Often Python is the language of choice. Python is incredibly powerful and I increasingly interact with it on very frequent basis these days. To be able to leverage software tools implemented in Python, today I am giving an overview of using Python from the perspective of an R user.</p>
+<p>Happy coding!</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>For this lecture, we will be using the <a href="https://rstudio.github.io/reticulate"><code>reticulate</code> R package</a>, which provides a set of tools for interoperability between Python and R. The package includes facilities for:</p>
+<ul>
+<li><p>Calling Python from R in a variety of ways including R Markdown, sourcing Python scripts, importing Python modules, and using Python interactively within an R session.</p></li>
+<li><p>Translation between R and Python objects (for example, between R and Pandas data frames, or between R matrices and NumPy arrays).</p></li>
+</ul>
+<p><img src="https://rstudio.github.io/reticulate/images/reticulated_python.png" class="img-fluid" data-preview="TRUE"></p>
+<p>[<strong>Source</strong>: <a href="https://rstudio.github.io/reticulate/index.html">Rstudio</a>]</p>
+</section>
+<section id="install-python" class="level2">
+<h2 class="anchored" data-anchor-id="install-python">Install python</h2>
+<p><strong>Installing python</strong>: If you would like recommendations on installing python, I like this resource: https://py-pkgs.org/02-setup#installing-python or using conda environments with mini-forge!</p>
+<p><strong>What’s happening under the hood?</strong>: <code>reticulate</code> embeds a Python session within your R session, enabling seamless, high-performance interoperability.</p>
+<p>If you are an R developer that uses Python for some of your work or a member of data science team that uses both languages, <code>reticulate</code> can make your life better!</p>
+</section>
+<section id="install-reticulate" class="level2">
+<h2 class="anchored" data-anchor-id="install-reticulate">Install <code>reticulate</code></h2>
+<p>Let’s try it out. Before we get started, you will need to install the packages, if not already:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.package</span>(<span class="st">"reticulate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will also load the <code>here</code> and <code>tidyverse</code> packages for our lesson:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="python-path" class="level2">
+<h2 class="anchored" data-anchor-id="python-path">python path</h2>
+<p>If python is not installed on your computer, you can use the <code>install_python()</code> function from <code>reticulate</code> to install it.</p>
+<ul>
+<li><a href="https://rstudio.github.io/reticulate/reference/install_python" class="uri">https://rstudio.github.io/reticulate/reference/install_python</a></li>
+</ul>
+<p>If python is already installed, by default, <code>reticulate</code> uses the version of Python found on your <code>PATH</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.which</span>(<span class="st">"python3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                            python3 
+"/opt/homebrew/Caskroom/miniforge/base/bin/python3" </code></pre>
+</div>
+</div>
+<p>The <code>use_python()</code> function enables you to specify an alternate version, for example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/usr/&lt;new&gt;/&lt;path&gt;/local/bin/python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For example, I can define the path explicitly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/opt/homebrew/Caskroom/miniforge/base/bin/python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can confirm that <code>reticulate</code> is using the correct version of python that you requested:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">py_discover_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>python:         /opt/homebrew/Caskroom/miniforge/base/bin/python
+libpython:      /opt/homebrew/Caskroom/miniforge/base/lib/libpython3.9.dylib
+pythonhome:     /opt/homebrew/Caskroom/miniforge/base:/opt/homebrew/Caskroom/miniforge/base
+version:        3.9.10 | packaged by conda-forge | (main, Feb  1 2022, 21:27:43)  [Clang 11.1.0 ]
+numpy:          /opt/homebrew/Caskroom/miniforge/base/lib/python3.9/site-packages/numpy
+numpy_version:  1.23.0
+
+NOTE: Python version was forced by RETICULATE_PYTHON</code></pre>
+</div>
+</div>
+</section>
+<section id="calling-python-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="calling-python-in-r">Calling Python in R</h2>
+<p>There are a variety of ways to integrate Python code into your R projects:</p>
+<ol type="1">
+<li><p><strong>Python in R Markdown</strong> — A new Python language engine for R Markdown that supports bi-directional communication between R and Python (R chunks can access Python objects and vice-versa).</p></li>
+<li><p><strong>Importing Python modules</strong> — The <code>import()</code> function enables you to import any Python module and call its functions directly from R.</p></li>
+<li><p><strong>Sourcing Python scripts</strong> — The <code>source_python()</code> function enables you to source a Python script the same way you would <code>source()</code> an R script (Python functions and objects defined within the script become directly available to the R session).</p></li>
+<li><p><strong>Python REPL</strong> — The <code>repl_python()</code> function creates an interactive Python console within R. Objects you create within Python are available to your R session (and vice-versa).</p></li>
+</ol>
+<p>Below I will focus on introducing the first and last one. However, before we do that, let’s introduce a bit about python basics.</p>
+</section>
+</section>
+<section id="python-basics" class="level1">
+<h1>Python basics</h1>
+<p>Python is a <strong>high-level</strong>, <strong>object-oriented programming</strong> language useful to know for anyone analyzing data. The most important thing to know before learning Python, is that in Python, everything is an <strong>object</strong>. There is no compiling and no need to define the type of variables before using them. No need to allocate memory for variables. The code is very easy to learn and easy to read (syntax).</p>
+<p>There is a large scientific community contributing to Python. Some of the most widely used libraries in Python are <code>numpy</code>, <code>scipy</code>, <code>pandas</code>, and <code>matplotlib</code>.</p>
+<section id="start-python" class="level2">
+<h2 class="anchored" data-anchor-id="start-python">start python</h2>
+<p>There are two modes you can write Python code in: <strong>interactive mode</strong> or <strong>script mode</strong>. If you open up a UNIX command window and have a command-line interface, you can simply type <code>python</code> (or <code>python3</code>) in the shell:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and the <strong>interactive mode</strong> will open up. You can write code in the interactive mode and Python will <em>interpret</em> the code using the <strong>python interpreter</strong>.</p>
+<p>Another way to pass code to Python is to store code in a file ending in <code>.py</code>, and execute the file in the <strong>script mode</strong> using</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> myscript.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To check what version of Python you are using, type the following in the shell:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="r-or-python-via-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="r-or-python-via-terminal">R or python via terminal</h2>
+<p>(Demo in class)</p>
+</section>
+<section id="objects-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="objects-in-python">objects in python</h2>
+<p>Everything in Python is an object. Think of an object as a data structure that contains both data as well as functions. These objects can be variables, functions, and modules which are all objects. We can operate on this objects with what are called <strong>operators</strong> (e.g.&nbsp;addition, subtraction, concatenation or other operations), define/apply functions, test/apply for conditionals statements, (e.g.&nbsp;<code>if</code>, <code>else</code> statements) or iterate over the objects.</p>
+<p>Not all objects are required to have <strong>attributes</strong> and <strong>methods</strong> to operate on the objects in Python, but <strong>everything is an object</strong> (i.e.&nbsp;all objects can be assigned to a variable or passed as an argument to a function). A user can work with built-in defined classes of objects or can create new classes of objects. Using these objects, a user can perform operations on the objects by modifying / interacting with them.</p>
+</section>
+<section id="variables" class="level2">
+<h2 class="anchored" data-anchor-id="variables">variables</h2>
+<p>Variable names are case sensitive, can contain numbers and letters, can contain underscores, cannot begin with a number, cannot contain illegal characters and cannot be one of the 31 keywords in Python:</p>
+<blockquote class="blockquote">
+<p>“and, as, assert, break, class, continue, def, del, elif, else, except, exec, finally, for, from, global, if, import, in, is, lambda, not, or, pass, print, raise, return, try, while, with, yield”</p>
+</blockquote>
+</section>
+<section id="operators" class="level2">
+<h2 class="anchored" data-anchor-id="operators">operators</h2>
+<ul>
+<li>Numeric operators are <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>**</code> (exponent), <code>%</code> (modulus if applied to integers)</li>
+<li>String and list operators: <code>+</code> and <code>*</code> .</li>
+<li>Assignment operator: <code>=</code></li>
+<li>The augmented assignment operator <code>+=</code> (or <code>-=</code>) can be used like <code>n += x</code> which is equal to <code>n = n + x</code></li>
+<li>Boolean relational operators: <code>==</code> (equal), <code>!=</code> (not equal), <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> (greater than or equal to), <code>&lt;=</code> (less than or equal to)</li>
+<li>Boolean expressions will produce True or False</li>
+<li>Logical operators: <code>and</code>, <code>or</code>, and <code>not</code>. e.g.&nbsp;<code>x &gt; 1 and x &lt;= 5</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> x <span class="op">&lt;=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True</code></pre>
+</div>
+</div>
+</section>
+<section id="format-operators" class="level2">
+<h2 class="anchored" data-anchor-id="format-operators">format operators</h2>
+<p>If <code>%</code> is applied to strings, this operator is the format operator. It tells Python how to format a list of values in a string. For example,</p>
+<ul>
+<li><code>%d</code> says to format the value as an integer</li>
+<li><code>%g</code> says to format the value as an float</li>
+<li><code>%s</code> says to format the value as an string</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'In </span><span class="sc">%d</span><span class="st"> days, I have eaten </span><span class="sc">%g</span><span class="st"> </span><span class="sc">%s</span><span class="st">.'</span> <span class="op">%</span> (<span class="dv">5</span>, <span class="fl">3.5</span>, <span class="st">'cupcakes'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>In 5 days, I have eaten 3.5 cupcakes.</code></pre>
+</div>
+</div>
+</section>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">functions</h2>
+<p>Python contains a small list of very useful built-in functions. All other functions need defined by the user or need to be imported from modules. For a more detailed list on the built-in functions in Python, see <a href="https://docs.python.org/2/library/functions.html">Built-in Python Functions</a>.</p>
+<p>The first function we will discuss, <code>type()</code>, reports the type of any object, which is very useful when handling multiple data types (remember, everything in Python is an object). Here are some the mains types you will encounter:</p>
+<ul>
+<li>integer (<code>int</code>)</li>
+<li>floating-point (<code>float</code>)</li>
+<li>string (<code>str</code>)</li>
+<li>list (<code>list</code>)</li>
+<li>dictionary (<code>dict</code>)</li>
+<li>tuple (<code>tuple</code>)</li>
+<li>function (<code>function</code>)</li>
+<li>module (<code>module</code>)</li>
+<li>boolean (<code>bool</code>): e.g.&nbsp;True, False</li>
+<li>enumerate (<code>enumerate</code>)</li>
+</ul>
+<p>If we asked for the type of a string “Let’s go Ravens!”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="st">"Let's go Ravens!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'str'&gt;</code></pre>
+</div>
+</div>
+<p>This would return the <code>str</code> type.</p>
+<p>You have also seen how to use the <code>print()</code> function. The function print will accept an argument and print the argument to the screen. Print can be used in two ways:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Let's go Ravens!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Let's go Ravens!"</code></pre>
+</div>
+</div>
+</section>
+<section id="new-functions" class="level2">
+<h2 class="anchored" data-anchor-id="new-functions">new functions</h2>
+<p>New functions can be defined using one of the 31 keywords in Python def.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> new_world(): </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'Hello world!'</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_world())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello world!</code></pre>
+</div>
+</div>
+<p>The first line of the function (the header) must start with <code>def</code>, the name of the function (which can contain underscores), parentheses (with any arguments inside of it) and a colon. The arguments can be specified in any order.</p>
+<p>The rest of the function (the body) always has an indentation of four spaces. If you define a function in the interactive mode, the interpreter will print ellipses (…) to let you know the function is not complete. To complete the function, enter an empty line (not necessary in a script).</p>
+<p>To return a value from a function, use return. The function will immediately terminate and not run any code written past this point.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> squared(x):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Return the square of a  </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">        value """</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(squared(<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>16</code></pre>
+</div>
+</div>
+<div class="keyideas">
+<p><strong>Note</strong>: python has its version of <code>...</code> (also from docs.python.org)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> concat(<span class="op">*</span>args, sep<span class="op">=</span><span class="st">"/"</span>):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> sep.join(args)  </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>concat(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'a/b/c'</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="iteration" class="level2">
+<h2 class="anchored" data-anchor-id="iteration">iteration</h2>
+<p>Iterative loops can be written with the <code>for</code>, <code>while</code> and <code>break</code> statements.</p>
+<p>Defining a <code>for</code> loop is similar to defining a new function. The header ends with a colon and the body is indented. The function <code>range(n)</code> takes in an integer <code>n</code> and creates a set of values from <code>0</code> to <code>n - 1</code>. <code>for</code> loops are not just for counters, but they can iterate through many types of objects such as strings, lists and dictionaries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Baby shark, doo doo doo doo doo doo!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Baby shark, doo doo doo doo doo doo!
+Baby shark, doo doo doo doo doo doo!
+Baby shark, doo doo doo doo doo doo!</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Baby shark!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Baby shark!</code></pre>
+</div>
+</div>
+<p>The function <code>len()</code> can be used to:</p>
+<ul>
+<li>Calculate the length of a string</li>
+<li>Calculate the number of elements in a list</li>
+<li>Calculate the number of items (key-value pairs) in a dictionary</li>
+<li>Calculate the number elements in the tuple</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'Baby shark!'</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>11</code></pre>
+</div>
+</div>
+</section>
+<section id="methods-for-each-type-of-object-dot-notation" class="level2">
+<h2 class="anchored" data-anchor-id="methods-for-each-type-of-object-dot-notation">methods for each type of object (dot notation)</h2>
+<p>For strings, lists and dictionaries, there are set of methods you can use to manipulate the objects. In general, the notation for methods is the dot notation.</p>
+<p>The syntax is the name of the objects followed by a dot (or period) followed by the name of the method.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"Hello Baltimore!"</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>x.split()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Hello', 'Baltimore!']</code></pre>
+</div>
+</div>
+</section>
+<section id="data-structures" class="level2">
+<h2 class="anchored" data-anchor-id="data-structures">Data structures</h2>
+<p>We have already seen lists. Python has other data structures built in.</p>
+<ul>
+<li>Sets <code>{"a", "a", "a", "b"}</code> (unique elements)</li>
+<li>Tuples <code>(1, 2, 3)</code> (a lot like lists but not mutable, i.e.&nbsp;need to create a new to modify)</li>
+<li>Dictionaries</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span> <span class="op">=</span> {<span class="st">"a"</span> : <span class="dv">1</span>, <span class="st">"b"</span> : <span class="dv">2</span>}</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span>[<span class="st">'a'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span>[<span class="st">'b'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
+<p>More about data structures can be founds <a href="https://docs.python.org/3/tutorial/datastructures.html">at the python docs</a></p>
+</section>
+</section>
+<section id="reticulate" class="level1">
+<h1><code>reticulate</code></h1>
+<section id="python-engine-within-r-markdown" class="level2">
+<h2 class="anchored" data-anchor-id="python-engine-within-r-markdown">Python engine within R Markdown</h2>
+<p>The <code>reticulate</code> package includes a Python engine for R Markdown with the following features:</p>
+<ol type="1">
+<li><p>Run Python chunks in a single Python session embedded within your R session (shared variables/state between Python chunks)</p></li>
+<li><p>Printing of Python output, including graphical output from <code>matplotlib</code>.</p></li>
+<li><p>Access to objects created within Python chunks from R using the <code>py</code> object (e.g.&nbsp;<code>py$x</code> would access an <code>x</code> variable created within Python from R).</p></li>
+<li><p>Access to objects created within R chunks from Python using the <code>r</code> object (e.g.&nbsp;<code>r.x</code> would access to <code>x</code> variable created within R from Python)</p></li>
+</ol>
+<p>Built in conversion for many Python object types is provided, including <a href="https://numpy.org">NumPy</a> arrays and <a href="https://pandas.pydata.org">Pandas</a> data frames.</p>
+</section>
+<section id="from-python-to-r" class="level2">
+<h2 class="anchored" data-anchor-id="from-python-to-r">From Python to R</h2>
+<p>As an example, you can use Pandas to read and manipulate data then easily plot the Pandas data frame using <code>ggplot2</code>:</p>
+<p>Let’s first create a <code>flights.csv</code> dataset in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># checks to see if a folder called "data" exists; if not, it installs it</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"data"</span>))){</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">here</span>(<span class="st">"data"</span>))</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># checks to see if a file called "flights.csv" exists; if not, it saves it to the data folder</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"flights.csv"</span>))){</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(nycflights13<span class="sc">::</span>flights, </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">file =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"flights.csv"</span>))</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>nycflights13<span class="sc">::</span>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 19
+   year month   day dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+  &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+1  2013     1     1      517         515       2     830     819      11 UA     
+2  2013     1     1      533         529       4     850     830      20 UA     
+3  2013     1     1      542         540       2     923     850      33 AA     
+4  2013     1     1      544         545      -1    1004    1022     -18 B6     
+5  2013     1     1      554         600      -6     812     837     -25 DL     
+6  2013     1     1      554         558      -4     740     728      12 UA     
+# … with 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+#   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+#   time_hour &lt;dttm&gt;, and abbreviated variable names ¹​sched_dep_time,
+#   ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</code></pre>
+</div>
+</div>
+<p>Use Python to read in the file and do some data wrangling</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>flights_path <span class="op">=</span> <span class="st">"/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/data/flights.csv"</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> pandas.read_csv(flights_path)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights[flights[<span class="st">'dest'</span>] <span class="op">==</span> <span class="st">"ORD"</span>]</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights[[<span class="st">'carrier'</span>, <span class="st">'dep_delay'</span>, <span class="st">'arr_delay'</span>]]</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights.dropna()</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>flights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       carrier  dep_delay  arr_delay
+5           UA       -4.0       12.0
+9           AA       -2.0        8.0
+25          MQ        8.0       32.0
+38          AA       -1.0       14.0
+57          AA       -4.0        4.0
+...        ...        ...        ...
+336645      AA      -12.0      -37.0
+336669      UA       -7.0      -13.0
+336675      MQ       -7.0      -11.0
+336696      B6       -5.0      -23.0
+336709      AA      -13.0      -38.0
+
+[16566 rows x 3 columns]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(py<span class="sc">$</span>flights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   carrier dep_delay arr_delay
+5       UA        -4        12
+9       AA        -2         8
+25      MQ         8        32
+38      AA        -1        14
+57      AA        -4         4
+70      UA         9        20</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>py<span class="sc">$</span>flights_path </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/data/flights.csv"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(py<span class="sc">$</span>flights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(py<span class="sc">$</span>flights_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>Next, we can use R to visualize the Pandas <code>DataFrame</code>. The data frame is loaded in as an R object now stored in the variable <code>py</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(py<span class="sc">$</span>flights, <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> arr_delay)) <span class="sc">+</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Note that the <code>reticulate</code> Python engine is enabled by default within R Markdown whenever <code>reticulate</code> is installed.</p>
+<section id="from-r-to-python" class="level3">
+<h3 class="anchored" data-anchor-id="from-r-to-python">From R to Python</h3>
+<p>Use R to read and manipulate data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"flights.csv"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dest <span class="sc">==</span> <span class="st">"ORD"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(carrier, dep_delay, arr_delay) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 336776 Columns: 19
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (4): carrier, tailnum, origin, dest
+dbl  (14): year, month, day, dep_time, sched_dep_time, dep_delay, arr_time, ...
+dttm  (1): time_hour
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>flights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16,566 × 3
+   carrier dep_delay arr_delay
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 UA             -4        12
+ 2 AA             -2         8
+ 3 MQ              8        32
+ 4 AA             -1        14
+ 5 AA             -4         4
+ 6 UA              9        20
+ 7 UA              2        21
+ 8 AA             -6       -12
+ 9 MQ             39        49
+10 B6             -2        15
+# … with 16,556 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="use-python-to-print-r-dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="use-python-to-print-r-dataframe">Use Python to print R dataframe</h3>
+<p>If you recall, we can access objects created within R chunks from Python using the <code>r</code> object (e.g.&nbsp;<code>r.x</code> would access to <code>x</code> variable created within R from Python). We can then ask for the first ten rows using the <code>head()</code> function in python.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>r.flights.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  carrier  dep_delay  arr_delay
+0      UA       -4.0       12.0
+1      AA       -2.0        8.0
+2      MQ        8.0       32.0
+3      AA       -1.0       14.0
+4      AA       -4.0        4.0
+5      UA        9.0       20.0
+6      UA        2.0       21.0
+7      AA       -6.0      -12.0
+8      MQ       39.0       49.0
+9      B6       -2.0       15.0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="import-python-modules" class="level2">
+<h2 class="anchored" data-anchor-id="import-python-modules">import python modules</h2>
+<p>You can use the <code>import()</code> function to import any Python module and call it from R. For example, this code imports the Python <code>os</code> module in python and calls the <code>listdir()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>os <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"os"</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>os<span class="sc">$</span><span class="fu">listdir</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] ".Rhistory"       "index.qmd"       "index_files"     "index.rmarkdown"</code></pre>
+</div>
+</div>
+<p>Functions and other data within Python modules and classes can be accessed via the <code>$</code> operator (analogous to the way you would interact with an R list, environment, or reference class).</p>
+<p>Imported Python modules support code completion and inline help:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rstudio.github.io/reticulate/images/reticulate_completion.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Using reticulate tab completion</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<strong>Source</strong>: <a href="https://rstudio.github.io/reticulate">Rstudio</a>]</p>
+<p>Similarly, we can import the pandas library:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">'pandas'</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"flights.csv"</span>))</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+1 2013     1   1      517            515         2      830            819
+2 2013     1   1      533            529         4      850            830
+3 2013     1   1      542            540         2      923            850
+4 2013     1   1      544            545        -1     1004           1022
+5 2013     1   1      554            600        -6      812            837
+6 2013     1   1      554            558        -4      740            728
+  arr_delay carrier flight tailnum origin dest air_time distance hour minute
+1        11      UA   1545  N14228    EWR  IAH      227     1400    5     15
+2        20      UA   1714  N24211    LGA  IAH      227     1416    5     29
+3        33      AA   1141  N619AA    JFK  MIA      160     1089    5     40
+4       -18      B6    725  N804JB    JFK  BQN      183     1576    5     45
+5       -25      DL    461  N668DN    LGA  ATL      116      762    6      0
+6        12      UA   1696  N39463    EWR  ORD      150      719    5     58
+             time_hour
+1 2013-01-01T10:00:00Z
+2 2013-01-01T10:00:00Z
+3 2013-01-01T10:00:00Z
+4 2013-01-01T10:00:00Z
+5 2013-01-01T11:00:00Z
+6 2013-01-01T10:00:00Z</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>or the scikit-learn python library:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>skl_lr <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"sklearn.linear_model"</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>skl_lr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Module(sklearn.linear_model)</code></pre>
+</div>
+</div>
+</section>
+<section id="calling-python-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="calling-python-scripts">Calling python scripts</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"secret_functions.py"</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>subject_1 <span class="ot">&lt;-</span> <span class="fu">read_subject</span>(<span class="st">"secret_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calling-the-python-repl" class="level2">
+<h2 class="anchored" data-anchor-id="calling-the-python-repl">Calling the python repl</h2>
+<p>If you want to work with Python interactively you can call the <code>repl_python()</code> function, which provides a Python REPL embedded within your R session.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repl_python</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Objects created within the Python REPL can be accessed from R using the <code>py</code> object exported from <code>reticulate</code>. For example:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rstudio.github.io/reticulate/images/python_repl.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Using the repl_python() function</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>[<strong>Source</strong>: <a href="https://rstudio.github.io/reticulate">Rstudio</a>]</p>
+<p>i.e.&nbsp;objects do have permenancy in R after exiting the python repl.</p>
+<p>So typing <code>x = 4</code> in the repl will put <code>py$x</code> as 4 in R after you exit the repl.</p>
+<p>Enter exit within the Python REPL to return to the R prompt.</p>
+</section>
 </section>
 <section id="post-lecture-materials" class="level1">
 <h1>Post-lecture materials</h1>
@@ -280,35 +936,11 @@ Questions
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Add here.</li>
+<li>Try to use tab completion for a function.</li>
+<li></li>
 </ol>
 </div>
 </div>
-</section>
-<section id="additional-resources" class="level3">
-<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Add here.</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="rtistry" class="level2">
-<h2 class="anchored" data-anchor-id="rtistry">rtistry</h2>
-<div class="cell fig-cap-location-top">
-
-</div>
-<p>[Add here.]</p>
 
 
 </section>
