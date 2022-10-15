@@ -1,14 +1,13 @@
 ---
-title: "Add title"
+title: "Python for R Users"
 author: 
   - name: Stephanie Hicks
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Add title"
-date: 2022-08-30
-draft: true
-categories: [add here]
+description: "Introduction to using Python in R and the reticulate package"
+date: 2022-10-20
+categories: [week 8, module 6, python, R, programming]
 ---
 
 <!-- Add interesting quote -->
@@ -22,15 +21,19 @@ categories: [add here]
 
 **Before class, you can prepare by reading the following materials:**
 
-1.  Add here.
-2.  Add here.
+1. <https://rstudio.github.io/reticulate>
+2. <https://py-pkgs.org/02-setup>
+3. [The Python Tutorial](https://docs.python.org/3/tutorial)
+
 :::
 
 ### Acknowledgements
 
 Material for this lecture was borrowed and adopted from
 
--   Add here.
+- <https://rstudio.github.io/reticulate>
+- <https://github.com/bcaffo/ds4ph-bme/blob/master/python.md>
+
 
 # Learning objectives
 
@@ -39,10 +42,486 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   Add here.
+1. Install python on your local machine
+2. Learn about the `reticulate` package to work interoperability between Python and R
+3. Be able to translate between R and Python objects
+
 :::
 
-# Add lecture here
+# Python for R Users
+
+As the number of computational and statistical methods for the analysis data continue to increase, you will find many will be implemented in other languages. 
+Often Python is the language of choice. 
+Python is incredibly powerful and I increasingly interact with it on very frequent basis these days. 
+To be able to leverage software tools implemented in Python, today I am giving an overview of using Python from the perspective of an R user. 
+
+Happy coding! 
+
+
+## Overview
+
+For this lecture, we will be using the [`reticulate` R package](https://rstudio.github.io/reticulate), which provides a set of tools for interoperability between Python and R. The package includes facilities for:
+
+- Calling Python from R in a variety of ways including R Markdown, sourcing Python scripts, importing Python modules, and using Python interactively within an R session.
+
+- Translation between R and Python objects (for example, between R and Pandas data frames, or between R matrices and NumPy arrays).
+
+![](https://rstudio.github.io/reticulate/images/reticulated_python.png){preview=TRUE}
+
+[**Source**: [Rstudio](https://rstudio.github.io/reticulate/index.html)]
+
+## Install python
+
+**Installing python**: If you would like recommendations on installing python, I like this resource: https://py-pkgs.org/02-setup#installing-python or using conda environments with mini-forge! 
+
+**What's happening under the hood?**: `reticulate` embeds a Python session within your R session, enabling seamless, high-performance interoperability. 
+
+If you are an R developer that uses Python for some of your work or a member of data science team that uses both languages, `reticulate` can make your life better!
+
+## Install `reticulate`
+
+Let's try it out. Before we get started, you will need to install the packages, if not already:
+
+```{r}
+#| eval: false
+install.package("reticulate")
+```
+
+We will also load the `here` and `tidyverse` packages for our lesson:
+
+```{r}
+#| message: false
+library(here)
+library(tidyverse)
+library(reticulate)
+```
+
+## python path
+
+If python is not installed on your computer, you can use the `install_python()` function from `reticulate` to install it. 
+
+- <https://rstudio.github.io/reticulate/reference/install_python>
+
+If python is already installed, by default, `reticulate` uses the version of Python found on your `PATH`
+
+```{r}
+Sys.which("python3")
+```
+
+The `use_python()` function enables you to specify an alternate version, for example:
+
+```{r, eval=FALSE}
+use_python("/usr/<new>/<path>/local/bin/python")
+```
+
+For example, I can define the path explicitly: 
+
+```{r}
+use_python("/opt/homebrew/Caskroom/miniforge/base/bin/python")
+```
+
+You can confirm that `reticulate` is using the correct version of python that you requested: 
+
+
+```{r}
+py_discover_config()
+```
+
+
+## Calling Python in R
+
+There are a variety of ways to integrate Python code into your R projects:
+
+1. **Python in R Markdown** — A new Python language engine for R Markdown that supports bi-directional communication between R and Python (R chunks can access Python objects and vice-versa).
+
+2. **Importing Python modules** — The `import()` function enables you to import any Python module and call its functions directly from R.
+
+3. **Sourcing Python scripts** — The `source_python()` function enables you to source a Python script the same way you would `source()` an R script (Python functions and objects defined within the script become directly available to the R session).
+
+4. **Python REPL** — The `repl_python()` function creates an interactive Python console within R. Objects you create within Python are available to your R session (and vice-versa).
+
+Below I will focus on introducing the first and last one. 
+However, before we do that, let's introduce a bit about python basics.
+
+
+
+
+# Python basics
+
+Python is a **high-level**, **object-oriented programming** language useful to know for anyone analyzing data. The most important thing to know before learning Python, is that in Python, everything is an **object**. There is no compiling and no need to define the type of variables before using them. No need to allocate memory for variables. The code is very easy to learn and easy to read (syntax).
+
+There is a large scientific community contributing to Python. Some of the most widely used libraries in Python are `numpy`, `scipy`, `pandas`, and `matplotlib`. 
+
+## start python
+
+There are two modes you can write Python code in: **interactive mode** or **script mode**.  If you open up a UNIX command window and have a command-line interface, you can simply type `python` (or `python3`) in the shell: 
+
+```{bash, eval=FALSE}
+python3
+```
+
+and the **interactive mode** will open up.  You can write code in the interactive mode and Python will *interpret* the code using the **python interpreter**.  
+
+Another way to pass code to Python is to store code in a file ending in `.py`, and execute the file in the **script mode** using 
+
+```{bash, eval=FALSE}
+python3 myscript.py
+```
+
+To check what version of Python you are using, type the following in the shell:
+
+```{bash, eval=FALSE}
+python3 --version
+```
+
+## R or python via terminal
+
+(Demo in class)
+
+## objects in python
+
+Everything in Python is an object. Think of an object as a data structure that contains both data as well as functions. These objects can be variables, functions, and modules which are all objects. We can operate on this objects with what are called **operators** (e.g. addition, subtraction, concatenation or other operations), define/apply functions, test/apply for conditionals statements, (e.g. `if`, `else` statements) or iterate over the objects.
+
+Not all objects are required to have **attributes** and **methods** to operate on the objects in Python, but **everything is an object** (i.e. all objects can be assigned to a variable or passed as an argument to a function). A user can work with built-in defined classes of objects or can create new classes of objects. Using these objects, a user can perform operations on the objects by modifying / interacting with them.
+
+## variables 
+
+Variable names are case sensitive, can contain numbers and letters, can contain underscores, cannot begin with a number, cannot contain illegal characters and cannot be one of the 31 keywords in Python:
+
+> "and, as, assert, break, class, continue, def, del, elif, else, except, exec, finally, for, from, global, if, import, in, is, lambda, not, or, pass, print, raise, return, try, while, with, yield"
+
+## operators
+
+- Numeric operators are `+`, `-`, `*`, `/`, `**` (exponent), `%` (modulus if applied to integers)
+- String and list operators: `+` and `*` .
+- Assignment operator: `=`
+- The augmented assignment operator `+=` (or `-=`) can be used like `n += x` which is equal to `n = n + x`
+- Boolean relational operators: `==` (equal), `!=` (not equal), `>`, `<`, `>=` (greater than or equal to), `<=` (less than or equal to)
+- Boolean expressions will produce True or False
+- Logical operators: `and`, `or`, and `not`. e.g. `x > 1 and x <= 5`
+
+```{python}
+2 ** 3
+
+x = 3 
+x > 1 and x <= 5
+```
+
+
+
+
+## format operators
+
+If `%` is applied to strings, this operator is the format operator. It tells Python how to format a list of values in a string. For example,
+
+- `%d` says to format the value as an integer
+- `%g` says to format the value as an float
+- `%s` says to format the value as an string
+
+```{python}
+print('In %d days, I have eaten %g %s.' % (5, 3.5, 'cupcakes'))
+```
+
+## functions
+
+Python contains a small list of very useful built-in functions. All other functions need defined by the user or need to be imported from modules. For a more detailed list on the built-in functions in Python, see [Built-in Python Functions](https://docs.python.org/2/library/functions.html).
+
+The first function we will discuss, `type()`, reports the type of any object, which is very useful when handling multiple data types (remember, everything in Python is an object). Here are some the mains types you will encounter:
+
+- integer (`int`)
+- floating-point (`float`)
+- string (`str`)
+- list (`list`)
+- dictionary (`dict`)
+- tuple (`tuple`)
+- function (`function`)
+- module (`module`)
+- boolean (`bool`): e.g. True, False
+- enumerate (`enumerate`)
+
+If we asked for the type of a string "Let's go Ravens!"
+
+
+```{python}
+type("Let's go Ravens!")
+```
+
+This would return the `str` type.
+
+You have also seen how to use the `print()` function. The function print will accept an argument and print the argument to the screen. Print can be used in two ways:
+
+```{r}
+print("Let's go Ravens!")
+```
+
+## new functions
+
+New functions can be defined using one of the 31 keywords in Python def.
+
+```{python}
+def new_world(): 
+    return 'Hello world!'
+    
+print(new_world())
+```
+
+The first line of the function (the header) must start with `def`, the name of the function (which can contain underscores), parentheses (with any arguments inside of it) and a colon. The arguments can be specified in any order.
+
+The rest of the function (the body) always has an indentation of four spaces. If you define a function in the interactive mode, the interpreter will print ellipses (...) to let you know the function is not complete. To complete the function, enter an empty line (not necessary in a script).
+
+To return a value from a function, use return. The function will immediately terminate and not run any code written past this point.
+
+```{python}
+def squared(x):
+    """ Return the square of a  
+        value """
+    return x ** 2
+
+print(squared(4))
+```
+
+:::keyideas 
+
+**Note**: python has its version of `...` (also from docs.python.org)
+
+```{python}
+def concat(*args, sep="/"):
+ return sep.join(args)  
+
+concat("a", "b", "c")
+```
+
+:::
+
+
+## iteration
+
+Iterative loops can be written with the `for`, `while` and `break` statements.
+
+Defining a `for` loop is similar to defining a new function. The header ends with a colon and the body is indented. The function `range(n)` takes in an integer `n` and creates a set of values from `0` to `n - 1`. `for` loops are not just for counters, but they can iterate through many types of objects such as strings, lists and dictionaries.
+
+```{python}
+for i in range(3):
+  print('Baby shark, doo doo doo doo doo doo!')
+print('Baby shark!')
+```
+
+The function `len()` can be used to:
+
+- Calculate the length of a string
+- Calculate the number of elements in a list
+- Calculate the number of items (key-value pairs) in a dictionary
+- Calculate the number elements in the tuple
+
+```{python}
+x = 'Baby shark!'
+len(x)
+```
+
+## methods for each type of object (dot notation)
+
+For strings, lists and dictionaries, there are set of methods you 
+can use to manipulate the objects. In general, the notation for 
+methods is the dot notation. 
+
+The syntax is the name of the 
+objects followed by a dot (or period) followed by the name of the method.
+
+```{python}
+x = "Hello Baltimore!"
+x.split()
+```
+
+
+
+
+## Data structures
+
+We have already seen lists. Python has other data structures built in.
+
+* Sets `{"a", "a", "a", "b"}` (unique elements)
+* Tuples `(1, 2, 3)`  (a lot like lists but not mutable, i.e. need to create a new to modify)
+* Dictionaries
+
+```{python}
+dict = {"a" : 1, "b" : 2}
+dict['a']
+dict['b']
+```
+
+More about data structures can be founds [at the python docs](https://docs.python.org/3/tutorial/datastructures.html)
+
+
+
+
+
+# `reticulate` 
+
+## Python engine within R Markdown
+
+The `reticulate` package includes a Python engine for R Markdown with the following features:
+
+1. Run Python chunks in a single Python session embedded within your R session (shared variables/state between Python chunks)
+
+2. Printing of Python output, including graphical output from `matplotlib`.
+
+3. Access to objects created within Python chunks from R using the `py` object (e.g. `py$x` would access an `x` variable created within Python from R).
+
+4. Access to objects created within R chunks from Python using the `r` object (e.g. `r.x` would access to `x` variable created within R from Python)
+
+Built in conversion for many Python object types is provided, including [NumPy](https://numpy.org) arrays and [Pandas](https://pandas.pydata.org) data frames. 
+
+## From Python to R
+
+As an example, you can use Pandas to read and manipulate data then easily plot the Pandas data frame using `ggplot2`:
+
+Let's first create a `flights.csv` dataset in R: 
+
+```{r}
+# checks to see if a folder called "data" exists; if not, it installs it
+if(!file.exists(here("data"))){
+  dir.create(here("data"))
+}
+
+# checks to see if a file called "flights.csv" exists; if not, it saves it to the data folder
+if(!file.exists(here("data", "flights.csv"))){
+  readr::write_csv(nycflights13::flights, 
+                   file = here("data", "flights.csv"))
+}
+
+nycflights13::flights %>% 
+  head()
+```
+
+
+
+Use Python to read in the file and do some data wrangling
+
+
+```{python}
+import pandas
+flights_path = "/Users/stephaniehicks/Documents/github/teaching/jhustatcomputing2022/data/flights.csv"
+flights = pandas.read_csv(flights_path)
+flights = flights[flights['dest'] == "ORD"]
+flights = flights[['carrier', 'dep_delay', 'arr_delay']]
+flights = flights.dropna()
+flights
+```
+
+```{r}
+head(py$flights)
+py$flights_path 
+```
+
+```{r}
+class(py$flights)
+class(py$flights_path)
+```
+
+Next, we can use R to visualize the Pandas `DataFrame`. 
+The data frame is loaded in as an R object now stored in the variable `py`.
+
+```{r}
+ggplot(py$flights, aes(x = carrier, y = arr_delay)) + 
+  geom_point() + 
+  geom_jitter()
+```
+
+
+Note that the `reticulate` Python engine is enabled by default within R Markdown whenever `reticulate` is installed.
+
+
+### From R to Python
+
+Use R to read and manipulate data
+
+```{r}
+library(tidyverse)
+flights <- read_csv(here("data","flights.csv")) %>%
+  filter(dest == "ORD") %>%
+  select(carrier, dep_delay, arr_delay) %>%
+  na.omit()
+
+flights
+```
+
+### Use Python to print R dataframe
+
+If you recall, we can access objects created within R chunks from Python using the `r` object (e.g. `r.x` would access to `x` variable created within R from Python). We can then ask for the first ten rows using the `head()` function in python.
+
+```{python}
+r.flights.head(10)
+```
+
+
+
+## import python modules
+
+You can use the `import()` function to import any Python module and call it from R. For example, this code imports the Python `os` module in python and calls the `listdir()` function:
+
+```{r}
+os <- import("os")
+os$listdir(".")
+```
+
+Functions and other data within Python modules and classes can be accessed via the `$` operator (analogous to the way you would interact with an R list, environment, or reference class).
+
+Imported Python modules support code completion and inline help:
+
+```{r reticulate-completion, echo=FALSE, fig.cap='Using reticulate tab completion', fig.align='center'}
+knitr::include_graphics("https://rstudio.github.io/reticulate/images/reticulate_completion.png")
+```
+
+[**Source**: [Rstudio](https://rstudio.github.io/reticulate)]
+
+Similarly, we can import the pandas library: 
+
+```{r}
+pd <- import('pandas')
+test <- pd$read_csv(here("data","flights.csv"))
+head(test)
+class(test)
+```
+
+or the scikit-learn python library: 
+
+```{r}
+skl_lr <- import("sklearn.linear_model")
+skl_lr
+```
+
+
+
+## Calling python scripts
+
+```{r, eval=FALSE}
+source_python("secret_functions.py")
+subject_1 <- read_subject("secret_data.csv")
+```
+
+## Calling the python repl
+
+If you want to work with Python interactively you can call the `repl_python()` function, which provides a Python REPL embedded within your R session. 
+
+```{r, eval=FALSE}
+repl_python()
+```
+
+Objects created within the Python REPL can be accessed from R using the `py` object exported from `reticulate`. For example:
+
+```{r repl-python, echo=FALSE, fig.cap='Using the repl_python() function', fig.align='center'}
+knitr::include_graphics("https://rstudio.github.io/reticulate/images/python_repl.png")
+```
+
+[**Source**: [Rstudio](https://rstudio.github.io/reticulate)]
+
+i.e. objects do have permenancy in R after exiting the python repl. 
+
+So typing `x = 4` in the repl will put `py$x` as 4 in R after you exit the repl.
+
+Enter exit within the Python REPL to return to the R prompt.
+
+
 
 # Post-lecture materials
 
@@ -53,22 +532,7 @@ Here are some post-lecture questions to help you think about the material discus
 ::: callout-note
 ### Questions
 
-1.  Add here.
+1. Try to use tab completion for a function. 
+2. 
 :::
 
-### Additional Resources
-
-::: callout-tip
--   Add here.
-:::
-
-## rtistry
-
-```{r}
-#| label: flametree
-#| echo: false
-#| fig-cap-location: "top"
-
-```
-
-\[Add here.\]

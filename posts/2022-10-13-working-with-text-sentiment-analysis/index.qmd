@@ -270,6 +270,10 @@ hill_df
 
 ### try it out
 
+hill_df %>% 
+  unnest_tokens(output = wordsforfun, 
+                input = text, 
+                token = "words")
 
 ```
 
