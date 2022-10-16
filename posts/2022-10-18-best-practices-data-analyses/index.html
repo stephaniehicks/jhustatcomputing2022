@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stephanie Hicks">
+<meta name="dcterms.date" content="2022-10-18">
+<meta name="description" content="A noncomprehensive set of best practices for building data analyses">
+
+<title>Statistical Computing (BSPH 140.776) - Best practices for data analyses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Statistical Computing (BSPH 140.776)</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-general-information" role="button" data-bs-toggle="dropdown" aria-expanded="false">General Information</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-general-information">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus.html">
+ <span class="dropdown-text">Syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../schedule.html">
+ <span class="dropdown-text">Schedule</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false">Course Materials</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-course-materials">    
+        <li>
+    <a class="dropdown-item" href="../../lectures.html">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../resources.html">
+ <span class="dropdown-text">Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Best practices for data analyses</h1>
+                  <div>
+        <div class="description">
+          A noncomprehensive set of best practices for building data analyses
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">module 6</div>
+                <div class="quarto-category">week 8</div>
+                <div class="quarto-category">best practices</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <a href="https://stephaniehicks.com">Stephanie Hicks</a> 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Department of Biostatistics, Johns Hopkins
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 18, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pre-lecture-materials" id="toc-pre-lecture-materials" class="nav-link active" data-scroll-target="#pre-lecture-materials">Pre-lecture materials</a>
+  <ul class="collapse">
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#best-practices-for-data-ethics" id="toc-best-practices-for-data-ethics" class="nav-link" data-scroll-target="#best-practices-for-data-ethics">Best practices for data ethics</a>
+  <ul class="collapse">
+  <li><a href="#defining-ethics" id="toc-defining-ethics" class="nav-link" data-scroll-target="#defining-ethics">Defining ethics</a></li>
+  <li><a href="#case-study" id="toc-case-study" class="nav-link" data-scroll-target="#case-study">Case Study</a>
+  <ul class="collapse">
+  <li><a href="#creating-the-algorithm" id="toc-creating-the-algorithm" class="nav-link" data-scroll-target="#creating-the-algorithm">Creating the algorithm</a></li>
+  <li><a href="#using-the-algorithm" id="toc-using-the-algorithm" class="nav-link" data-scroll-target="#using-the-algorithm">Using the algorithm</a></li>
+  </ul></li>
+  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  </ul></li>
+  <li><a href="#best-practices-for-sharing-data" id="toc-best-practices-for-sharing-data" class="nav-link" data-scroll-target="#best-practices-for-sharing-data">Best practices for sharing data</a>
+  <ul class="collapse">
+  <li><a href="#fair-principles" id="toc-fair-principles" class="nav-link" data-scroll-target="#fair-principles">FAIR principles</a></li>
+  <li><a href="#why-share" id="toc-why-share" class="nav-link" data-scroll-target="#why-share">Why share?</a>
+  <ul class="collapse">
+  <li><a href="#addressing-common-concerns-about-data-sharing" id="toc-addressing-common-concerns-about-data-sharing" class="nav-link" data-scroll-target="#addressing-common-concerns-about-data-sharing">Addressing common concerns about data sharing</a></li>
+  </ul></li>
+  <li><a href="#what-data-to-share" id="toc-what-data-to-share" class="nav-link" data-scroll-target="#what-data-to-share">What data to share?</a></li>
+  </ul></li>
+  <li><a href="#best-practices-for-data-visualizations" id="toc-best-practices-for-data-visualizations" class="nav-link" data-scroll-target="#best-practices-for-data-visualizations">Best practices for data visualizations</a>
+  <ul class="collapse">
+  <li><a href="#motiviation" id="toc-motiviation" class="nav-link" data-scroll-target="#motiviation">Motiviation</a>
+  <ul class="collapse">
+  <li><a href="#generating-data-visualizations" id="toc-generating-data-visualizations" class="nav-link" data-scroll-target="#generating-data-visualizations">Generating data visualizations</a></li>
+  </ul></li>
+  <li><a href="#data-viz-principles" id="toc-data-viz-principles" class="nav-link" data-scroll-target="#data-viz-principles">Data viz principles</a>
+  <ul class="collapse">
+  <li><a href="#developing-plots" id="toc-developing-plots" class="nav-link" data-scroll-target="#developing-plots">Developing plots</a></li>
+  <li><a href="#optimizing-plots" id="toc-optimizing-plots" class="nav-link" data-scroll-target="#optimizing-plots">Optimizing plots</a></li>
+  </ul></li>
+  <li><a href="#plots-to-avoid" id="toc-plots-to-avoid" class="nav-link" data-scroll-target="#plots-to-avoid">Plots to Avoid</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#pie-charts" id="toc-pie-charts" class="nav-link" data-scroll-target="#pie-charts">Pie charts</a></li>
+  <li><a href="#d-barplots" id="toc-d-barplots" class="nav-link" data-scroll-target="#d-barplots">3D barplots</a></li>
+  <li><a href="#donut-plots" id="toc-donut-plots" class="nav-link" data-scroll-target="#donut-plots">Donut plots</a></li>
+  <li><a href="#barplots-as-data-summaries" id="toc-barplots-as-data-summaries" class="nav-link" data-scroll-target="#barplots-as-data-summaries">Barplots as data summaries</a></li>
+  <li><a href="#barplots-for-paired-data" id="toc-barplots-for-paired-data" class="nav-link" data-scroll-target="#barplots-for-paired-data">Barplots for paired data</a></li>
+  <li><a href="#gratuitous-3d" id="toc-gratuitous-3d" class="nav-link" data-scroll-target="#gratuitous-3d">Gratuitous 3D</a></li>
+  <li><a href="#too-many-significant-digits" id="toc-too-many-significant-digits" class="nav-link" data-scroll-target="#too-many-significant-digits">Too many significant digits</a></li>
+  <li><a href="#minimal-figure-captions" id="toc-minimal-figure-captions" class="nav-link" data-scroll-target="#minimal-figure-captions">Minimal figure captions</a></li>
+  </ul></li>
+  <li><a href="#final-thoughts-data-viz" id="toc-final-thoughts-data-viz" class="nav-link" data-scroll-target="#final-thoughts-data-viz">Final thoughts data viz</a>
+  <ul class="collapse">
+  <li><a href="#some-further-reading" id="toc-some-further-reading" class="nav-link" data-scroll-target="#some-further-reading">Some further reading</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="pre-lecture-materials" class="level1">
+<h1>Pre-lecture materials</h1>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>Material for this lecture was borrowed and adopted from</p>
+<ul>
+<li><a href="https://teachdatascience.com/philosophy" class="uri">https://teachdatascience.com/philosophy</a></li>
+<li><a href="https://teachdatascience.com/closing2020" class="uri">https://teachdatascience.com/closing2020</a></li>
+<li><a href="https://febs.onlinelibrary.wiley.com/doi/10.1002/1873-3468.14067">Sharing biological data: why, when, and how</a></li>
+<li><a href="https://github.com/genomicsclass/labs/blob/master/eda/plots_to_avoid.Rmd">https://github.com/genomicsclass/labs/blob/master/eda/plots_to_avoid.Rmd</a></li>
+<li><a href="http://jtleek.com/advdatasci/09-expository-graphs.html">http://jtleek.com/advdatasci/09-expository-graphs.html</a></li>
+</ul>
+</section>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>At the end of this lesson you will:</strong></p>
+<p>Be able to state best practices for:</p>
+<ul>
+<li>Considerations around building ethical data analyses</li>
+<li>Sharing data</li>
+<li>Creating data visualizations</li>
+</ul>
+</div>
+</div>
+<div class="cell">
+
+</div>
+</section>
+<section id="best-practices-for-data-ethics" class="level1">
+<h1>Best practices for data ethics</h1>
+<p>In philosophy departments, classes and modules centered around <strong>data ethics</strong> are widely discussed.</p>
+<p>The ethical challenges around working with data are not fundamentally different from the ethical challenges philosophers have always faced.</p>
+<p>However, putting an ethical framework around building data analyses in practice is indeed new for most data scientists, and for many of us, we are woefully under-prepared to teach so far outside our comfort zone.</p>
+<p>That being said, we can provide some thoughts on how to approach a data science problem using a philosophical lens.</p>
+<section id="defining-ethics" class="level2">
+<h2 class="anchored" data-anchor-id="defining-ethics">Defining ethics</h2>
+<p>We start with a grounding in the definition of Ethics:</p>
+<p><strong>Ethics</strong>, also called moral philosophy, has three main branches:</p>
+<ol type="1">
+<li><a href="https://www.oxfordbibliographies.com/view/document/obo-9780195396577/obo-9780195396577-0006.xml">Applied ethics</a> “is a branch of ethics devoted to the treatment of moral problems, practices, and policies in personal life, professions, technology, and government.”</li>
+<li><a href="https://academic.oup.com/edited-volume/35492/chapter-abstract/304418208?redirectedFrom=fulltext&amp;login=false">Ethical theory</a> “is concerned with the articulation and the justification of the fundamental principles that govern the issues of how we should live and what we morally ought to do. Its most general concerns are providing an account of moral evaluation and, possibly, articulating a decision procedure to guide moral action.”</li>
+<li><a href="https://plato.stanford.edu/entries/metaethics/">Metaethics</a> “is the attempt to understand the metaphysical, epistemological, semantic, and psychological, presuppositions and commitments of moral thought, talk, and practice.”</li>
+</ol>
+<p>While, unfortunately, there are myriad examples of <strong>ethical data science problems</strong> (see, for example, blog posts <a href="https://teachdatascience.com/bookclub/">bookclub</a> and <a href="https://teachdatascience.com/datafem/">data feminism</a>), here I aim to connect some of the broader data science ethics issues with the existing philosophical literature.</p>
+<p>Note, I am only scratching the surface and a deeper dive might involve education in related philosophical fields (epistemology, metaphysics, or philosophy of science), philosophical methodologies, and ethical schools of thought, but you can peruse all of these through, for example, a course or readings introducing the discipline of philosophy.</p>
+<p>Below we provide some thoughts on how to approach a data science problem using a philosophical lens.</p>
+</section>
+<section id="case-study" class="level2">
+<h2 class="anchored" data-anchor-id="case-study">Case Study</h2>
+<p>We begin by considering a case study around ethical data analyses.</p>
+<p>Many <strong>ethics case studies</strong> provided in a classroom setting <strong>describe algorithms built on data which are meant to predict outcomes</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Large scale algorithmic decision making presents particular ethical predicaments because of both the scale of impact and the “black-box” sense of how the algorithm is generating predictions.</p>
+</div>
+</div>
+<p>Consider the well-known issue of using <a href="https://en.wikipedia.org/wiki/Facial_recognition_system">facial recognition software</a> in policing.</p>
+<p>There are many questions surrounding the policing issue:</p>
+<ul>
+<li>What are the action options with respect to the outcome of the algorithm?</li>
+<li>What are the good and bad aspects of each action and how are these to be weighed against each other?</li>
+</ul>
+<p><img src="https://teachdatascience.com/philosophy/LAPD.png" class="img-fluid"></p>
+<p>[Source: <a href="https://www.cnn.com/2019/09/12/tech/california-body-cam-facial-recognition-ban/index.html">CNN</a>]</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The two main ethical concerns surrounding facial recognition software break down into</p>
+<ul>
+<li>How the algorithms were developed?</li>
+<li>How the algorithm is used?</li>
+</ul>
+</div>
+</div>
+<p>When thinking about the questions below, reflect on the good aspects and the bad aspects and how one might weight the good versus the bad.</p>
+<section id="creating-the-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="creating-the-algorithm">Creating the algorithm</h3>
+<ul>
+<li>What data should be used to train the algorithm?
+<ul>
+<li>If the accuracy rates of the algorithm differ based on the demographics of the subgroups within the data, is more data and testing required?</li>
+</ul></li>
+<li>Who and what criteria should be used to tune the algorithm?
+<ul>
+<li>Who should be involved in decisions on the tuning parameters of the algorithm?</li>
+<li>Which optimization criteria should be used (e.g., accuracy? false positive rate? false negative rate?)</li>
+</ul></li>
+<li>Issues of access:
+<ul>
+<li>Who should own or have control of the facial image data?
+<ul>
+<li>Do individuals have a right to keep their facial image private from being in databases?</li>
+<li>Do individuals have a right to be notified that their facial image is in the data base? For example, if I ring someone’s doorbell and my face is captured in a database, do I need to be told? [While traditional human subjects and IRB requirements necessitate consent to be included in any research project, in most cases it is legal to photograph a person without their consent.]</li>
+</ul></li>
+<li>Should the data be accessible to researchers working to make the field more equitable? What if allowing accessibility thereby makes the data accessible to bad actors?</li>
+</ul></li>
+</ul>
+</section>
+<section id="using-the-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-algorithm">Using the algorithm</h3>
+<ul>
+<li>Issues of personal impact:
+<ul>
+<li>The software might make it easier to accurately associate an individual with a crime, but it might also make it easier to mistakenly associate an individual with a crime. How should the pro vs con be weighed against each other?</li>
+<li>Do individuals have a right to know, correct, or delete personal information included in a database?</li>
+</ul></li>
+<li>Issues of societal impact:
+<ul>
+<li>Is it permissible to use a facial recognition software which has been trained primarily on Caucasian faces, given that this results in false positive and false negative rates that are not equally dispersed across racial lines?</li>
+<li>While the software might make it easier to protect against criminal activity, it also makes it easier to undermine specific communities when their members are mistakenly identified with criminal activity. How should the pro vs con of different communities be weighed against each other?</li>
+</ul></li>
+<li>Issues of money:
+<ul>
+<li>Is it permissible for a software company to profit from an algorithm while having no financial responsibility for its misuse or negative impacts?</li>
+<li>Who should pay the court fees and missed work hours of those who were mistakenly accused of crimes?</li>
+</ul></li>
+</ul>
+<p>To settle the questions above, we need to study various ethical theories, and it turns out that the different theories may lead us to different conclusions. As non-philosophers, we recognize that the suggested readings and ideas may come across as overwhelming. If you are overwhelmed, we suggest that you choose one ethical theory, think carefully about how it informs decision making, and help your students to connect the ethical framework to a data science case study.</p>
+</section>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
+<p>This is a challenging topic, but as you analyze data, ask yourself the following broad questions to help you with ethical considerations around the data analysis.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions to ask yourself when analyzing data?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Why are we producing this knowledge?</li>
+<li>For whom are we producing this knowledge?</li>
+<li>What communities do they serve?</li>
+<li>Which stakeholders need to be involved in making decisions in and around the data analysis?</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="best-practices-for-sharing-data" class="level1">
+<h1>Best practices for sharing data</h1>
+<p>Data sharing is an essential element of the scientific method, imperative to ensure transparency and reproducibility.</p>
+<p>Different areas of research collect fundamentally different types of data, such as tabular data, time series data, image data, or genomic data. These types of data differ greatly in size and require different approaches for sharing.</p>
+<p>In this section, I outline broad best practices to make your data publicly accessible and usable, generally and for several specific kinds of data.</p>
+<section id="fair-principles" class="level2">
+<h2 class="anchored" data-anchor-id="fair-principles">FAIR principles</h2>
+<p>Sharing data proves more useful when others can easily find and access, interpret, and reuse the data. To maximize the benefit of sharing your data, follow the <a href="https://www.go-fair.org/fair-principles/">findable, accessible, interoperable, and reusable (FAIR)</a> guiding principles of data sharing, which optimize reuse of generated data.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+FAIR data sharing principles
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Findable</strong>. The first step in (re)using data is to find them. Metadata and data should be easy to find for both humans and computers. Machine-readable metadata are essential for automatic discovery of datasets and services, so this is an essential component of the FAIRification process.</li>
+<li><strong>Accessible</strong>. Once the user finds the required data, she/he needs to know how can they be accessed, possibly including authentication and authorization.</li>
+<li><strong>Interoperable</strong>. The data usually need to be integrated with other data. In addition, the data need to interoperate with applications or workflows for analysis, storage, and processing.</li>
+<li><strong>Reusable</strong>. The ultimate goal of FAIR is to optimize the reuse of data. To achieve this, metadata and data should be well-described so that they can be replicated and/or combined in different settings.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="why-share" class="level2">
+<h2 class="anchored" data-anchor-id="why-share">Why share?</h2>
+<ol type="1">
+<li><strong>Benefits of sharing data to science and society</strong>. Sharing data allows for transparency in scientific studies and allows one to fully understand what occurred in an analysis and reproduce the results. Without complete data, metadata, and information about resources used to generate the data, reproducing a study proves impossible.</li>
+<li><strong>Benefits of sharing data to individual researchers</strong>. Sharing data increases the impact of a researcher’s work and reputation for sound science. Awards for those with an excellent record of <a href="https://researchsymbionts.org/">data sharing</a> or <a href="https://researchparasite.com/">data reuse</a> can exemplify this reputation.</li>
+</ol>
+<section id="addressing-common-concerns-about-data-sharing" class="level3">
+<h3 class="anchored" data-anchor-id="addressing-common-concerns-about-data-sharing">Addressing common concerns about data sharing</h3>
+<p>Despite the clear benefits of sharing data, some researchers still have concerns about doing so.</p>
+<ul>
+<li><strong>Novelty</strong>. Some worry that sharing data may decrease the novelty of their work and their chance to publish in prominent journals. You can address this concern by sharing your data only after publication. You can also choose to preprint your manuscript when you decide to share your data. Furthermore, you only need to share the data and metadata required to reproduce your published study.</li>
+<li><strong>Time spent on sharing data</strong>. Some have concerns about the time it takes to organize and share data publicly. Many add ‘data available upon request’ to manuscripts instead of depositing the data in a public repository in hopes of getting the work out sooner. It does take time to organize data in preparation for sharing, but sharing data publicly may save you time. Sharing data in a public repository that guarantees archival persistence means that you will not have to worry about storing and backing up the data yourself.</li>
+<li><strong>Human subject data</strong>. Sharing of data on human subjects requires special ethical, legal, and privacy considerations. Existing recommendations largely aim to balance the privacy of human participants with the benefits of data sharing by de-identifying human participants and obtaining consent for sharing. Sharing human data poses a variety of challenges for analysis, transparency, reproducibility, interoperability, and access.</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Human data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sometimes you cannot publicly post all human data, even after de-identification. We suggest three strategies for making these data maximally accessible.</p>
+<ol type="1">
+<li>Deposit raw data files in a controlled-access repository. Controlled-access repositories allow only qualified researchers who apply to access the data.</li>
+<li>Even if you cannot make individual-level raw data available, you can make as much processed data available as possible. This may take the form of summary statistics such as means and standard deviations, rather than individual-level data.</li>
+<li>You may want to generate simulated data distinct from the original data but statistically similar to it. Simulated data would allow others to reproduce your analysis without disclosing the original data or requiring the security controls needed for controlled access.</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="what-data-to-share" class="level2">
+<h2 class="anchored" data-anchor-id="what-data-to-share">What data to share?</h2>
+<p>Depending on the data type, you might be able to share the data itself, or a summarized version of it. Boradly thought, you want to share the following:</p>
+<ol type="1">
+<li>The <strong>data</strong> itself, or a summarized version, or a simulated data similar to the original.</li>
+<li>Any <strong>metadata</strong> to describe the primary data and the resources used to generate it. Most disciplines have specific metadata standards to follow (e.g.&nbsp;<a href="http://fged.org/projects/minseqe/">microarrays</a>).</li>
+<li><strong>Data dictionary</strong>. These have crucial role in organizing your data, especially explaining the variables and their representation. Data dictionaries should provide short names for each variable, a longer text label for the variable, a definition for each variable, data type (such as floating-point number, integer, or string), measurement units, and expected minimum and maximum values. Data dictionaries can make explicit what future users would otherwise have to guess about the representation of data.</li>
+<li><strong>Source code</strong>. Ideally, readers should have all materials needed to completely reproduce the study described in a publication, not just data. These materials include source code, preprocessing, and analysis scripts. Guidelines for organization of computational project can help you arrange your data and scripts in a way that will make it easier for you and other to access and reuse them.</li>
+<li><strong>Licensing</strong>. Clear licensing information attached to your data avoids any questions of whether others may reuse it. Many data resources turn out not to be as reusable as the providers intended, due to lack of clarity in licensing or restrictive licensing choices.</li>
+</ol>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+How should you document your data?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Document your data in three ways:</p>
+<ol type="1">
+<li><strong>With your manuscript</strong>.</li>
+<li><strong>With description fields</strong> in the metadata collected by repositories</li>
+<li><strong>With README files</strong>. README files provide abbreviated information about a collection of files (e.g.&nbsp;explain organization, file locations, observations and variables present in each file, details on the experimental design, etc).</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="best-practices-for-data-visualizations" class="level1">
+<h1>Best practices for data visualizations</h1>
+<section id="motiviation" class="level2">
+<h2 class="anchored" data-anchor-id="motiviation">Motiviation</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Quote from a hero of mine
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>“The greatest value of a picture is when it forces us to notice what we never expected to see.”</em> -John W. Tukey</p>
+<div class="cell fig-cap-location-top" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://upload.wikimedia.org/wikipedia/en/e/e9/John_Tukey.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Mistakes, biases, systematic errors and unexpected variability are commonly found in data regardless of applications. Failure to discover these problems often leads to <strong>flawed analyses and false discoveries</strong>.</p>
+<p>As an example, consider that measurement devices sometimes fail and not all summarization procedures, such as the <code>mean()</code> function in R, are designed to detect these. Yet, these functions will still give you an answer.</p>
+<p>Furthermore, it may be hard or impossible to notice an error was made just from the reported summaries.</p>
+<p><strong>Data visualization is a powerful approach to detecting these problems</strong>. We refer to this particular task as exploratory data analysis (EDA), coined by John Tukey.</p>
+<p>On a more positive note, data visualization can also lead to discoveries which would otherwise be missed if we simply subject the data to a battery of statistical summaries or procedures.</p>
+<p>When analyzing data, we often <strong>make use of exploratory plots to motivate the analyses</strong> we choose.</p>
+<p>In this section, we will discuss some types of plots to avoid, better ways to visualize data, some principles to create good plots, and ways to use <code>ggplot2</code> to create <strong>expository</strong> (intended to explain or describe something) graphs.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The following figure is from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1665439/">Lippmann et al.&nbsp;2006</a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/lippman.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Nickel concentration and PM10 health effects (Blue points represent average county-level concentrations from 2000–2005 for 72 U.S. counties representing 69 communities).</figcaption><p></p>
+</figure>
+</div>
+<p>The following figure is from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2137127/">Dominici et al.&nbsp;2007</a>, in response to the work by Lippmann et al.&nbsp;above.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/dominici_ehp.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Nickel concentration and PM10 health effects (with and without New York).</figcaption><p></p>
+</figure>
+</div>
+<p>Elevated levels of Ni and V PM2.5 chemical components in New York are likely attributed to oil-fired power plants and emissions from ships burning oil, as noted by Lippmann et al.&nbsp;(2006).</p>
+</div>
+</div>
+<section id="generating-data-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="generating-data-visualizations">Generating data visualizations</h3>
+<p>In order to determine the effectiveness or quality of a visualization, we need to first understand three things:</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Questions to ask yourself when building data visualizations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>What is the question we are trying to answer?</li>
+<li>Why are we building this visualization?</li>
+<li>For whom are we producing this data visualization for? Who is the intended audience to consume this visualization?</li>
+</ol>
+</div>
+</div>
+<p>No plot (or any statistical tool, really) can be judged without knowing the answers to those questions. No plot or graphic exists in a vacuum. There is always context and other surrounding factors that play a role in determining a plot’s effectiveness.</p>
+<p>Conversely, <strong>high-quality, well-made visualizations</strong> usually allow one to properly deduce what question is being asked and who the audience is meant to be. A good visualization <strong>tells a complete story in a single frame</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Broad steps for creating data visualizations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The act of visualizing data typically proceeds in two broad steps:</p>
+<ol type="1">
+<li>Given the question and the audience, <strong>what type of plot should I make?</strong></li>
+<li>Given the plot I intend to make, <strong>how can I optimize it for clarity and effectiveness?</strong></li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="data-viz-principles" class="level2">
+<h2 class="anchored" data-anchor-id="data-viz-principles">Data viz principles</h2>
+<section id="developing-plots" class="level3">
+<h3 class="anchored" data-anchor-id="developing-plots">Developing plots</h3>
+<p>Initially, one must decide what information should be presented. The following principles for developing analytic graphics come from Edward Tufte’s book <a href="https://www.edwardtufte.com/tufte/books_be"><em>Beautiful Evidence</em></a>.</p>
+<ol type="1">
+<li>Show comparisons</li>
+<li>Show causality, mechanism, explanation</li>
+<li>Show multivariate data</li>
+<li>Integrate multiple modes of evidence</li>
+<li>Describe and document the evidence</li>
+<li>Content is king - good plots start with good questions</li>
+</ol>
+</section>
+<section id="optimizing-plots" class="level3">
+<h3 class="anchored" data-anchor-id="optimizing-plots">Optimizing plots</h3>
+<ol type="1">
+<li>Maximize the data/ink ratio – if “ink” can be removed without reducing the information being communicated, then it should be removed.</li>
+<li>Maximize the range of perceptual conditions – your audience’s perceptual abilities may not be fully known, so it’s best to allow for a wide range, to the extent possible (or knowable).</li>
+<li>Show variation in the <strong>data</strong>, not variation in the <strong>design</strong>.</li>
+</ol>
+<p>What’s sub-optimal about this plot?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> airquality <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Summer =</span> <span class="fu">ifelse</span>(Month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(d, {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(Temp, Ozone, <span class="at">col =</span> <span class="fu">unclass</span>(Summer), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">bty =</span> <span class="st">"n"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Summer"</span>, <span class="st">"Non-Summer"</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>What’s sub-optimal about this plot?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Summer =</span> <span class="fu">ifelse</span>(Month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Summer"</span>, <span class="st">"Non-Summer"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Temp, Ozone)) <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Summer), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Some of these principles are taken from Edward Tufte’s <em>Visual Display of Quantitative Information</em>:</p>
+</section>
+</section>
+<section id="plots-to-avoid" class="level2">
+<h2 class="anchored" data-anchor-id="plots-to-avoid">Plots to Avoid</h2>
+<p>This section is based on a talk by <a href="http://kbroman.org/">Karl W. Broman</a> titled “How to Display Data Badly,” in which he described how the default plots offered by Microsoft Excel “obscure your data and annoy your readers” (<a href="https://kbroman.org/talks.html">here</a> is a link to a collection of Karl Broman’s talks).</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+FYI
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Karl’s lecture was inspired by the 1984 paper by H. Wainer: How to display data badly. American Statistician 38(2): 137–147.</p>
+<p>Dr.&nbsp;Wainer was the first to elucidate the principles of the bad display of data.</p>
+<p>However, according to Karl Broman, “The now widespread use of Microsoft Excel has resulted in remarkable advances in the field.”</p>
+<p>Here we show examples of “bad plots” and how to improve them in R.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Some general principles of <em>bad</em> plots
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Display as little information as possible.</li>
+<li>Obscure what you do show (with chart junk).</li>
+<li>Use pseudo-3D and color gratuitously.</li>
+<li>Make a pie chart (preferably in color and 3D).</li>
+<li>Use a poorly chosen scale.</li>
+<li>Ignore significant figures.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>Here are some examples of bad plots and suggestions on how to improve</p>
+<section id="pie-charts" class="level3">
+<h3 class="anchored" data-anchor-id="pie-charts">Pie charts</h3>
+<p>Let’s say we are interested in the most commonly used browsers. Wikipedia has a <a href="https://en.wikipedia.org/wiki/Usage_share_of_web_browsers">table</a> with the “usage share of web browsers” or the proportion of visitors to a group of web sites that use a particular web browser from July 2017.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>browsers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Chrome=</span><span class="dv">60</span>, <span class="at">Safari=</span><span class="dv">14</span>, <span class="at">UCBrowser=</span><span class="dv">7</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">Firefox=</span><span class="dv">5</span>, <span class="at">Opera=</span><span class="dv">3</span>, <span class="at">IE=</span><span class="dv">3</span>, <span class="at">Noinfo=</span><span class="dv">8</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>browsers.df <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="fu">data.frame</span>(<span class="fu">t</span>(browsers)), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"browser"</span>, <span class="st">"proportion"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s say we want to report the results of the usage. The standard way of displaying these is with a pie chart:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(browsers,<span class="at">main=</span><span class="st">"Browser Usage (July 2022)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>If we look at the help file for <code>pie()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?pie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It states:</p>
+<blockquote class="blockquote">
+<p>“Pie charts are a very bad way of displaying information. The eye is good at judging linear measures and bad at judging relative areas. A bar chart or dot chart is a preferable way of displaying this type of data.”</p>
+</blockquote>
+<p>To see this, look at the figure above and try to determine the percentages just from looking at the plot. Unless the percentages are close to 25%, 50% or 75%, this is not so easy. Simply showing the numbers is not only clear, but also saves on printing costs.</p>
+<section id="instead-of-pie-charts-try-bar-plots" class="level4">
+<h4 class="anchored" data-anchor-id="instead-of-pie-charts-try-bar-plots">Instead of pie charts, try bar plots</h4>
+<p>If you do want to plot them, then a barplot is appropriate. Here we use the <code>geom_bar()</code> function in <code>ggplot2</code>. Note, there are also horizontal lines at every multiple of 10, which helps the eye quickly make comparisons across:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> browsers.df <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(browser, <span class="sc">-</span>proportion), </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y=</span>proportion)) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice that we can now pretty easily determine the percentages by following a horizontal line to the x-axis.</p>
+</section>
+<section id="polish-your-plots" class="level4">
+<h4 class="anchored" data-anchor-id="polish-your-plots">Polish your plots</h4>
+<p>While this figure is already a big improvement over a pie chart, we can do even better. When you create figures, you want your figures to be self-sufficient, meaning someone looking at the plot can understand everything about it.</p>
+<p>Some possible critiques are:</p>
+<ol type="1">
+<li>make the axes bigger</li>
+<li>make the labels bigger</li>
+<li>make the labels be full names (e.g.&nbsp;“Browser” and “Proportion of users”, ideally with units when appropriate)</li>
+<li>add a title</li>
+</ol>
+<p>Let’s explore how to do these things to make an even better figure.</p>
+<p>To start, go to the help file for <code>theme()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?ggplot2<span class="sc">::</span>theme</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We see there are arguments with text that control all the text sizes in the plot. If you scroll down, you see the text argument in the theme command requires class <code>element_text</code>. Let’s try it out.</p>
+<p>To change the x-axis and y-axis labels to be full names, use <code>xlab()</code> and <code>ylab()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Browser"</span>) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"Proportion of Users"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Maybe a title</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Browser Usage (July 2022)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Next, we can also use the <code>theme()</code> function in <code>ggplot2</code> to control the justifications and sizes of the axes, labels and titles.</p>
+<p>To center the title</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Browser Usage (July 2022)"</span>) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>To create bigger text/labels/titles:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Browser Usage (July 2022)"</span>) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="i-dont-like-that-theme" class="level4">
+<h4 class="anchored" data-anchor-id="i-dont-like-that-theme">“I don’t like that theme”</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="co"># axis lines!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> ggthemes<span class="sc">::</span><span class="fu">theme_base</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="d-barplots" class="level3">
+<h3 class="anchored" data-anchor-id="d-barplots">3D barplots</h3>
+<p>Please, avoid a 3D version because it obfuscates the plot, making it more difficult to find the percentages by eye.</p>
+<p><img src="https://raw.githubusercontent.com/kbroman/Talk_Graphs/master/Figs/fig2b.png" class="img-fluid"></p>
+</section>
+<section id="donut-plots" class="level3">
+<h3 class="anchored" data-anchor-id="donut-plots">Donut plots</h3>
+<p>Even worse than pie charts are donut plots.</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Donut-Chart.svg/360px-Donut-Chart.svg.png" class="img-fluid"></p>
+<p>The reason is that by removing the center, we remove one of the visual cues for determining the different areas: the angles. <strong>There is no reason to ever use a donut plot to display data</strong>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Why are pie/donut charts <a href="https://blog.usejournal.com/why-humans-love-pie-charts-9cd346000bdc">so common</a>?</p>
+<p><a href="https://blog.usejournal.com/why-humans-love-pie-charts-9cd346000bdc" class="uri">https://blog.usejournal.com/why-humans-love-pie-charts-9cd346000bdc</a></p>
+</div>
+</div>
+</section>
+<section id="barplots-as-data-summaries" class="level3">
+<h3 class="anchored" data-anchor-id="barplots-as-data-summaries">Barplots as data summaries</h3>
+<p>While barplots are useful for showing percentages, they are incorrectly used to display data from two groups being compared. Specifically, barplots are created with height equal to the group means; an antenna is added at the top to represent standard errors. This plot is simply showing two numbers per group and the plot adds nothing:</p>
+<p><img src="https://raw.githubusercontent.com/kbroman/Talk_Graphs/master/Figs/fig1c.png" class="img-fluid"></p>
+<section id="instead-of-bar-plots-for-summaries-try-box-plots" class="level4">
+<h4 class="anchored" data-anchor-id="instead-of-bar-plots-for-summaries-try-box-plots">Instead of bar plots for summaries, try box plots</h4>
+<p>If the number of points is small enough, we might as well add them to the plot. When the number of points is too large for us to see them, just showing a boxplot is preferable.</p>
+<p>Let’s recreate these barplots as boxplots and overlay the points. We will simulate similar data to demonstrate one way to improve the graphic above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"Treatment"</span> <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="at">sd=</span><span class="dv">4</span>), </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Control"</span> <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">36</span>, <span class="at">sd=</span><span class="dv">4</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gather</span>(dat, <span class="st">"type"</span>, <span class="st">"response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(type, response)) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position=</span><span class="st">'jitter'</span>) <span class="sc">+</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Response to drug treatment"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice how much more we see here: the center, spread, range, and the points themselves. In the barplot, we only see the mean and the standard error (SE), and the SE has more to do with sample size than with the spread of the data.</p>
+<p>This problem is magnified when our data has outliers or very large tails. For example, in the plot below, there appears to be very large and consistent differences between the two groups:</p>
+<p><img src="https://raw.githubusercontent.com/kbroman/Talk_Graphs/master/Figs/fig3c.png" class="img-fluid"></p>
+<p>However, a quick look at the data demonstrates that this difference is mostly driven by just two points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"Treatment"</span> <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">1</span>), </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Control"</span> <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10</span>, <span class="dv">1</span>, .<span class="dv">01</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gather</span>(dat, <span class="st">"type"</span>, <span class="st">"response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(type, response)) <span class="sc">+</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position=</span><span class="st">'jitter'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="use-log-scale-if-data-includes-outliers" class="level4">
+<h4 class="anchored" data-anchor-id="use-log-scale-if-data-includes-outliers">Use log scale if data includes outliers</h4>
+<p>A version showing the data in the log-scale is much more informative.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">gather</span>(dat, <span class="st">"type"</span>, <span class="st">"response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(type, response)) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position=</span><span class="st">'jitter'</span>) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="barplots-for-paired-data" class="level3">
+<h3 class="anchored" data-anchor-id="barplots-for-paired-data">Barplots for paired data</h3>
+<p>A common task in data analysis is the comparison of two groups. When the dataset is small and data are paired, such as the outcomes before and after a treatment, two-color barplots are unfortunately often used to display the results.</p>
+<p><img src="https://raw.githubusercontent.com/kbroman/Talk_Graphs/master/Figs/fig6r_e.png" class="img-fluid"></p>
+<section id="instead-of-paired-bar-plots-try-scatter-plots" class="level4">
+<h4 class="anchored" data-anchor-id="instead-of-paired-bar-plots-try-scatter-plots">Instead of paired bar plots, try scatter plots</h4>
+<p>There are better ways of showing these data to illustrate that there is an increase after treatment. One is to simply make a scatter plot, which shows that most points are above the identity line. Another alternative is to plot the differences against the before values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">6</span>, before<span class="sc">*</span><span class="fl">1.15</span>, <span class="dv">2</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>li <span class="ot">&lt;-</span> <span class="fu">range</span>(<span class="fu">c</span>(before, after))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ymx <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(after<span class="sc">-</span>before))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(before, after, <span class="at">xlab=</span><span class="st">"Before"</span>, <span class="at">ylab=</span><span class="st">"After"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span>li, <span class="at">xlim=</span>li)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(before, after<span class="sc">-</span>before, <span class="at">xlab=</span><span class="st">"Before"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span>ymx, ymx),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Change (After - Before)"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="or-line-plots" class="level4">
+<h4 class="anchored" data-anchor-id="or-line-plots">or line plots</h4>
+<p>Line plots are not a bad choice, although they can be harder to follow than the previous two. Boxplots show you the increase, but lose the paired information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="fu">rep</span>(<span class="dv">6</span>,<span class="dv">2</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(z, <span class="fu">c</span>(before, after),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt=</span><span class="st">"n"</span>, <span class="at">ylab=</span><span class="st">"Response"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">""</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>))</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="st">"Before"</span>,<span class="st">"After"</span>))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">6</span>), before, <span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">6</span>), after, <span class="at">col=</span><span class="dv">1</span>)     </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(before,after,<span class="at">names=</span><span class="fu">c</span>(<span class="st">"Before"</span>,<span class="st">"After"</span>),<span class="at">ylab=</span><span class="st">"Response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="gratuitous-3d" class="level3">
+<h3 class="anchored" data-anchor-id="gratuitous-3d">Gratuitous 3D</h3>
+<p>The figure below shows three curves. Pseudo 3D is used, but it is not clear why. Maybe to separate the three curves? Notice how difficult it is to determine the values of the curves at any given point:</p>
+<p><img src="https://raw.githubusercontent.com/kbroman/Talk_Graphs/master/Figs/fig8b.png" class="img-fluid"></p>
+<p>This plot can be made better by simply using color to distinguish the three lines:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://github.com/kbroman/Talk_Graphs/raw/master/R/fig8dat.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">.name_repair =</span> make.names)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="st">"drug"</span>, <span class="st">"proportion"</span>, <span class="sc">-</span>log.dose) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>log.dose, <span class="at">y=</span>proportion,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span>drug)) <span class="sc">+</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This plot demonstrates that using color is more than enough to distinguish the three lines.</p>
+<p>We can make this plot better using the functions we learned above</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Survival proportion"</span>) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="legends" class="level4">
+<h4 class="anchored" data-anchor-id="legends">Legends</h4>
+<p>We can also move the legend inside the plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Survival proportion"</span>) <span class="sc">+</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>), </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can also make the legend transparent</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>transparent_legend <span class="ot">=</span>  <span class="fu">theme</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"transparent"</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.key =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"transparent"</span>, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">color =</span> <span class="st">"transparent"</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Survival proportion"</span>) <span class="sc">+</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>), </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>)) <span class="sc">+</span> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  transparent_legend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="too-many-significant-digits" class="level3">
+<h3 class="anchored" data-anchor-id="too-many-significant-digits">Too many significant digits</h3>
+<p>By default, statistical software like R returns many significant digits. This does not mean we should report them. Cutting and pasting directly from R is a bad idea since you might end up showing a table, such as the one below, comparing the heights of basketball players:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="dv">73</span>,<span class="dv">3</span>),<span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="dv">73</span>,<span class="dv">3</span>),<span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="dv">80</span>,<span class="dv">3</span>),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="dv">78</span>,<span class="dv">3</span>),<span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="dv">78</span>,<span class="dv">3</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(heights)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"SG"</span>,<span class="st">"PG"</span>,<span class="st">"C"</span>,<span class="st">"PF"</span>,<span class="st">"SF"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(heights)<span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"team"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>heights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             SG       PG        C       PF       SF
+team 1 68.88065 73.07480 81.80948 76.60455 82.23521
+team 2 70.05272 66.86024 74.64847 72.70140 78.55640
+team 3 71.33653 73.63946 81.00483 78.56787 77.86893
+team 4 73.36414 81.01021 81.68293 76.90146 77.35226
+team 5 72.63738 69.31895 83.66281 81.17280 82.39133
+team 6 68.99188 75.50274 79.36564 75.77514 78.68900
+team 7 73.51017 74.59772 82.09829 73.95492 78.32287
+team 8 73.46524 71.05953 77.88069 76.44808 73.86569</code></pre>
+</div>
+</div>
+<p>We are reporting precision up to 0.00001 inches. Do you know of a tape measure with that much precision? This can be easily remedied:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(heights,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         SG   PG    C   PF   SF
+team 1 68.9 73.1 81.8 76.6 82.2
+team 2 70.1 66.9 74.6 72.7 78.6
+team 3 71.3 73.6 81.0 78.6 77.9
+team 4 73.4 81.0 81.7 76.9 77.4
+team 5 72.6 69.3 83.7 81.2 82.4
+team 6 69.0 75.5 79.4 75.8 78.7
+team 7 73.5 74.6 82.1 74.0 78.3
+team 8 73.5 71.1 77.9 76.4 73.9</code></pre>
+</div>
+</div>
+</section>
+<section id="minimal-figure-captions" class="level3">
+<h3 class="anchored" data-anchor-id="minimal-figure-captions">Minimal figure captions</h3>
+<p>Recall the plot we had before:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>transparent_legend <span class="ot">=</span>  <span class="fu">theme</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"transparent"</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.key =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"transparent"</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">color =</span> <span class="st">"transparent"</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Survival proportion"</span>) <span class="sc">+</span> </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>), </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>)) <span class="sc">+</span> </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"dose (mg)"</span>) <span class="sc">+</span> </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  transparent_legend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>What type of caption would be good here?</p>
+<p>When creating figure captions, think about the following:</p>
+<ol type="1">
+<li>Be specific</li>
+</ol>
+<blockquote class="blockquote">
+<p>A plot of the proportion of patients who survived after three drug treatments.</p>
+</blockquote>
+<ol start="2" type="1">
+<li>Label the caption</li>
+</ol>
+<blockquote class="blockquote">
+<p>Figure 1. A plot of the proportion of patients who survived after three drug treatments.</p>
+</blockquote>
+<ol start="3" type="1">
+<li>Tell a story</li>
+</ol>
+<blockquote class="blockquote">
+<p>Figure 1. Drug treatment survival. A plot of the proportion of patients who survived after three drug treatments.</p>
+</blockquote>
+<ol start="4" type="1">
+<li>Include units</li>
+</ol>
+<blockquote class="blockquote">
+<p>Figure 1. Drug treatment survival. A plot of the proportion of patients who survived after three drug treatments (milligram).</p>
+</blockquote>
+<ol start="5" type="1">
+<li>Explain aesthetics</li>
+</ol>
+<blockquote class="blockquote">
+<p>Figure 1. Drug treatment survival. A plot of the proportion of patients who survived after three drug treatments (milligram). Three colors represent three drug treatments. Drug A results in largest survival proportion for the larger drug doses.</p>
+</blockquote>
+</section>
+</section>
+<section id="final-thoughts-data-viz" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts-data-viz">Final thoughts data viz</h2>
+<p>In general, you should follow these principles:</p>
+<ul>
+<li><p>Create expository graphs to tell a story (figure and caption should be self-sufficient; it’s the first thing people look at)</p>
+<ul>
+<li>Be accurate and clear</li>
+<li>Let the data speak</li>
+<li>Make axes, labels and titles big</li>
+<li>Make labels full names (ideally with units when appropriate)</li>
+<li>Add informative legends; use space effectively</li>
+</ul></li>
+<li><p>Show as much information as possible, taking care not to obscure the message</p></li>
+<li><p>Science not sales: avoid unnecessary frills (especially gratuitous 3D)</p></li>
+<li><p>In tables, every digit should be meaningful</p></li>
+</ul>
+<section id="some-further-reading" class="level3">
+<h3 class="anchored" data-anchor-id="some-further-reading">Some further reading</h3>
+<ul>
+<li>N Cross (2011). Design Thinking: Understanding How Designers Think and Work. Bloomsbury Publishing.</li>
+<li>J Tukey (1977). Exploratory Data Analysis.</li>
+<li>ER Tufte (1983) The visual display of quantitative information. Graphics Press.</li>
+<li>ER Tufte (1990) Envisioning information. Graphics Press.</li>
+<li>ER Tufte (1997) Visual explanations. Graphics Press.</li>
+<li>ER Tufte (2006) Beautiful Evidence. Graphics Press.</li>
+<li>WS Cleveland (1993) Visualizing data. Hobart Press.</li>
+<li>WS Cleveland (1994) The elements of graphing data. CRC Press.</li>
+<li>A Gelman, C Pasarica, R Dodhia (2002) Let’s practice what we preach: Turning tables into graphs. The American Statistician 56:121-130.</li>
+<li>NB Robbins (2004) Creating more effective graphs. Wiley.</li>
+<li><a href="http://bang.clearscience.info/?p=546">Nature Methods columns</a></li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
